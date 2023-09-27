@@ -1,0 +1,452 @@
+{% extends 'Front/base/main.html.twig' %}
+
+{# {% block titleHeader %}
+Crear un Cliente
+{% endblock %} #}
+{% block content %}
+  {% include 'Front/base/header.html.twig' %}
+
+  <link rel="stylesheet" href="/css/css_all/personContact.css">
+  <link rel="stylesheet" href="/css/css_all/contenedores.css">
+<style>
+    .registrar {
+        border-top-left-radius: 40px 40px;
+        border-top-right-radius: 40px 40px;
+        border-bottom-right-radius: 40px 40px;
+        border-bottom-left-radius: 40px 40px;
+        width: 100%;
+        box-shadow: none;
+        font-size: 20px;
+        border: none;
+        background: #0e223e;
+
+    }
+
+    button .agregar {
+        border-top-left-radius: 40px 40px;
+        border-top-right-radius: 40px 40px;
+        border-bottom-right-radius: 40px 40px;
+        border-bottom-left-radius: 40px 40px;
+        width: 100%;
+        box-shadow: none;
+        font-size: 20px;
+        border: none;
+        background: #FA8072;
+    }
+
+    .form-control {
+        border: 2px solid #FA8072 !important;
+        border-radius: 20px !important;
+
+    }
+
+    .form-select {
+        border: 2px solid #FA8072 !important;
+        border-radius: 20px !important;
+
+    }
+
+    .cssscan:not(.img-as-jpg) img {
+        top: 14%;
+        right: -37%;
+        width: 95%;
+        height: 95%;
+    }
+
+    .cssscan img {
+        position: absolute;
+        transform: rotate(-7deg);
+        transition: all .3s;
+    }
+
+    .cssscan {
+        padding: 2rem;
+        background: #0e223e;
+        border-radius: 24px;
+        position: relative;
+        overflow: hidden;
+        box-shadow: rgb(0 0 0 / 10%) 0 1px 2px 0;
+        cursor: pointer;
+        /* margin-top: 3em;*/
+        font-size: 19px;
+        text-align: left;
+    }
+
+
+    .display-4 {
+    display: inline;
+    padding-left: 30px;
+    color: #14ff46 !important;
+}
+
+    .titulo_clientes {
+        border: 1px solid red;
+        color: white !important;
+    }
+
+    .texto_titulo {
+        padding-left: 30px;
+        color: white !important;
+    }
+
+    .contactos {
+        background: #2f4052;
+        font-size: 1.5rem;
+        color: white;
+
+    }
+
+    .noahicontactos {
+        font-size: 1.5rem;
+    }
+
+    .numero {
+        background: #fa807221;
+        padding: 10px;
+
+    }
+
+    .numero2 {
+        background: red;
+        padding: 10px;
+
+    }
+
+    .boton_eliminar {
+
+        border-top-left-radius: 20px 200px;
+        border-top-right-radius: 20px 20px;
+        border-bottom-right-radius: 40px 40px;
+        border-bottom-left-radius: 40px 40px;
+        width: 100%;
+        box-shadow: none;
+        font-size: 20px;
+        border: none;
+
+        /* padding-top:18px;*/
+
+        text-align: center;
+
+    }
+
+
+
+    .col_button {
+
+        max-width: 50px;
+        margin-left: 20px;
+        padding-top: 10px;
+    }
+
+    .span_numero {
+        border-top-left-radius: 10px 10px;
+        border-bottom-left-radius: 10px 10px;
+        margin-top: 30px;
+        text-align: center;
+        color: #c95548;
+        font-size: 1.5rem;
+        background-color: #fa807221;
+    }
+
+    .button_add {
+        /*  background-color:#fa807221;*/
+    }
+
+
+    .btn {
+
+        font-family: Roboto, sans-serif;
+        font-weight: 0;
+        font-size: 14px;
+        color: #fff;
+        margin-top: 10px;
+        background-color: #FA8072;
+
+        border: 2px solid #FA8072;
+        box-shadow: rgb(0, 0, 0) 0px 0px 0px 0px;
+        border-radius: 80px;
+        transition: 1000ms;
+        transform: translateY(0);
+
+        flex-direction: row;
+        align-items: center;
+        cursor: pointer;
+    }
+
+    .btn:hover {
+
+        transition: 1000ms;
+
+        transform: translateY(-0px);
+        background-color: #fa807230;
+        color: #FA8072;
+        border: solid 2px #FA8072;
+    }
+
+    #hide-me {
+        width: 100px;
+        height: 100px;
+        background: #bf7130;
+        display: block;
+        padding: 10px;
+        margin: 0 15px 0 0;
+        font-size: 14px;
+        font-weight: bold;
+        float: left;
+        text-align: center;
+        background: rgba(0, 0, 0, .15);
+    }
+
+    .close {
+        background: transparent !important;
+        width: 30px;
+        border-radius: 50% 50%;
+    }
+
+    .boton_cerrar {
+        max-width: 110px;
+        min-width: 110px;
+        background-color: #ff7b6c !important;
+        padding: 10px;
+
+        border-top-left-radius: 30px 30px;
+        border-top-right-radius: 30px 30px;
+        border-bottom-right-radius: 30px 30px;
+        border-bottom-left-radius: 30px 30px;
+
+        font-size: 15px !important;
+        color: white !important;
+
+        text-align: center;
+    }
+
+    .boton_modal {
+
+        margin-top: 5px;
+        max-width: 150px;
+        min-width: 100px;
+
+        padding-top: 5px;
+        padding-bottom: 5px;
+        padding-left: 10px;
+        padding-right: 10px;
+
+        border-top-left-radius: 20px 20px;
+        border-top-right-radius: 20px 20px;
+        border-bottom-right-radius: 20px 20px;
+        border-bottom-left-radius: 20px 20px;
+
+        font-size: 15px !important;
+        color: white !important;
+
+
+    }
+
+    .modal-header {
+
+        border-top-left-radius: 20px 20px !important;
+        border-top-right-radius: 20px 20px !important;
+        background-color: #ff7b6c !important;
+        color: #fff !important;
+    }
+
+    .modal-footer {
+
+        border-top: none !important;
+
+    }
+
+    .abs-center {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+    }
+
+    #alerta {
+        margin-top: 1 0px;
+        display: none;
+    }
+
+    .nuevo_contactos {}
+
+    th {
+        background-color: #fa80720f !important;
+        box-shadow: none;
+        border: none;
+
+    }
+
+    td {
+        background-color: #fa80720f !important;
+        box-shadow: none;
+        border: none;
+
+    }
+
+    .table>:not(caption)>*>* {
+        padding: 0.5rem 0.5rem;
+        background-color: var(--bs-table-bg);
+
+        box-shadow: none;
+        border: none;
+
+    }
+
+    .botones {
+        border-top-left-radius: 20px 20px;
+        border-top-right-radius: 20px 20px;
+        background-color: #fa80720f !important;
+
+    }
+
+      .alert-success{
+        text-align: center;
+        background-color: #dbf1d838;
+        border-left:7px solid #3dbf2ae8;
+        width: 100%;
+        margin-top: 10px;
+        color: #000000;
+        font-size: 1.2rem;
+
+    }
+
+</style>
+
+<div class="container mt-1">
+
+    <div id="titulo_PersonaContacto">
+
+        <div class="row">
+            <div class="col-4 pl-3"><a href="javascript: history.go(-1)">&nbsp;&nbsp;&nbsp;
+                    <img class="ml-3 pt-4 " src="\images\arrow_white_izq.png" alt="...">
+                </a></div>
+            <div class="col-4"></div>
+            <div class="col-4"></div>
+        </div>
+
+        <div class="cssscan">
+            <p>
+
+                {# <img class="rounded mx-auto d-block m-3" src="\images\paquetes_white.png" alt="..."> #}
+
+
+                <h4 class="display-4 text-center ">{{ name }} </h4>
+                 <p class=" texto_titulo "> Modificar persona de contacto del cliente</p>
+
+            </p>
+
+            <img src="\images\agenda.svg" alt="...">
+        </div>
+    </div>
+
+    {% include 'Front/base/PersonContact/errorPersonContact.html.twig' %}
+
+  {% for personcontact in personcontacts %}
+
+    <form action="{{  routeTo('editPersonContactSave', personcontact.id_personC) }}" method="POST">
+        <div class="cuerpo_contenedores mt-2">
+
+            <div class="row m-4">
+                <div class="col-sm">
+                    <div class="field field_v2">
+                        <label for="name" class="ha-screen-reader"></label>
+                        <input id="name" class="field__input" placeholder="{{ personcontact.name }}" name="name"
+                            value="{{ personcontact.name }}">
+                        <span class="field__label-wrap" aria-hidden="true">
+                            <span class="field__label">Nombre </span>
+                        </span>
+                    </div>
+                    <p class="text-danger">{{ msg('errors.name') }}</p>
+                </div>
+
+              <div class="col-sm">
+                    <div class="field field_v2">
+                        <label for="phone" class="ha-screen-reader"></label>
+                        <input id="phone" class="field__input" placeholder="{{ personcontact.phone }}" name="phone"
+                            value="{{ personcontact.phone }}">
+                        <span class="field__label-wrap" aria-hidden="true">
+                            <span class="field__label">Telefono </span>
+                        </span>
+                    </div>
+                    <p class="text-danger">{{ msg('errors.phone') }}</p>
+                </div>
+
+                <div class="col-sm">
+                    <div class="field field_v2">
+                        <label for="mail" class="ha-screen-reader"></label>
+                        <input id="mail" class="field__input" placeholder="{{ personcontact.mail }}" name="mail"
+                            value="{{ personcontact.mail }}">
+                        <span class="field__label-wrap" aria-hidden="true">
+                            <span class="field__label">Email </span>
+                        </span>
+                    </div>
+                    <p class="text-danger">{{ msg('errors.mail') }}</p>
+                </div>
+            </div>
+
+
+            <div class="row m-4">
+               <div class="col-sm">
+                    <div class="field field_v2">
+                        <label for="position" class="ha-screen-reader"></label>
+                        <input id="position" class="field__input" placeholder="{{ personcontact.position }}" name="position"
+                            value="{{ personcontact.position }}">
+                        <span class="field__label-wrap" aria-hidden="true">
+                            <span class="field__label">Cargo </span>
+                        </span>
+                    </div>
+                    <p class="text-danger">{{ msg('errors.position') }}</p>
+                </div>
+
+            </div>
+
+            {# PERSONA DE CONTACTO  EXISTENTE #}
+
+
+            {% endfor %}
+            <div class="row mt-4">
+                <div class="col-md">
+
+                    <div class="row">
+                        <div class="col">
+                        </div>
+                        <div class="col-md">
+                            <button class=" mt-3 pt-3 pb-3 registrar text-white" type="submit">REGISTRAR</button>
+                        </div>
+                        <div class="col">
+                        </div>
+                    </div>
+                </div>
+    </form>
+    <p class=" text-center mt-5">
+        <a href="{{ routeTo('listContainers') }}">
+            <img class="rounded mx-auto d-block " src="\images\regresar.png" alt="...">
+        </a>
+        <br> Volver a la lista de Contenedores
+    </p>
+
+</div>
+</div>
+</div>
+
+</div>
+</div>
+ {% include 'Front/base/footer.html.twig' %}
+{% endblock %}
+
+{% block script %}
+
+{{parent(script)}}
+
+<script>
+
+   setTimeout(function() {
+            $(".alerta").fadeOut(2000);
+        }, 2200);
+
+</script>
+
+{% endblock %}
+
+

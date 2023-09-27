@@ -1,0 +1,14 @@
+{% extends 'Front/base/main.html.twig' %}
+
+{% block titleHeader %}
+    prueba titulo pagina
+{% endblock %}
+{% block content %}
+
+  {% include 'Front/base/header.html.twig' %}
+
+    <div class="mt-5">
+        <h1 class="text-center">
+            Hola {{ name}}. <br/>No tiene permisos para acceder a esta página.</h1>
+    </div>
+{% endblock %}

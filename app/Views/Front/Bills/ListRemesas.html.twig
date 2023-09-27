@@ -1,0 +1,443 @@
+{% extends 'Front/base/main.html.twig' %}
+
+{% block titleHeader %}
+Listar facturas
+{% endblock %}
+{% block content %}
+{% include 'Front/base/header.html.twig' %}
+
+<link rel="stylesheet" href="/css/css_all/bills/remesa.css">
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-rc.0/css/select2.min.css" rel="stylesheet" />
+
+<style>
+    div:where(.swal2-icon).swal2-warning {
+        border-color: #ffffff !important;
+        color: #ffffff !important;
+    }
+
+    div:where(.swal2-container) div:where(.swal2-popup) {
+        display: none;
+        position: relative;
+        box-sizing: border-box;
+        grid-template-columns: minmax(0, 100%);
+        width: 32em;
+        max-width: 100%;
+        padding: 0 0 1.25em;
+        border: none;
+        border-radius: 5px;
+        background: #4d4d4d;
+        color: #fdfdfd;
+        font-family: inherit;
+        font-size: 1rem;
+    }
+
+    div:where(.swal2-container) button:where(.swal2-styled).swal2-cancel {
+
+        border-top-left-radius: 40px 40px !important;
+        border-top-right-radius: 40px 40px !important;
+        border-bottom-right-radius: 40px 40px !important;
+        border-bottom-left-radius: 40px 40px !important;
+
+        background: initial;
+        background-color: #6e6781 !important;
+        color: #fff;
+        font-size: 1em;
+        border: 2px solid white;
+        box-shadow: none !important;
+
+    }
+
+    div:where(.swal2-container) button:where(.swal2-styled).swal2-confirm {
+        border-top-left-radius: 40px 40px !important;
+        border-top-right-radius: 40px 40px !important;
+        border-bottom-right-radius: 40px 40px !important;
+        border-bottom-left-radius: 40px 40px !important;
+        background: initial;
+        background-color: #b5afaf59 !important;
+        color: #fff;
+        font-size: 1em;
+        border: 2px solid white;
+        box-shadow: none !important;
+    }
+
+
+
+    /* MAIN */
+    /* =============================================== */
+    .rad-label {
+        display: flex;
+        align-items: center;
+        border-radius: 100px;
+        padding: 14px 16px;
+        margin: 10px 0;
+        cursor: pointer;
+        transition: .3s;
+        border: 2px solid #51af39;
+    }
+
+
+
+    .rad-input {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 1px;
+        height: 1px;
+        opacity: 0;
+        z-index: -1;
+    }
+
+    .rad-design {
+        width: 22px;
+        height: 22px;
+        border-radius: 100px;
+        background: red;
+
+        /* background: linear-gradient(to right bottom, hsl(0deg 0% 48.97%), hsl(115.01deg 59.11% 59.92%)); */
+        position: relative;
+    }
+
+    .rad-design::before {
+        content: '';
+        display: inline-block;
+        width: inherit;
+        height: inherit;
+        border-radius: inherit;
+        border: 2px solid #ffffff;
+        background: hsl(116.78deg 45.19% 51.42%);
+        transform: scale(1.5);
+        transition: .3s;
+    }
+
+    .rad-input:checked+.rad-design::before {
+        transform: scale(0);
+    }
+
+    .rad-text {
+        color: hsl(0, 0%, 60%);
+        margin-left: 14px;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        font-size: 18px;
+        font-weight: 900;
+
+        transition: .3s;
+    }
+
+    .rad-input:checked~.rad-text {
+        color: hsl(0, 0%, 40%);
+    }
+
+
+    /* ABS */
+    /* ====================================================== */
+    .abs-site-link {
+        position: fixed;
+        bottom: 40px;
+        left: 20px;
+        color: hsla(0, 0%, 0%, .5);
+        font-size: 16px;
+    }
+
+
+    /* Estilo para el div con fondo de imagen */
+    .fondo-imagen_santander {
+        background-image: url("/images/santander.jpg");
+        /* Ruta de la imagen */
+        background-size: cover;
+        /* Ajustar la imagen al tamaño del div */
+        width: 100%;
+        /* Ancho del div */
+        height: 60px;
+        /* Altura del div */
+        /* Otros estilos para el div */
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+
+    /* Estilo para el div con fondo de imagen */
+    .fondo-imagen_bbva {
+        background-image: url("/images/bbva.jpg");
+        /* Ruta de la imagen */
+        background-size: cover;
+        /* Ajustar la imagen al tamaño del div */
+        width: 100%;
+        /* Ancho del div */
+        height: 60px;
+        /* Altura del div */
+        /* Otros estilos para el div */
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    /* Estilo para el div con fondo de imagen */
+    .fondo-imagen_cajamar {
+        background-image: url("/images/cajamar.jpg");
+        /* Ruta de la imagen */
+        background-size: cover;
+        /* Ajustar la imagen al tamaño del div */
+        width: 100%;
+        /* Ancho del div */
+        height: 60px;
+        /* Altura del div */
+        /* Otros estilos para el div */
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    /* Estilo para el div con fondo de imagen */
+    .fondo-imagen_caixaPopular {
+        background-image: url("/images/caixaPopular.jpg");
+        /* Ruta de la imagen */
+        background-size: cover;
+        /* Ajustar la imagen al tamaño del div */
+        width: 100%;
+        /* Ancho del div */
+        height: 60px;
+        /* Altura del div */
+        /* Otros estilos para el div */
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    /* Estilo para el div con fondo de imagen */
+    .fondo-imagen_lacaixa {
+        background-image: url("/images/lacaixa.jpg");
+        /* Ruta de la imagen */
+        background-size: cover;
+        /* Ajustar la imagen al tamaño del div */
+        width: 100%;
+        /* Ancho del div */
+        height: 60px;
+        /* Altura del div */
+        /* Otros estilos para el div */
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+
+    .centered-button {
+        display: flex;
+        align-items: center;
+    }
+
+
+    .carpeta-archivos {
+        display: none;
+    }
+
+    .carpeta-archivos.mostrar {
+        display: block;
+    }
+
+    .accordation_result {
+        background-color: #dee2e652;
+
+    }
+</style>
+
+<div class="container mt-1">
+
+    <div class="titulo_bills_list">
+
+        <div class="row">
+            <div class="col-4 pl-3">
+                <a href="javascript: history.go(-1)">&nbsp;&nbsp;&nbsp;
+                    <img class="ml-3 pt-4 " src="\images\arrow_white_izq.png" alt="...">
+                </a>
+            </div>
+            <div class="col-4"></div>
+            <div class="col-4"></div>
+        </div>
+
+        <div class="cssscan">
+            <p>
+                <h4 class="display-4 text-center text-white">Listado de Remesas</h4>
+            </p>
+            <p class="text-white texto_titulo text-white">
+                Listado archivos generados
+            </p>
+
+            <img src="\images\fichero_remesa.svg" alt="...">
+        </div>
+    </div>
+
+    <div class="cuerpo_remesas mt-2 text-center">
+
+        <p class="display-4 text-center " style="margin:0px;padding:0px;font-size:2.1rem !important;">A continuacion
+            puede descargar los archivos xml generados de cada remesa</p>
+
+        <p></p>
+
+        <div class="row  ">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-8 cuerpo_remesas_list "
+                style="  box-shadow: rgb(17 17 26 / 10%) 0px 1px 0px, rgb(17 17 26 / 10%) 0px 8px 24px, rgb(17 17 26 / 10%) 0px 16px 48px;">
+                <p style="margin:0px;padding:0px;">
+                    * Los archivos se descargaran en la carpeta de descargas del navegador. Muestra el desplegable cada
+                    10 archivos generados.
+                </p>
+
+                <hr>
+
+                <div class="row mt-2 ">
+                    <div class="col-sm-1 "> </div>
+
+                    <div class="col-sm-10  ">
+
+                        {% set resultadosPorAcordeon = [] %}
+
+                        {% for archivo in archivosConContenido %}
+                        {% set resultadosPorAcordeon = resultadosPorAcordeon|merge([archivo]) %}
+                        {% if resultadosPorAcordeon|length == 10 or loop.last %}
+                        <div class="accordion accordion-flush mb-2" id="accordionFlushExample">
+                            <div class="accordion-item text-center m-2">
+                                <h2 class="accordion-header " id="flush-headingOne">
+                                    <button class="accordion-button collapsed accordation_result" type="button"
+                                        data-bs-toggle="collapse" data-bs-target="#flush-collapseOne{{ loop.index }}"
+                                        aria-expanded="false" aria-controls="flush-collapseOne{{ loop.index }}">
+                                        <img class="" width="25" height="25" src="\images\iconos\carpeta.png"
+                                            alt="...">&nbsp;&nbsp;
+                                        CARPETA
+                                    </button>
+                                </h2>
+                                <div id="flush-collapseOne{{ loop.index }}" class="accordion-collapse collapse"
+                                    aria-labelledby="flush-headingOne{{ loop.index }}"
+                                    data-bs-parent="#accordionFlushExample">
+                                    <div class="accordion-body">
+                                        <div class="tabla mb-0" style="overflow-x:auto;">
+                                            <table class="table table-striped  text-left mt-3" id="table">
+                                                <thead>
+                                                    <tr>
+
+                                                        <th class="pt-3 text-left align-middle th_header" scope="col">
+                                                            Nombre del archivo</th>
+                                                        <th class="pt-3 text-center align-middle th_header" scope="col">
+                                                            Descargar</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {% for resultado in resultadosPorAcordeon %}
+                                                    <form action="{{ routeTo('downloadFileRemesas' ) }}" method="POST">
+                                                        <tr>
+
+
+                                                            <th scope="" class=" ">
+
+                                                                <input type="hidden" name="content"
+                                                                    value="{{ resultado.contenido }}">
+                                                                <input type="hidden" name="name"
+                                                                    value="{{ resultado.nombre }}">
+
+                                                                <div  class="text-left !important">
+                                                                    {{ resultado.nombre }}
+                                                                    </div>
+                                                            </th>
+                                                            <th scope="row" class="text-center align-middle">
+                                                                <button type="submit"
+                                                                    style="border:none !important;background:none !important;">
+                                                                     <img class="" width="25" height="25"
+                                                                    src="\images\iconos\xml.png" alt="" title="Descargar archivo">&nbsp;
+
+                                                                </button>
+                                                            </th>
+                                                        </tr>
+                                                    </form>
+                                                    {% endfor %}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <p class="bottom_table p-2 col-12"></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% set resultadosPorAcordeon = [] %}
+                        {% endif %}
+                        {% endfor %}
+
+                    </div>
+                    <div class="col-sm-1 "> </div>
+
+                </div>
+
+            </div>
+            <div class="col-sm-2"></div>
+
+        </div>
+
+        <div class="row pt-5">
+            <div class="col">
+                <p class=" text-center">
+                    <a href="{{ routeTo('remesas') }}">
+                        <img class="rounded mx-auto d-block " src="\images\regresar.png" alt="...">
+                    </a>
+                    <br>
+                    Crear nuevas remesas
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+
+{% include 'Front/base/footer.html.twig' %}
+
+{% if msg('msg') %}
+<script>
+    $(document).ready(function() {
+        Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: 'Fichero creado con éxito!',
+            text: 'Para localizar el fichero, diríjase a la carpeta de descargas.',
+            showConfirmButton: false,
+            timer: 4500
+        });
+    });
+</script>
+{% endif %}
+
+{%  if msg('msg2') %}
+
+<script>
+    $(document).ready(function() {
+        var msg2 = {
+            {
+                msg('msg2') | json_encode | raw
+            }
+        };
+        Swal.fire({
+            title: msg2.title,
+            text: msg2.text,
+            icon: 'warning',
+            cancelButtonText: 'Cerrar'
+        })
+    });
+</script>
+
+{% endif %}
+
+{% endblock %}{% block script %}{{parent(script)}}
+
+<script>
+    // JavaScript para mostrar u ocultar el div de archivos de la carpeta al hacer clic en el icono de la carpeta
+    document.querySelectorAll('.folder-icon').forEach(function(icono) {
+        icono.addEventListener('click', function() {
+            const carpetaArchivos = this.nextElementSibling;
+            carpetaArchivos.classList.toggle('mostrar');
+        });
+    });
+</script>
+
+<script src="/js/jsBootstrap.js"></script>
+<script src="https://cdn.lordicon.com/qjzruarw.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-rc.0/js/select2.min.js"></script>
+<script src="/js/sweetAlert.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+{% endblock %}

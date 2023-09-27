@@ -1,0 +1,701 @@
+{% extends 'Front/base/main.html.twig' %}
+{% block titleHeader %}
+Ver cliente
+{% endblock %}
+{% block content %}
+{% include 'Front/base/header.html.twig' %}
+
+<link rel="stylesheet" href="/css/css_all/bills/BillsCreated.css">
+
+<body class="container_clientes">
+
+    <div class="container mt-1">
+
+        <div class="titulo_bills_list">
+
+            <div class="row">
+                <div class="col-4 pl-3">
+                    <a href="javascript: history.go(-1)">&nbsp;&nbsp;&nbsp;
+                        <img class="ml-3 pt-4 " src="\images\arrow_white_izq.png" alt="...">
+                    </a>
+                </div>
+                <div class="col-4"></div>
+                <div class="col-4"></div>
+            </div>
+
+            <div class="cssscan">
+                <p>
+                    <h4 class="display-4 text-center text-white">Factura
+                        {{id_last_bills_insert}}</h4>
+                </p>
+                <p class=" texto_titulo text-white">
+                    Factura generada
+                </p>
+                </span>
+                </p>
+                </p>
+
+                <img src="\images\icono_factura_svg.svg" alt="...">
+</body>
+</div>
+</div>
+<div class=" mt-2">
+
+    <div class="col-12  contenedor p-3 ">
+
+        <div class="row mt-3">
+
+            <div class="col-sm-4 pre_div_info">
+
+                <span class="pre_text_customers mt-2">
+                    <b>
+                        TOT PER CONSTRUIR 2012, S.L.</b>
+                </span><br>
+
+                <span class="pre_text_customers">
+                    C.I.F.: DB-98474497 NIMA:
+                </span><br>
+
+                <span class="pre_text_customers">Dirección: Calle Rio Guadalaviar, 6. Quart de Poblet
+                    (Valencia)</span><br>
+
+                <span class="pre_text_customers">
+                    CP: 46930 – Teléfono: 961391755 – 656414748</span><br>
+
+                <span class="pre_text_customers">Correo electrónico: gestion@tpc2012.es Página web:
+                    www.tpc2012.es
+                </span>
+                <br>
+
+            </div>
+
+            <div class="col-sm-4  text-center">
+
+                <img src="\images\logo\logos_facturas_2.png" width="350" height="110" alt="logo" class="mt-2"><br>
+
+            </div>
+
+            <div class="col-sm-4 pre_div_info">
+
+                . Recogida y transporte de residuos no peligrosos<br>
+                · Recogida y destruccion de documentacion confidencial<br>
+                · Alquiler de maquinaria de obra publica con conductor especializado<br>
+                · Suministro y transporte de aridos en camion de gran tonelaje<br>
+
+            </div>
+        </div>
+
+        {% for customer in customers %}
+        <div class="row">
+
+            <div class="col-sm-4 pre_div_info">
+
+                <span class="text_adress">
+                    <em>
+                        Direccion de Fiscal</em>
+                </span>
+                <br>
+
+                <span class="pre_text_customers mt-2">
+                    <b>{{ customer.names|upper }}</b>
+                </span><br>
+
+                <span class="pre_text_customers">
+                    {{ customer.dni }}
+                </span><br>
+
+                <span class="pre_text_customers">Dirección:
+                    {{ customer.address }},
+                    {{ customer.location }},
+                    {{ customer.province }}.
+                </span><br>
+
+                <span class="pre_text_customers">
+                    CP:
+                    {{ customer.zip_code }}, Teléfono:
+                    {{ customer.phone }}</span><br>
+
+            </div>
+
+            <div class="col-sm-4  text-center"></div>
+
+            <div class="col-sm-4 pre_div_info">
+
+                <span class="text_adress">
+                    <em>
+                        Direccion de Correspondencia</em>
+                </span><br>
+
+                <span class="pre_text_customers mt-2">
+                    <b>{{ customer.names|upper }}</b>
+                </span><br>
+
+                <span class="pre_text_customers">
+                    {{ customer.dni }}
+                </span><br>
+
+                <span class="pre_text_customers">Dirección:
+                    {{ customer.address }},
+                    {{ customer.location }},
+                    {{ customer.province }}.
+                </span><br>
+
+                <span class="pre_text_customers">
+                    CP:
+                    {{ customer.zip_code }}, Teléfono:
+                    {{ customer.phone }}</span><br>
+
+            </div>
+        </div>
+
+        <div class="row p-0 justify-content-left">
+
+            <div class="col-sm-4  p-0 col_text-title-factura">
+                <span class="text-title-factura p-1">Factura&nbsp;</span>
+
+            </div>
+        </div>
+
+        <div class="row justify-content-center">
+
+            <table class="table table-striped table-borderless tabla" style="font-size:0.8rem !important;">
+
+                <thead style="color:#4d8f24;">
+                    <tr style="color:#4d8f24;margin:none !important; padding:none !important;">
+                        <th scope="col" class=""
+                            style="margin:none !important; padding:none !important; font-size:0.8rem !important;background:none !important;">
+                            &nbsp;&nbsp;Fecha
+                        </th>
+                        <th scope="col" class="text-black"
+                            style="margin:none !important; padding:none !important;font-size:0.8rem !important;background:none !important;padding:none !important;">
+                            &nbsp;&nbsp;{{ date_today }}</th>
+
+                        <th scope="col" class=""
+                            style="margin:none !important; padding:none !important;font-size:0.8rem !important;background:none !important;">
+                            &nbsp;&nbsp;Cliente</th>
+                        <th scope="col" class="text-black"
+                            style="margin:none !important; padding:none !important;font-size:0.8rem !important;background:none !important;">
+                            &nbsp;&nbsp;{{ customer.id_customer }}</th>
+                        <th scope="col" class=""
+                            style="margin:none !important; padding:none !important;font-size:0.8rem !important;background:none !important;">
+                            &nbsp;&nbsp; Teléfono/Fax</th>
+                        <th scope="col" class="text-black"
+                            style="margin:none !important; padding:none !important;font-size:0.8rem!important;background:none !important;">
+                            &nbsp;&nbsp;{{ customer.phone }}</th>
+
+                    </tr>
+                </thead>
+
+                <thead style="color:#4d8f24;">
+                    <tr>
+                        <th scope="col" class="" style="font-size:0.8rem !important;background:none !important;">
+                            &nbsp;&nbsp;Numero
+                        </th>
+
+                        <th scope="col" class=""
+                            style="font-size:0.8rem !important;background:none !important;color:black;">
+                            &nbsp;&nbsp;{{id_last_bills_insert}}
+                        </th>
+
+                        <th scope="col" class="" style="font-size:0.8rem !important;background:none !important;">
+                            &nbsp;&nbsp;CIF/NIF</th>
+                        <th scope="col" class="text-black"
+                            style="font-size:0.8rem!important;background:none !important;">
+                            &nbsp;&nbsp;{{ customer.dni }}</th>
+
+                    </tr>
+                </thead>
+
+            </table>
+            {% endfor %}
+
+        </div>
+
+        <div class="row justify-content-center">
+
+            <table class="table table-striped table-borderless tabla">
+
+                <thead style="background-color:#4d8f24;" class="text-white ">
+                    <tr>
+                        <th scope="col" class="text-center" style="font-size:0.8rem !important;">
+                            &nbsp;&nbsp;&nbsp;&nbsp;Codigo
+                        </th>
+                        <th scope="col" class="text-center" style="font-size:0.8rem !important;">
+                            Cantidad</th>
+
+                        <th scope="col" class="text-center" style="font-size:0.8rem !important;">
+                            Descripcion</th>
+                        <th scope="col" class="text-center" style="font-size:0.8rem !important;">Precio
+                        </th>
+                        <th scope="col" class="text-center" style="font-size:0.8rem !important;width:65px;">
+                            % Dto.</th>
+                        <th scope="col" class="text-center" style="font-size:0.8rem !important;">
+                            Imp.Dto.</th>
+                        <th scope="col" class="text-center" style="font-size:0.8rem !important;">Importe
+                        </th>
+
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    {#-----contendores------ #}
+
+                    <tr>
+                        {% for arraysIdsAlbarane in id_albaranes_selected %}
+                        {% if ( arraysIdsAlbarane.active == 1 ) %}
+
+                        <td scope="col" class=" text-center text-black"
+                            style="border-bottom:1px solid #dfdfdf87 !important;font-size:0.8rem !important;background:none !important;">
+                            {% for s in arraysIdsAlbarane.servicesObject %}
+                            {{ s.code }}
+                            {% endfor %}
+                        </td>
+
+                        <td scope="col" class=" text-center text-black"
+                            style="border-bottom:1px solid #dfdfdf87 !important;font-size:0.8rem !important;background:none !important;">
+                            1
+                        </td>
+
+                        <td scope="col" class=" text-center text-black"
+                            style="border-bottom:1px solid #dfdfdf87 !important;font-size:0.8rem !important;background:none !important;">
+                            <b>Servicio Nº(Albaran)
+                                {{ arraysIdsAlbarane.id_albaran }}
+                                de Fecha:
+                                {{ date_today }}</b>
+                            <br>
+
+                            {% for worklocation in worklocations %}
+                            Obra:
+                            {{ id_work_location }}
+                            -
+                            {{ worklocation.address }}
+                            {{ worklocation.location }}
+
+                            {% endfor %}
+                            <br>
+                            {% for s in arraysIdsAlbarane.servicesObject %}
+                            {{ s.name }}
+                            {% endfor %}
+
+                            Contenedor:
+                            {{ arraysIdsAlbarane.id_container }}
+                            -
+                            {{ arraysIdsAlbarane.container_m3 }}
+
+                            {{ arraysIdsAlbarane.container_residue}}
+                            <br>
+                        </td>
+
+                        <td scope="col" class=" text-center text-black"
+                            style="border-bottom:1px solid #dfdfdf87 !important;font-size:0.8rem !important;background:none !important;">
+
+                            {{ arraysIdsAlbarane.container_price }}
+
+                        </td>
+                        <td scope="col" class=" text-center text-black"
+                            style="border-bottom:1px solid #dfdfdf87 !important;font-size:0.8rem !important;background:none !important;">
+
+                            {% if ( arraysIdsAlbarane.discount != 0) %}
+                            {{ arraysIdsAlbarane.discount }}
+                            {% endif %}
+
+                        </td>
+
+                        <td scope="col" class=" text-center text-black"
+                            style="border-bottom:1px solid #dfdfdf87 !important;font-size:0.8rem !important;background:none !important;">
+
+                            {% if ( arraysIdsAlbarane.price_discount != null ) %}
+                            {{ arraysIdsAlbarane.price_discount }}
+                            {% endif %}
+
+                        </td>
+
+                        <td scope="col" class=" text-center text-black"
+                            style="border-bottom:1px solid #dfdfdf87 !important;font-size:0.8rem !important;background:none !important;">
+
+                            {% if ( arraysIdsAlbarane.tax_base != null ) %}
+                            {{ arraysIdsAlbarane.amount_tax_base_discount }}
+                            {% endif %}
+
+                        </td>
+
+                    </tr>
+                    {#-----fin contendores------ #}
+
+                    {% for supplements in arraysIdsAlbarane.supplementsObject %}
+                    <tr>
+
+                        <td scope="col" class=" text-center text-black"
+                            style="font-size:0.8rem !important;background:none !important;">
+                            {% for s in arraysIdsAlbarane.servicesObject %}
+                            {{ s.code }}
+                            {% endfor %}
+                        </td>
+
+                        <td scope="col" class=" text-center text-black"
+                            style="font-size:0.8rem !important;background:none !important;">
+                            1
+                        </td>
+
+                        <td scope="col" class=" text-center text-black"
+                            style="font-size:0.8rem !important;background:none !important;">
+
+                            <u>
+                                {{ supplements.name }}</u>
+
+                        </td>
+
+                        <td scope="col" class=" text-center text-black"
+                            style="font-size:0.8rem !important;background:none !important;">
+
+                            {{ supplements.pvp_edit }}
+
+                        </td>
+
+                        <td scope="col" class=" text-center text-black"
+                            style="font-size:0.8rem !important;background:none !important;">
+
+                            {% if ( supplements.dto !=  0) %}
+                            {{ supplements.dto }}
+                            {% endif %}
+
+                        </td>
+
+                        <td scope="col" class=" text-center text-black"
+                            style="font-size:0.8rem !important;background:none !important;">
+
+                     {% if ( supplements.price_dto !=  0) %}
+                            {{ supplements.price_dto }}
+                        {% endif %}
+
+                        </td>
+
+                        <td scope="col" class=" text-center text-black"
+                            style="font-size:0.8rem !important;background:none !important;">
+
+                            {{ supplements.total_price_supp }}
+
+                        </td>
+                    </tr>
+                    {% endfor %}
+
+                    {% endif %}
+                    {% endfor %}
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+            <table>
+
+                <tbody>
+                    <tr>
+                        {% for supplementsAditional in supplements_obj_array %}
+
+                        <td class="td_supp text-center text-black"
+                            style="font-size:0.8rem !important;background:none !important;"></td>
+
+                        <td scope="col" class=" text-center text-black"
+                            style="font-size:0.8rem !important;background:none !important;">
+                            1</td>
+
+                        <td scope="col" class=" text-center text-black"
+                            style="font-size:0.8rem !important;background:none !important;">
+                            Suplemento adicional al Albaran<br>
+                            {% for supplements_obj in supplementsAditional.supplementsObjectAditional %}
+                            {{ supplements_obj.name }}
+                            {% endfor %}
+                        </td>
+
+                        <td scope="col" class=" text-center text-black"
+                            style="font-size:0.8rem !important;background:none !important;">
+                            {% for supplements_obj in supplementsAditional.supplementsObjectAditional %}
+                            {{ supplements_obj.pvp_edit }}
+                            {% endfor %}
+                        </td>
+
+                        <td scope="col" class=" text-center text-black"
+                            style="font-size:0.8rem !important;background:none !important;">
+                            {% for supplements_obj in supplementsAditional.supplementsObjectAditional %}
+                            {% if ( supplements_obj.dto != 0) %}
+                            {{ supplements_obj.dto }}
+                            {% endif %}
+                            {% endfor %}
+                        </td>
+                        <td scope="col" class=" text-center text-black"
+                            style="font-size:0.8rem !important;background:none !important;">
+                            {% for supplements_obj in supplementsAditional.supplementsObjectAditional %}
+                            {% if ( supplements_obj.price_dto != 0) %}
+                            {{ supplements_obj.price_dto }}
+                            {% endif %}
+                            {% endfor %}
+                        </td>
+
+                        <td scope="col" class=" text-center text-black"
+                            style="font-size:0.8rem !important;background:none !important;">
+
+                            {% for supplements_obj in supplementsAditional.supplementsObjectAditional %}
+                            {% if ( supplements_obj.price_total !=  0) %}
+                            {{ supplements_obj.price_total }}
+                            {% endif %}
+                            {% endfor %}
+
+                        </td>
+                        {% endfor %}
+
+                    </tr>
+
+                    {# {% endif %} #}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+        <div class="row justify-content-center">
+
+            <table class="table table-striped table-borderless tabla" style="padding:5px !important;">
+
+                <thead style="background-color:#4d8f24;padding:5px !important;" class="text-white ">
+                    <tr>
+                        <th scope="col" class="text-center" style="font-size:0.8rem !important;">Total
+                            Bruto
+                        </th>
+                        <th scope="col" class="text-center" style="font-size:0.8rem !important;">Suma
+                            Dtos.</th>
+                        <th scope="col" class="text-center" style="font-size:0.8rem !important;">
+                            % Dto. Com.</th>
+                        <th scope="col" class="text-center" style="font-size:0.8rem !important;">
+                            % Dto. P.P</th>
+
+                        <th scope="col" class="text-center" style="font-size:0.8rem !important;">BASE
+                            IMPONIBLE</th>
+                        <th scope="col" class="text-center" style="font-size:0.8rem !important;">%
+                            I.R.P.F.</th>
+
+                        <th scope="col" class="text-center" style="font-size:0.8rem !important;">%
+                            I.V.A.</th>
+                        <th scope="col" class="text-center" style="font-size:0.8rem !important;">Cuota
+                        </th>
+                        <th scope="col" class="text-center" style="font-size:0.8rem !important;">TOTAL
+                        </th>
+
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    <tr>
+
+                        <th scope="col" class="text-center"
+                            style="font-size:0.8rem !important;background:none !important;">
+                            {{ price_total_base_albaranes }}
+                        </th>
+
+                        <th scope="col" class=" text-center"
+                            style="font-size:0.8rem !important;background:none !important;">
+                            {{total_dtos_container_supplement}}</th>
+
+                        <th scope="col" class=" text-center"
+                            style="font-size:0.8rem !important;background:none !important;">
+                            -</th>
+
+                        <th scope="col" class=" text-center"
+                            style="font-size:0.8rem !important;background:none !important;">
+                            -
+                        </th>
+
+                        <th scope="col" class=" text-center"
+                            style="font-size:0.8rem !important;background:none !important;">
+                            {{ taxable_base }}</th>
+
+                        <th scope="col" class=" text-center"
+                            style="font-size:0.8rem !important;background:none !important;">
+                            -
+                        </th>
+
+                        <th scope="col" class=" text-center"
+                            style="font-size:0.8rem !important;background:none !important;">
+                            {{ iva }}</th>
+
+                        <th scope="col" class=" text-center"
+                            style="font-size:0.8rem !important;background:none !important;">
+                            {{cuota}}
+                        </th>
+                        <th scope="col" class=" text-center"
+                            style="font-size:0.8rem !important;background:none !important;">
+                            {{total_con_iva}}</th>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+        <div class="row justify-content-center">
+
+            <table class="table table-striped table-borderless tabla">
+
+                <thead style="color:#4d8f24;">
+                    <tr>
+                        <th scope="col" class="" style="font-size:0.8rem !important;background:none !important;">
+                            &nbsp;&nbsp;Anticipo:
+                        </th>
+                        <th scope="col" class="text-black"
+                            style="font-size:0.8rem !important;background:none !important;">
+                            &nbsp;&nbsp;{{retainer_amount}}</th>
+
+                        <th scope="col" class="" style="font-size:0.8rem !important;background:none !important;">
+                            &nbsp;&nbsp;Cargos:</th>
+                        <th scope="col" class="text-black"
+                            style="font-size:0.8rem !important;background:none !important;">
+                            &nbsp;&nbsp;{{charge}}</th>
+                        <th scope="col" class="" style="font-size:0.8rem !important;background:none !important;">
+                            &nbsp;&nbsp; Saldo:</th>
+                        <th scope="col" class="text-black"
+                            style="font-size:0.8rem !important;background:none !important;">
+                            &nbsp;&nbsp;{{balance}}
+                        </th>
+
+                        <th scope="col" class="text-white"
+                            style="font-size:0.8rem !important;color:#4d8f24;background-color:#4d8f24;">
+                            &nbsp;&nbsp; TOTAL FACTURA</th>
+                        <th scope="col" class="text-white"
+                            style="font-size:0.8rem !important;color:#4d8f24;background-color:#4d8f24;">
+                            &nbsp;&nbsp;{{total_con_iva}}
+                            &nbsp;EUROS</th>
+
+                    </tr>
+                </thead>
+
+            </table>
+
+        </div>
+
+        <div class="row justify-content-center p-0">
+
+            <div class="col-sm-6 p-0">
+
+                <div class="row">
+                    <div class="col-sm-6 pl-3" style="color:#4d8f24;font-size:0.8rem !important;">
+                        &nbsp;&nbsp;Forma de Pago
+                    </div>
+                    <div class="col-sm-6 p-0" style="font-size:0.8rem !important;">
+                        &nbsp;&nbsp;{{payment_method}}
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6 pl-3" style="color:#4d8f24;font-size:0.8rem !important;">
+                        &nbsp;&nbsp;Domiciliación</div>
+                    <div class="col-sm-6 p-0" style="font-size:0.8rem !important;">
+                        &nbsp;
+                        {% for c in customers %}
+                        {{ c.iban}}
+                        {{ c.bank}}
+                        {{ c.office_bank}}
+                        {{ c.digital_control}}
+                        {{ customer_bank_con_asteriscos }}
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6 pl-3" style="color:#4d8f24;font-size:0.8rem !important;">
+                        &nbsp;&nbsp;Vencimientos</div>
+                    <div class="col-sm-6 p-0" style="font-size:0.8rem !important;">
+                        &nbsp;&nbsp;{{ date_today }}
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6 pl-3" style="color:#4d8f24;font-size:0.8rem !important;">
+                        &nbsp;&nbsp;Importes</div>
+                    <div class="col-sm-6 p-0" style="font-size:0.8rem !important;">
+                        &nbsp;&nbsp;{{total_con_iva}}</div>
+                </div>
+
+            </div>
+
+            <div class="col-6"></div>
+
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col footer_text">
+                <p>Sociedad inscrita en el R.M. de Valencia Tomo 9526, Libro 6808, Folio 135, Seccion 8,
+                    Hoja V150416 CIF B98474497
+                    TOT PER CONTRUIR 2012,S.L. es el Responsable del tratamiento de los datos personales
+                    proporcionados bajo su consentimiento y le informa que estos datos serán tratados de
+                    conformidad con lo dispuesto en el
+                    Reglamento (UE) 2016/679 de 27 de abril de 2016 (GDPR), con la finalidad de mantener
+                    una
+                    relación comercial y conservarlos mientras exista un interés mutuo para mantener el
+                    fin
+                    del tratamiento y cuando ya no sea
+                    necesario para tal fin, se suprimirán con medidas de seguridad adecuadas para
+                    garantizar
+                    la seudonimización de los datos o la destrucción total de los mismos. No se
+                    comunicarán
+                    los datos a terceros, salvo obligación
+                    legal. Asimismo, se informa que puede ejercer los derechos de acceso, rectificación,
+                    portabilidad y supresión de sus datos y los de limitación y oposición a su
+                    tratamiento
+                    dirigiéndose a TOT PER CONTRUIR
+                    2012,S.L.en C/ RIO GUADALAVIAR, Nº 4−6. Email: conmagar@tpc2012.es y el de
+                    reclamación a
+                    www.agpd.es.
+                </p>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+</div>
+<div class="col-sm-1 "></div>
+</div>
+<div class="row mt-3">
+    <div class="col-6 text-center"></div>
+    <div class="col-6">{% for bill in bills %}
+    <a class="text-white "
+            href="{{ routeTo('printPdfBills',bill.id_bills) }}">
+            <button class=" button_bills_pdf ">
+                <img src="\images\invoice_red.png" alt="...">&nbsp;&nbsp;&nbsp;&nbsp;
+                Generar PDF
+
+            </button></a>
+
+            {# supplementos#}
+            <a class="text-white " href="{{ routeTo('editBills', bill.id_bills) }}">
+            <button class=" button_bills_edit ">
+                <img src="\images\edit_bill.png" alt="...">&nbsp;&nbsp;&nbsp;&nbsp;
+                Editar Factura
+
+            </button></a>
+
+            {% endfor %}
+            </div>
+</div>
+<div class="row pt-5 text-rows-back">
+    <div class="col">
+        <p class=" text-center"><a href="{{ routeTo('listBills') }}">
+                <img class="rounded mx-auto d-block " src="\images\regresar.png" alt="..."></a><br>Volver al listado de
+            Facturas</p>
+    </div>
+</div>
+</div>
+</div>
+</div>{% include 'Front/base/footer.html.twig' %}{% endblock %}{% block script %}{{parent(script)}}
+<script>
+    setTimeout(function() {
+        $(".alerta_msg_albaranes").fadeOut(2000);
+    }, 2200);
+</script>
+<script src="https://cdn.lordicon.com/qjzruarw.js"></script>{% endblock %}

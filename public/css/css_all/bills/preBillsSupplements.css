@@ -1,0 +1,249 @@
+a:hover {
+    text-decoration: none;
+}
+
+a {
+    text-decoration: none !important;
+
+}
+
+
+
+
+.links a {
+    color: #00b45f !important;
+}
+
+.links a.hover {
+    color: #00b45f !important;
+}
+
+.links {
+    color: #00b45f !important;
+}
+
+
+
+.table {
+--bs-table-bg: transparent;
+--bs-table-accent-bg: transparent;
+--bs-table-striped-color: #212529;
+--bs-table-striped-bg: rgba(0, 0, 0, 0.05);
+--bs-table-active-color: #212529;
+--bs-table-active-bg: rgba(0, 0, 0, 0.1);
+--bs-table-hover-color: #212529;
+--bs-table-hover-bg: rgba(0, 0, 0, 0.075);
+width: 100%;
+
+color: #212529;
+vertical-align: top;
+border-color: #dee2e6;
+}
+
+.modal th {
+    border: none !important;
+    text-align: left;
+}
+
+.modal  tr {
+    border: none !important;
+    text-align: left;
+}
+
+.modal  td {
+    border: none !important;
+}
+
+
+
+.modal  .pre_div_info {
+    margin-top: 20px;
+    font-size: 0.8em;
+
+    border-top-right-radius: 20px 20px;
+
+}
+
+.pre_text_customers {
+    color: #111c44;
+    font-size: 0.8rem;
+}
+
+
+{#
+hr:not([size]) {
+    height: 1px;
+    color: #587ffc;
+} #}
+
+{# .modal .table>:not(caption)>*>* {
+    padding: 0;
+    background-color: none;
+
+    box-shadow: inset 0 0 0 9999px var(--bs-table-accent-bg);
+} #}
+
+.modal .img_logo {
+    border-bottom-left-radius: 20px 20px;
+    border-bottom-right-radius: 20px 20px;
+    border-top-left-radius: 20px 20px;
+    border-top-right-radius: 20px 20px;
+
+
+}
+
+.modal .title_tot {
+    margin-top: 20px;
+    font-size: 0.8rem;
+
+}
+
+
+tbody,
+td,
+tfoot,
+th,
+thead,
+tr {
+    /* border-color: inherit; */
+    /* border-style: solid; */
+    border: 36px solid #fff;
+    border-width: 0;
+
+}
+
+.table>:not(caption)>*>* {
+padding: 0.5rem 0.5rem;
+background-color: #adadad1a;
+border-bottom-width: 11px;
+
+}
+
+.notas {
+    border: 2px solid #aaa !important;
+    border-bottom-left-radius: 20px 20px;
+    border-bottom-right-radius: 20px 20px;
+    border-top-left-radius: 20px 20px;
+    border-top-right-radius: 20px 20px;
+    margin: 0;
+}
+
+
+ .table>:not(caption)>*>* {
+    box-shadow: none !important;
+}
+
+
+.titulo_bills_view {
+    border-top-left-radius: 30px 30px;
+    border-top-right-radius: 30px 30px;
+    border-bottom-left-radius: 30px 30px;
+    border-bottom-right-radius: 30px 30px;
+    background: #fff;
+
+    box-shadow: rgba(0, 0, 0, 0.1) 0 1px 3px 0, rgba(0, 0, 0, 0.06) 0 1px 2px 0;
+}
+
+.contenedor {
+    border-bottom-left-radius: 20px 20px;
+    border-bottom-right-radius: 20px 20px;
+    border-top-left-radius: 20px 20px;
+    border-top-right-radius: 20px 20px;
+    box-shadow: rgba(17, 12, 46, 0.15) 0 48px 100px 0;
+     background-color: rgba(255,255,255,1) !important;
+}
+
+ .contenedorBills {
+    border-bottom-left-radius: 20px 20px;
+    border-bottom-right-radius: 20px 20px;
+    border-top-left-radius: 20px 20px;
+    border-top-right-radius: 20px 20px;
+    box-shadow: rgba(17, 12, 46, 0.15) 0 48px 100px 0;
+    background-color: rgba(0,0,0,0);
+}
+
+
+
+.title {
+    color: #545454 !important;
+}
+
+
+.modal .footer_text {
+    font-size: 0.8rem;
+}
+
+
+
+.text-title-factura {
+
+    font-weight: 500;
+    letter-spacing: 5px;
+    color: #4d8f24;
+}
+
+
+.title_creada {
+    color: #04BDFD;
+}
+
+
+{# .modal .table-striped>tbody>tr:nth-of-type(odd)>* {
+    --bs-table-accent-bg: #fff;
+    color: var(--bs-table-striped-color);
+} #}
+
+.text_adress {
+    color: #00b45f;
+}
+
+.tr_supp {
+
+    border-top: 1px solid #1987541a !important;
+
+}
+
+.td_supp {
+    height: 30px !important;
+
+
+}
+
+#miVentanaModal {
+    background-color:transparent;
+    border-bottom-left-radius: 20px 20px;
+    border-bottom-right-radius: 20px 20px;
+    border-top-left-radius: 20px 20px;
+    border-top-right-radius: 20px 20px;
+    border:none !important;
+    }
+    #miVentanaModal .contenedor {
+    border-bottom-left-radius: 20px 20px;
+    border-bottom-right-radius: 20px 20px;
+    border-top-left-radius: 20px 20px;
+    border-top-right-radius: 20px 20px;
+    border:none !important;
+    background-color:transparent;
+    }
+
+.row_bill{
+background-color: rgba(255,255,255,1) !important;
+}
+
+/* Estilos para el scroll */
+::-webkit-scrollbar {
+width: 10px; /* Ancho del scrollbar */
+}
+
+::-webkit-scrollbar-track {
+background-color: #4d8f24; /* Color de fondo del track */
+}
+
+::-webkit-scrollbar-thumb {
+background-color: #99e537; /* Color del thumb (el botón deslizable) */
+border-radius: 5px; /* Radio de borde del thumb */
+}
+
+::-webkit-scrollbar-thumb:hover {
+background-color: red; /* Color del thumb al pasar el mouse sobre él */
+}

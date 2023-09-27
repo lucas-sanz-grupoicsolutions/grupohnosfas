@@ -1,0 +1,328 @@
+a:hover {
+    text-decoration: none;
+}
+
+a {
+    text-decoration: none !important;
+
+
+}
+
+.texto_negrita {
+    font-weight: 900;
+}
+
+.form-control {
+    border: 2px solid #c2fbd7 !important;
+    border-radius: 30px !important;
+    height: 3rem;
+}
+
+.listar_todos {
+    text-decoration: none;
+    color: black !important;
+}
+
+.listar_todos a {
+    text-decoration: none !important;
+    color: black !important;
+}
+
+.pagination {
+    list-style: none;
+    text-align: center;
+}
+
+
+
+
+
+.pagination li {
+    list-style: none;
+    text-align: center;
+    padding: 10px;
+    /* border: 1px solid gray; */
+    color: gray;
+    margin-left: 2px;
+    background: #a2a2a212;
+    border-radius: 10px;
+
+}
+
+
+.buttonSearch {
+    background: none;
+    max-width: 40px;
+
+}
+
+
+
+.listar {
+    height: 3rem;
+    border-top-left-radius: 40px 40px;
+    border-top-right-radius: 40px 40px;
+    border-bottom-right-radius: 40px 40px;
+    border-bottom-left-radius: 40px 40px;
+    box-shadow: rgba(17, 17, 26, 0.1) 0px 1px 0px;
+    background: #c2fbd7;
+    color: black;
+
+}
+
+
+.display-4 {
+    display: inline;
+
+    padding-left: 30px;
+}
+
+.titulo_containeres {
+
+    border: 1px solid red;
+}
+
+.texto_titulo {
+
+    padding-left: 30px;
+}
+
+.cssscan:not(.img-as-jpg) img {
+    top: 14%;
+    right: -37%;
+    width: 95%;
+    height: 95%;
+}
+
+.cssscan img {
+    position: absolute;
+    transform: rotate(-7deg);
+    transition: all .3s;
+}
+
+.cssscan {
+    padding: 2rem;
+    background: #c2fbd7;
+    border-radius: 24px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: rgb(0 0 0 / 10%) 0 1px 2px 0;
+    cursor: pointer;
+    /* margin-top: 3em;*/
+    font-size: 19px;
+    text-align: left;
+}
+
+.regresar {
+
+    background-color: none !important;
+}
+
+
+
+.card_container {
+
+    border-top-left-radius: 20px 20px;
+    border-top-right-radius: 20px 20px;
+
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    /*    border: 2px solid #c2fbd7 !important;*/
+
+}
+
+.card_container_footer {
+
+    border-bottom-right-radius: 9px 8px !important;
+    border-bottom-left-radius: 9px 8px !important;
+    background-color: #c2fbd7;
+    margin-bottom: 10px;
+}
+
+.card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: none !important;
+    background-clip: none !important;
+    border: none !important;
+    border-radius: none !important;
+}
+
+
+
+.cont_card {
+    max-width: 280px;
+    min-width: 280px;
+}
+
+.row-list {
+    border-top-left-radius: 20px 20px;
+    border-top-right-radius: 20px 20px;
+    border-bottom-right-radius: 20px 20px !important;
+    border-bottom-left-radius: 20px 20px !important;
+
+    padding: 10px;
+}
+
+.span_num {
+    font-size: 1.2rem;
+    color: #006562;
+    font-weight: bold;
+    font-family: 'Black Han Sans', sans-serif !important;
+    font-family: 'Nunito', sans-serif !important;
+}
+
+
+.imagen_container {
+
+    border-top-left-radius: 20px 20px !important;
+    border-top-right-radius: 20px 20px !important;
+    border-bottom-right-radius: 20px 20px !important;
+    border-bottom-left-radius: 20px 20px !important;
+
+}
+
+.cuerpo_containeres_ver_dertalle {
+
+    padding: 20px;
+    border-bottom-left-radius: 30px 30px;
+    border-bottom-right-radius: 30px 30px;
+    border-top-left-radius: 30px 30px;
+    border-top-right-radius: 30px 30px;
+    background: rgb(251 251 251);
+    box-shadow: rgb(0 0 0 / 10%) 0px 1px 3px 0px, rgb(0 0 0 / 6%) 0px 1px 2px 0px;
+}
+
+.rounded-start {
+    border-top-left-radius: 20px 20px;
+    border-top-right-radius: 20px 20px;
+    border-bottom-right-radius: 20px 20px !important;
+    border-bottom-left-radius: 20px 20px !important;
+}
+
+.titulo_info {
+
+    background: #c2fbd7;
+    color: #42b364;
+    font-size: 1.9em;
+    border-top-left-radius: 30px 30px;
+    border-top-right-radius: 30px 30px;
+
+
+}
+
+.texto {
+    font-size: 1.1rem;
+}
+
+
+.links a {
+    color: #00b45f !important;
+}
+
+.links a.hover {
+    color: #00b45f !important;
+}
+
+.links {
+    font-size: 0.8rem;
+    color: #00b45f !important;
+}
+
+#th_containeres {
+    background: #c2fbd7;
+}
+
+.col-etiqueta {
+    border: 5px solid white;
+    border-top-left-radius: 20px 20px;
+    border-top-right-radius: 20px 20px;
+    border-bottom-right-radius: 20px 20px !important;
+    border-bottom-left-radius: 20px 20px !important;
+    background-color: #fff;
+    /*  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;*/
+
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 50px;
+}
+
+
+.detalle_cliente {
+    padding: 15px;
+    border-top-left-radius: 20px 20px;
+    border-top-right-radius: 20px 20px;
+    border-bottom-right-radius: 20px 20px !important;
+    border-bottom-left-radius: 20px 20px !important;
+    background-color: #fff;
+
+    box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1);
+
+}
+
+.header_table_info {
+    border-top-left-radius: 20px 20px !important;
+    border-top-right-radius: 20px 20px !important;
+
+}
+
+.boton_icono {
+    border-color: transparent;
+    border-radius: 1rem;
+    height: 3rem;
+    width: 3.3rem;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+    background-color: #fff;
+    margin-left: 15px;
+}
+
+.fuente-texto {
+    font-size: 1.2rem;
+}
+
+table {
+    --bs-table-bg: transparent !important;
+    --bs-table-accent-bg: transparent !important;
+
+    --bs-table-striped-bg: #c2fbd736 !important;
+    border: none !important;
+}
+
+th {
+    border: none !important;
+
+}
+
+tr {
+    border: none !important;
+    text-align: left !important;
+
+}
+
+td {
+    border: none !important;
+    text-align: left !important;
+
+}
+
+.tr_estilo {
+    border-top-left-radius: 20px 20px;
+    border-top-right-radius: 20px 20px;
+    border-bottom-right-radius: 20px 20px !important;
+    border-bottom-left-radius: 20px 20px !important;
+    background-color: #fff;
+
+}
+
+#th_contenendores1 {
+    background: #c2fbd7;
+    text-align: center;
+
+
+}
+
+#th_contenendores2 {
+    background: #c2fbd7;
+    text-align: left;
+
+}

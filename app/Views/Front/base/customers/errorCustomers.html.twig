@@ -1,0 +1,12 @@
+  <div class="row mt-1">
+        <div class="col-12">
+      {%  if msg('msg') %}
+          <div class="alert {{ msg('msg.type') }} alerta" role="alert">
+              {% for body in msg('msg.body') %}
+                    {{body}}
+              {% endfor %}
+
+          </div>
+      {% endif %}
+
+  </div>

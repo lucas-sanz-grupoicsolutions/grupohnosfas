@@ -1,0 +1,21 @@
+
+
+
+
+.container_footer {
+    min-height: 70px;
+    height: 150px;
+    max-height: 100%;
+    width: 100%;
+
+
+
+    background: #212529;
+
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+}
+
+
+
+
+

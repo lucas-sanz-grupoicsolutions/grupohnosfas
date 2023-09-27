@@ -1,0 +1,306 @@
+{% extends 'Front/base/main.html.twig' %}
+
+{% block titleHeader %}
+Listar vehiculos
+{% endblock %}
+{% block content %}
+{% include 'Front/base/header.html.twig' %}
+<link rel="stylesheet" href="/css/css_all/supplements/list.css">
+
+<body class="container_clientes">
+
+    <div class="container mt-1">
+
+        <div id="title_supplements">
+
+            <div class="row">
+                <div class="col-4 pl-3"><a href="javascript: history.go(-1)">&nbsp;&nbsp;&nbsp;
+                        <img class="ml-3 pt-4 " src="\images\arrow_white_izq.png" alt="...">
+                    </a></div>
+                <div class="col-4"></div>
+                <div class="col-4"></div>
+            </div>
+
+            <div class="cssscan">
+                <p>
+                    <h4 class="display-4 text-white text-center ">Listado de Suplementos</h4>
+                    <p class=" texto_titulo text-white"> Gestion de Suplementos dar de alta, modificar y listar</span>
+                    </p>
+                </p>
+
+                <img src="\images\header_supp.svg" alt="...">
+            </div>
+        </div>
+
+        <div class="cuerpo_supp mt-2">
+
+            <div class="row p-2 mb-3 justify-content-center justify-content-md-start">
+
+                <div class="col-4 "> </div>
+
+                <div class="col-sm-4 pb-3">
+
+                    <a class="text-center" href="{{ routeTo('showFormSuplements') }}">
+                        <span class=" mx-auto d-block text-center button_add">
+
+                            <img class=" pt-3" src="\images\add_1.png" alt="...">
+
+                        </span>
+                    </a>
+
+                </div>
+
+                <div class="col-4 "> </div>
+            </div>
+
+            <table class="table table-striped  text-center" id="sectionTable">
+                <thead>
+                    <tr>
+                        <th class="text-center align-middle th_header" scope="col">Nombre</th>
+                        <th class="text-center align-middle th_header" scope="col">Precio</th>
+                        <th class="text-center align-middle th_header" scope="col">Notes</th>
+                        <th class="text-center align-middle th_header" scope="col">Acciones</th>
+
+                    </tr>
+
+
+	              {% if supplements|length == 0 %}
+
+					    <tr>
+						<td class="text-center align-middle text-left" colspan="15">
+
+
+							<br>
+							No ahi suplementos registrados
+
+						</td>
+					</tr>
+
+				{% else %}
+
+
+                </thead>
+                <tbody>
+                    {% for supplement in supplements %}
+                      {% set supplementLinkedToOrder = supplement.id_supplements in orderSupplementsIds %}
+                    <tr>
+
+                        <th scope="row" class="text-center align-middle ">{{ supplement.name }}</th>
+                        <th scope="row" class="text-center align-middle">{{ supplement.pvp }}</th>
+                        <th scope="row" class="text-center align-middle">{{ supplement.notes }}</th>
+
+                        <td class="   text-left align-middle">
+                            <div class="d-flex justify-content-center align-items-center boton_menu">
+                                <nav class="navbar navbar-expand-lg  navbar-light text-center nav_menu">
+
+                                    <button class="navbar-toggler  text-center" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#navbarSupportedContentTabla"
+                                        aria-controls="navbarSupportedContentTabla" aria-expanded="false"
+                                        aria-label="Toggle navigation">
+                                        <span class="navbar-toggler-icon icono_menu_nav text-center"></span>
+                                    </button>
+
+                                    <div class="collapse navbar-collapse " id="navbarSupportedContentTabla">
+
+                                        <ul class="navbar-nav text-center nav justify-content-center ">
+   {% if not supplementLinkedToOrder %}
+                                            <li class="nav-item ">
+                                                <a class="text-white "
+                                                    href="{{ routeTo('editSuplements', supplement.id_supplements) }}">
+                                                    <img src="\images\edit.png" alt="..." title="editar suplemento">
+                                                </a>
+
+                                            </li>
+                                              <li class="nav-item ">
+                                              &nbsp;&nbsp;&nbsp; Asignado a un Pedido
+
+
+                                            </li>
+                                              {% else %}
+                                        <li class="nav-item ">
+                                                <a class="text-white "
+                                                    href="{{ routeTo('editSuplements', supplement.id_supplements) }}">
+                                                    <img src="\images\edit.png" alt="..." title="editar suplemento">
+                                                </a>
+
+                                            </li>
+
+                                            <li class="nav-item ">
+                                                 <a href="#" class="delete-supplement-button" data-supplement-id="{{ supplement.id_supplements }}">
+                                                <img src="\images\delete_white.png" alt="..."> &nbsp;&nbsp;&nbsp;
+                                            </a>
+
+                                            </li>
+ {% endif %}
+
+
+                                        </ul>
+                                    </div>
+
+                                </nav>
+
+                            </div>
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+                      {% endif %}
+                </tbody>
+            </table>
+
+            {{ pager | raw }}
+
+            <div class="row pt-5">
+                <div class="col">
+                    <p class=" text-center">
+                        <a href="{{ routeTo('home') }}">
+                            <img class="rounded mx-auto d-block " src="\images\regresar.png" alt="...">
+                        </a>
+                        <br> ir a Inicio
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    </div>
+    </div>
+
+
+   <div class="row " >
+        <div class="col-12">
+
+      {%  if msg('msg') %}
+
+            <script>
+                $(document).ready(function() {
+
+                 var msg = {{ msg('msg')|json_encode|raw }};
+
+                Swal.fire({
+                    title: msg.title,
+                    text: msg.text,
+                    icon: 'success',
+                    cancelButtonText: 'Cerrar'
+                    })
+                });
+
+
+            </script>
+
+      {% endif %}
+
+        {%  if msg('msg2') %}
+
+            <script>
+                $(document).ready(function() {
+
+                 var msg2 = {{ msg('msg2')|json_encode|raw }};
+
+                Swal.fire({
+                    title: msg2.title,
+                    text: msg2.text,
+                    icon: 'warning',
+                    cancelButtonText: 'Cerrar'
+                    })
+                });
+
+
+            </script>
+
+      {% endif %}
+
+     </div>
+ </div>
+
+<script>
+
+  $(document).ready(function() {
+
+    // Obtén el botón por su clase
+    $(".delete-supplement-button").click(function() {
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: 'btn btn-success',
+                cancelButton: 'btn btn-danger'
+            },
+            buttonsStyling: false
+        });
+
+        // Obtén el ID del cliente desde el atributo data
+        var supplementId = $(this).data('supplement-id');
+
+
+        swalWithBootstrapButtons.fire({
+            title: '¿Estás seguro?',
+            text: "No podrás revertir esto.",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Sí, eliminarlo',
+            cancelButtonText: 'No, cancelar',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Enviar una solicitud AJAX para eliminar el cliente
+                $.ajax({
+                    url: 'https://contenedores.grupohnosfas.com/Sumplementos/eliminar/' + supplementId,
+                    type: 'POST',
+                    success: function(response) {
+                        // Mostrar un mensaje de éxito o error según la respuesta
+                        if (response.success) {
+
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Eliminado',
+                                text: response.message
+                            }).then(() => {
+                                // Redirigir después de mostrar el mensaje de éxito
+                                window.location.href = 'https://contenedores.grupohnosfas.com/Sumplementos/listarSuplemento/';
+                            });
+                        } else {
+
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error',
+                                text: response.message
+                            });
+                        }
+                    },
+                    error: function() {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: 'Se produjo un error en la solicitud.'
+                        });
+                    }
+                });
+            } else if (result.dismiss === Swal.DismissReason.cancel) {
+                swalWithBootstrapButtons.fire(
+                    'Cancelado',
+                    'Tu cliente está a salvo :)',
+                    'error'
+                );
+            }
+        });
+    });
+});
+
+
+
+</script>
+
+    {% include 'Front/base/footer.html.twig' %}
+</body>
+
+{% endblock %}
+
+{% block script %}
+{{parent(script)}}
+
+<script src="/js/jsBootstrap.js"></script>
+
+<script src="https://cdn.lordicon.com/qjzruarw.js"></script>
+   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+{% endblock %}

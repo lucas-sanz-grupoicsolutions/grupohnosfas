@@ -1,0 +1,715 @@
+{% extends 'Front/base/main.html.twig' %}
+
+{# {% block titleHeader %}
+Crear un Cliente
+{% endblock %} #}
+{% block content %}
+  {% include 'Front/base/header.html.twig' %}
+
+<style>
+    .registrar {
+        border-top-left-radius: 40px 40px;
+        border-top-right-radius: 40px 40px;
+        border-bottom-right-radius: 40px 40px;
+        border-bottom-left-radius: 40px 40px;
+        width: 100%;
+        box-shadow: none;
+        font-size: 20px;
+        border: none;
+        background: #66C2CF;
+    }
+
+    button .agregar {
+        border-top-left-radius: 40px 40px;
+        border-top-right-radius: 40px 40px;
+        border-bottom-right-radius: 40px 40px;
+        border-bottom-left-radius: 40px 40px;
+        width: 100%;
+        box-shadow: none;
+        font-size: 20px;
+        border: none;
+        background: #66C2CF;
+    }
+
+    .form-control {
+        border: 2px solid #66C2CF !important;
+        border-radius: 20px !important;
+
+    }
+
+    .form-select {
+        border: 2px solid #66C2CF !important;
+        border-radius: 20px !important;
+
+    }
+
+    .cssscan:not(.img-as-jpg) img {
+        top: 14%;
+        right: -37%;
+        width: 95%;
+        height: 95%;
+    }
+
+    .cssscan img {
+        position: absolute;
+        transform: rotate(-7deg);
+        transition: all .3s;
+    }
+
+    .cssscan {
+        padding: 2rem;
+        background: #66C2CF;
+        border-radius: 24px;
+        position: relative;
+        overflow: hidden;
+        box-shadow: rgb(0 0 0 / 10%) 0 1px 2px 0;
+        cursor: pointer;
+        /* margin-top: 3em;*/
+        font-size: 19px;
+        text-align: left;
+    }
+
+
+    .display-4 {
+        display: inline;
+        padding-left: 30px;
+        color: white !important;
+    }
+
+    .titulo_clientes {
+        border: 1px solid red;
+        color: white !important;
+    }
+
+    .texto_titulo {
+        padding-left: 30px;
+        color: white !important;
+    }
+
+    .contactos {
+        background: #2f4052;
+        font-size: 1.5rem;
+        color: white;
+
+    }
+
+    .noahicontactos {
+        font-size: 1.5rem;
+    }
+
+    .numero {
+        background: #fa807221;
+        padding: 10px;
+
+    }
+
+    .numero2 {
+        background: red;
+        padding: 10px;
+
+    }
+
+    .boton_eliminar {
+
+        border-top-left-radius: 20px 200px;
+        border-top-right-radius: 20px 20px;
+        border-bottom-right-radius: 40px 40px;
+        border-bottom-left-radius: 40px 40px;
+        width: 100%;
+        box-shadow: none;
+        font-size: 20px;
+        border: none;
+
+        /* padding-top:18px;*/
+
+        text-align: center;
+
+    }
+
+
+
+    .col_button {
+
+        max-width: 50px;
+        margin-left: 20px;
+        padding-top: 10px;
+    }
+
+    .span_numero {
+        border-top-left-radius: 10px 10px;
+        border-bottom-left-radius: 10px 10px;
+        margin-top: 30px;
+        text-align: center;
+        color: #c95548;
+        font-size: 1.5rem;
+        background-color: #fa807221;
+    }
+
+    .button_add {
+        /*  background-color:#fa807221;*/
+    }
+
+
+    .btn {
+
+        font-family: Roboto, sans-serif;
+        font-weight: 0;
+        font-size: 14px;
+        color: #fff;
+        margin-top: 10px;
+        background-color: #FA8072;
+
+        border: 2px solid #FA8072;
+        box-shadow: rgb(0, 0, 0) 0px 0px 0px 0px;
+        border-radius: 80px;
+        transition: 1000ms;
+        transform: translateY(0);
+
+        flex-direction: row;
+        align-items: center;
+        cursor: pointer;
+    }
+
+    .btn:hover {
+
+        transition: 1000ms;
+
+        transform: translateY(-0px);
+        background-color: #fa807230;
+        color: #FA8072;
+        border: solid 2px #FA8072;
+    }
+
+    #hide-me {
+        width: 100px;
+        height: 100px;
+        background: #bf7130;
+        display: block;
+        padding: 10px;
+        margin: 0 15px 0 0;
+        font-size: 14px;
+        font-weight: bold;
+        float: left;
+        text-align: center;
+        background: rgba(0, 0, 0, .15);
+    }
+
+    .close {
+        background: transparent !important;
+        width: 30px;
+        border-radius: 50% 50%;
+    }
+
+    .boton_cerrar {
+        max-width: 110px;
+        min-width: 110px;
+        background-color: #ff7b6c !important;
+        padding: 10px;
+
+        border-top-left-radius: 30px 30px;
+        border-top-right-radius: 30px 30px;
+        border-bottom-right-radius: 30px 30px;
+        border-bottom-left-radius: 30px 30px;
+
+        font-size: 15px !important;
+        color: white !important;
+
+        text-align: center;
+    }
+
+    .boton_modal {
+
+        margin-top: 5px;
+        max-width: 150px;
+        min-width: 100px;
+
+        padding-top: 5px;
+        padding-bottom: 5px;
+        padding-left: 10px;
+        padding-right: 10px;
+
+        border-top-left-radius: 20px 20px;
+        border-top-right-radius: 20px 20px;
+        border-bottom-right-radius: 20px 20px;
+        border-bottom-left-radius: 20px 20px;
+
+        font-size: 15px !important;
+        color: white !important;
+
+
+    }
+
+    .modal-header {
+
+        border-top-left-radius: 20px 20px !important;
+        border-top-right-radius: 20px 20px !important;
+        background-color: #ff7b6c !important;
+        color: #fff !important;
+    }
+
+    .modal-footer {
+
+        border-top: none !important;
+
+    }
+
+    .abs-center {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+    }
+
+    #alerta {
+        margin-top: 1 0px;
+        display: none;
+    }
+
+    .nuevo_contactos {}
+
+    th {
+        background-color: #2125290d !important;
+        box-shadow: none;
+        border: none;
+
+
+    }
+
+    td {
+        background-color: #2125290d !important;
+        box-shadow: none;
+        border: none;
+
+    }
+
+    .table>:not(caption)>*>* {
+        padding: 0.5rem 0.5rem;
+        background-color: var(--bs-table-bg);
+
+        box-shadow: none;
+        border: none;
+
+    }
+
+
+    .botones {
+        border-top-left-radius: 20px 20px;
+        border-top-right-radius: 20px 20px;
+        background-color: #2125290d !important;
+
+
+    }
+      .alert-success{
+       text-align: center;
+        background-color: #dbf1d838;
+        border-left:7px solid #3dbf2ae8;
+        width: 100%;
+        margin-top: 10px;
+        color: #000000;
+        font-size: 1.2rem;
+    }
+    .tr_{
+       border:1px solid white;
+    }
+
+    .cuerpo_service {
+    border: 2px solid #66C2CF;
+    background: #d7eaf005;
+    padding: 20px;
+    border-bottom-left-radius: 30px 30px;
+    border-bottom-right-radius: 30px 30px;
+    border-top-left-radius: 30px 30px;
+    border-top-right-radius: 30px 30px;
+    /* background: rgb(251 251 251); */
+    box-shadow: rgba(0, 0, 0, 0.1) 0 1px 3px 0, rgba(0, 0, 0, 0.06) 0 1px 2px 0;
+}
+
+div:where(.swal2-container) button:where(.swal2-styled).swal2-confirm {
+    border: 0;
+    border-radius: 0.25em;
+    background: initial;
+    background-color: #66e090;
+    color: #fff;
+    font-size: 1em;
+}
+
+</style>
+
+
+
+<div class="container mt-1">
+
+    <div id="titulo_servicios">
+
+        <div class="row">
+            <div class="col-4 pl-3"><a href="javascript: history.go(-1)">&nbsp;&nbsp;&nbsp;
+                    <img class="ml-3 pt-4 " src="\images\arrow_white_izq.png" alt="...">
+                </a></div>
+            <div class="col-4"></div>
+            <div class="col-4"></div>
+        </div>
+
+        <div class="cssscan">
+            <p>
+     {% for service in services %}
+                {# <img class="rounded mx-auto d-block m-3" src="\images\paquetes_white.png" alt="..."> #}
+
+                <h4 class="display-4 text-center ">{{ service.name }} </h4>
+                <p class=" texto_titulo ">Modificar el Servicio </p>
+            </p>
+            </p>
+
+            <img src="\images\header_servicios.svg" alt="...">
+        </div>
+    </div>
+
+    <form action="{{  routeTo('editSaveService', service.id_service) }}" method="POST">
+        <div class="cuerpo_service mt-2">
+
+            <div class="row m-4">
+                <div class="col-sm">
+                    <div class="field field_v2">
+                        <label for="name" class="ha-screen-reader"></label>
+                        <input id="name" class="field__input" placeholder="{{ service.name }}" name="name"
+                            value="{{ service.name }}">
+                        <span class="field__label-wrap" aria-hidden="true">
+                            <span class="field__label">Nombre </span>
+                        </span>
+                    </div>
+                    <p class="text-danger">{{ msg('errors.name') }}</p>
+                </div>
+
+                <div class="col-sm">
+                    <div class="field field_v2">
+                        <label for="code" class="ha-screen-reader"></label>
+                        <input id="code" class="field__input" placeholder="{{ service.code }}" name="code"
+                            value="{{ service.code }}">
+                        <span class="field__label-wrap" aria-hidden="true">
+                            <span class="field__label">Codigo </span>
+                        </span>
+                    </div>
+                    <p class="text-danger">{{ msg('errors.code') }}</p>
+                </div>
+
+
+            </div>
+
+ {% endfor %}
+
+
+                <div class="row mt-5" style="height:150px;">
+                    <div class="col-md">
+
+                        <div class="row">
+                            <div class="col">
+                            </div>
+                            <div class="col-md">
+                                <button class="registrar mt-3 pt-3 pb-3 text-white"
+                                    type="submit">REGISTRAR</button>
+                            </div>
+                            <div class="col">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+        </form>
+        <p class=" text-center mt-5">
+            <a href="{{ routeTo('listService') }}">
+                <img class="rounded mx-auto d-block " src="\images\regresar.png" alt="...">
+            </a>
+            <br> Volver a la lista de Servicios
+        </p>
+
+    </div>
+</div>
+</div>
+  <div class="row " >
+        <div class="col-12">
+
+      {%  if msg('msg') %}
+
+            <script>
+                $(document).ready(function() {
+
+                 var msg = {{ msg('msg')|json_encode|raw }};
+
+                Swal.fire({
+                    title: msg.title,
+                    text: msg.text,
+                    icon: 'success',
+                    cancelButtonText: 'Cerrar'
+                    })
+                });
+
+
+            </script>
+
+      {% endif %}
+
+        {%  if msg('msg2') %}
+
+            <script>
+                $(document).ready(function() {
+
+                 var msg2 = {{ msg('msg2')|json_encode|raw }};
+
+                Swal.fire({
+                    title: msg2.title,
+                    text: msg2.text,
+                    icon: 'warning',
+                    cancelButtonText: 'Cerrar'
+                    })
+                });
+
+
+            </script>
+
+      {% endif %}
+
+     </div>
+ </div>
+{% include 'Front/base/footer.html.twig' %}
+    {% endblock %}
+
+{% block script %}
+
+{{parent(script)}}
+
+<script src="https://cdn.lordicon.com/qjzruarw.js"></script>
+
+<script>
+    window.addEventListener("load", oculto);
+    window.addEventListener("load", oculto2);
+    window.addEventListener("load", oculto3);
+    window.addEventListener("load", oculto4);
+
+    function oculto() {
+        var contenido01 = document.getElementById('contenido01');
+        var contenido02 = document.getElementById('contenido02');
+        var contenido03 = document.getElementById('contenido03');
+        var contenido04 = document.getElementById('contenido04');
+        var contenido05 = document.getElementById('contenido05');
+        var contenido06 = document.getElementById('contenido06');
+        var contenido07 = document.getElementById('contenido07');
+        var contenido08 = document.getElementById('contenido08');
+        var contenido09 = document.getElementById('contenido09');
+        var contenido10 = document.getElementById('contenido10');
+        var nuevoContactoDiv = document.getElementById('nuevoContactoDiv');
+        contenido01.style.display = 'none';
+        contenido02.style.display = 'none';
+        contenido03.style.display = 'none';
+        contenido04.style.display = 'none';
+        contenido05.style.display = 'none';
+        contenido06.style.display = 'none';
+        contenido07.style.display = 'none';
+        contenido08.style.display = 'none';
+        contenido09.style.display = 'none';
+        contenido10.style.display = 'none';
+    }
+
+    function oculto2() {
+        var contenido001 = document.getElementById('contenido001');
+        var contenido002 = document.getElementById('contenido002');
+        var contenido003 = document.getElementById('contenido003');
+        var contenido004 = document.getElementById('contenido004');
+        var contenido005 = document.getElementById('contenido005');
+        //var nuevoContactoDiv = document.getElementById('nuevoContactoDiv');
+        contenido001.style.display = 'none';
+        contenido002.style.display = 'none';
+        contenido003.style.display = 'none';
+        contenido004.style.display = 'none';
+        contenido005.style.display = 'none';
+    }
+
+    function oculto3() {
+        var contenido0001 = document.getElementById('contenido0001');
+        var contenido0002 = document.getElementById('contenido0002');
+        var contenido0003 = document.getElementById('contenido0003');
+        var contenido0004 = document.getElementById('contenido0004');
+        var contenido0005 = document.getElementById('contenido0005');
+        //  var nuevoContactoDiv = document.getElementById('nuevoContactoDiv');
+        contenido0001.style.display = 'none';
+        contenido0002.style.display = 'none';
+        contenido0003.style.display = 'none';
+        contenido0004.style.display = 'none';
+        contenido0005.style.display = 'none';
+    }
+
+    function mostrar() {
+        var contenido01 = document.getElementById('contenido01');
+        var contenido02 = document.getElementById('contenido02');
+        var contenido03 = document.getElementById('contenido03');
+        var contenido04 = document.getElementById('contenido04');
+        var contenido05 = document.getElementById('contenido05');
+        var contenido06 = document.getElementById('contenido06');
+        var contenido07 = document.getElementById('contenido07');
+        var contenido08 = document.getElementById('contenido08');
+        var contenido09 = document.getElementById('contenido09');
+        var contenido10 = document.getElementById('contenido10');
+        var nuevoContactoDiv = document.getElementById('nuevoContactoDiv');
+        if (contenido01.style.display === 'none') {
+            contenido01.style.display = 'block';
+        }
+        if (contenido02.style.display === 'none') {
+            contenido02.style.display = 'block';
+        }
+        if (contenido03.style.display === 'none') {
+            contenido03.style.display = 'block';
+        }
+        if (contenido04.style.display === 'none') {
+            contenido04.style.display = 'block';
+        }
+        if (contenido05.style.display === 'none') {
+            contenido05.style.display = 'block';
+        }
+        if (nuevoContactoDiv.style.display === 'none') {
+            nuevoContactoDiv.style.display = 'block';
+        }
+    }
+
+    function ocultar() {
+        var contenido01 = document.getElementById('contenido01');
+        var contenido02 = document.getElementById('contenido02');
+        var contenido03 = document.getElementById('contenido03');
+        var contenido04 = document.getElementById('contenido04');
+        var contenido05 = document.getElementById('contenido05');
+        //     var nuevoContactoDiv2 = document.getElementById('nuevoContactoDiv2');
+        if (contenido01.style.display === 'block') {
+            contenido01.style.display = 'none';
+        }
+        if (contenido02.style.display === 'block') {
+            contenido02.style.display = 'none';
+        }
+        if (contenido03.style.display === 'block') {
+            contenido03.style.display = 'none';
+        }
+        if (contenido04.style.display === 'block') {
+            contenido04.style.display = 'none';
+        }
+        if (contenido05.style.display === 'block') {
+            contenido05.style.display = 'none';
+        }
+    }
+
+    function mostrar02() {
+        var contenido001 = document.getElementById('contenido001');
+        var contenido002 = document.getElementById('contenido002');
+        var contenido003 = document.getElementById('contenido003');
+        var contenido004 = document.getElementById('contenido004');
+        var contenido005 = document.getElementById('contenido005');
+        var nuevoContactoDiv02 = document.getElementById('nuevoContactoDiv02');
+        if (contenido001.style.display === 'none') {
+            contenido001.style.display = 'block';
+        }
+        if (contenido002.style.display === 'none') {
+            contenido002.style.display = 'block';
+        }
+        if (contenido003.style.display === 'none') {
+            contenido003.style.display = 'block';
+        }
+        if (contenido004.style.display === 'none') {
+            contenido004.style.display = 'block';
+        }
+        if (contenido005.style.display === 'none') {
+            contenido005.style.display = 'block';
+        }
+        if (nuevoContactoDiv02.style.display === 'none') {
+            nuevoContactoDiv02.style.display = 'block';
+        }
+        /*
+         if (x.style.display === 'none') {
+            x.style.display = 'block';
+        } else {
+            x.style.display = 'none';
+        }
+        */
+    }
+
+    function ocultar02() {
+        var contenido001 = document.getElementById('contenido001');
+        var contenido002 = document.getElementById('contenido002');
+        var contenido003 = document.getElementById('contenido003');
+        var contenido004 = document.getElementById('contenido004');
+        var contenido005 = document.getElementById('contenido005');
+        //     var nuevoContactoDiv2 = document.getElementById('nuevoContactoDiv2');
+        if (contenido001.style.display === 'block') {
+            contenido001.style.display = 'none';
+        }
+        if (contenido002.style.display === 'block') {
+            contenido002.style.display = 'none';
+        }
+        if (contenido003.style.display === 'block') {
+            contenido003.style.display = 'none';
+        }
+        if (contenido004.style.display === 'block') {
+            contenido004.style.display = 'none';
+        }
+        if (contenido005.style.display === 'block') {
+            contenido005.style.display = 'none';
+        }
+    }
+
+    function mostrar03() {
+        var contenido0001 = document.getElementById('contenido0001');
+        var contenido0002 = document.getElementById('contenido0002');
+        var contenido0003 = document.getElementById('contenido0003');
+        var contenido0004 = document.getElementById('contenido0004');
+        var contenido0005 = document.getElementById('contenido0005');
+        var nuevoContactoDiv02 = document.getElementById('nuevoContactoDiv02');
+        if (contenido0001.style.display === 'none') {
+            contenido0001.style.display = 'block';
+        }
+        if (contenido0002.style.display === 'none') {
+            contenido0002.style.display = 'block';
+        }
+        if (contenido0003.style.display === 'none') {
+            contenido0003.style.display = 'block';
+        }
+        if (contenido0004.style.display === 'none') {
+            contenido0004.style.display = 'block';
+        }
+        if (contenido0005.style.display === 'none') {
+            contenido0005.style.display = 'block';
+        }
+        if (nuevoContactoDiv02.style.display === 'none') {
+            nuevoContactoDiv02.style.display = 'block';
+        }
+        /*
+         if (x.style.display === 'none') {
+            x.style.display = 'block';
+        } else {
+            x.style.display = 'none';
+        }
+        */
+    }
+
+    function ocultar03() {
+        var contenido0001 = document.getElementById('contenido0001');
+        var contenido0002 = document.getElementById('contenido0002');
+        var contenido0003 = document.getElementById('contenido0003');
+        var contenido0004 = document.getElementById('contenido0004');
+        var contenido0005 = document.getElementById('contenido0005');
+        //     var nuevoContactoDiv2 = document.getElementById('nuevoContactoDiv2');
+        if (contenido0001.style.display === 'block') {
+            contenido0001.style.display = 'none';
+        }
+        if (contenido0002.style.display === 'block') {
+            contenido0002.style.display = 'none';
+        }
+        if (contenido0003.style.display === 'block') {
+            contenido0003.style.display = 'none';
+        }
+        if (contenido0004.style.display === 'block') {
+            contenido0004.style.display = 'none';
+        }
+        if (contenido0005.style.display === 'block') {
+            contenido0005.style.display = 'none';
+        }
+    }
+</script>
+
+<script src="https://cdn.lordicon.com/qjzruarw.js"></script>
+ <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+{% endblock %}

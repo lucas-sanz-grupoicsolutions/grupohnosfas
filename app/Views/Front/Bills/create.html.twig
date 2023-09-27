@@ -1,0 +1,726 @@
+{% extends 'Front/base/main.html.twig' %}
+
+{% block titleHeader %}
+Crear una Factura
+{% endblock %}
+
+{% block content %}
+{% include 'Front/base/header.html.twig' %}
+
+<style>
+    @keyframes parpadeo {
+        0% {
+            opacity: 1;
+        }
+
+        50% {
+            opacity: 0;
+        }
+
+        100% {
+            opacity: 1;
+        }
+    }
+
+    .parpadeo {
+        color: #fdacac;
+
+        font-weight: 700;
+        animation: parpadeo 2s infinite;
+    }
+
+    #error {
+        background: #fd04105e;
+        padding: 30px;
+        text-align: center;
+        font-size: 1.2rem;
+        color: white;
+    }
+
+    #error_formas_de_pago {
+        background: #fd04105e;
+        padding: 30px;
+        text-align: center;
+        font-size: 1.2rem;
+        color: white;
+    }
+
+
+    #divSuppNoAhi {
+
+        background: #ff001c82;
+        border-top: 2px solid #ff001c17;
+        border-bottom: 2px solid #ff001c17;
+        border-left: 2px solid #ff001c17;
+        margin-top: 1px;
+        padding: 10px;
+        text-align: center;
+        color: white;
+    }
+
+    .modal-content {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        pointer-events: none;
+        /* background-color: #fff; */
+        /* background-clip: padding-box; */
+        /* border: 1px solid rgba(0,0,0,.2); */
+        border-radius: none outline: 0;
+    }
+</style>
+
+<link rel="stylesheet" href="/css/css_all/bills/create.css">
+
+<div class="container mt-1">
+
+    <div class="titulo_bills_create">
+
+        <div class="row">
+            <div class="col-4 pl-3">
+                <a href="javascript: history.go(-1)">&nbsp;&nbsp;&nbsp;
+                    <img class="ml-3 pt-4 " src="\images\arrow_white_izq.png" alt="...">
+                </a>
+            </div>
+            <div class="col-4"></div>
+            <div class="col-4"></div>
+        </div>
+
+        <div class="cssscan">
+            <p>
+                <h4 class="display-4 text-center text-white">Generar una Factura</h4>
+            </p>
+            <p class=" texto_titulo text-white">
+                Generar una factura de
+                <b>Albaranes y Suplementos</b>
+            </p>
+            </span>
+            </p>
+            </p>
+
+            <img src="\images\icono_factura_svg.svg" alt="...">
+        </div>
+    </div>
+
+    <div class="cuerpo_bills mt-2">
+
+
+
+        <div class="row mt-3 mb-5">
+            <div class="col-sm-3"></div>
+            <div class="col-sm-6 ">
+                <div class="text-center  ">
+                    <a class="text-white " href="{{ routeTo('listBills') }}">
+                        <button class=" button_bills text-white">
+                            Regresar a elegir tipo de facturas
+
+                        </button>
+                    </a>
+
+                </div>
+                {#row#}
+            </div>
+            <div class="col-sm-3"></div>
+        </div>
+
+
+        <div class="row mb-3 m-1 pt-2 pb-2 ">
+
+            <div class="col-sm-12 ">
+
+                <h3 class="fw-light  text-left  display-5">
+
+                    <img src="\images\icon_location_w.png" class="imagen_gps" alt="..." title="">&nbsp;
+                    Seleccione una Direccion de Obra
+
+                </h3>
+
+                <hr class="hr_direccionObra">
+
+                <div id="filtros" class="mb-2">
+
+
+                    <div class="row  p-0 m-0 row_bill_style pt-2 mt-3 ">
+
+
+                        <div class="col-sm-3"> </div>
+                        <div class="col-sm-6">
+
+                            <label class="text-white" for="inputDescription">&nbsp;&nbsp;Filtrar
+                                por clientes
+                            </label>
+                            <select class="form-select mb-3" name="" id="id_customers_selection"
+                                aria-label="Default select example">
+                                <option selected>Seleccione un cliente
+                                </option>
+                                {% for c in customers_selected %}
+                                {% if ( c.active  ==  1) %}
+
+                                <option value="{{ c.names }}" class="font-weight-bold "
+                                    data-url="{{routeTo('getIdWorkLocationCustomersBills', c.id_customer)}}">
+                                    {{ c.names }}
+                                </option>
+                                {% endif %}
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <div class="col-sm-3"> </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <form id="mi-formulario" action="{{ baseUrl('createSaveBills') }}" method="POST" onsubmit="return validarFormulario()">
+                {% for c in customers_selected %}
+                {% if ( c.active  ==  1) %}
+
+                <input type="hidden" name="id_customer" value="{{c.id_customer}}">
+                <input type="hidden" name="c_iva" value="{{c.iva}}">
+
+                {% endif %}
+                {% endfor %}
+
+                <div class="row mt-3 mb-0 ">
+                    <div class="tabla mb-0" style="overflow-x:auto;">
+
+                        <table class="table table-striped  text-center ">
+                            <thead>
+
+                                <tr>
+                                    <th class=" pt-3  text-center align-middle th1 th1_selec" scope="col">
+                                        Id Direccion</th>
+
+                                    <th class=" pt-3 text-center align-middle th1" scope="col">Cliente
+
+                                    </th>
+                                    <th class=" pt-3  text-center align-middle th1" scope="col">Direccion
+                                    </th>
+
+                                    <th class=" pt-3  text-center align-middle th1" scope="col"></th>
+
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                        {% if worklocations is defined and worklocations|length > 0 %}
+
+                                {% for worklocation in worklocations %}
+                                {% if ( worklocation.active  ==  1) %}
+
+                                <tr class="text-left selected_id_wl">
+
+                                    <td class="text-center align-middle ">
+
+                                        <img src="\images\icon_location_w.png" alt="..." title="">&nbsp;&nbsp;
+                                        {{ worklocation.id_work_locations}}
+                                        &nbsp;
+
+                                    </td>
+
+                                    <td class="text-left ">{{ worklocation.name_customer }}
+
+                                    </td>
+
+                                    <td class="text-left ">
+                                        {{ worklocation.address }},
+                                        {{ worklocation.location }},
+                                        {{ worklocation.province }},
+                                        {{ worklocation.zip_code }}
+
+                                    </td>
+
+                                    <td class="text-left ">
+
+                                        <a href="{{ routeTo('getIdWorkLocationBills', worklocation.id_work_locations) }}#section_albaranes "
+                                            class="button-30">Seleccionar
+                                        </a>
+                                    </td>
+
+                                </tr>
+
+                                {% endif %}
+                                {% endfor %}
+                                  {% endif %}
+
+                            </tbody>
+
+                        </table>
+
+                        {# No exiten direcciones de obras  #}
+
+                        {% if ( worklocations == false ) %}
+
+                        <div class="row mb-4 ">
+                            <div class="col-sm-2 "></div>
+
+                            <div class="col-sm-8 select_customer">
+
+                                <div class="row mb-2 mt-1 ">
+                                    <div class="col-sm-12 text-center text-white ">
+
+                                        <div class=" text-center  mb-3" id="sectionTable">
+
+                                            <p class=" text-center p-2 m-2 ">&nbsp;&nbsp;
+                                                <lord-icon src="https://cdn.lordicon.com/zzcjjxew.json" trigger="hover"
+                                                    colors="primary:#fff,secondary:#fff" style="width:90px;height:90px">
+                                                </lord-icon>
+
+                                                <br>
+                                                ..No existen Direcciones de Obras para este Cliente
+                                            </p>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-sm-2 "></div>
+
+                        </div>
+
+                        {# fin  No exiten direcciones de obras  #}
+
+                        {% endif %}
+
+                    </div>
+                    {# scroll#}
+                </div>
+                <p class="bottom_table p-2 col-12 mt-3"></p>
+        </div>
+
+
+
+    {# {% endif %}
+	                    {% endif %} #}
+    {% if ( w_selected == true ) %}
+    {# Albaranes  ----------------------------- #}
+    {% if ( worklocations ) %}
+    <div class="row mb-3 m-1 mt-5 pt-2 pb-2 " id="section_albaranes">
+
+        <div class="col-sm-12 ">
+
+            <h3 class="fw-light  text-left  display-5">
+
+                <img src="\images\icon_albaran_2.png" class="imagen_gps" alt="..." title="">&nbsp;
+
+                Seleccione los Albaranes para la direccion de Obra
+
+            </h3>
+
+            <hr class="hr_direccionObra">
+
+            <div class="row mt-1 mb-0 ">
+                <div class="tabla mb-0" style="overflow-x:auto;">
+
+                    <table class="table table-striped  text-center ">
+                        <thead>
+
+                            <tr>
+                                <th class=" pt-3  text-center align-middle th1" scope="col">
+                                    Albaran Nº
+                                </th>
+
+                                <th class=" pt-3 text-center align-middle th1" scope="col">Cliente
+                                </th>
+
+                                <th class=" pt-3 text-center align-middle th1" scope="col">Id Direccion
+                                </th>
+
+                                <th class=" pt-3 text-center align-middle th1" scope="col">Id Contenedor
+                                </th>
+
+                                <th class=" pt-3  text-center align-middle th1" scope="col">
+                                    Estado del Albaran</th>
+
+                                <th class=" pt-3  text-center align-middle th1" scope="col">Fecha alta
+                                </th>
+
+                            </tr>
+                        </thead>
+
+                        <tbody>
+
+                            {% if ( worklocations_albaranes == false ) %}
+
+                            <div class="row mb-4 ">
+                                <div class="col-sm-2 "></div>
+
+                                <div class="col-sm-8 select_customer">
+
+                                    <div class="row mb-2 mt-1 ">
+                                        <div class="col-sm-12 text-center text-white ">
+
+                                            <div class=" text-center  mb-3" id="sectionTable">
+
+                                                <script src="https://cdn.lordicon.com/ritcuqlt.js"></script>
+
+                                                <p class=" text-center p-2 m-2 ">&nbsp;&nbsp;
+                                                    <lord-icon src="https://cdn.lordicon.com/nocovwne.json"
+                                                        trigger="hover" colors="primary:#fff,secondary:#fff"
+                                                        style="width:90px;height:90px"></lord-icon>
+
+                                                    <br>
+                                                    ..No existen Albaranes en esta Direccion de Obras para este
+                                                    Cliente
+                                                </p>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="col-sm-2 "></div>
+
+                            </div>
+
+                            {# fin  No exiten direcciones de obras  #}
+
+                            {% endif %}
+
+                            {% set hayAlbaranesPendientes = false %}
+
+                            {% for albaran in worklocations_albaranes %}
+                                {% if albaran.albaran_status == 'Pendiente' %}
+                                    {# Mostrar detalles del albarán pendiente #}
+                                    {% set hayAlbaranesPendientes = true %}
+                                {% endif %}
+                            {% endfor %}
+
+
+                            <input type="hidden" name="customer" value="{{customersId}}">
+                        {% if hayAlbaranesPendientes %}
+                            {% for albaran in worklocations_albaranes %}
+                            {% if ( albaran.active  ==  1) %}
+                              {% if ( albaran.albaran_status  == 'Pendiente') %}
+
+                            <input type="hidden" name="id_work_location" value="{{id_work_location}}">
+
+                            <tr class="text-left selected_id_albaran">
+
+                                <td class="text-center align-middle text-left">
+
+                                    <span class="checkbox-wrapper-41 mt-3 ">
+                                        <label>
+                                            <input type="checkbox" name="albaranes[]" class="mi-checkbox"
+                                                value="{{ albaran.id_albaran }}">
+                                            <span class="checkbox__icon"></span>
+                                            &nbsp;{{ albaran.id_albaran}}
+                                            &nbsp;
+
+                                        </label>
+                                    </span>
+
+                                </td>
+
+                                <td class="text-left ">{{ albaran.customer_name }}
+                                </td>
+
+                                <td class="text-left ">
+                                    {{ albaran.id_work_location }}
+                                </td>
+
+                                <td class="text-left ">
+                                    {{ albaran.id_container }}
+                                </td>
+
+                                <td class="text-left ">
+                                    {{ albaran.albaran_status }}
+                                </td>
+
+                                <td class="text-left ">
+                                    {{ albaran.created | date('d/m/y') }}
+                                </td>
+
+                            </tr>
+
+                                {% endif %}
+                            {% endif %}
+                            {% endfor %}
+
+                            {% else %}
+
+                                  {% if ( worklocations_albaranes == true ) %}
+                                  <div class="row mb-4 ">
+                                <div class="col-sm-2 "></div>
+
+                                <div class="col-sm-8 select_customer">
+
+                                    <div class="row mb-2 mt-1 ">
+                                        <div class="col-sm-12 text-center text-white ">
+
+                                            <div class=" text-center  mb-3" id="sectionTable">
+
+                                                <script src="https://cdn.lordicon.com/ritcuqlt.js"></script>
+
+                                                <p class=" text-center p-2 m-2 ">&nbsp;&nbsp;
+                                                    <lord-icon src="https://cdn.lordicon.com/nocovwne.json"
+                                                        trigger="hover" colors="primary:#fff,secondary:#fff"
+                                                        style="width:90px;height:90px"></lord-icon>
+
+                                                    <br>
+                                                    No existen albaranes en estado "PENDIENTES" en esta direccion, pero SI en estados "FACTURADOS".
+                                                </p>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="col-sm-2 "></div>
+
+                            </div>
+
+                             {% endif %}
+                            {% endif %}
+
+
+
+                        </tbody>
+                    </table>
+                </div>
+                {# scroll#}
+
+                {{ pager | raw }}
+            </div>
+            <p class="bottom_table p-2 col-12"></p>
+        </div>
+
+    </div>
+
+
+
+    {% if ( worklocations_albaranes == true ) %}
+    <div class="row mb-3 m-1 mt-5 pt-2 pb-2 " id="sectionSupplement">
+
+        <div class="col-sm-12 ">
+
+
+
+            <hr class="hr_direccionObra">
+
+            <div class="col-sm-12">
+
+                <div class="row pb-1 " id="divSupp">
+
+
+
+                </div>
+
+            </div>
+
+            <hr class="mt-0">
+
+            <p class="mt-2" id="divSuppNoAhi">Debe <u>seleccionar </u> primero un <u>Albaran</u> en la lista de
+                arriba</p>
+
+        </div>
+
+        <div class="p-4">
+
+            <div class="row mt-4">
+
+                <h3 class="fw-light  text-left  display-5">
+
+                    <img src="\images\icon_euro_2.png" class="imagen_euro" alt="..." title="">&nbsp;
+                    {# Anticipos y Formas de pagos #}
+                    Formas de pagos
+
+                </h3>
+
+                <hr class="hr_direccionObra">
+
+                <div class="col-12 anticipos pb-5">
+
+                    <div class="row mt-5 ">
+
+
+                        <div class="col-sm-4 ">
+                            <div class="col-sm">
+                                <label for="inputDescription" class="p-2">Formas de pago
+                                </label>
+
+                                <select data-size="5" class="selectpicker form-select" id="mySelect"
+                                    name="payment_method" aria-label="Default select example">
+                                    <option value="1">Seleccione forma de pago si lo cambiara
+                                    </option>
+
+
+
+                                          {% for cu in customers_selected %}
+
+                                                {% for p in payment_method %}
+                                                    <option {% if p.id_payment_method ==  cu.payment_method %} selected {% endif %} value="{{p.name }}">
+                                                        {{ p.name }}
+                                                    </option>
+                                                    {% endfor %}
+
+                                         {% endfor %}
+
+
+                                </select>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row mb-2 mt-3">
+
+        <h3 class="fw-light  text-left  display-5">
+
+            <img src="\images\icon_descr.png" class="imagen_gps" alt="..." title="">&nbsp;
+            Descripcion
+
+        </h3>
+
+        <hr class="hr_direccionObra">
+
+        <div class="col-sm-6 ">
+            <div class="row"></div>
+            <div class="row ">
+
+                <div class="col-12 albaranes_titles_bottom ">
+
+                    <div class="row mb-2 p-1">
+
+                        <div class="col-sm">
+                            <textarea class="form-control notas" id="exampleFormControlTextarea1"
+                                name="notas"></textarea>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        {#           fin de notas           #}
+
+    </div>
+
+    <hr>
+
+   <div id="error_message" style="display: none;">
+    <div class="row" id="error">
+        <div class="col-sm-12 text-center">
+            Debe <u><b>seleccionar al menos un Albaran de la lista de ALABARANES</b></u> para poder visualizar.
+        </div>
+    </div>
+</div>
+
+    <div class="row" id="error_formas_de_pago">
+
+        <div class="col-sm-12 text-center">
+            Como a seleccionado mas de un albaran debe revisar las formas de pago, cada albaran puede tener una
+            forma de pago diferente,
+            puede seleccionar forma de pago definitiva para la factura en la seccion de arriba.
+        </div>
+    </div>
+
+    <div class="row mt-3 mb-5">
+        <div class="col-sm-2"></div>
+
+        <div class="col-sm-4">
+            <div class="text-center  ">
+                <button id="preview_button" name="preview_button" class=" button_bills text-white" type="button"
+                    value="1">
+                    <img src="\images\invoice_white.png" alt="...">&nbsp;&nbsp;&nbsp;&nbsp;Pre Visualizar
+                    Factura
+                </button>
+            </div>
+        </div>
+        <div class="col-sm-4 ">
+            <div class="text-center  ">
+                <button class=" button_bills text-white" value="1" name="bills_button" id="buttom_bills" type="submit">
+                    <img src="\images\invoice_white.png" alt="...">&nbsp;&nbsp;&nbsp;&nbsp;Generar Factura
+                </button>
+
+            </div>
+            {#row#}
+        </div>
+        <div class="col-sm-2"></div>
+
+    </div>
+
+ </form>
+
+    {% endif %}
+    {% endif %}
+    {% endif %}
+    <div class="row pt-5">
+        <div class="col">
+            <p class=" text-center">
+                <a href="{{ routeTo('listBills') }}">
+                    <img class="rounded mx-auto d-block " src="\images\regresar.png" alt="...">
+                </a>
+                <br>
+                Volver al listado de Facturas
+            </p>
+        </div>
+    </div>
+  </div>
+</div><!-- Botón que abre la pantalla modal -->
+
+    <button id="prev_factura" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal"
+        style="border:none !important; box-shadow:none !important;">
+    </button><!-- Pantalla modal -->
+
+    <div class="modal fade" id="exampleModal" data-bs-backdrop="static" tabindex="-1" aria-labelledby="exampleModalLabel"
+        aria-hidden="true" id="miVentanaModal" style="border:none !important; box-shadow:none !important;">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg" id="miVentanaModal"
+            style="border:none !important; box-shadow:none !important;">
+            <div class="modal-content">
+
+                <div id="miVentanaModal">
+
+                    <div class="p-3">
+
+                        <a href="#" data-bs-dismiss="modal" aria-label="Cerrar" class="text-right">
+                            <img src="\images\iconos\cerrar.png" width="24" height="24" style="float: right;">
+                        </a>
+                    </div>
+
+                </div>
+
+                <div class="modal-body" id="miVentanaModal">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+</div>
+</div>
+</div>
+{% include 'Front/base/footer.html.twig' %}
+</body>{% endblock %}{% block script %}{{parent(script)}}
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://cdn.lordicon.com/qjzruarw.js"></script>
+
+<script src="/js/createBills.js"></script>
+<script src="/js/jsBootstrap.js"></script>
+<script src="/js/preViewBills.js"></script>
+
+
+
+
+{% endblock %}

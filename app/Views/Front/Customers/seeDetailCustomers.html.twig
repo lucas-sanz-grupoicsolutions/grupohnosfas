@@ -1,0 +1,329 @@
+{% extends 'Front/base/main.html.twig' %}
+
+{% block titleHeader %}
+Ver cliente
+{% endblock %}
+{% block content %}
+  {% include 'Front/base/header.html.twig' %}
+
+<link rel="stylesheet" href="/css/css_all/customers/seeDetailCustomers.css">
+<link rel="stylesheet" href="/css/css_all/customers.css">
+ <link rel="stylesheet" href="/css/css_all/estilos.scss">
+     <link rel="stylesheet" href="/css/css_all/index.css">
+<style>
+
+</style>
+
+<body class="container_contenedores">
+    <div class="container mt-1">
+
+        <div id="titulo_clientes">
+
+            <div class="row">
+                <div class="col-4 pl-3">
+                    <a href="javascript: history.go(-1)">&nbsp;&nbsp;&nbsp;
+                        <img class="ml-3 pt-4 " src="\images\arrow_white_izq.png" alt="...">
+                    </a></div>
+                <div class="col-4"></div>
+                <div class="col-4"></div>
+            </div>
+            {% for customer in customers %}
+            <div class="cssscan">
+                <p>
+                    <h4 class="display-4 text-center text-white "> {{ customer.names }} </h4>
+                    <p class=" texto_titulo text-white"> Informacion detallada del cliente</span>
+                    </p>
+                </p>
+
+                <img src="\images\clientesvg.svg" alt="...">
+            </div>
+        </div>
+
+        <div class="cuerpo_clientes mt-2">
+
+            <div class="row">
+
+                <div class="col-md-2"></div>
+
+                <div class="col-sm-8 detalle_cliente">
+
+                    <table class="table table-striped">
+
+                        <body>
+                            <tr class="table-active ">
+
+                                <th scope="col" id="th_customers1" class=" text-white pt-4 pb-4 ">DESCRIPCION</th>
+                                <th scope="col" id="th_customers2" class=" text-white pt-4 pb-4">INFORMACION</th>
+
+                            <tr>
+
+                            <tr class="tr_estilo">
+                                <th class="pt-1 pb-1">
+                                    <div class="row ">
+                                        <div class="col fuente-texto mt-2">
+                                            <img src="\images\icono_telefono_2.png" class="m-2 mr-5" alt="...">&nbsp; &nbsp;Telefono
+                                        </div>
+                                    </div>
+                                </th>
+
+                                <td class="pt-4 pb-2 fuente-texto m-2 mr-5"> {{ customer.phone }}</td>
+                            </tr>
+                            <tr class="tr_estilo">
+                                <th class="pt-1 pb-1">
+                                    <div class="row ">
+
+                                        <div class="col fuente-texto mt-2">
+                                            <img src="\images\icono_email.png" class="m-2 mr-5" alt="...">&nbsp; &nbsp;Email
+                                        </div>
+
+                                    </div>
+                                </th>
+
+                                <td class="pt-4 pb-2 fuente-texto"> {{ customer.mail }}</td>
+                            </tr>
+
+                            <tr class="tr_estilo">
+                                <th class="pt-1 pb-1">
+                                    <div class="row ">
+
+                                        <div class="col fuente-texto mt-2">
+                                            <img src="\images\tarjeta-de-identificacion.png" class="m-2 mr-5" alt="...">
+                                          &nbsp;Numero fiscal (DNI)</div>
+
+                                    </div>
+                                </th>
+                                <td class="pt-4 pb-2 fuente-texto"> {{ customer.dni }}</td>
+                            </tr>
+
+                            <tr class="tr_estilo">
+                                <th class="pt-1 pb-1">
+                                    <div class="row ">
+
+                                        <div class="col fuente-texto mt-2">
+                                            <img src="\images\icono_dir.png" class="m-2 mr-5" alt="...">&nbsp; &nbsp;Direccion</div>
+
+                                    </div>
+                                </th>
+                                <td class="pt-4 pb-2 fuente-texto"> {{ customer.address }}</td>
+                            </tr>
+                            <tr class="tr_estilo">
+                                <th class="pt-1 pb-1">
+                                    <div class="row ">
+
+                                        <div class="col fuente-texto mt-2">
+                                            <img src="\images\icono_localidad.png" class="m-2 mr-5" alt="...">&nbsp; &nbsp;Localidad
+                                        </div>
+
+                                    </div>
+                                </th>
+                                <td class="pt-4 pb-2 fuente-texto">{{ customer.location  }} </td>
+                            </tr>
+
+                            <tr class="tr_estilo">
+                                <th class="pt-1 pb-1">
+                                    <div class="row ">
+                                        <div class="col fuente-texto mt-2">
+                                            <img src="\images\icono_gps.png" class="m-2 mr-5" alt="..."> &nbsp;Provincia</div>
+
+                                    </div>
+                                </th>
+                                <td class="pt-4 pb-2 fuente-texto"> {{ customer.province }}</td>
+                            </tr>
+
+                            <tr class="tr_estilo">
+                                <th class="pt-1 pb-1">
+                                    <div class="row ">
+
+                                        <div class="col fuente-texto ">
+                                            <img src="\images\codigo_postal.png" class="m-2 mr-5" alt="...">&nbsp; &nbsp;Codigo
+                                            Postal</div>
+
+                                    </div>
+                                </th>
+                                <td class="pt-4 pb-2 fuente-texto"> {{ customer.zip_code  }}</td>
+                            </tr>
+
+                             <tr class="tr_estilo">
+                                <th class="pt-1 pb-1">
+                                    <div class="row ">
+
+                                        <div class="col fuente-texto ">
+                                            <img src="\images\iconos\icono_euro.png"  class="m-2 mr-5" alt="...">&nbsp;Cuenta Bancaria
+                                            </div>
+
+                                    </div>
+                                </th>
+                                <td class="pt-4 pb-2 fuente-texto"> {{ customer.iban  }} {{ customer.bank  }} {{ customer.office_bank  }} {{ customer.digital_control  }} {{ customer.bank_count  }}</td>
+                            </tr>
+
+                             <tr class="tr_estilo">
+                                <th class="pt-1 pb-1">
+                                    <div class="row ">
+
+                                        <div class="col fuente-texto ">
+                                           <img src="\images\iconos\icono_euro.png"  class="m-2 mr-5" alt="...">&nbsp;Metodo de Pago
+                                            </div>
+
+                                    </div>
+                                </th>
+                                <td class="pt-4 pb-2 fuente-texto">
+
+
+                                   {% for cu in customers %}
+
+                                                {% for p in payment_method %}
+                                                   {% if p.id_payment_method ==  cu.payment_method %}
+
+                                                        {{ p.name }}
+
+                                                       {% endif %}
+                                                    {% endfor %}
+
+                                         {% endfor %}
+                                 </td>
+                            </tr>
+                             <tr class="tr_estilo">
+                                <th class="pt-1 pb-1">
+                                    <div class="row ">
+
+                                        <div class="col fuente-texto ">
+                                            <img src="\images\iconos\icono_euro.png"  class="m-2 mr-5" alt="...">&nbsp;Bic
+                                            </div>
+
+                                    </div>
+                                </th>
+                                <td class="pt-4 pb-2 fuente-texto"> {{ customer.bic }}</td>
+                            </tr>
+
+                            <tr class="tr_estilo">
+                                <th class="pt-1 pb-1">
+                                    <div class="row ">
+
+                                        <div class="col fuente-texto ">
+                                          <div class="mt-1 p-1"> &nbsp; <img src="\images\iconos\fecha.png" width="20"  class="m-2 mr-5" alt="...">&nbsp;&nbsp;&nbsp;Fecha Firma SEPA</div>
+                                            </div>
+
+                                    </div>
+                                </th>
+                                <td class="pt-4 pb-2 fuente-texto"> <div style="margin-top:-5px;"class="mt-0">{{ customer.date_signing_mandate }}</div></td>
+                            </tr>
+
+
+
+                             <tr class="tr_estilo">
+                                <th class="pt-1 pb-1">
+                                    <div class="row ">
+
+                                        <div class="col fuente-texto ">
+                                            <img src="\images\iconos\icono_euro.png" class="m-2 mr-5" alt="...">&nbsp;Iva
+                                            </div>
+
+                                    </div>
+                                </th>
+                                <td class="pt-4 pb-2 fuente-texto"> {{ customer.iva }} %</td>
+                            </tr>
+                             <tr class="tr_estilo">
+                                <th class="pt-1 pb-1">
+                                    <div class="row ">
+
+                                        <div class="col fuente-texto ">
+                                            <img src="\images\iconos\observar.png" class="m-2 mr-5" alt="...">&nbsp;Observaciones
+                                            </div>
+
+                                    </div>
+                                </th>
+                                <td class="pt-4 pb-2 fuente-texto"> {{ customer.observations }}</td>
+                            </tr>
+
+                </div>
+
+                <div class="col-md-2"></div>
+            </div>
+</body>
+</table>
+{% endfor %}
+
+
+
+
+
+
+
+</div>
+</div>
+
+ <div class="row mt-5">
+
+
+        <p class=" text-center mt-5">
+            <a href="{{ routeTo('listCustomers') }}">
+                <img class="rounded mx-auto d-block " src="\images\regresar.png" alt="...">
+            </a>
+            <br> Volver a la lista de Clientes
+        </p>
+
+    </div>
+</div>
+</div>
+
+
+ <div class="row " >
+        <div class="col-12">
+
+      {%  if msg('msg') %}
+
+            <script>
+                $(document).ready(function() {
+
+                 var msg = {{ msg('msg')|json_encode|raw }};
+
+                Swal.fire({
+                    title: msg.title,
+                    text: msg.text,
+                    icon: 'success',
+                    cancelButtonText: 'Cerrar'
+                    })
+                });
+
+
+            </script>
+
+      {% endif %}
+
+        {%  if msg('msg2') %}
+
+            <script>
+                $(document).ready(function() {
+
+                 var msg2 = {{ msg('msg2')|json_encode|raw }};
+
+                Swal.fire({
+                    title: msg2.title,
+                    text: msg2.text,
+                    icon: 'warning',
+                    cancelButtonText: 'Cerrar'
+                    })
+                });
+
+
+            </script>
+
+      {% endif %}
+
+     </div>
+ </div>
+
+ {% include 'Front/base/footer.html.twig' %}
+
+
+
+
+{% endblock %}
+
+{% block script %}
+{{parent(script)}}
+
+<script src="https://cdn.lordicon.com/qjzruarw.js"></script>
+ <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+{% endblock %}

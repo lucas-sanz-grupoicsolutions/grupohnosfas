@@ -1,0 +1,391 @@
+{% extends 'Front/base/main.html.twig' %}
+
+{% block titleHeader %}
+Asignar un contenedor
+{% endblock %}
+{% block content %}
+  {% include 'Front/base/header.html.twig' %}
+
+<link rel="stylesheet" href="/css/css_all/Orders/SeeDetailOrder.css">
+
+<body class="container_clientes">
+
+    <div class="container mt-1">
+
+        <div id="titulo_orders">
+
+            <div class="row">
+                <div class="col-4 pl-3"><a href="javascript: history.go(-1)">&nbsp;&nbsp;&nbsp;
+                        <img class="ml-3 pt-4 " src="\images\arrow_white_izq.png" alt="...">
+                    </a></div>
+                <div class="col-4"></div>
+                <div class="col-4"></div>
+            </div>
+
+            <div class="cssscan">
+                <p>
+
+                    {# <img class="rounded mx-auto d-block m-3" src="\images\paquetes_white.png" alt="..."> #}
+                    <h4 class="display-4 text-center text-white ">Pedido  {{id_order}}</h4>
+                    <p class=" texto_titulo text-white">Detalle del Pedido
+                    </p>
+
+                </p>
+
+                 <img src="\images\icono_albaran.svg" alt="...">
+            </div>
+        </div>
+
+
+
+        {% for worklocation in worklocations %}
+
+        <div class="cuerpo_orders mt-2">
+
+	<div class="row  mb-1 justify-content-center justify-content-md-start">
+
+		<div class="col-4 "></div>
+
+		<div class="col-sm-4 pb-3">
+
+			<a class="text-center" href="{{ routeTo('listOrders') }}">
+				<span class=" mx-auto d-block text-center volver_cargar_pedidos ">
+
+					Volver a la lista de Pedidos
+
+				</span>
+			</a>
+
+		</div>
+
+		<div class="col-4 "></div>
+	</div>
+
+
+
+                <div class="row ">
+
+                   <div class="col-sm-1 "> </div>
+
+                    <div class="col-sm-10 seeDetail" >
+                        <table class="table table-striped ">
+
+                         <div class=" text-center titulo_detalle_order mb-3">
+                            <p class=" texto_titulo "> Cliente </span> </p>
+                            <h4 class="display-4 text-center h4_title "> {{ worklocation.name_customer|upper }}</h4>
+                         </div>
+
+
+
+                                <tr class="">
+                                    <th class="pt-1 pb-1">
+                                        <div class="row ">
+                                            <div class="col fuente-texto mt-1">
+
+                                                <img src="\images\icono_direccion_orders.png" style="width:24px;height:24px;" class=" mr-5" alt="...">
+                                                Estado del Pedido
+                                            </div>
+                                        </div>
+                                    </th>
+
+                                    <td class=" fuente-texto  ">
+                                       {% for orders in orders %}
+                                                  {{ orders.state|upper }}
+                                              {% endfor %}
+                                        </td>
+                                </tr>
+
+
+                                <tr class="">
+                                    <th class="pt-1 pb-1">
+                                        <div class="row ">
+                                            <div class="col fuente-texto mt-1">
+
+                                                <img src="\images\icono_direccion_orders.png" style="width:24px;height:24px;" class=" mr-5" alt="...">
+                                                Fecha de Planificacion
+                                            </div>
+                                        </div>
+                                    </th>
+
+                                   <td class=" fuente-texto  ">
+                                       {% for orders in orders %}
+
+{% if orders.planned_date|date('d/m/y') == '0000-00-00' %}
+    No tiene fecha seleccionada
+{% else %}
+     {{ orders.planned_date|date('d/m/y')  }}
+{% endif %}
+
+
+                                              {% endfor %}
+                                        </td>
+                                </tr>
+
+
+                                <tr class="">
+                                    <th class="pt-1 pb-1">
+                                        <div class="row ">
+                                            <div class="col fuente-texto mt-1">
+
+                                                <img src="\images\icono_direccion_orders.png" style="width:24px;height:24px;" class=" mr-5" alt="...">
+                                                Direccion
+                                            </div>
+                                        </div>
+                                    </th>
+
+                                    <td class=" fuente-texto  "> {{ worklocation.address|upper }}</td>
+                                </tr>
+
+
+
+
+                                <tr class="">
+                                    <th class="pt-1 pb-1">
+                                        <div class="row ">
+
+                                            <div class="col fuente-texto mt-1">
+                                                <img src="\images\icono_direccion_orders.png" style="width:24px;height:24px;" class=" mr-5" alt="...">
+                                                Localidad
+                                            </div>
+
+                                        </div>
+                                    </th>
+
+                                    <td class=" fuente-texto"> {{ worklocation.location|upper }}</td>
+                                </tr>
+
+                                <tr class="">
+                                    <th class="pt-1 pb-1">
+                                        <div class="row ">
+
+                                            <div class="col fuente-texto mt-1">
+                                                <img src="\images\icono_direccion_orders.png" style="width:24px;height:24px;" class=" mr-5" alt="...">
+                                                Provincia</div>
+
+                                        </div>
+                                    </th>
+                                    <td class=" fuente-texto"> {{ worklocation.province|upper }}</td>
+                                </tr>
+
+                                <tr class="">
+                                    <th class="pt-1 pb-1">
+                                        <div class="row ">
+                                            <div class="col fuente-texto mt-1">
+                                                <img src="\images\icon_zip_code_orders.png" style="width:24px;height:24px;" class=" mr-5" alt="...">
+                                                Codigo Postal</div>
+
+                                        </div>
+                                    </th>
+                                    <td class=" fuente-texto td_height"> {{ worklocation.zip_code|upper }}</td>
+                                </tr>
+
+                               <tr class="">
+                                    <th class="pt-1 pb-1">
+                                        <div class="row ">
+                                            <div class="col fuente-texto mt-1">
+                                                <img src="\images\icono_contenedor_orders.png"style="width:24px;height:24px;" class=" mr-5" alt="...">
+                                                Contenedor </div>
+
+                                        </div>
+                                    </th>
+                                    <td class=" fuente-texto td_height">
+                                            {% for containers in containers %}
+                                                  {{ containers.residue|upper }}  {{ containers.cubic_meters|upper }}  {{ containers.price|upper }} €
+                                              {% endfor %}
+
+                                    </td>
+                                </tr>
+
+                              <tr class="">
+                                    <th class="pt-1 pb-1">
+                                        <div class="row ">
+                                            <div class="col fuente-texto mt-1">
+                                                <img src="\images\icon_service_orders.png"style="width:24px;height:24px;" class="mr-5" alt="...">
+                                                Servicio</div>
+
+                                        </div>
+                                    </th>
+                                    <td class=" fuente-texto td_height">
+
+                                      {% for services_ in services_ %}
+                                                  {{ services_.name|upper }} {{ services_.code|upper }}
+                                              {% endfor %}
+
+                                    </td>
+                                </tr>
+
+
+
+                                  <tr class="">
+                                    <th class="pt-1 pb-1">
+                                        <div class="row ">
+                                            <div class="col fuente-texto mt-1">
+                                                <img src="\images\camion_orders.png" style="width:24px;height:24px;" class=" mr-5" alt="...">
+                                                Vehiculo</div>
+
+                                        </div>
+                                    </th>
+                                    <td class=" fuente-texto td_height">
+                                            {% for vehicles in vehicles %}
+
+                                                Desripción del vehiculo: {{ vehicles.name|upper }} <br>
+                                                Marca del vehiculo: {{ vehicles.make|upper }} <br>
+                                                Modelo del vehiculo: {{ vehicles.model|upper }} <br>
+                                                Matrícula del vehiculo: {{ vehicles.car_registration|upper }} <br>
+
+                                                {% if vehicles.date_itv is null %}
+                                                    Fecha de ITV no está disponible.<br>
+                                                {% elseif vehicles.date_itv|date('Y-m-d') == '0000-00-00' %}
+                                                   Fecha de ITV es inválida.<br>
+                                                {% else %}
+                                                   Fecha de ITV del vehiculo: {{ vehicles.date_itv|date('d-m-Y') }} <br>
+                                                {% endif %}
+
+
+                                                {% if vehicles.registration_date is null %}
+                                                    Fecha del registro no está disponible.<br>
+                                                {% elseif vehicles.registration_date|date('Y-m-d') == '0000-00-00' %}
+                                                    Fecha del registro es inválida.<br>
+                                                {% else %}
+                                                      Fecha del registro del vehiculo: {{ vehicles.registration_date|date('d-m-Y') }} <br>
+                                                {% endif %}
+
+
+
+                                              {% endfor %}
+
+                                     </td>
+                                </tr>
+
+                               <tr class="">
+                                    <th class="pt-1 pb-1">
+                                        <div class="row ">
+                                            <div class="col fuente-texto mt-1">
+                                                <img src="\images\conductor.png"style="width:24px;height:24px;" class=" mr-5" alt="...">
+                                                Conductor </div>
+
+                                        </div>
+                                    </th>
+                                    <td class=" fuente-texto td_height">
+
+                                    {% for drivers in drivers %}
+                                                  {{ drivers.name|upper }}  {{ drivers.phone|upper }}
+                                              {% endfor %}
+                                    </td>
+                                </tr>
+
+                              <tr class="">
+                                    <th class="pt-1 pb-1">
+                                        <div class="row ">
+                                            <div class="col fuente-texto mt-1">
+                                                <img src="\images\icon_descripcion_orders.png"style="width:24px;height:24px;" class="mr-5" alt="...">
+                                                Observaciones</div>
+
+                                        </div>
+                                    </th>
+                                    <td class=" fuente-texto td_height">
+
+                                       {% for orders in orders %}
+                                                  {{ orders.notas|upper }}
+                                              {% endfor %}
+
+                                    </td>
+                                </tr>
+
+
+
+
+                            </body>
+                        </table>
+
+                    </div>
+
+                     <div class="col-sm-1 "> </div>
+
+
+
+                </div>
+            </div>
+            {% endfor %}
+
+                  <section >
+
+
+                    <p class=" text-center mt-5">
+                        <a href="{{ routeTo('listOrders') }}">
+                            <img class="rounded mx-auto d-block " src="\images\regresar.png" alt="...">
+                        </a>
+                        <br>Volver a la lista de Pedidos
+                    </p>
+
+                </div>
+
+
+    </div>
+
+  <div class="row " >
+        <div class="col-12">
+
+      {%  if msg('msg') %}
+
+            <script>
+                $(document).ready(function() {
+
+                 var msg = {{ msg('msg')|json_encode|raw }};
+
+                Swal.fire({
+                    title: msg.title,
+                    text: msg.text,
+                    icon: 'success',
+                    cancelButtonText: 'Cerrar'
+                    })
+                });
+
+
+            </script>
+
+      {% endif %}
+
+        {%  if msg('msg2') %}
+
+            <script>
+                $(document).ready(function() {
+
+                 var msg2 = {{ msg('msg2')|json_encode|raw }};
+
+                Swal.fire({
+                    title: msg2.title,
+                    text: msg2.text,
+                    icon: 'warning',
+                    cancelButtonText: 'Cerrar'
+                    })
+                });
+
+
+            </script>
+
+      {% endif %}
+
+     </div>
+ </div>
+
+      {% include 'Front/base/footer.html.twig' %}
+    {% endblock %}
+
+    {% block script %}
+    {{parent(script)}}
+
+      <script>
+            setTimeout(function() {
+                $(".alerta").fadeOut(2000);
+            }, 2200);
+
+        </script>
+
+    <script src="https://cdn.lordicon.com/qjzruarw.js"></script>
+
+    <script src="https://cdn.lordicon.com/qjzruarw.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    {% endblock %}

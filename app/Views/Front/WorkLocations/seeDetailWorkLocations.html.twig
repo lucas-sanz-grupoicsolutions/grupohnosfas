@@ -1,0 +1,220 @@
+{% extends 'Front/base/main.html.twig' %}
+
+{% block titleHeader %}
+Ver Direccion de Obra
+{% endblock %}
+{% block content %}
+  {% include 'Front/base/header.html.twig' %}
+
+<link rel="stylesheet" href="/css/css_all/worklocations/seeDetail.css">
+
+<body class="container_contenedores">
+
+    <div class="container mt-1 ">
+
+        <div id="titulo_worklocations">
+
+            <div class="row">
+                <div class="col-4 pl-3"><a href="javascript: history.go(-1)">&nbsp;&nbsp;&nbsp;
+                        <img class="ml-3 pt-4 " src="\images\arrow_white_izq.png" alt="...">
+                    </a></div>
+                <div class="col-4"></div>
+                <div class="col-4"></div>
+            </div>
+
+            <div class="cssscan ">
+                <p>
+                    <h4 class="display-4 text-center text-white "> Direccion de Obra </h4>
+                     <p class=" texto_titulo text-white"> Gestion de direcciones</span>
+                    </p>
+
+                </p>
+
+                <img src="\images\direccion_svg_.svg" alt="...">
+            </div>
+        </div>
+
+           {% for worklocation in worklocations %}
+
+        <div class="cuerpo_work_location mt-2">
+
+            <div class="detalle_cliente mt-2 ">
+                <div class=" text-center titulo_detalle_cliente mb-3">
+                    <p class=" texto_titulo "> Cliente </span> </p>
+                    <h4 class="display-4 text-center h4_title "> {{ worklocation.name_customer }}</h4>
+                </div>
+
+                <div class="row row-list">
+
+                    <div class="col-sm-6 ">
+                        <table class="table table-striped ">
+
+                            <body>
+
+                                <tr class="">
+                                    <th class="pt-1 pb-1">
+                                        <div class="row ">
+                                            <div class="col fuente-texto mt-1">
+
+                                                <img src="\images\icono_direccion_DO.png" style="width:24px;height:24px;" class=" mr-5" alt="...">
+                                                Direccion
+                                            </div>
+                                        </div>
+                                    </th>
+
+                                    <td class=" fuente-texto  "> {{ worklocation.address }}</td>
+                                </tr>
+                                <tr class="">
+                                    <th class="pt-1 pb-1">
+                                        <div class="row ">
+
+                                            <div class="col fuente-texto mt-1">
+                                                <img src="\images\icono_direccion_DO.png" style="width:24px;height:24px;" class=" mr-5" alt="...">
+                                                Localidad
+                                            </div>
+
+                                        </div>
+                                    </th>
+
+                                    <td class=" fuente-texto"> {{ worklocation.location }}</td>
+                                </tr>
+
+                                <tr class="">
+                                    <th class="pt-1 pb-1">
+                                        <div class="row ">
+
+                                            <div class="col fuente-texto mt-1">
+                                                <img src="\images\icono_direccion_DO.png" style="width:24px;height:24px;" class=" mr-5" alt="...">
+                                                Provincia</div>
+
+                                        </div>
+                                    </th>
+                                    <td class=" fuente-texto"> {{ worklocation.province }}</td>
+                                </tr>
+
+                            </body>
+                        </table>
+
+                    </div>
+
+                    <div class="col-md-6">
+                        <table class="table table-striped ">
+
+                            <body>
+
+                               <tr class="">
+                                    <th class="pt-1 pb-1">
+                                        <div class="row ">
+                                            <div class="col fuente-texto mt-1">
+                                                <img src="\images\icon_zip_code.png" style="width:24px;height:24px;" class=" mr-5" alt="...">
+                                                Codigo Postal</div>
+
+                                        </div>
+                                    </th>
+                                    <td class=" fuente-texto td_height"> {{ worklocation.zip_code }}</td>
+                                </tr>
+
+                               <tr class="">
+                                    <th class="pt-1 pb-1">
+                                        <div class="row ">
+                                            <div class="col fuente-texto mt-1">
+                                                <img src="\images\icono_contenedor_01.png"style="width:24px;height:24px;" class=" mr-5" alt="...">
+                                                Cantidad de Contenedores en esta direccion de obra</div>
+
+                                        </div>
+                                    </th>
+                                    <td class=" fuente-texto td_height"> {{ worklocation.quantity_of_containers }}
+                                    </td>
+                                </tr>
+
+                              <tr class="">
+                                    <th class="pt-1 pb-1">
+                                        <div class="row ">
+                                            <div class="col fuente-texto mt-1">
+                                                <img src="\images\icon_descripcion.png"style="width:24px;height:24px;" class="mr-5" alt="...">
+                                                Observaciones</div>
+
+                                        </div>
+                                    </th>
+                                    <td class=" fuente-texto td_height"> {{ worklocation.observations }}</td>
+                                </tr>
+
+                            </body>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+            {% endfor %}
+                <div class="row pt-5">
+                    <div class="col">
+                      <p class=" text-center mt-5">
+        <a href="{{ routeTo('listWorkLocations') }}">
+            <img class="rounded mx-auto d-block " src="\images\regresar.png" alt="...">
+        </a>
+        <br>Volver a la lista de Direcciones de Obras
+    </p>
+                    </div>
+                </div>
+
+        </div>
+    </div>
+
+ <div class="row " >
+        <div class="col-12">
+
+      {%  if msg('msg') %}
+
+            <script>
+                $(document).ready(function() {
+
+                 var msg = {{ msg('msg')|json_encode|raw }};
+
+                Swal.fire({
+                    title: msg.title,
+                    text: msg.text,
+                    icon: 'success',
+                    cancelButtonText: 'Cerrar'
+                    })
+                });
+
+
+            </script>
+
+      {% endif %}
+
+        {%  if msg('msg2') %}
+
+            <script>
+                $(document).ready(function() {
+
+                 var msg2 = {{ msg('msg2')|json_encode|raw }};
+
+                Swal.fire({
+                    title: msg2.title,
+                    text: msg2.text,
+                    icon: 'warning',
+                    cancelButtonText: 'Cerrar'
+                    })
+                });
+
+
+            </script>
+
+      {% endif %}
+
+     </div>
+ </div>
+
+   {% include 'Front/base/footer.html.twig' %}
+</body>
+{% endblock %}
+
+{% block script %}
+{{parent(script)}}
+
+
+
+       <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+{% endblock %}

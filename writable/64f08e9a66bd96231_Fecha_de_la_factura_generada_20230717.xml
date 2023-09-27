@@ -1,0 +1,64 @@
+
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+
+
+
+            <item>
+
+            <field2>Num de Factura 9</field2>
+            <field1>Nombre del cliente Corte Ingles</field1>
+            <field2>Subtotal de la factura 750.00</field2>
+            <field2>Iva de la factura 21</field2>
+              <field2>Total de la factura 907.50</field2>
+
+        </item>
+            <item>
+
+            <field2>Num de Factura 10</field2>
+            <field1>Nombre del cliente Corte Ingles</field1>
+            <field2>Subtotal de la factura 750.00</field2>
+            <field2>Iva de la factura 21</field2>
+              <field2>Total de la factura 907.50</field2>
+
+        </item>
+            <item>
+
+            <field2>Num de Factura 11</field2>
+            <field1>Nombre del cliente Corte Ingles</field1>
+            <field2>Subtotal de la factura 1500.00</field2>
+            <field2>Iva de la factura 21</field2>
+              <field2>Total de la factura 1815.00</field2>
+
+        </item>
+            <item>
+
+            <field2>Num de Factura 12</field2>
+            <field1>Nombre del cliente Corte Ingles</field1>
+            <field2>Subtotal de la factura 17842.50</field2>
+            <field2>Iva de la factura 21</field2>
+              <field2>Total de la factura 21589.43</field2>
+
+        </item>
+            <item>
+
+            <field2>Num de Factura 13</field2>
+            <field1>Nombre del cliente Corte Ingles</field1>
+            <field2>Subtotal de la factura 750.00</field2>
+            <field2>Iva de la factura 21</field2>
+              <field2>Total de la factura 907.50</field2>
+
+        </item>
+            <item>
+
+            <field2>Num de Factura 14</field2>
+            <field1>Nombre del cliente Corte Ingles</field1>
+            <field2>Subtotal de la factura 750.00</field2>
+            <field2>Iva de la factura 21</field2>
+              <field2>Total de la factura 907.50</field2>
+
+        </item>
+    </root>
+
+
+

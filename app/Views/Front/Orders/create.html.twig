@@ -1,0 +1,1600 @@
+{% extends 'Front/base/main.html.twig' %}
+
+{# {% block titleHeader %}
+Crear un Cliente
+{% endblock %} #}
+{% block content %}
+{% include 'Front/base/header.html.twig' %}
+
+<link rel="stylesheet" href="/css/css_all/Orders/create.css">
+
+<style>
+    #error {
+        background: #fdacac;
+        padding: 5px;
+        text-align: center;
+        font-size: 0.8rem;
+        color: #fff;
+        animation: error 2s ease-in-out infinite;
+
+    }
+
+
+    @keyframes error {
+        0% {
+            background-color: #fdacac;
+        }
+
+        50% {
+            background-color: #fd0404a6;
+        }
+
+        100% {
+            background-color: #fdacac;
+        }
+    }
+
+
+    #error_servicios {
+        background: #fdacac;
+        padding: 5px;
+        text-align: center;
+        font-size: 0.8rem;
+        color: #fff;
+        animation: error_servicios 2s ease-in-out infinite;
+
+    }
+
+
+    @keyframes error_servicios {
+        0% {
+            background-color: #fdacac;
+        }
+
+        50% {
+            background-color: #fd0404a6;
+        }
+
+        100% {
+            background-color: #fdacac;
+        }
+    }
+
+div:where(.swal2-container) button:where(.swal2-styled).swal2-confirm {
+    border: 0;
+    border-radius: 0.25em;
+    background: initial;
+    background-color: #bdbdbd !important;
+    color: #373737;
+    font-size: 1em;
+}
+div:where(.swal2-icon).swal2-warning {
+    border-color: #dd1a1a;
+    color: #dd1a1a;
+}
+
+
+</style>
+<div class="container mt-1">
+
+    <div id="titulo_orders">
+
+        <div class="row">
+            <div class="col-4 pl-3"><a href="javascript: history.go(-1)">&nbsp;&nbsp;&nbsp;
+                    <img class="ml-3 pt-4 " src="\images\arrow_white_izq.png" alt="...">
+                </a></div>
+            <div class="col-4"></div>
+            <div class="col-4"></div>
+        </div>
+
+        <div class="cssscan">
+            <p>
+                <h4 class="display-4 text-white text-center ">Dar de alta un Pedido</h4>
+                <p class=" texto_titulo text-white"> Gestion de Pedidos</span>
+                </p>
+            </p>
+
+            <img src="\images\icono_albaran.svg" alt="...">
+        </div>
+    </div>
+
+    <form action="{{  routeTo('addOrders' ) }}" method="POST" id="myForm">
+
+        <div class="cuerpo_clientes mt-2">
+
+
+
+            <div class="row">
+
+                <div class="col-6  title_section ">
+                    <span class="text-center   display-5">Clientes{#  <img class="m-2" style="width:40px;height:40px;"
+                            src="\images\user_avatar.png" alt="...">#}
+                    </span>
+                </div>
+            </div>
+
+            <div class="row  pb-1 ">
+
+                <div class="col-12 albaranes_titles_bottom">
+
+                    <div class="row mt-3 ">
+
+                        <div class="col-sm-3"></div>
+                        <div class="col-sm-6">
+                            <div class="col-sm ">
+
+                                <select class="form-select " name="" id="id_customers_selection"
+                                    aria-label="Default select example">
+                                    <option selected>Seleccione un cliente
+                                    </option>
+                                    {% for c in all_customers %}
+                                    {% if ( c.active  ==  1) %}
+
+                                    <option value="{{ c.names }}" class="font-weight-bold "
+                                        data-url="{{routeTo('getIdWorkLocationCustomersOrders', c.id_customer)}}#myForm">
+                                        {{ c.names }}
+                                    </option>
+                                    {% endif %}
+                                    {% endfor %}
+                                </select>
+                                <label for="inputDescription" class="p-2">*Obligatorio seleccionar un cliente</label>
+                            </div>
+
+                        </div>
+
+                        <div class="col-sm-3"></div>
+                    </div>
+
+                    {% if (customersId)%}
+
+                    <div class="row mt-1 text-center " id="setionCustomerSelected">
+                        <div class="row mt-3 m-3 ">
+
+                            <div class="col-sm-3"></div>
+                            <div class="col-sm-6 p-2" style="background:#DA192D;color:white;
+                                                            border-top-left-radius: 50px 50px;
+                                                            border-top-right-radius: 50px 50px;
+                                                            border-bottom-left-radius: 50px 50px;
+                                                            border-bottom-right-radius: 50px 50px;">
+                                <span class="text-center mt-1"> Cliente seleccionado</span>
+
+                                {% for cc in customersId %}
+
+                                <h2 class="display-5  text-center font-weight-bold">
+                                    <input type="hidden" name="id_customer" value="{{ cc.id_customer }}">
+
+                                    {{ cc.names }}
+                                </h2>
+                                {% endfor %}
+                            </div>
+                            <div class="col-sm-3"></div>
+
+                        </div>
+
+                    </div>
+                    {% endif %}
+                </div>
+
+                <div class="row mt-2">
+
+                    <div class="col-6  title_section_work_location ">
+                        <span class=" display-5 ">Direcciones
+                        </span>
+                        <p class=""> Direcciones de Obras de este cliente</p>
+
+                    </div>
+
+                </div>
+
+                <table class="table table-striped  text-center title_section_work_location">
+                    <thead>
+
+                        <tr>
+                            <th class=" pt-3  text-center align-middle th1 th1_selec" scope="col">
+                                Id Direccion</th>
+
+                            <th class=" pt-3 text-center align-middle th1" scope="col">Cliente
+
+                            </th>
+                            <th class=" pt-3  text-center align-middle th1" scope="col">Direccion
+                            </th>
+
+                            <th class=" pt-3  text-center align-middle th1" scope="col"></th>
+
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        {% if ( c_select == true ) %}
+
+                        {% for worklocation in worklocations %}
+                        {% if ( worklocation.active  ==  1) %}
+
+                        <tr class="text-left selected_id_wl">
+
+                            <td class="text-center align-middle ">
+
+                                <img src="\images\icon_location_w.png" alt="..." title="">&nbsp;&nbsp;
+                                {{ worklocation.id_work_locations}}
+                                &nbsp;
+
+                            </td>
+
+                            <td class="text-left ">{{ worklocation.name_customer }}
+
+                            </td>
+
+                            <td class="text-left ">
+                                {{ worklocation.address }},
+                                {{ worklocation.location }},
+                                {{ worklocation.province }},
+                                {{ worklocation.zip_code }}
+
+                            </td>
+
+                            <td class="text-left ">
+
+                                <a href="{{ routeTo('getIdWorkLocationOrders', worklocation.id_work_locations) }}#setionWorkLocations "
+                                    class="button-30">Seleccionar
+                                </a>
+                            </td>
+
+                        </tr>
+
+                        {% endif %}
+                        {% endfor %}
+                        {% endif %}
+
+                    </tbody>
+
+                </table>
+
+                {# No exiten direcciones de obras  #}
+
+                {% if ( c_select == false ) %}
+
+                <div class="row mb-4 ">
+                    <div class="col-sm-2 "></div>
+
+                    <div class="col-sm-8 select_customer">
+
+                        <div class="row mb-3 mt-1 ">
+                            <div class="col-sm-12 text-center text-white ">
+
+                                <div class=" text-center  mb-4" id="sectionTable">
+
+                                    <p class=" text-center p-2 m-2 mb-2">&nbsp;&nbsp;
+                                        <lord-icon src="https://cdn.lordicon.com/zzcjjxew.json" trigger="hover"
+                                            colors="primary:#fff,secondary:#fff" style="width:90px;height:90px">
+                                        </lord-icon>
+
+                                        <br>
+                                        ..No existen Direcciones de Obras para este Cliente
+                                    </p>
+
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-sm-2 "></div>
+
+                </div>
+
+                {% endif %}
+
+                <p class="bottom_table p-2 mt-2 col-12"></p>
+            </div>
+
+            <div class="row  text-center p-3 mt-2 mb-2" id="setionWorkLocations">
+
+                <div class="row  ">
+
+                    <div class="col-sm-3"></div>
+                    <div class="col-sm-6 p-2" style="background: #cdcdcd6b;
+                                                                color: #6b6b6b;
+                                                                border-top-left-radius: 50px 50px;
+                                                                border-top-right-radius: 50px 50px;
+                                                                border-bottom-left-radius: 50px 50px;
+                                                                border-bottom-right-radius: 50px 50px;}">
+                        <p class="text-center"> Direccion seleccionada</p>
+
+                        <h2 class="display-5 title_work_location_selected text-center">
+                            {% if ( c_select == true ) %}
+                            {% for worklocations_id in worklocations_selected %}
+
+                            <input type="hidden" name="id_work_locations"
+                                value="{{ worklocations_id.id_work_locations }}">
+
+                            {{ worklocation.name_customer }}
+
+                            {{ worklocations_id.address }},
+                            {{ worklocations_id.location }},
+                            {{ worklocations_id.province }},
+                            {{ worklocations_id.zip_code }}
+
+                            {% endfor %}
+
+                            {% else %}
+
+                            -
+
+                            {% endif %}
+
+                        </h2>
+
+                    </div>
+                    <div class="col-sm-3"></div>
+
+                </div>
+
+            </div>
+
+            <div class="row">
+
+                <div class="col-6  title_section_work_location ">
+                    <span class="text-center display-5 ">Contenedores
+                    </span>
+                </div>
+
+            </div>
+
+
+             <div class="row mb-3 pb-1 ">
+
+                <div class="col-12 albaranes_titles_bottom">
+
+                    <div class="row mt-2">
+
+                        <div class="col-sm-12 text-center ">
+
+                            <div class=" text-center ">
+
+                                <h4 class="text-center botones fw-light " id="tabla_direcciones">
+                                    *Seleccione un contenedor
+
+                                </h4>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="row mt-2 ">
+                        <div class="col-sm-1 "> </div>
+
+                        <div class="col-sm-10  ">
+
+                            <div class="accordion accordion-flush mb-2" id="accordionFlushExample">
+                                <div class="accordion-item text-center m-2">
+                                    <h2 class="accordion-header " id="flush-headingOne ">
+                                        <button class="accordion-button collapsed" type="button"
+                                            data-bs-toggle="collapse" data-bs-target="#flush-collapseOne"
+                                            aria-expanded="false" aria-controls="flush-collapseOne">
+                                            VOLUMINOSO
+                                        </button>
+                                    </h2>
+                                    <div id="flush-collapseOne" class="accordion-collapse collapse"
+                                        aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                                        <div class="accordion-body">
+
+                                            <div class="tabla mb-0" style="overflow-x:auto;">
+
+                                                <table class="table table-striped  text-center ">
+                                                    <thead>
+
+                                                        <tr>
+                                                            <th class=" pt-3  text-center align-middle th1 th1_selec"
+                                                                scope="col">
+                                                                Seleccionar Contenedor
+                                                            </th>
+
+                                                            <th class=" pt-3 text-center align-middle th1" scope="col">
+                                                                Residuo
+                                                            </th>
+
+                                                            <th class=" pt-3 text-center align-middle th1" scope="col">
+                                                                Precio
+
+                                                            </th>
+
+                                                            <th class=" pt-3 text-center align-middle th1" scope="col">
+                                                                M2
+                                                            </th>
+
+                                                            {# <th class=" pt-3 text-center align-middle" scope="col">Eliminar </th>#}
+                                                        </tr>
+                                                    </thead>
+
+                                                    <tbody>
+
+                                                        {% for container in containers %}
+
+                                                        {% if ( container.residue == "VOLUMINOSO" ) %}
+
+                                                        <tr class="text-center align-middle ">
+
+                                                            <td class="text-center align-middle ">
+
+                                                                <input class="form-check-input mt-3" id="cleandirty"
+                                                                    style="text-align:center;" type="radio"
+                                                                    name="id_container"
+                                                                    value="{{ container.id_container }}">&nbsp;
+
+
+                                                                <img src="\images\contenedor_3d_byn.png"
+                                                                    style="width:80px;height:50px;" alt="..." title="">
+
+                                                            </td>
+
+                                                            <td class="text-center align-middle">
+                                                                {{ container.residue }}
+                                                            </td>
+
+                                                            <td class="text-center align-middle">
+
+                                                                {{ container.price }}</b> €
+
+                                                            </td>
+
+                                                            <td class="text-center align-middle">
+                                                                {{ container.cubic_meters }} m2
+                                                            </td>
+
+                                                        </tr>
+                                                        {% endif %}
+
+                                                        {% endfor %}
+
+                                                    </tbody>
+
+                                                </table>
+
+                                            </div>{# scroll#}
+
+                                            <p class="bottom_table p-2 col-12"></p>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item m-2">
+                                    <h2 class="accordion-header" id="flush-headingTwo">
+                                        <button class="accordion-button collapsed" type="button"
+                                            data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo"
+                                            aria-expanded="false" aria-controls="flush-collapseTwo">
+                                            LIMPIO
+                                        </button>
+                                    </h2>
+                                    <div id="flush-collapseTwo" class="accordion-collapse collapse"
+                                        aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+                                        <div class="accordion-body">
+
+                                            <div class="tabla mb-0" style="overflow-x:auto;">
+
+                                                <table class="table table-striped  text-center ">
+                                                    <thead>
+
+                                                        <tr>
+                                                            <th class=" pt-3  text-center align-middle th1 th1_selec"
+                                                                scope="col">
+                                                                Seleccionar Contenedor
+                                                            </th>
+
+                                                            <th class=" pt-3 text-center align-middle th1" scope="col">
+                                                                Residuo
+                                                            </th>
+
+                                                            <th class=" pt-3 text-center align-middle th1" scope="col">
+                                                                Precio
+
+                                                            </th>
+
+                                                            <th class=" pt-3 text-center align-middle th1" scope="col">
+                                                                M2
+                                                            </th>
+
+                                                            {# <th class=" pt-3 text-center align-middle" scope="col">Eliminar </th>#}
+                                                        </tr>
+                                                    </thead>
+
+                                                    <tbody>
+
+                                                        {% for container in containers %}
+
+                                                        {% if ( container.residue == "LIMPIO" ) %}
+
+                                                        <tr class="text-center align-middle ">
+
+                                                            <td class="text-center align-middle ">
+
+                                                                <input class="form-check-input mt-3" id="cleandirty"
+                                                                    style="text-align:center;" type="radio"
+                                                                    name="id_container"
+                                                                    value="{{ container.id_container }}">&nbsp;
+
+                                                                <img src="\images\contenedor_3d_byn.png"
+                                                                    style="width:80px;height:50px;" alt="..." title="">
+
+                                                            </td>
+
+                                                            <td class="text-center align-middle">
+                                                                {{ container.residue }}
+                                                            </td>
+
+                                                            <td class="text-center align-middle">
+
+                                                                {{ container.price }}</b> €
+
+                                                            </td>
+
+                                                            <td class="text-center align-middle">
+                                                                {{ container.cubic_meters }} m2
+                                                            </td>
+
+                                                        </tr>
+                                                        {% endif %}
+
+                                                        {% endfor %}
+
+                                                    </tbody>
+
+                                                </table>
+
+                                            </div>{# scroll#}
+
+                                            <p class="bottom_table p-2 col-12"></p>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item m-2">
+                                    <h2 class="accordion-header" id="flush-headingThree">
+                                        <button class="accordion-button collapsed" type="button"
+                                            data-bs-toggle="collapse" data-bs-target="#flush-collapseThree"
+                                            aria-expanded="false" aria-controls="flush-collapseThree">
+                                            SUCIO
+                                        </button>
+                                    </h2>
+                                    <div id="flush-collapseThree" class="accordion-collapse collapse"
+                                        aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
+                                        <div class="accordion-body">
+                                            <div class="tabla mb-0" style="overflow-x:auto;">
+
+                                                <table class="table table-striped  text-center ">
+                                                    <thead>
+
+                                                        <tr>
+                                                            <th class=" pt-3  text-center align-middle th1 th1_selec"
+                                                                scope="col">
+                                                                Seleccionar Contenedor
+                                                            </th>
+
+                                                            <th class=" pt-3 text-center align-middle th1" scope="col">
+                                                                Residuo
+                                                            </th>
+
+                                                            <th class=" pt-3 text-center align-middle th1" scope="col">
+                                                                Precio
+
+                                                            </th>
+
+                                                            <th class=" pt-3 text-center align-middle th1" scope="col">
+                                                                M2
+                                                            </th>
+
+                                                        </tr>
+                                                    </thead>
+
+                                                    <tbody>
+
+                                                        {% for container in containers %}
+
+                                                        {% if ( container.residue == "SUCIO" ) %}
+
+                                                        <tr class="text-center align-middle ">
+
+                                                            <td class="text-center align-middle ">
+
+                                                                <input class="form-check-input mt-3" id="cleandirty"
+                                                                    style="text-align:center;" type="radio"
+                                                                    name="id_container"
+                                                                    value="{{ container.id_container }}">&nbsp;
+
+                                                                <img src="\images\contenedor_3d_byn.png"
+                                                                    style="width:80px;height:50px;" alt="..." title="">
+
+                                                            </td>
+
+                                                            <td class="text-center align-middle">
+                                                                {{ container.residue }}
+                                                            </td>
+
+                                                            <td class="text-center align-middle">
+
+                                                                {{ container.price }}</b> €
+
+                                                            </td>
+
+                                                            <td class="text-center align-middle">
+                                                                {{ container.cubic_meters }} m2
+                                                            </td>
+
+                                                        </tr>
+                                                        {% endif %}
+
+                                                        {% endfor %}
+
+                                                    </tbody>
+
+                                                </table>
+
+                                            </div>{# scroll#}
+
+                                            <p class="bottom_table p-2 col-12"></p>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="accordion-item m-2">
+                                    <h2 class="accordion-header" id="flush-heading4">
+                                        <button class="accordion-button collapsed" type="button"
+                                            data-bs-toggle="collapse" data-bs-target="#flush-collapse4"
+                                            aria-expanded="false" aria-controls="flush-collapse4">
+                                            MADERA
+                                        </button>
+                                    </h2>
+                                    <div id="flush-collapse4" class="accordion-collapse collapse"
+                                        aria-labelledby="flush-heading4" data-bs-parent="#accordionFlushExample">
+                                        <div class="accordion-body">
+                                            <div class="tabla mb-0" style="overflow-x:auto;">
+
+                                                <table class="table table-striped  text-center ">
+                                                    <thead>
+
+                                                        <tr>
+                                                            <th class=" pt-3  text-center align-middle th1 th1_selec"
+                                                                scope="col">
+                                                                Seleccionar Contenedor
+                                                            </th>
+
+                                                            <th class=" pt-3 text-center align-middle th1" scope="col">
+                                                                Residuo
+                                                            </th>
+
+                                                            <th class=" pt-3 text-center align-middle th1" scope="col">
+                                                                Precio
+
+                                                            </th>
+
+                                                            <th class=" pt-3 text-center align-middle th1" scope="col">
+                                                                M2
+                                                            </th>
+
+                                                        </tr>
+                                                    </thead>
+
+                                                    <tbody>
+
+                                                        {% for container in containers %}
+
+                                                        {% if ( container.residue == "MADERA" ) %}
+
+                                                        <tr class="text-center align-middle ">
+
+                                                            <td class="text-center align-middle ">
+
+                                                                <input class="form-check-input mt-3" id="cleandirty"
+                                                                    style="text-align:center;" type="radio"
+                                                                    name="id_container"
+                                                                    value="{{ container.id_container }}">&nbsp;
+
+                                                                <img src="\images\contenedor_3d_byn.png"
+                                                                    style="width:80px;height:50px;" alt="..." title="">
+
+                                                            </td>
+
+                                                            <td class="text-center align-middle">
+                                                                {{ container.residue }}
+                                                            </td>
+
+                                                            <td class="text-center align-middle">
+
+                                                                {{ container.price }}</b> €
+
+                                                            </td>
+
+                                                            <td class="text-center align-middle">
+                                                                {{ container.cubic_meters }} m2
+                                                            </td>
+
+                                                        </tr>
+                                                        {% endif %}
+
+                                                        {% endfor %}
+
+                                                    </tbody>
+
+                                                </table>
+
+                                            </div>{# scroll#}
+
+                                            <p class="bottom_table p-2 col-12"></p>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="accordion-item m-2">
+                                    <h2 class="accordion-header" id="flush-heading5">
+                                        <button class="accordion-button collapsed" type="button"
+                                            data-bs-toggle="collapse" data-bs-target="#flush-collapse5"
+                                            aria-expanded="false" aria-controls="flush-collapse5">
+                                            PODA
+                                        </button>
+                                    </h2>
+                                    <div id="flush-collapse5" class="accordion-collapse collapse"
+                                        aria-labelledby="flush-heading5" data-bs-parent="#accordionFlushExample">
+                                        <div class="accordion-body">
+                                            <div class="tabla mb-0" style="overflow-x:auto;">
+
+                                                <table class="table table-striped  text-center ">
+                                                    <thead>
+
+                                                        <tr>
+                                                            <th class=" pt-3  text-center align-middle th1 th1_selec"
+                                                                scope="col">
+                                                                Seleccionar Contenedor
+                                                            </th>
+
+                                                            <th class=" pt-3 text-center align-middle th1" scope="col">
+                                                                Residuo
+                                                            </th>
+
+                                                            <th class=" pt-3 text-center align-middle th1" scope="col">
+                                                                Precio
+
+                                                            </th>
+
+                                                            <th class=" pt-3 text-center align-middle th1" scope="col">
+                                                                M2
+                                                            </th>
+
+                                                            {# <th class=" pt-3 text-center align-middle" scope="col">Eliminar </th>#}
+                                                        </tr>
+                                                    </thead>
+
+                                                    <tbody>
+
+                                                        {% for container in containers %}
+
+                                                        {% if ( container.residue == "PODA" ) %}
+
+                                                        <tr class="text-center align-middle ">
+
+                                                            <td class="text-center align-middle ">
+
+                                                                <input class="form-check-input mt-3" id="cleandirty"
+                                                                    style="text-align:center;" type="radio"
+                                                                    name="id_container"
+                                                                    value="{{ container.id_container }}">&nbsp;
+
+                                                                <img src="\images\contenedor_3d_byn.png"
+                                                                    style="width:80px;height:50px;" alt="..." title="">
+
+                                                            </td>
+
+                                                            <td class="text-center align-middle">
+                                                                {{ container.residue }}
+                                                            </td>
+
+                                                            <td class="text-center align-middle">
+
+                                                                {{ container.price }}</b> €
+
+                                                            </td>
+
+                                                            <td class="text-center align-middle">
+                                                                {{ container.cubic_meters }} m2
+                                                            </td>
+
+                                                        </tr>
+                                                        {% endif %}
+
+                                                        {% endfor %}
+
+                                                    </tbody>
+
+                                                </table>
+
+                                            </div>{# scroll#}
+
+                                            <p class="bottom_table p-2 col-12"></p>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item m-2">
+                                    <h2 class="accordion-header" id="flush-heading6">
+                                        <button class="accordion-button collapsed" type="button"
+                                            data-bs-toggle="collapse" data-bs-target="#flush-collapse6"
+                                            aria-expanded="false" aria-controls="flush-collapse6">
+                                            CARTON
+                                        </button>
+                                    </h2>
+                                    <div id="flush-collapse6" class="accordion-collapse collapse"
+                                        aria-labelledby="flush-heading6" data-bs-parent="#accordionFlushExample">
+                                        <div class="accordion-body">
+                                            <div class="tabla mb-0" style="overflow-x:auto;">
+
+                                                <table class="table table-striped  text-center ">
+                                                    <thead>
+
+                                                        <tr>
+                                                            <th class=" pt-3  text-center align-middle th1 th1_selec"
+                                                                scope="col">
+                                                                Seleccionar Contenedor
+                                                            </th>
+
+                                                            <th class=" pt-3 text-center align-middle th1" scope="col">
+                                                                Residuo
+                                                            </th>
+
+                                                            <th class=" pt-3 text-center align-middle th1" scope="col">
+                                                                Precio
+
+                                                            </th>
+
+                                                            <th class=" pt-3 text-center align-middle th1" scope="col">
+                                                                M2
+                                                            </th>
+
+                                                        </tr>
+                                                    </thead>
+
+                                                    <tbody>
+
+                                                        {% for container in containers %}
+
+                                                        {% if ( container.residue == "CARTON" ) %}
+
+                                                        <tr class="text-center align-middle ">
+
+                                                            <td class="text-center align-middle ">
+
+                                                                <input class="form-check-input mt-3" id="cleandirty"
+                                                                    style="text-align:center;" type="radio"
+                                                                    name="id_container"
+                                                                    value="{{ container.id_container }}">&nbsp;
+
+                                                                <img src="\images\contenedor_3d_byn.png"
+                                                                    style="width:80px;height:50px;" alt="..." title="">
+
+                                                            </td>
+
+                                                            <td class="text-center align-middle">
+                                                                {{ container.residue }}
+                                                            </td>
+
+                                                            <td class="text-center align-middle">
+
+                                                                {{ container.price }}</b> €
+
+                                                            </td>
+
+                                                            <td class="text-center align-middle">
+                                                                {{ container.cubic_meters }} m2
+                                                            </td>
+
+                                                        </tr>
+                                                        {% endif %}
+
+                                                        {% endfor %}
+
+                                                    </tbody>
+
+                                                </table>
+
+                                            </div>{# scroll#}
+
+                                            <p class="bottom_table p-2 col-12"></p>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="accordion-item m-2">
+                                    <h2 class="accordion-header" id="flush-heading7">
+                                        <button class="accordion-button collapsed" type="button"
+                                            data-bs-toggle="collapse" data-bs-target="#flush-collapse7"
+                                            aria-expanded="false" aria-controls="flush-collapse7">
+                                            CHATARRA
+                                        </button>
+                                    </h2>
+                                    <div id="flush-collapse7" class="accordion-collapse collapse"
+                                        aria-labelledby="flush-heading7" data-bs-parent="#accordionFlushExample">
+                                        <div class="accordion-body">
+                                            <div class="tabla mb-0" style="overflow-x:auto;">
+
+                                                <table class="table table-striped  text-center ">
+                                                    <thead>
+
+                                                        <tr>
+                                                            <th class=" pt-3  text-center align-middle th1 th1_selec"
+                                                                scope="col">
+                                                                Seleccionar Contenedor
+                                                            </th>
+
+                                                            <th class=" pt-3 text-center align-middle th1" scope="col">
+                                                                Residuo
+                                                            </th>
+
+                                                            <th class=" pt-3 text-center align-middle th1" scope="col">
+                                                                Precio
+
+                                                            </th>
+
+                                                            <th class=" pt-3 text-center align-middle th1" scope="col">
+                                                                M2
+                                                            </th>
+
+                                                        </tr>
+                                                    </thead>
+
+                                                    <tbody>
+
+                                                        {% for container in containers %}
+
+                                                        {% if ( container.residue == "CHATARRA" ) %}
+
+                                                        <tr class="text-center align-middle ">
+
+                                                            <td class="text-center align-middle ">
+
+                                                                <input class="form-check-input mt-3" id="cleandirty"
+                                                                    style="text-align:center;" type="radio"
+                                                                    name="id_container"
+                                                                    value="{{ container.id_container }}">&nbsp;
+
+                                                                <img src="\images\contenedor_3d_byn.png"
+                                                                    style="width:80px;height:50px;" alt="..." title="">
+
+                                                            </td>
+
+                                                            <td class="text-center align-middle">
+                                                                {{ container.residue }}
+                                                            </td>
+
+                                                            <td class="text-center align-middle">
+
+                                                                {{ container.price }}</b> €
+
+                                                            </td>
+
+                                                            <td class="text-center align-middle">
+                                                                {{ container.cubic_meters }} m2
+                                                            </td>
+
+                                                        </tr>
+                                                        {% endif %}
+
+                                                        {% endfor %}
+
+                                                    </tbody>
+
+                                                </table>
+
+                                            </div>{# scroll#}
+
+                                            <p class="bottom_table p-2 col-12"></p>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="accordion-item m-2">
+                                    <h2 class="accordion-header" id="flush-heading8">
+                                        <button class="accordion-button collapsed" type="button"
+                                            data-bs-toggle="collapse" data-bs-target="#flush-collapse8"
+                                            aria-expanded="false" aria-controls="flush-collapse8">
+                                            ASFALTO
+                                        </button>
+                                    </h2>
+                                    <div id="flush-collapse8" class="accordion-collapse collapse"
+                                        aria-labelledby="flush-heading8" data-bs-parent="#accordionFlushExample">
+                                        <div class="accordion-body">
+                                            <div class="tabla mb-0" style="overflow-x:auto;">
+
+                                                <table class="table table-striped  text-center ">
+                                                    <thead>
+
+                                                        <tr>
+                                                            <th class=" pt-3  text-center align-middle th1 th1_selec"
+                                                                scope="col">
+                                                                Seleccionar Contenedor
+                                                            </th>
+
+                                                            <th class=" pt-3 text-center align-middle th1" scope="col">
+                                                                Residuo
+                                                            </th>
+
+                                                            <th class=" pt-3 text-center align-middle th1" scope="col">
+                                                                Precio
+
+                                                            </th>
+
+                                                            <th class=" pt-3 text-center align-middle th1" scope="col">
+                                                                M2
+                                                            </th>
+
+                                                        </tr>
+                                                    </thead>
+
+                                                    <tbody>
+
+                                                        {% for container in containers %}
+
+                                                        {% if ( container.residue == "ASFALTO" ) %}
+
+                                                        <tr class="text-center align-middle ">
+
+                                                            <td class="text-center align-middle ">
+
+                                                                <input class="form-check-input mt-3" id="cleandirty"
+                                                                    style="text-align:center;" type="radio"
+                                                                    name="id_container"
+                                                                    value="{{ container.id_container }}">&nbsp;
+
+                                                                <img src="\images\contenedor_3d_byn.png"
+                                                                    style="width:80px;height:50px;" alt="..." title="">
+                                                            </td>
+
+                                                            <td class="text-center align-middle">
+                                                                {{ container.residue }}
+                                                            </td>
+
+                                                            <td class="text-center align-middle">
+
+                                                                {{ container.price }}</b> €
+
+                                                            </td>
+
+                                                            <td class="text-center align-middle">
+                                                                {{ container.cubic_meters }} m2
+                                                            </td>
+
+                                                        </tr>
+                                                        {% endif %}
+
+                                                        {% endfor %}
+
+                                                    </tbody>
+
+                                                </table>
+
+                                            </div>{# scroll#}
+
+                                            <p class="bottom_table p-2 col-12"></p>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="accordion-item m-2">
+                                    <h2 class="accordion-header" id="flush-heading9">
+                                        <button class="accordion-button collapsed" type="button"
+                                            data-bs-toggle="collapse" data-bs-target="#flush-collapse9"
+                                            aria-expanded="false" aria-controls="flush-collapse9">
+                                            OTROS
+                                        </button>
+                                    </h2>
+                                    <div id="flush-collapse9" class="accordion-collapse collapse"
+                                        aria-labelledby="flush-heading9" data-bs-parent="#accordionFlushExample">
+                                        <div class="accordion-body">
+                                            <div class="tabla mb-0" style="overflow-x:auto;">
+
+                                                <table class="table table-striped  text-center ">
+                                                    <thead>
+
+                                                        <tr>
+                                                            <th class=" pt-3  text-center align-middle th1 th1_selec"
+                                                                scope="col">
+                                                                Seleccionar Contenedor
+                                                            </th>
+
+                                                            <th class=" pt-3 text-center align-middle th1" scope="col">
+                                                                Residuo
+                                                            </th>
+
+                                                            <th class=" pt-3 text-center align-middle th1" scope="col">
+                                                                Precio
+
+                                                            </th>
+
+                                                            <th class=" pt-3 text-center align-middle th1" scope="col">
+                                                                M2
+                                                            </th>
+
+                                                        </tr>
+                                                    </thead>
+
+                                                    <tbody>
+
+                                                        {% for container in containers %}
+
+                                                        {% if ( container.residue == "OTROS" ) %}
+
+                                                        <tr class="text-center align-middle ">
+
+                                                            <td class="text-center align-middle ">
+
+                                                                <input class="form-check-input mt-3" id="cleandirty"
+                                                                    style="text-align:center;" type="radio"
+                                                                    name="id_container"
+                                                                    value="{{ container.id_container }}">&nbsp;
+
+                                                                <img src="\images\contenedor_3d_byn.png"
+                                                                    style="width:80px;height:50px;" alt="..." title="">
+
+                                                            </td>
+
+                                                            <td class="text-center align-middle">
+                                                                {{ container.residue }}
+                                                            </td>
+
+                                                            <td class="text-center align-middle">
+
+                                                                {{ container.price }}</b> €
+
+                                                            </td>
+
+                                                            <td class="text-center align-middle">
+                                                                {{ container.cubic_meters }} m2
+                                                            </td>
+
+                                                        </tr>
+                                                        {% endif %}
+
+                                                        {% endfor %}
+
+                                                    </tbody>
+
+                                                </table>
+
+                                            </div>{# scroll#}
+
+                                            <p class="bottom_table p-2 col-12"></p>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-sm-1 "> </div>
+
+                    </div>
+
+                    {% if ( withoutCustomer == true ) %}
+                    {% if ( countWorkLocacion == true ) %}
+
+                    <div class="row mb-4 mt-3 p-3">
+                        <div class="col-sm-2 "></div>
+
+                        <div class="col-sm-8 select_customer ">
+
+                            <div class="row mb-2 mt-3 ">
+                                <div class="col-sm-12 text-center text-white ">
+
+                                    <div class=" text-center  mb-3" id="sectionTable">
+
+                                        <p class=" text-center p-2 m-2 ">&nbsp;&nbsp;
+                                            <lord-icon src="https://cdn.lordicon.com/zzcjjxew.json" trigger="hover"
+                                                colors="primary:#fff,secondary:#7fc8dd" style="width:90px;height:90px">
+                                            </lord-icon>
+
+                                            <br> ..No existen Direcciones de Obras para este Cliente</p>
+
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-sm-2 "></div>
+
+                    </div>
+
+                    {% endif %}
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+            <div class="row" id="sectionServices">
+
+                <div class="col-sm-12" id="section_servicios">
+                    <div class="row">
+
+                        <div class="col-sm-6  title_section ">
+                            <span class="text-center display-5 ">Servicios y Fechas
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3 mr-3 ">
+
+                        <div class="col-12 albaranes_titles_bottom">
+
+                            <div class="row mt-5 mb-5 p-1">
+
+                                <div class="col-sm-6">
+
+                                    {# <div class="row m-1" id="error_servicios">
+                                    <div class="col div_suplements_checkbox ">
+
+                                        <span style="font-size:1rem;"> Debe seleccionar un servicio</span>
+
+                                    </div>
+                                </div> #}
+
+                                    {% for service_s in services_ %}
+
+                                    <div class="row m-1">
+                                        <div class="col-6 div_suplements_checkbox ">
+                                            <div class=" mt-3">
+
+                                                <label>
+
+                                                    <input id="example-1" class="form-check-input servicio" type="radio"
+                                                        aria-hidden="true" name="id_service" id="idservicios"
+                                                        value="{{ service_s.id_service }}">
+
+                                                    <label for="example-1">{{ service_s.name }}</label>
+                                                    <input type="hidden"
+                                                        name="service_name[ {{ service_s.id_service }}]"
+                                                        value="{{ service_s.id_service }}">
+
+
+                                                </label>
+
+                                            </div>
+                                            <br>
+                                        </div>
+
+                                        <div class="col-6  div_suplements_pvp">
+
+                                            <div class=" mt-3">
+
+                                                <input id="reserved" class="field__input" type="hidden" step="any"
+                                                    name="service_code[ {{ service_s.id_service }}]"
+                                                    value="{{ service_s.code }}">
+
+                                                Codigo &nbsp;&nbsp;<b style="color:#DA192D;">{{ service_s.code }}</b>
+
+                                            </div>
+                                            <p class="text-danger">{{ msg('errors.reserved') }}</p>
+
+                                        </div>
+
+                                    </div>
+                                    {% endfor %}
+
+                                    <p class=""> *Los servicios se pueden editar sus descripciones o su valores, o
+                                        crear unos nuevos en el apartado de suplementos. </p>
+                                    <div class="col-sm"> </div>
+
+                                </div>
+
+                                <div class="col-6 ">
+
+                                    <div class="col-sm-6">
+                                        <label for="inputDescription" class="p-2">Fecha Solicitud </label>
+                                        <input type="date" class="form-control text-left " name="planned_date"
+                                            placeholder="Fecha de Produccion" value="{{ old('planned_date') }}">
+                                        <label class="ml-3 form-control-placeholder" id="start-p" for="start">
+                                        </label>
+                                        <span class="fa fa-calendar" id="fa-1"></span>
+                                    </div>
+                                    <p class="text-danger">{{ msg('errors.dateOfProduction') }}</p>
+
+                                    <div class="col-12  mb-4">
+                                        <label for="retainer" class="ha-screen-reader">Observaciones</label>
+                                        <textarea class="form-control" style="height:200px;"
+                                            id="exampleFormControlTextarea1" name="notas">{{ notas }}
+
+                                        </textarea>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="row mt-5">
+
+                <div class="col-md">
+
+                    <div class="row">
+                        <div class="col">
+                        </div>
+                        <div class="col-md">
+                            <button class="button_order bg-danger text-white" value="1" type="submit">
+                                <img src="\images\invoice_white.png" alt="...">&nbsp;&nbsp;&nbsp;&nbsp;Generar Pedido
+                            </button>
+                        </div>
+                        <div class="col">
+                        </div>
+                    </div>
+
+                </div>
+
+                <p class=" text-center mt-5">
+                    <a href="{{ routeTo('listOrders') }}">
+                        <img class="rounded mx-auto d-block " src="\images\regresar.png" alt="...">
+                    </a>
+                    <br> Volver a la lista de Albaranes
+                </p>
+
+            </div>
+
+        </div>
+
+</div>
+</form>
+</div>
+
+</div>
+
+
+    <div class="row " >
+        <div class="col-12">
+
+      {%  if msg('msg') %}
+
+            <script>
+                $(document).ready(function() {
+
+                 var msg = {{ msg('msg')|json_encode|raw }};
+
+                Swal.fire({
+                    title: msg.title,
+                    text: msg.text,
+                    icon: 'success',
+                    cancelButtonText: 'Cerrar'
+                    })
+                });
+            </script>
+
+      {% endif %}
+
+
+
+
+       {%  if msg('msg1') %}
+
+            <script>
+                $(document).ready(function() {
+
+                 var msg = {{ msg('msg1')|json_encode|raw }};
+
+                Swal.fire({
+                     title: msg.title,
+                    text: msg.text,
+                    icon: 'warning',
+                    cancelButtonText: 'Cerrar'
+                    })
+                });
+            </script>
+
+      {% endif %}
+
+          {%  if msg('msg2') %}
+
+            <script>
+                $(document).ready(function() {
+
+                 var msg = {{ msg('msg2')|json_encode|raw }};
+
+                Swal.fire({
+                    title: msg.title,
+                    text: msg.text,
+                    icon: 'warning',
+                    cancelButtonText: 'Cerrar'
+                    })
+                });
+            </script>
+
+      {% endif %}
+
+        {%  if msg('msg3') %}
+
+            <script>
+                $(document).ready(function() {
+
+                 var msg = {{ msg('msg3')|json_encode|raw }};
+
+                Swal.fire({
+
+
+                   title: msg.title,
+                    text: msg.text,
+                    icon: 'warning',
+                       imageUrl: 'https://contenedores.grupohnosfas.com/images/icon_location_w.png',
+                        imageWidth: 40,
+                        imageHeight: 40,
+                        imageAlt: 'Custom image',
+                    cancelButtonText: 'Cerrar'
+
+                    })
+                });
+            </script>
+
+      {% endif %}
+
+
+
+        {%  if msg('msg4') %}
+
+            <script>
+                $(document).ready(function() {
+
+                 var msg = {{ msg('msg4')|json_encode|raw }};
+
+                Swal.fire({
+                    title: msg.title,
+                    text: msg.text,
+
+                    icon: 'warning',
+                       imageUrl: 'https://contenedores.grupohnosfas.com/images/contenedor_3d_byn.png',
+                        imageWidth: 100,
+                        imageHeight: 60,
+                        imageAlt: 'Custom image',
+                    cancelButtonText: 'Cerrar'
+                    })
+                });
+            </script>
+
+      {% endif %}
+
+        {%  if msg('msg5') %}
+
+            <script>
+                $(document).ready(function() {
+
+                 var msg = {{ msg('msg5')|json_encode|raw }};
+
+                Swal.fire({
+                    title: msg.title,
+                    text: msg.text,
+
+                    icon: 'warning',
+                       imageUrl: 'https://contenedores.grupohnosfas.com/images/iconos/servicios_icono.png',
+                        imageWidth: 40,
+                        imageHeight: 40,
+                        imageAlt: 'Custom image',
+                    cancelButtonText: 'Cerrar'
+                     }).then(function() {
+                // Redirigir a la sección con ID 'section_servicios'
+                window.location.href = '#sectionServices';
+            });
+                });
+            </script>
+
+      {% endif %}
+
+  {%  if msg('msg6') %}
+
+            <script>
+                $(document).ready(function() {
+
+                 var msg = {{ msg('msg6')|json_encode|raw }};
+
+                Swal.fire({
+                    title: msg.title,
+                    text: msg.text,
+
+                    icon: 'warning',
+                       imageUrl: 'https://contenedores.grupohnosfas.com/images/icono_calendario.png',
+                        imageWidth: 50,
+                        imageHeight: 50,
+                        imageAlt: 'Custom image',
+                    cancelButtonText: 'Cerrar'
+                    })
+                });
+            </script>
+
+      {% endif %}
+
+
+
+
+
+     </div>
+ </div>
+
+
+  {% include 'Front/base/footer.html.twig' %}
+{% endblock %}
+
+{% block script %}
+{{parent(script)}}
+
+<script>
+
+
+//Mantiene la seleccion de radio button cuando cargue la pagina
+var radioButtons = document.querySelectorAll('input[name="id_container"]');
+
+radioButtons.forEach(function(radioButton) {
+  radioButton.addEventListener('change', function() {
+    localStorage.setItem('seleccion', this.value);
+  });
+});
+
+window.addEventListener('load', function() {
+  var seleccionGuardada = localStorage.getItem('seleccion');
+
+  console.log(seleccionGuardadaServicios);
+  if (seleccionGuardada) {
+    var radioButton = document.querySelector('input[value="' + seleccionGuardada + '"]');
+    radioButton.checked = true;
+  }
+
+
+});
+
+
+
+
+
+
+    $(document).ready(function() {
+        $('#id_customers_selection').on("change", function(event) {
+            var opt = $(this).find("option:selected")
+            var url = opt.data("url")
+            window.location.href = url
+        });
+        var divToShow = document.getElementById("error");
+        divToShow.style.display = "none";
+    });
+    var divToShow = document.getElementById("error");
+    divToShow.style.display = "none";
+    var error_servicios = document.getElementById("error_servicios");
+    error_servicios.style.display = "none";
+    //Anticipo switch
+    retainer_amount.disabled = true;
+    var checkbox = document.getElementById('cbx-3');
+    checkbox.addEventListener("change", validaCheckbox, false);
+
+    function validaCheckbox() {
+        var checked = checkbox.checked;
+        if (checked) {
+            retainer_amount.disabled = false;
+        } else {
+            retainer_amount.disabled = true;
+            document.getElementById("retainer_amount").value = "";
+        }
+    }
+
+
+
+
+
+</script>
+
+<script src="https://cdn.lordicon.com/qjzruarw.js"></script>
+
+<script src="https://cdn.lordicon.com/qjzruarw.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+{% endblock %}

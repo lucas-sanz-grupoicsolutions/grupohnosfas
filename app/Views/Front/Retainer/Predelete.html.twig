@@ -1,0 +1,89 @@
+
+{% extends 'Front/base/main.html.twig' %}
+
+{% block titleHeader %}
+    Eliminar partida
+{% endblock %}
+{% block content %}
+  {% include 'Front/base/header.html.twig' %}
+
+<style>
+        button{border-top-left-radius: 40px 40px; border-top-right-radius: 40px 40px;
+               border-bottom-right-radius: 40px 40px;border-bottom-left-radius: 40px 40px;
+               width:100%;box-shadow:none;
+               font-size:20px;
+               border:none;
+               background:#b093ff;
+              };
+</style>
+
+     {% for customer in customers %}
+
+
+                     <div class="col-12 p-2 " id="titulo_customers">
+                        <div class="col-2">
+                        </div>
+                            <div class="col-2">
+                              <a href="javascript: history.go(-1)">
+                                <img class="rounded mx-auto d-block pt-4" src="\images\arrow_white_izq.png" alt="..." >
+                                  </a>
+                            </div>
+                            <div class="col-8">
+                        </div>
+
+                       <img class="rounded mx-auto d-block m-3" src="\images\customers_white.png" alt="..." >
+                       <h4 class="display-4 text-center text-white mb-3">Esta seguro que desea eliminar este cliente?</h4>
+                     <br>
+                </div>
+
+
+      <div class="cuerpo">
+
+              <form  action="{{  routeTo('listContainers',customer.id_customers) }}" method="POST">
+                   <table class="table table-striped  text-center">
+                    <thead>
+                    </thead>
+                    <thead>
+                    <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Direccion</th>
+                        <th scope="col">Localidad</th>
+                        <th scope="col">Codigo Postal</th>
+                      <th scope="col">Acciones</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">{{ customer.id_customers }}</th>
+                            <td>{{ customer.names }}</td>
+                            <td>{{ customer.address }}</td>
+                            <td>{{ customer.location }}</td>
+                            <td>{{ customer.zip_code }}</td>
+
+                            <td class="text-center align-middle">
+                                <a  class="text-white "  href="{{ routeTo('deleteCustomers', customer.id_customers) }}" >
+
+                                            <img  src="\images\delete_white.png" alt="..." >
+
+                                </a>
+                            </td>
+
+                        </tr>
+            </tbody>
+        </table>
+    </form>
+
+         <div class="row">
+                        <div class="col">
+                            <p class=" text-center">
+                              <a href="{{ routeTo('listCustomers') }}" >
+                               <img class="rounded mx-auto d-block " src="\images\regresar.png" alt="..." >
+                             </a>
+                             <br> Volver a la lista de Clientes
+                           </p>
+                      </div>
+              </div>
+</div>
+  {% endfor %}
+{% endblock %}

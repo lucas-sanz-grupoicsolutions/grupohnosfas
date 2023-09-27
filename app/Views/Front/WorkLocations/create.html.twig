@@ -1,0 +1,340 @@
+{% extends 'Front/base/main.html.twig' %}
+
+{% block titleHeader %}
+Crear un Paquete
+{% endblock %}
+{% block content %}
+{% include 'Front/base/header.html.twig' %}
+
+<style>
+    .button_retainer {
+        border-top-left-radius: 40px 40px;
+        border-top-right-radius: 40px 40px;
+        border-bottom-right-radius: 40px 40px;
+        border-bottom-left-radius: 40px 40px;
+        width: 100%;
+        box-shadow: none;
+        font-size: 20px;
+        border: none;
+        background: #ff6347;
+    }
+
+    .form-control {
+        border: 2px solid #ff6347 !important;
+        border-radius: 30px !important;
+
+    }
+
+    .form-select {
+        border: 2px solid #ff6347 !important;
+        border-radius: 30px !important;
+    }
+
+    .tapa {
+        background: #c2fbd740;
+    }
+
+    .metros {
+        background: #c2fbd740;
+    }
+
+    .form-check-input:checked {
+        background-color: #42b364;
+        border-color: #42b364;
+    }
+
+    .cssscan:not(.img-as-jpg) img {
+        top: 14%;
+        right: -37%;
+        width: 95%;
+        height: 95%;
+    }
+
+    .cssscan img {
+        position: absolute;
+        transform: rotate(-7deg);
+        transition: all .3s;
+    }
+
+    .cssscan {
+        padding: 2rem;
+        background: #ff6347 !important;
+        border-radius: 24px;
+        position: relative;
+        overflow: hidden;
+        box-shadow: rgb(0 0 0 / 10%) 0 1px 2px 0;
+        cursor: pointer;
+        /* margin-top: 3em;*/
+        font-size: 19px;
+        text-align: left;
+    }
+
+    .display-4 {
+        display: inline;
+        padding-left: 30px;
+    }
+
+    .texto_titulo {
+        padding-left: 30px;
+    }
+
+    .workLocation_titles {
+        background: #ff634724;
+        border-top: 3px solid #ff6347;
+
+    }
+
+    .input_formaPago {
+        position: relative;
+        top: 30px;
+
+    }
+
+    .input_address {
+        max-width: 330px;
+    }
+
+
+    .alert-success {
+        text-align: center;
+        background-color: #dbf1d838;
+        border-left: 7px solid #3dbf2ae8;
+        width: 100%;
+        margin-top: 10px;
+        color: #000000;
+        font-size: 1.2rem;
+    }
+</style>
+
+<body class="container_clientes">
+
+    <div class="container mt-1">
+
+        <div id="titulo_worklocations">
+
+            <div class="row">
+                <div class="col-4 pl-3">
+                    <a href="javascript: history.go(-1)">&nbsp;&nbsp;&nbsp;
+                        <img class="ml-3 pt-4 " src="\images\arrow_white_izq.png" alt="...">
+                    </a>
+                </div>
+                <div class="col-4"></div>
+                <div class="col-4"></div>
+            </div>
+
+            <div class="cssscan">
+                <p>
+                    <h4 class="display-4 text-white ">Dar de alta una Direccion de Obra</h4>
+                    <p class=" texto_titulo text-white"> Gestion de direcciones</span>
+                    </p>
+                </p>
+
+                <img src="\images\direccion_svg_.svg" alt="...">
+            </div>
+        </div>
+
+        <form action="{{ baseUrl('addWorkLocations') }}" method="POST">
+            <div class="cuerpo_work_location mt-2">
+
+                <div class="row mt-4 mb-4">
+
+                    <p class="workLocation_titles p-2 m-2 mb-2 ">&nbsp;&nbsp;
+                        <img class="mr-2" style="width:30px;heigth:30px;" src="\images\datos_cliente.png" alt="...">
+                        Seleccionar Cliente </p>
+
+                </div>
+                <div class="row row_linea">
+
+                    <div class="col-sm-5">
+                        <div class="col-sm">
+
+                            <select data-size="5" class="selectpicker form-select" name="id_customer"
+                                aria-label="Default select example">
+
+                                {% if customers|length > 0 %}
+                                {% for customer in customers %}
+
+                                <option value="{{ customer.id_customer }}">{{ customer.names }}</option>
+
+                                {% endfor %}
+                                {% else %}
+                                <option value="{{ customer.id_customer }}">Primero debe registrar clientes</option>
+                                {% endif %}
+                            </select>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row mt-4 row_linea">
+
+                    <p class="workLocation_titles p-2 m-2 mb-2">&nbsp;&nbsp;
+                        <img class="mr-2" style="width:30px;heigth:30px;" src="\images\localidad_direccion.png"
+                            alt="..."> Direccion </p>
+
+                </div>
+
+                <div class="row mb-3 input_address">
+
+                    <div class="field field_v2 ">
+                        <label for="address" class="ha-screen-reader"></label>
+                        <input class="field__input" placeholder=" " name="address" id="address"
+                            value="{{ old('address') }}">
+                        <span class="field__label-wrap" aria-hidden="true">
+                            <span class="field__label">Calle y Numero</span>
+                        </span>
+                    </div>
+                    <p class="text-danger">{{ msg('errors.address') }}</p>
+
+                </div>
+
+                <div class="row mb-3 ">
+                    <div class="col-4">
+
+                        <div class="field field_v2">
+                            <label for="location" class="ha-screen-reader"></label>
+                            <input id="location" class="field__input" placeholder=" " name="location"
+                                value="{{ old('location') }}">
+                            <span class="field__label-wrap" aria-hidden="true">
+                                <span class="field__label">Localidad</span>
+                            </span>
+                        </div>
+                        <p class="text-danger">{{ msg('errors.location') }}</p>
+
+                    </div>
+
+                    <div class="col-4">
+
+                        <div class="field field_v2">
+                            <label for="province" class="ha-screen-reader"></label>
+                            <input id="province" class="field__input" placeholder=" " name="province"
+                                value="{{ old('province') }}">
+                            <span class="field__label-wrap" aria-hidden="true">
+                                <span class="field__label">Provincia</span>
+                            </span>
+                        </div>
+                        <p class="text-danger">{{ msg('errors.province') }}</p>
+
+                    </div>
+
+                    <div class="col-4">
+
+                        <div class="field field_v2">
+                            <label for="zip_code" class="ha-screen-reader"></label>
+                            <input id="zip_code" class="field__input" placeholder=" " name="zip_code"
+                                value="{{ old('zip_code') }}">
+                            <span class="field__label-wrap" aria-hidden="true">
+                                <span class="field__label">Codigo Postal</span>
+                            </span>
+                        </div>
+                        <p class="text-danger">{{ msg('errors.zip_code') }}</p>
+
+                    </div>
+                </div>
+                <div class="row mt-4 mb-4">
+
+                    <div class="col-6">
+                        <label for="exampleFormControlTextarea1" class="p-2">Observaciones,mas informacion sobre la
+                            direccion</label>
+                        <textarea class="form-control" id="exampleFormControlTextarea1" name="observations"> </textarea>
+                    </div>
+                    <div class="col-6"> </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md">
+
+                        <div class="row">
+                            <div class="col">
+                            </div>
+                            <div class="col-md">
+
+                                {% if customers|length > 0 %}
+                                <button class="button_retainer mt-3 pt-3 pb-3 text-white"
+                                    type="submit">REGISTRAR</button>
+                                {% else %}
+                                <button class="button_retainer mt-3 pt-3 pb-3 text-white" type="submit" disabled
+                                    style="background-color: #ccc; cursor: not-allowed;">REGISTRAR</button>
+
+                                {% endif %}
+
+                            </div>
+                            <div class="col">
+                            </div>
+                        </div>
+                    </div>
+<div> *Primero debe registrar clientes para habilita el registro de direcciones de obras.</div>
+        </form>
+        <p class=" text-center mt-5">
+            <a href="{{ routeTo('listWorkLocations') }}">
+                <img class="rounded mx-auto d-block " src="\images\regresar.png" alt="...">
+            </a>
+            <br> Volver a la lista de Direcciones de Obras
+        </p>
+
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    <div class="row ">
+        <div class="col-12">
+
+            {%  if msg('msg') %}
+
+            <script>
+                $(document).ready(function() {
+                    var msg = {
+                        {
+                            msg('msg') | json_encode | raw
+                        }
+                    };
+                    Swal.fire({
+                        title: msg.title,
+                        text: msg.text,
+                        icon: 'success',
+                        cancelButtonText: 'Cerrar'
+                    })
+                });
+            </script>
+
+            {% endif %}
+
+            {%  if msg('msg2') %}
+
+            <script>
+                $(document).ready(function() {
+                    var msg2 = {
+                        {
+                            msg('msg2') | json_encode | raw
+                        }
+                    };
+                    Swal.fire({
+                        title: msg2.title,
+                        text: msg2.text,
+                        icon: 'warning',
+                        cancelButtonText: 'Cerrar'
+                    })
+                });
+            </script>
+
+            {% endif %}
+
+        </div>
+    </div>
+
+    {% include 'Front/base/footer.html.twig' %}
+    {% endblock %}
+
+    {% block script %}
+    {{parent(script)}}
+
+    <script>
+        setTimeout(function() {
+            $(".alerta").fadeOut(2000);
+        }, 2200);
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    {% endblock %}

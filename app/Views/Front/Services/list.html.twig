@@ -1,0 +1,304 @@
+{% extends 'Front/base/main.html.twig' %}
+
+{% block titleHeader %}
+Listar clientes
+{% endblock %}
+{% block content %}
+{% include 'Front/base/header.html.twig' %}
+
+<link rel="stylesheet" href="/css/css_all/Services/list.css">
+
+<style>
+    div:where(.swal2-icon).swal2-warning {
+        border-color: #eb2e2e;
+        color: #eb2e2e;
+    }
+
+    .btn-danger:hover {
+        margin-right: 20px;
+        color: #fff;
+        background-color: #bb2d3b;
+        border-color: #b02a37;
+    }
+
+    .btn-danger {
+        color: #fff;
+        background-color: #dc3545;
+        border-color: #dc3545;
+        margin-right: 20px;
+    }
+
+    div:where(.swal2-container) button:where(.swal2-styled).swal2-confirm {
+        border: 0;
+        border-radius: 0.25em;
+        background: initial;
+        background-color: #66c732;
+        color: #fff;
+        font-size: 1em;
+    }
+</style>
+
+<body class="container_clientes">
+    <div class="container mt-1">
+
+        <div id="titulo_servicios">
+
+            <div class="row">
+                <div class="col-4 pl-3">
+                    <a href="javascript: history.go(-1)">&nbsp;&nbsp;&nbsp;
+                        <img class="ml-3 pt-4 " src="\images\arrow_white_izq.png" alt="...">
+                    </a>
+                </div>
+                <div class="col-4"></div>
+                <div class="col-4"></div>
+            </div>
+
+            <div class="cssscan">
+                <p>
+                    <h4 class="display-4 text-white text-center ">Listado de Servicios</h4>
+                </p>
+                <p class=" texto_titulo text-white">Gestion de Servicios dar de alta, modificar y listar
+                </p>
+                </span>
+                </p>
+                </p>
+
+                <img src="\images\header_servicios.svg" alt="...">
+</body>
+</div>
+</div>
+<div id="loading-bar-container">
+    <div id="loading-bar"></div>
+</div>
+<div class="cuerpo_service mt-1">
+
+    <div class="row p-2 mb-3 justify-content-center justify-content-md-start">
+
+        <div class="col-4 "></div>
+
+        <div class="col-sm-4 pb-3">
+
+            <a class="text-center" href="{{ routeTo('showFormService') }}">
+                <span class=" mx-auto d-block text-center boton_add_cliente">
+
+                    <img class=" pt-3" src="\images\add_1.png" alt="...">
+
+                </span>
+            </a>
+
+        </div>
+
+        <div class="col-4 "></div>
+    </div>
+
+    <table class="table table-striped  text-center">
+        <thead>
+            <tr>
+                <th class="text-center align-middle th_header" scope="col">Nombre</th>
+                <th class="pt-3 text-center align-middle th_header" scope="col">Codigo</th>
+                <th class="pt-3 text-center align-middle th_header" scope="col">Acciones</th>
+
+            </tr>
+
+            {% if services|length == 0 %}
+
+            <tr>
+                <td class="text-center align-middle text-left" colspan="15">
+
+                    <lord-icon src="https://cdn.lordicon.com/nxaaasqe.json" trigger="hover"
+                        colors="primary:#121331,secondary:#66c2cf" style="width:50px;height:50px"></lord-icon>
+
+                    <br>
+                    No ahi servicios registrados
+
+                </td>
+            </tr>
+
+            {% else %}
+        </thead>
+        </thead>
+        <tbody>
+            {% for service in services %}
+            {% set servicesLinkedToOrder = service.id_service in orderServicesIds %}
+            <tr>
+
+                <th scope="row" class="text-center align-middle">{{ service.name }}</th>
+                <th scope="row" class="text-center align-middle">{{ service.code }}</th>
+
+                <td class="   text-left align-middle">
+                    <div class="d-flex justify-content-center align-items-center boton_menu">
+                        <nav class="navbar navbar-expand-lg  navbar-light text-center nav_menu">
+
+                            <button class="navbar-toggler  text-center" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#navbarSupportedContentTabla"
+                                aria-controls="navbarSupportedContentTabla" aria-expanded="false"
+                                aria-label="Toggle navigation">
+                                <span class="navbar-toggler-icon icono_menu_nav text-center"></span>
+                            </button>
+
+                            <div class="collapse navbar-collapse " id="navbarSupportedContentTabla">
+
+                                <ul class="navbar-nav text-center nav justify-content-center ">
+                                    {% if not servicesLinkedToOrder %}
+                                    <li class="nav-item ">
+                                        <a class="text-white " href="{{ routeTo('editService', service.id_service) }}">
+                                            <img src="\images\edit.png" alt="..." title="editar servicio">
+                                        </a>
+
+                                    </li>
+                                     <li class="nav-item ">
+                                              &nbsp;&nbsp;&nbsp; Asignado a un Pedido
+
+
+                                            </li>
+
+                                    {% else %}
+
+                                      <li class="nav-item ">
+                                        <a class="text-white " href="{{ routeTo('editService', service.id_service) }}">
+                                            <img src="\images\edit.png" alt="..." title="editar servicio">
+                                        </a>
+
+                                    </li>
+                                    <li class="nav-item ">
+
+                                        <a href="#" class="delete-service-button"
+                                            data-service-id="{{ service.id_service }}">
+                                            <img src="\images\delete_white.png" alt="...">
+                                            &nbsp;&nbsp;&nbsp;
+                                        </a>
+
+                                    </li>
+
+                                    {% endif %}
+
+                                </ul>
+                            </div>
+
+                        </nav>
+
+                    </div>
+                </td>
+
+            </tr>
+
+            {% endfor %}
+            {% endif %}
+        </tbody>
+    </table>{{ pager | raw }}
+    <div>*Los servicios que estan asignados en algun pedido no se podran eliminarlo. Si elimina el pedido se liberara y podra eliminarlo.</div>
+    <div class="row pt-5">
+        <div class="col">
+            <p class=" text-center mt-5">
+                <a href="{{ routeTo('home') }}">
+                    <img class="rounded mx-auto d-block " src="\images\regresar.png" alt="...">
+                </a>
+                <br>
+                Volver al inicio
+            </p>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+</div>
+<div class="row ">
+    <div class="col-12">{%  if msg('msg') %}<script>
+            $(document).ready(function() {
+                var msg = {
+                    {
+                        msg('msg') | json_encode | raw
+                    }
+                };
+                Swal.fire({
+                    title: msg.title,
+                    text: msg.text,
+                    icon: 'success',
+                    cancelButtonText: 'Cerrar'
+                })
+            });
+        </script>{% endif %}{%  if msg('msg2') %}<script>
+            $(document).ready(function() {
+                var msg2 = {
+                    {
+                        msg('msg2') | json_encode | raw
+                    }
+                };
+                Swal.fire({
+                    title: msg2.title,
+                    text: msg2.text,
+                    icon: 'warning',
+                    cancelButtonText: 'Cerrar'
+                })
+            });
+        </script>{% endif %}</div>
+</div>
+<script>
+    $(document).ready(function() { // Obtén el botón por su clase
+        $(".delete-service-button").click(function() {
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'btn btn-success',
+                    cancelButton: 'btn btn-danger'
+                },
+                buttonsStyling: false
+            });
+            // Obtén el ID del cliente desde el atributo data
+            var serviceId = $(this).data('service-id');
+            swalWithBootstrapButtons.fire({
+                title: '¿Estás seguro?',
+                text: "No podrás revertir esto.",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Sí, eliminarlo',
+                cancelButtonText: 'No, cancelar',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) { // Enviar una solicitud AJAX para eliminar el cliente
+                    $.ajax({
+                        url: 'https://contenedores.grupohnosfas.com/Servicios/eliminar/' +
+                            serviceId,
+                        type: 'POST',
+                        success: function(
+                        response) { // Mostrar un mensaje de éxito o error según la respuesta
+                            if (response.success) {
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Eliminado',
+                                    text: response.message
+                                }).then(() => { // Redirigir después de mostrar el mensaje de éxito
+                                    window.location.href =
+                                        'https://contenedores.grupohnosfas.com/Servicios/listar/';
+                                });
+                            } else {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Error',
+                                    text: response.message
+                                });
+                            }
+                        },
+                        error: function() {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error',
+                                text: 'Se produjo un error en la solicitud.'
+                            });
+                        }
+                    });
+                } else if (result.dismiss === Swal.DismissReason.cancel) {
+                    swalWithBootstrapButtons.fire('Cancelado', 'Tu cliente está a salvo :)',
+                        'error');
+                }
+            });
+        });
+    });
+</script>{% include 'Front/base/footer.html.twig' %}</body>{% endblock %}{% block script %}{{parent(script)}}
+<script>
+    setTimeout(function() {
+        $(".alerta").fadeOut(2000);
+    }, 10200);
+</script>
+<script src="/js/jsBootstrap.js"></script>
+<script src="https://cdn.lordicon.com/qjzruarw.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>{% endblock %}

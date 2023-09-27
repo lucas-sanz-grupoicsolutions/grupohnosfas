@@ -1,0 +1,783 @@
+{% extends 'Front/base/main.html.twig' %}
+
+{% block titleHeader %}
+Listar clientes
+{% endblock %}
+{% block content %}
+{% include 'Front/base/header.html.twig' %}
+
+
+<link rel="stylesheet" href="/css/css_all/Albaranes/list.css">
+<style>
+    #error {
+        background: #fd04105e;
+        padding: 20px;
+        text-align: center;
+        font-size: 1.2rem;
+        color: white;
+
+    }
+
+
+    .modal-header {
+        display: flex;
+        flex-shrink: 0;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1rem 1rem;
+        border-bottom: 1px solid #dee2e6;
+        border-top-left-radius: calc(0.3rem - 1px);
+        border-top-right-radius: calc(0.3rem - 1px);
+        background-color: #587ffc;
+        border: 10px solid white;
+    }
+
+    .button_close_modal {
+        border-top-left-radius: 40px 40px;
+        border-top-right-radius: 40px 40px;
+        border-bottom-right-radius: 40px 40px;
+        border-bottom-left-radius: 40px 40px;
+        width: 20px;
+        box-shadow: none;
+        font-size: 20px;
+        border: none;
+        background: transparent !important;
+    }
+
+    .button_cerrar_modal {
+        width: 100px;
+    }
+
+    .button_aceptar_modal {
+        width: 100px;
+        background-color: #587ffc;
+    }
+
+    .modal-title {
+        font-size: 1.6rem !important;
+    }
+
+    .button_close_modal {
+        border-top-left-radius: 40px 40px;
+        border-top-right-radius: 40px 40px;
+        border-bottom-right-radius: 40px 40px;
+        border-bottom-left-radius: 40px 40px;
+        width: 20px;
+        box-shadow: none;
+        font-size: 30px;
+        border: none;
+        background: transparent !important;
+    }
+
+
+    @keyframes parpadeo {
+        0% {
+            opacity: 1;
+        }
+
+        50% {
+            opacity: 0;
+        }
+
+        100% {
+            opacity: 1;
+        }
+    }
+
+    .parpadeo {
+        color: #fdacac;
+
+        font-weight: 700;
+        animation: parpadeo 2s infinite;
+    }
+
+    .btn-close {
+
+        background: transparent url(data:image/svg+xml, %3csvg xmlns='http://www.w3.org / 2000/svg' viewBox='0 0 16 16' fill='%23fff'%3e%3cpath d='M.293.293a1 1 0 011.414 0L8 6.586 14.293.293a1 1 0 111.414 1.414L9.414 8l6.293 6.293a1 1 0 01-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 01-1.414-1.414L6.586 8 .293 1.707a1 1 0 010-1.414z'/%3e%3c/svg%3e) center/1em auto no-repeat !important;
+
+    }
+
+    div:where(.swal2-container) button:where(.swal2-styled).swal2-confirm {
+    border: 0;
+    border-radius: 0.25em;
+    background: initial;
+    background-color: #959595 !important;
+    color: #fff;
+    font-size: 1em;
+}
+
+div:where(.swal2-icon).swal2-info {
+    border-color: #e06666 !important;
+    color: #e06666;
+}
+
+div:where(.swal2-icon).swal2-info {
+    border-color: #e06666 !important;
+    color: #e06666;
+}
+
+div:where(.swal2-icon).swal2-info {
+    border-color: #9de0f6;
+    color: #e06666;
+}
+</style>
+
+<link rel="stylesheet" href="/css/css_all/albaranes/list.css">
+<!-- Incluir los archivos CSS de Select2 -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-rc.0/css/select2.min.css" rel="stylesheet" />
+
+
+
+
+<body class="container_clientes">
+
+
+
+    <div class="container mt-1">
+
+        <div id="titulo_albaranes">
+
+            <div class="row">
+                <div class="col-4 pl-3"><a href="javascript: history.go(-1)">&nbsp;&nbsp;&nbsp;
+                        <img class="ml-3 pt-4 " src="\images\arrow_white_izq.png" alt="...">
+                    </a></div>
+                <div class="col-4"></div>
+                <div class="col-4"></div>
+            </div>
+
+            <div class="cssscan">
+                <p>
+                    <h4 class="display-4 text-white text-center ">Listado de Albaranes</h4>
+                    <p class=" texto_titulo text-white"> Gestion de albaranes dar de alta, modificar y listar</span>
+                    </p>
+                </p>
+
+                <img src="\images\icono_header_albaran.svg" alt="...">
+            </div>
+        </div>
+
+        <div class="cuerpo_albaranes mt-2">
+
+            <form action="{{  routeTo('listAlbaranes' ) }}#sectionTable" method="GET">
+                <div class="row_num_bills p-2 pb-2">
+                    <div class="row mt-2 ">
+
+                        <div class="col-sm-4 ">
+
+                            <label class="" for="inputDescription">&nbsp;&nbsp;Filtrar
+                                por clientes
+                            </label>
+
+                            <select id="customer-select" class="form-control " name="customer_id"
+                                style="border:none !important;" data-control="select2">
+                                <option value="">Seleccione un cliente</option>
+                                {% for customer in customers_all %}
+                                <option value="{{ customer.id_customer }}">
+                                    {{ customer.names }}
+                                </option>
+                                {% endfor %}
+                            </select>
+
+                        </div>
+
+                        <div class="col-sm-4">
+
+                            <label class="" for="direccion_obra">&nbsp;&nbsp;Filtrar
+                                por direccion
+                            </label>
+
+                            <select id="work-location-select">
+                                <option value="">Seleccione una dirección de obra</option>
+                            </select>
+
+                        </div>
+
+                        <div class="col-sm-4">
+
+                            <label class="" for="inputDescription">&nbsp;&nbsp;Filtrar
+                                por Conductor
+                            </label>
+                            <select class="form-select " name="driver" id="id_drivers_selection">
+                                <option value="" selected>Seleccione un Conductor
+                                </option>
+                                {% for d in drivers_all %}
+                                {% if ( d.active  ==  1) %}
+
+                                <option value="{{ d.id_driver }}" class="font-weight-bold ">
+
+                                    {{ d.name }}
+                                </option>
+                                {% endif %}
+                                {% endfor %}
+                            </select>
+
+                        </div>
+
+                    </div>
+
+                    <div class="row  mb-2 justify-content-center ">
+
+                        <div class="col-sm-4 mt-4">
+
+                            {# <p id="list_pallet_buscar_texto text-center p-1">BUSCAR POR FECHAS CREACION</p>#}
+
+                            <label class="" for="inputDescription">Filtrar por dia de alta del Albaran
+                            </label>
+
+                            <input type="date" class="form-control text-left ml-2 " name="created_at"
+                                placeholder="Fecha de final">
+                            <p class="text-danger">{{ msg('errors.created_at') }}</p>
+
+                        </div>
+
+                        <div class="col-sm-4  ">
+
+                        </div>
+
+                        <div class="col-sm-4 ">
+
+                            <div class="wrapper">
+                                <input type="radio" name="albaran_status" id="option-1" value="Pendiente">
+                                <input type="radio" name="albaran_status" id="option-2" value="Facturado">
+                                <label for="option-1" class="option option-1">
+                                    <div class="dot"></div>
+                                    <span>Pendientes</span>
+                                </label>
+                                <label for="option-2" class="option option-2">
+                                    <div class="dot"></div>
+                                    <span>Facturado</span>
+                                </label>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="row mb-2 ">
+
+                        <div class="col-sm-4"></div>
+
+                        <div class="col-sm-4 col_button_filtrar">
+
+                            <button type="submit" class="button_filtrar text-center"> <img src="\images\icon_filter.png"
+                                    alt="...">&nbsp;&nbsp;&nbsp;&nbsp;Filtrar</button>
+
+                        </div>
+
+                        <div class="col-sm-4"></div>
+                    </div>
+
+                </div>
+
+            </form>
+
+            <form id="mi-formulario" action="{{  baseUrl('createBillsAuto') }}" method="POST">
+
+                <div class=" p-3  ">
+                    <div class="row p-3 row_num_bills justify-content-center mt-2 mb-2 ">
+
+                        <div class="col-sm-1 text-right"></div>
+
+                        <div class="col-sm-8 col_button_filtrar">
+                            {# <div class="field field_v2">
+
+                                <label for="num_bill" class="ha-screen-reader"></label>
+                                <input class="field__input" placeholder=" " name="num_bill">
+                                <span class="field__label-wrap" aria-hidden="true">
+                                    <span class="field__label ">Nº Factura</span>
+                                </span>
+                            </div>
+                            <br>
+                         <p class="text-danger parpadeo">{{ msg('errors.num_bill') }}</p> #}
+
+                        </div>
+
+                        <div class="col-sm-1 ">
+                        </div>
+
+                        <div class="row mt-3 mb-5">
+
+                            <div class="col-sm-4 "></div>
+
+                            {# <div class="col-sm-4">
+                               <div class="text-center  ">
+                                    <button id="preview_button" name="preview_button" class="generar_factura"
+                                        type="button" value="1">
+                                        <img src="\images\ver_bills.png" alt="...">&nbsp;&nbsp;&nbsp;&nbsp;Pre
+                                        Visualizar
+                                        Factura
+                                    </button>
+                                </div>
+                            </div> #}
+                            <div class="col-sm-4 ">
+                                <div class="text-center  ">
+
+                                   {% if albaranes|length > 0 %}
+
+                                    <button class=" generar_factura " value="1" name="bills_button" id="buttom_bills"
+                                        type="submit">
+                                        <img src="\images\invoice_white.png" alt="...">&nbsp;&nbsp;&nbsp;&nbsp;Generar
+                                        Factura
+                                    </button>
+
+
+                                {% else %}
+
+                                  <button class=" generar_factura " value="1" name="bills_button" id="buttom_bills"
+                                        type="submit" disabled
+                                    style="background-color: #ccc; cursor: not-allowed;">
+                                        <img src="\images\invoice_white.png" alt="...">&nbsp;&nbsp;&nbsp;&nbsp;Generar
+                                        Factura
+                                    </button>
+
+
+
+                                {% endif %}
+
+                                </div>
+                                {#row#}
+                            </div>
+                            <div class="col-sm-4"></div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="row" id="error" style="display:none;">
+
+                        <div class="col-sm-12 text-center">
+                            Debe <u><b>seleccionar al menos un Albaran de la lista de ALABARANES</b></u>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <table class="table table-striped  text-center" id="sectionTable">
+                    <thead>
+                        <tr>
+                            {#   <th class="text-center align-middle" scope="col">Id</th>#}
+                            <th class="pt-3 text-center align-middle th_header" scope="col"> <span
+                                    class="checkbox-wrapper-41 mt-3 ">
+                                    <label>
+                                        <input type="checkbox" id="selectAllCheckbox" value="">
+                                        <span class="checkbox__icon"></span>
+                                        &nbsp;
+
+                                    </label>
+                                </span>
+                                 </th>
+                            <th class="pt-3 text-center align-middle th_header" scope="col">Pre Impreso</th>
+                            <th class="pt-3 text-center align-middle th_header" scope="col">Conductor</th>
+                            <th class="pt-3 text-center align-middle th_header" scope="col">Cliente</th>
+                            <th class="pt-3 text-center align-middle th_header" scope="col">Direccion</th>
+                            <th class="pt-3 text-center align-middle th_header" scope="col">Fecha Alta</th>
+                            <th class="pt-3 text-center align-middle th_header" scope="col"> Estado</th>
+
+                            <th class="text-center  align-middle th_header" scope="col"> Acciones</th>
+
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        {% if albaranes|length == 0%}
+
+                        <tr>
+                            <td class="text-center align-middle text-left" colspan="8">
+
+                                <lord-icon src="https://cdn.lordicon.com/nocovwne.json" trigger="hover"
+                                    colors="primary:#a39cf4,secondary:#587ffc" style="width:50px;height:50px">
+                                </lord-icon>
+
+                                <br>
+                                No ahi resultados
+
+                            </td>
+                        </tr>
+
+                        {% else %}
+
+                        {% for albaran in albaranes %}
+
+                        <input type="hidden" name="id_customer" value="{{ albaran.id_customer}}">
+
+                        <tr>
+                            <th class="text-center align-middle text-left">
+
+                                <span class="checkbox-wrapper-41 mt-3 ">
+                                    <label>
+
+                                        {% if albaran.albaran_status == 'Pendiente' %}
+                                        <input type="checkbox" name="albaranes[]" class="mi-checkbox"
+                                            value="{{ albaran.id_albaran }}">
+                                        <span class="checkbox__icon"></span>
+
+                                        {% endif %}
+
+                                        &nbsp;
+
+                                    </label>
+                                </span>
+
+                            </th>
+
+                            {#  <th scope="row" class="text-center align-middle">{{ customer.id_customers }}</th>#}
+                            <th scope="row" class="text-center align-middle">{{ albaran.preprinted }}</th>
+                            <th scope="row" class="text-center align-middle">
+
+                                {% for d in drivers_all %}
+                                {% if(d.id_driver == albaran.id_driver)  %}
+                                {{ d.name }}
+                                {% endif %}
+
+                                {% endfor %}
+
+                            </th>
+                            <th scope="row" class="text-center align-middle">{{ albaran.customer_name }}</th>
+
+                            <th scope="row" class="text-center align-middle">
+
+                                {{ albaran.work_location_address }}
+                                {{ albaran.work_location_location }}
+                            </th>
+                            <th scope="row" class="text-center align-middle">{{ albaran.created_at | date('d/m/y')}}
+                            </th>
+                            <th scope="row" class="text-center align-middle">
+
+                                {% if ( albaran.albaran_status == "Pendiente" ) %}
+                                <span style="color:#c2ac0f;">
+                                    {{ albaran.albaran_status }}</span>
+                                {% endif %}
+
+                                {% if ( albaran.albaran_status == "Facturado" ) %}
+                                <span style="color:#0da5eb;">
+                                    {{ albaran.albaran_status }}</span>
+                                {% endif %}
+
+                            </th>
+            </form>
+            <td class="text-left align-middle">
+                <div class="d-flex justify-content-center align-items-center boton_menu">
+                    <nav class="navbar navbar-expand-lg  navbar-light text-center nav_menu">
+
+                        <button class="navbar-toggler  text-center" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#navbarSupportedContentTabla" aria-controls="navbarSupportedContentTabla"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon icono_menu_nav text-center"></span>
+                        </button>
+
+                        <div class="collapse navbar-collapse " id="navbarSupportedContentTabla">
+
+                            <ul class="navbar-nav text-center nav justify-content-center ">
+
+                                <li class="nav-item">
+                                    <a class="text-white " href="{{ routeTo('seeDetailAlbaran', albaran.id_albaran) }}">
+                                        <img src="\images\ver_albaran.png" alt="..." title="detalle del albaran">
+                                    </a>
+                                </li>
+                      {% if (albaran.albaran_status == "Pendiente")  %}
+                                <li class="nav-item ">
+                                    <a class="text-white " href="{{ routeTo('editAlbaran', albaran.id_albaran) }}">
+                                        <img src="\images\edit.png" alt="..." title="editar albaran">
+                                    </a>
+
+                                </li>
+
+                                    <li class="nav-item ">
+                                            <a href="#" class="delete-albaran-button" data-albaran-id="{{ albaran.id_albaran }}">
+                                                <img src="\images\delete_white.png" alt="..."> &nbsp;&nbsp;&nbsp;
+                                            </a>
+
+                                        </li>
+                         {% endif %}
+
+                        </div>
+                        </ul>
+                </div>
+
+                </nav>
+
+        </div>
+        </td>
+
+        </tr>
+
+        {% endfor %}
+        {% endif %}
+        </tbody>
+        </table>
+        {{ pager | raw }}
+
+        <div class="row pt-5">
+            <div class="col">
+                <p class=" text-center">
+                    <a href="{{ routeTo('home') }}">
+                        <img class="rounded mx-auto d-block " src="\images\regresar.png" alt="...">
+                    </a>
+                    <br> ir a Inicio
+                </p>
+            </div>
+        </div>
+
+    </div>
+    </div>
+
+     <button id="prev_factura" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal"
+        style="border:none !important; box-shadow:none !important;">
+    </button>
+
+    <!-- Pantalla modal -->
+    <div class="modal fade" id="exampleModal" data-bs-backdrop="static" tabindex="-1"
+        aria-labelledby="exampleModalLabel" aria-hidden="true" id="miVentanaModal"
+        style="border:none !important; box-shadow:none !important;">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg" id="miVentanaModal"
+            style="border:none !important; box-shadow:none !important;">
+            <div class="modal-content">
+
+                <div id="miVentanaModal">
+
+                    <div class="p-3">
+
+                        <a href="#" data-bs-dismiss="modal" aria-label="Cerrar" class="text-right">
+                            <img src="\images\iconos\cerrar.png" width="24" height="24" style="float: right;">
+                        </a>
+                    </div>
+
+                </div>
+
+                <div class="modal-body" id="miVentanaModal" id="modal-body">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    </div>
+
+    </div>
+
+
+
+
+
+<script>
+
+  $(document).ready(function() {
+
+    // Obtén el botón por su clase
+    $(".delete-albaran-button").click(function() {
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: 'btn btn-success',
+                cancelButton: 'btn btn-danger'
+            },
+            buttonsStyling: false
+        });
+
+        // Obtén el ID del cliente desde el atributo data
+        var albaranId = $(this).data('albaran-id');
+
+
+        swalWithBootstrapButtons.fire({
+            title: '¿Estás seguro?',
+            text: "No podrás revertir esto.",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Sí, eliminarlo',
+            cancelButtonText: 'No, cancelar',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+
+                // Enviar una solicitud AJAX para eliminar el cliente
+                $.ajax({
+                    url: 'https://contenedores.grupohnosfas.com/Albaranes/eliminaralbaran/' + albaranId,
+                    type: 'POST',
+                    success: function(response) {
+                        // Mostrar un mensaje de éxito o error según la respuesta
+                        if (response.success) {
+
+
+
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Eliminado',
+                                text: response.message
+                            }).then(() => {
+                                // Redirigir después de mostrar el mensaje de éxito
+                                window.location.href = 'https://contenedores.grupohnosfas.com/Albaranes/listar/';
+                            });
+                        } else {
+
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error',
+                                text: response.message
+                            });
+                        }
+                    },
+                    error: function() {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: 'Se produjo un error en la solicitud.'
+                        });
+                    }
+                });
+            } else if (result.dismiss === Swal.DismissReason.cancel) {
+                swalWithBootstrapButtons.fire(
+                    'Cancelado',
+                    'Tu cliente está a salvo :)',
+                    'error'
+                );
+            }
+        });
+    });
+});
+
+
+
+</script>
+
+    {% include 'Front/base/footer.html.twig' %}
+</body>
+{% endblock %}
+
+{% block script %}
+{{parent(script)}}
+
+<script>
+    // Selecciona todos los checkboxes
+    function selectAllCheckboxes() {
+        var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+        checkboxes.forEach(function(checkbox) {
+            checkbox.checked = true;
+        });
+    }
+    // Deselecciona todos los checkboxes
+    function deselectAllCheckboxes() {
+        var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+        checkboxes.forEach(function(checkbox) {
+            checkbox.checked = false;
+        });
+    }
+    // Agrega el evento click al checkbox maestro
+    var masterCheckbox = document.getElementById('selectAllCheckbox');
+    masterCheckbox.addEventListener('click', function() {
+        switch (masterCheckbox.checked) {
+            case true:
+                selectAllCheckboxes();
+                break;
+            case false:
+                deselectAllCheckboxes();
+                break;
+        }
+    });
+    // Agrega el evento click a todos los checkboxes individuales
+    var checkboxes = document.querySelectorAll('input[type="checkbox"]:not(#selectAllCheckbox)');
+    checkboxes.forEach(function(checkbox) {
+        checkbox.addEventListener('click', function() {
+            var allChecked = true;
+            checkboxes.forEach(function(checkbox) {
+                if (!checkbox.checked && checkbox !== masterCheckbox) {
+                    allChecked = false;
+                }
+            });
+            masterCheckbox.checked = allChecked;
+        });
+    });
+
+</script>
+
+<script src="/js/jsBootstrap.js"></script>
+<script src="/js/listAlbaranes.js"></script>
+
+<script src="https://cdn.lordicon.com/qjzruarw.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="sweetalert2.all.min.js"></script>
+<script src="sweetalert2.min.js"></script>
+
+<script src="https://cdn.lordicon.com/bhenfmcm.js"></script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-rc.0/js/select2.min.js"></script>
+
+<script>
+
+
+function borrarAlbaran(albaran) {
+
+        Swal.fire({
+        title: 'ATENCION',
+        text: 'El Albaran esta ASIGNADO a una Factura, no puede ser eliminado.',
+        icon: 'info',
+        showCancelButton: true,
+        confirmButtonText: 'Eliminar',
+        cancelButtonText: 'Cancelar'
+        }).then((result) => {
+        if (result.isConfirmed) {
+            // Enviar el formulario utilizando la ruta en CodeIgniter 4
+            window.location.href = "https://contenedores.grupohnosfas.com/Albaranes/eliminarAlbaran/" + albaran;
+
+        }
+        });
+
+}
+
+
+
+
+    setTimeout(function() {
+        $(".alerta_msg_albaranes").fadeOut(2000);
+    }, 10200);
+
+    $(document).ready(function() {
+        $('#id_customers_selection').on("change", function(event) {
+            var opt = $(this).find("option:selected")
+            var url = opt.data("url")
+            window.location.href = url
+        });
+    });
+
+
+    document.addEventListener("DOMContentLoaded", function() {
+        // Obtiene el formulario
+        var form = document.getElementById("mi-formulario");
+        // Agrega un evento de escucha al evento 'submit' del formulario
+        form.addEventListener("submit", function(event) {
+            // Obtiene el valor del campo que quieres verificar su unicidad
+            var campoValor = document.getElementById("id_bills").value;
+            alert("error".campoValor);
+            // Realiza una solicitud AJAX para verificar la unicidad
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "{{ routeTo('createSaveBills') }}", true);
+            xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    // Analiza la respuesta del servidor
+                    var response = JSON.parse(xhr.responseText);
+                    if (response.unique) {
+                        // El valor es único, así que envía el formulario
+                        form.submit();
+                    } else {
+                        // El valor no es único, muestra un mensaje de error
+                        alert("El valor no es único. Por favor, ingresa otro valor.");
+                    }
+                }
+                event.preventDefault();
+            };
+            xhr.send("campo=" + campoValor);
+        });
+    });
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+{% endblock %}

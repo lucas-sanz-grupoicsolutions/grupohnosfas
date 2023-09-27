@@ -1,0 +1,130 @@
+
+<Document xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:iso:std:iso:20022:tech:xsd:pain.008.001.02">
+
+    <CstmrDrctDbtInitn>
+        <GrpHdr>
+            <MsgId>RE20230731 14 59 38 53978067</MsgId>
+            <CreDtTm>2023-07-31T14:59:38</CreDtTm>
+            <NbOfTxs>88</NbOfTxs>
+            <CtrlSum>73322.63</CtrlSum>
+
+            <InitgPty>
+                <Nm>ICSOLUTIONS INTEGRAL SYSTEM, SL</Nm>
+                <Id>
+                    <OrgId>
+                        <Othr>
+                            <Id>ES07001 B98472434</Id>
+                        </Othr>
+                    </OrgId>
+                </Id>
+            </InitgPty>
+        </GrpHdr>
+
+
+
+        <PmtInf>
+
+            <PmtInfId>20230731-RCUR20230803</PmtInfId>
+            <PmtMtd>DD</PmtMtd>
+            <NbOfTxs>88</NbOfTxs>
+            <CtrlSum>73322.63</CtrlSum>
+
+
+            <PmtTpInf>
+                <SvcLvl>
+                    <Cd>SEPA</Cd>
+                </SvcLvl>
+                <LclInstrm>
+                    <Cd>CORE</Cd>
+                </LclInstrm>
+                <SeqTp>RCUR</SeqTp>
+            </PmtTpInf>
+
+
+            <ReqdColltnDt>2023-08-03</ReqdColltnDt>
+
+            <Cdtr>
+                <Nm>ICSOLUTIONS INTEGRAL SYSTEM, SL</Nm>
+                <PstlAdr>
+                    <Ctry>ES</Ctry>
+                </PstlAdr>
+            </Cdtr>
+
+
+            <CdtrAcct>
+                <Id>
+                    <IBAN>ES8500811327410001166225</IBAN>
+                </Id>
+                <Ccy>EUR</Ccy>
+            </CdtrAcct>
+
+
+            <CdtrAgt>
+                <FinInstnId>
+                    <BIC>BSABESBBXXX</BIC>
+                </FinInstnId>
+            </CdtrAgt>
+
+            <ChrgBr>SLEV</ChrgBr>
+
+
+            <CdtrSchmeId>
+                <Id>
+                    <PrvtId>
+                        <Othr>
+                            <Id>ES07001B98472434</Id>
+                            <SchmeNm>
+                                <Prtry>SEPA</Prtry>
+                            </SchmeNm>
+                        </Othr>
+                    </PrvtId>
+                </Id>
+            </CdtrSchmeId>
+
+
+            <DrctDbtTxInf>
+
+                <PmtId>
+                    <InstrId>016286-20230801</InstrId>
+                    <EndToEndId>016286-20230801</EndToEndId>
+                </PmtId>
+
+
+                <InstdAmt Ccy="EUR">54.45</InstdAmt>
+
+                <DrctDbtTx>
+                    <MndtRltdInf>
+                        <MndtId>582</MndtId>
+                        <DtOfSgntr>2021-09-30</DtOfSgntr>
+                    </MndtRltdInf>
+                </DrctDbtTx>
+
+
+
+                <DbtrAgt>
+                    <FinInstnId>
+                        <BIC>BBVAESMMXXX</BIC>
+                    </FinInstnId>
+                </DbtrAgt>
+
+                <Dbtr>
+                    <Nm>A GOOD SITUATION, SL</Nm>
+                </Dbtr>
+
+
+                <DbtrAcct>
+                    <Id>
+                        <IBAN>ES2101826595610201658023</IBAN>
+                    </Id>
+                </DbtrAcct>
+
+
+                <RmtInf>
+                    <Ustrd>Cobro Fra. B872</Ustrd>
+                </RmtInf>
+
+            </DrctDbtTxInf>
+
+        </PmtInf>
+    </CstmrDrctDbtInitn>
+</Document>

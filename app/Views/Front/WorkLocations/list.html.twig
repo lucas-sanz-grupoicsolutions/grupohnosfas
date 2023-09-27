@@ -1,0 +1,348 @@
+{% extends 'Front/base/main.html.twig' %}
+
+{% block titleHeader %}
+	Listar clientes
+{% endblock %}
+{% block content %}
+	{% include 'Front/base/header.html.twig' %}
+
+	<link rel="stylesheet" href="/css/css_all/worklocations/list.css">
+
+	<body class="container_clientes">
+
+		<div class="container mt-1">
+
+			<div id="titulo_worklocations">
+
+				<div class="row">
+					<div class="col-4 pl-3">
+						<a href="javascript: history.go(-1)">&nbsp;&nbsp;&nbsp;
+							<img class="ml-3 pt-4 " src="\images\arrow_white_izq.png" alt="...">
+						</a>
+					</div>
+					<div class="col-4"></div>
+					<div class="col-4"></div>
+				</div>
+
+				<div class="cssscan">
+					<p>
+						<h4 class="display-4 text-white text-center ">Listado de Direcciones de Obras</h4>
+					</p>
+					<p class=" texto_titulo text-white">Gestion de direcciones dar de alta, modificar y listar
+					</p>
+				</span>
+			</p>
+		</p>
+
+		<img src="\images\direccion_svg_.svg" alt="...">
+	</body>
+</div></div><div class="cuerpo_work_location mt-2">
+
+<div class="row p-2 mb-2 justify-content-center justify-content-md-start">
+
+	<div class="col-4 "></div>
+
+	<div class="col-sm-4 pb-3">
+
+		<a class="text-center" href="{{ routeTo('showFormWorkLocations') }}">
+			<span class=" mx-auto d-block text-center boton_add_albaran">
+
+				<img class=" pt-3" src="\images\add_1.png" alt="...">
+
+			</span>
+		</a>
+
+	</div>
+
+	<div class="col-4 "></div>
+</div>
+
+<div
+	class="row   pt-2 mt-1 p-3">
+	{# row#}
+
+	<div class="row ">
+		<div class="col-sm-6 ">
+
+
+			<label class="" for="inputDescription">&nbsp;&nbsp;Filtrar
+								                                                    por clientes
+			</label>
+			<select class="form-select " name="" id="id_customers_selection" aria-label="Default select example">
+				<option selected>Seleccione un cliente
+				</option>
+				{% for c in customers_all %}
+					{% if ( c.active  ==  1) %}
+
+						<option value="{{ c.names }}" class="font-weight-bold " data-url="{{routeTo('searchforCustomersWorkLocation', c.id_customer )}}">
+							{{ c.names }}
+						</option>
+					{% endif %}
+				{% endfor %}
+			</select>
+
+
+		</div>
+		<div class="col-sm-6">
+
+
+			<label class="" for="inputDescription">&nbsp;&nbsp;Filtrar por Direccion de Obra
+			</label>
+			<select class="form-select " name="" id="id_worklocation_selection" aria-label="Default select example">
+				<option selected>Seleccione una direccion
+				</option>
+				{% for w in worklocations_all %}
+					{% if ( w.active  ==  1) %}
+
+						<option value="{{ w.id_work_locations }}" class="font-weight-bold " data-url="{{routeTo('searchforWorkLocation', w.id_work_locations)}}">
+							{{ w.address }}
+							{{ w.location }}
+							{{ w.province }}
+							{{ w.zip_code }}
+						</option>
+					{% endif %}
+				{% endfor %}
+			</select>
+		</div>
+
+	</div>
+
+</div>
+
+   {% include 'Front/base/worklocation/errorWorkLocation.html.twig' %}
+
+<table class="table table-striped  text-center mt-3">
+	<thead>
+		<tr>
+			{#   <th class="text-center align-middle" scope="col">Id</th>#}
+			<th class="pt-3 text-center align-middle th_header" scope="col">Cliente</th>
+			<th class="pt-3 text-center align-middle th_header" scope="col">Direccion</th>
+			<th class="pt-3 text-center align-middle th_header" scope="col">Localidad</th>
+			<th class="text-center  align-middle th_header" scope="col">
+				Acciones</th>
+
+		</tr>
+
+
+
+            {% if worklocations|length == 0 %}
+
+					    <tr>
+						<td class="text-center align-middle text-left" colspan="15">
+
+<lord-icon src="https://cdn.lordicon.com/ajyyzcwv.json" trigger="hover" colors="primary:#121331,secondary:#ff6347" style="width:50px;height:50px"></lord-icon>
+
+							<br>
+							No ahi direcciones de obras registradas
+
+						</td>
+					</tr>
+
+				{% else %}
+
+	</thead>
+	<tbody>
+
+		<tr>
+			{% for worklocation in worklocations %}
+             {% set workLocationLinkedToOrder = worklocation.id_work_locations in orderWorkLocationIds %}
+
+				<th scope="row" class="text-center align-middle">{{ worklocation.name_customer }}</th>
+				<th scope="row" class="text-center align-middle">{{ worklocation.address }}</th>
+				<th scope="row" class="text-center align-middle">{{ worklocation.location }}</th>
+
+
+				<td class="text-left align-middle">
+					 <div class="d-flex justify-content-center align-items-center boton_menu">
+						<nav class="navbar navbar-expand-lg  navbar-light text-center nav_menu">
+
+							<button class="navbar-toggler  text-center" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContentTabla" aria-controls="navbarSupportedContentTabla" aria-expanded="false" aria-label="Toggle navigation">
+								<span class="navbar-toggler-icon icono_menu_nav text-center"></span>
+							</button>
+
+							<div class="collapse navbar-collapse " id="navbarSupportedContentTabla">
+
+								<ul class="navbar-nav text-center nav justify-content-center ">
+
+									<li class="nav-item">
+										<a class="text-white " href="{{ routeTo('seeDetailWorkLocations', worklocation.id_work_locations) }}">
+											<img src="\images\ver_albaran.png" alt="..." title="detalle de la direccion de obra">
+										</a>
+									</li>
+  {% if not workLocationLinkedToOrder %}
+									<li class="nav-item ">
+										<a class="text-white " href="{{ routeTo('editWorkLocations', worklocation.id_work_locations) }}">
+											<img src="\images\edit.png" alt="..." title="editar">
+										</a>
+
+									</li>
+
+									<li class="nav-item ">
+									 <a href="#" class="delete-worklocation-button" data-worklocation-id="{{ worklocation.id_work_locations }}">
+                                                <img src="\images\delete_white.png" alt="..."> &nbsp;&nbsp;&nbsp;
+                                            </a>
+
+
+									</li>
+{% else %}
+                                              <li class="nav-item ">
+                                             &nbsp;&nbsp;&nbsp;  Direccion asignada a un pedido
+
+
+                                            </li>
+ {% endif %}
+
+
+
+								</ul>
+							</div>
+
+						</nav>
+
+					</div>
+				</td>
+
+			</tr>
+
+		{% endfor %}
+         {% endif %}
+	</tbody>
+</table>
+{{ pager | raw }}
+ <div>*Las direcciones de obras que estan asignadas en algun pedido no se podran eliminar. Si eliminarla, debe eliminar el pedido y se liberara y podra eliminar o editar la direccion.</div>
+<div class="row pt-5">
+	<div class="col">
+		<p class=" text-center">
+			<a href="{{ routeTo('home') }}">
+				<img class="rounded mx-auto d-block " src="\images\regresar.png" alt="...">
+			</a>
+			<br>
+			ir a Inicio
+		</p>
+	</div>
+</div>
+</div>
+
+</div></div>
+
+
+<script>
+
+  $(document).ready(function() {
+
+    // Obtén el botón por su clase
+    $(".delete-worklocation-button").click(function() {
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: 'btn btn-success',
+                cancelButton: 'btn btn-danger'
+            },
+            buttonsStyling: false
+        });
+
+        // Obtén el ID del cliente desde el atributo data
+        var worklocationId = $(this).data('worklocation-id');
+
+
+        swalWithBootstrapButtons.fire({
+            title: '¿Estás seguro?',
+            text: "No podrás revertir esto.",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Sí, eliminarlo',
+            cancelButtonText: 'No, cancelar',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Enviar una solicitud AJAX para eliminar el cliente
+                $.ajax({
+                    url: 'https://contenedores.grupohnosfas.com/DireccionesDeObras/eliminarDireccionDeObra/' + worklocationId,
+                    type: 'POST',
+                    success: function(response) {
+                        // Mostrar un mensaje de éxito o error según la respuesta
+                        if (response.success) {
+
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Eliminado',
+                                text: response.message
+                            }).then(() => {
+                                // Redirigir después de mostrar el mensaje de éxito
+                                window.location.href = 'https://contenedores.grupohnosfas.com/DireccionesDeObras/listar/';
+                            });
+                        } else {
+
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error',
+                                text: response.message
+                            });
+                        }
+                    },
+                    error: function() {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: 'Se produjo un error en la solicitud.'
+                        });
+                    }
+                });
+            } else if (result.dismiss === Swal.DismissReason.cancel) {
+                swalWithBootstrapButtons.fire(
+                    'Cancelado',
+                    'Tu cliente está a salvo :)',
+                    'error'
+                );
+            }
+        });
+    });
+});
+
+
+
+</script>
+
+
+
+
+ {% include 'Front/base/footer.html.twig' %}
+
+
+</body>{% endblock %}{% block script %}{{parent(script)}}
+<script src="/js/jsBootstrap.js"></script><script src="https://cdn.lordicon.com/qjzruarw.js">
+</script>
+
+<script>
+
+
+$(document).ready(function () {
+$('#id_customers_selection').on("change", function (event) {
+var opt = $(this).find("option:selected")
+var url = opt.data("url")
+window.location.href = url
+});
+
+var divToShow = document.getElementById("error");
+divToShow.style.display = "none";
+});
+
+$(document).ready(function () {
+$('#id_worklocation_selection').on("change", function (event) {
+var opt = $(this).find("option:selected")
+var url = opt.data("url")
+window.location.href = url
+});
+
+var divToShow = document.getElementById("error");
+divToShow.style.display = "none";
+});
+</script>
+
+<script>
+    setTimeout(function() {
+        $(".alerta").fadeOut(2000);
+    }, 10200);
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+{% endblock %}

@@ -1,0 +1,282 @@
+{% extends 'Front/base/main.html.twig' %}
+
+{% block titleHeader %}
+Crear un Paquete
+{% endblock %}
+{% block content %}
+  {% include 'Front/base/header.html.twig' %}
+
+<style>
+    button {
+        border-top-left-radius: 40px 40px;
+        border-top-right-radius: 40px 40px;
+        border-bottom-right-radius: 40px 40px;
+        border-bottom-left-radius: 40px 40px;
+        width: 100%;
+        box-shadow: none;
+        font-size: 20px;
+        border: none;
+        background: #ff6347;
+    }
+
+    .form-control {
+        border: 2px solid #ff6347 !important;
+        border-radius: 30px !important;
+
+    }
+
+    .form-select {
+        border: 2px solid #ff6347 !important;
+        border-radius: 30px !important;
+
+
+    }
+.tapa{
+
+    background: #c2fbd740;
+}
+
+.metros{
+background: #c2fbd740;
+
+}
+
+.form-check-input:checked {
+    background-color: #42b364;
+    border-color: #42b364;
+}
+
+  .cssscan:not(.img-as-jpg) img {
+        top: 14%;
+        right: -37%;
+        width: 95%;
+        height: 95%;
+    }
+
+    .cssscan img {
+        position: absolute;
+        transform: rotate(-7deg);
+        transition: all .3s;
+    }
+
+    .cssscan {
+        padding: 2rem;
+        background: #ff6347 !important;
+        border-radius: 24px;
+        position: relative;
+        overflow: hidden;
+        box-shadow: rgb(0 0 0 / 10%) 0 1px 2px 0;
+        cursor: pointer;
+        /* margin-top: 3em;*/
+        font-size: 19px;
+        text-align: left;
+    }
+    .display-4 {
+        display: inline;
+
+        padding-left: 30px;
+    }
+
+    .titulo_contenedores {
+
+        border: 1px solid red;
+    }
+
+    .texto_titulo {
+
+        padding-left: 30px;
+    }
+
+  div:where(.swal2-container) button:where(.swal2-styled).swal2-confirm {
+    border: 0;
+    border-radius: 0.25em;
+    background: initial;
+    background-color: #53bd5a !important;
+    color: #fff;
+    font-size: 1em;
+}
+
+</style>
+<body class="container_clientes">
+
+    <div class="container mt-1">
+
+        <div id="titulo_worklocations">
+
+            <div class="row">
+                <div class="col-4 pl-3"><a href="javascript: history.go(-1)">&nbsp;&nbsp;&nbsp;
+                        <img class="ml-3 pt-4 " src="\images\arrow_white_izq.png" alt="...">
+                    </a></div>
+                <div class="col-4"></div>
+                <div class="col-4"></div>
+            </div>
+
+            <div class="cssscan">
+                <p>
+                {% for worklocation in worklocations %}
+        {# <img class="rounded mx-auto d-block m-3" src="\images\paquetes_white.png" alt="..."> #}
+        <h4 class="display-4 text-center text-white ">Editar una Direccion de Obra </h4>
+                    <p class=" texto_titulo text-white"> Cliente {{ worklocation.name_customer }}</span>
+                    </p>
+                </p>
+
+                <img src="\images\direccion_svg_.svg" alt="...">
+            </div>
+        </div>
+
+
+
+    <form action="{{  routeTo('editWorkLocationsSave', worklocation.id_work_locations) }}" method="POST">
+        <div class="cuerpo_work_location mt-2">
+
+            <div class="row m-4">
+                <div class="col">
+                    <div class="field field_v2">
+                        <label for="address" class="ha-screen-reader"></label>
+                        <input id="address" class="field__input" placeholder="{{ worklocation.address }}" name="address"
+                            value="{{  worklocation.address  }}">
+                        <span class="field__label-wrap" aria-hidden="true">
+                            <span class="field__label">Direccion </span>
+                        </span>
+                    </div>
+                    <p class="text-danger">{{ msg('errors.address') }}</p>
+                </div>
+
+                <div class="col">
+                    <div class="field field_v2">
+                        <label for="location" class="ha-screen-reader"></label>
+                        <input id="location" class="field__input" placeholder="{{ worklocation.location }}" name="location" value="{{ worklocation.location }}">
+                        <span class="field__label-wrap" aria-hidden="true">
+                            <span class="field__label">Localidad </span>
+                        </span>
+                    </div>
+                    <p class="text-danger">{{ msg('errors.location') }}</p>
+                </div>
+
+
+                <div class="col">
+                    <div class="field field_v2">
+                        <label for="province" class="ha-screen-reader"></label>
+                        <input id="province" class="field__input" placeholder="{{ worklocation.province }}" name="province" value="{{ worklocation.province }}">
+                        <span class="field__label-wrap" aria-hidden="true">
+                            <span class="field__label">Provincia </span>
+                        </span>
+                    </div>
+                    <p class="text-danger">{{ msg('errors.province') }}</p>
+                </div>
+
+                   <div class="col">
+<div class="field field_v2">
+                        <label for="zip_code" class="ha-screen-reader"></label>
+                        <input id="zip_code" class="field__input" placeholder="{{ worklocation.zip_code }}" name="zip_code" value="{{ worklocation.zip_code }}">
+                        <span class="field__label-wrap" aria-hidden="true">
+                            <span class="field__label">Codigo Postal </span>
+                        </span>
+                    </div>
+                    <p class="text-danger">{{ msg('errors.zip_code') }}</p>
+                </div>
+
+            </div>
+
+
+            <div class="row mt-4">
+                <div class="col">
+
+                    <label for="exampleFormControlTextarea1" class="p-2">Observaciones</label>
+                    <textarea class="form-control" id="exampleFormControlTextarea1" value="{{  worklocation.address  }}"  placeholder="{{ worklocation.observations }}" name="observations"
+                        rows="5">{{ old('observations') }}
+                    </textarea>
+                    <p class="text-danger">{{ msg('errors.observations') }}</p>
+                </div>
+            </div>
+
+
+
+
+    {% endfor %}
+            <div class="row">
+                <div class="col-md">
+
+                    <div class="row">
+                        <div class="col">
+                        </div>
+                        <div class="col-md">
+                            <button class=" mt-3 pt-3 pb-3 text-white" type="submit">REGISTRAR</button>
+                        </div>
+                        <div class="col">
+                        </div>
+                    </div>
+                </div>
+    </form>
+    <p class=" text-center mt-5">
+        <a href="{{ routeTo('listWorkLocations') }}">
+            <img class="rounded mx-auto d-block " src="\images\regresar.png" alt="...">
+        </a>
+        <br>Volver a la lista de Direcciones de Obras
+    </p>
+
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+  <div class="row " >
+        <div class="col-12">
+
+      {%  if msg('msg') %}
+
+            <script>
+                $(document).ready(function() {
+
+                 var msg = {{ msg('msg')|json_encode|raw }};
+
+                Swal.fire({
+                    title: msg.title,
+                    text: msg.text,
+                    icon: 'success',
+                    cancelButtonText: 'Cerrar'
+                    })
+                });
+            </script>
+
+      {% endif %}
+        {%  if msg('msg2') %}
+
+            <script>
+                $(document).ready(function() {
+
+                 var msg2 = {{ msg('msg2')|json_encode|raw }};
+
+                Swal.fire({
+                    title: msg2.title,
+                    text: msg2.text,
+                    icon: 'warning',
+                    cancelButtonText: 'Cerrar'
+                    })
+                });
+
+
+            </script>
+
+      {% endif %}
+
+     </div>
+ </div>
+
+   {% include 'Front/base/footer.html.twig' %}
+    {% endblock %}
+
+    {% block script %}
+    {{parent(script)}}
+
+    <script>
+        setTimeout(function() {
+            $(".alerta").fadeOut(2000);
+        }, 2200);
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    {% endblock %}

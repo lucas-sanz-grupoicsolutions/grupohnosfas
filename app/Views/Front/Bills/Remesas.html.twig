@@ -1,0 +1,741 @@
+{% extends 'Front/base/main.html.twig' %}
+
+{% block titleHeader %}
+Listar facturas
+{% endblock %}
+{% block content %}
+{% include 'Front/base/header.html.twig' %}
+
+<link rel="stylesheet" href="/css/css_all/bills/remesa.css">
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-rc.0/css/select2.min.css" rel="stylesheet" />
+
+<style>
+    div:where(.swal2-icon).swal2-warning {
+        border-color: #ffffff !important;
+        color: #ffffff !important;
+    }
+
+    div:where(.swal2-container) div:where(.swal2-popup) {
+        display: none;
+        position: relative;
+        box-sizing: border-box;
+        grid-template-columns: minmax(0, 100%);
+        width: 32em;
+        max-width: 100%;
+        padding: 0 0 1.25em;
+        border: none;
+        border-radius: 5px;
+        background: #4d4d4d;
+        color: #fdfdfd;
+        font-family: inherit;
+        font-size: 1rem;
+    }
+
+    div:where(.swal2-container) button:where(.swal2-styled).swal2-cancel {
+
+        border-top-left-radius: 40px 40px !important;
+        border-top-right-radius: 40px 40px !important;
+        border-bottom-right-radius: 40px 40px !important;
+        border-bottom-left-radius: 40px 40px !important;
+
+        background: initial;
+        background-color: #6e6781 !important;
+        color: #fff;
+        font-size: 1em;
+        border: 2px solid white;
+        box-shadow: none !important;
+
+    }
+
+    div:where(.swal2-container) button:where(.swal2-styled).swal2-confirm {
+        border-top-left-radius: 40px 40px !important;
+        border-top-right-radius: 40px 40px !important;
+        border-bottom-right-radius: 40px 40px !important;
+        border-bottom-left-radius: 40px 40px !important;
+        background: initial;
+        background-color: #b5afaf59 !important;
+        color: #fff;
+        font-size: 1em;
+        border: 2px solid white;
+        box-shadow: none !important;
+    }
+
+
+
+    /* MAIN */
+    /* =============================================== */
+    .rad-label {
+        display: flex;
+        align-items: center;
+        border-radius: 100px;
+        padding: 14px 16px;
+        margin: 10px 0;
+        cursor: pointer;
+        transition: .3s;
+        border: 2px solid #51af39;
+    }
+
+
+
+    .rad-input {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 1px;
+        height: 1px;
+        opacity: 0;
+        z-index: -1;
+    }
+
+    .rad-design {
+        width: 22px;
+        height: 22px;
+        border-radius: 100px;
+        background: red;
+
+        /* background: linear-gradient(to right bottom, hsl(0deg 0% 48.97%), hsl(115.01deg 59.11% 59.92%)); */
+        position: relative;
+    }
+
+    .rad-design::before {
+        content: '';
+        display: inline-block;
+        width: inherit;
+        height: inherit;
+        border-radius: inherit;
+        border: 2px solid #ffffff;
+        background: hsl(116.78deg 45.19% 51.42%);
+        transform: scale(1.5);
+        transition: .3s;
+    }
+
+    .rad-input:checked+.rad-design::before {
+        transform: scale(0);
+    }
+
+    .rad-text {
+        color: hsl(0, 0%, 60%);
+        margin-left: 14px;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        font-size: 18px;
+        font-weight: 900;
+
+        transition: .3s;
+    }
+
+    .rad-input:checked~.rad-text {
+        color: hsl(0, 0%, 40%);
+    }
+
+
+    /* ABS */
+    /* ====================================================== */
+    .abs-site-link {
+        position: fixed;
+        bottom: 40px;
+        left: 20px;
+        color: hsla(0, 0%, 0%, .5);
+        font-size: 16px;
+    }
+
+
+    /* Estilo para el div con fondo de imagen */
+    .fondo-imagen_santander {
+        background-image: url("/images/santander.jpg");
+        /* Ruta de la imagen */
+        background-size: cover;
+        /* Ajustar la imagen al tamaño del div */
+        width: 100%;
+        /* Ancho del div */
+        height: 60px;
+        /* Altura del div */
+        /* Otros estilos para el div */
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+
+    /* Estilo para el div con fondo de imagen */
+    .fondo-imagen_bbva {
+        background-image: url("/images/bbva.jpg");
+        /* Ruta de la imagen */
+        background-size: cover;
+        /* Ajustar la imagen al tamaño del div */
+        width: 100%;
+        /* Ancho del div */
+        height: 60px;
+        /* Altura del div */
+        /* Otros estilos para el div */
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    /* Estilo para el div con fondo de imagen */
+    .fondo-imagen_cajamar {
+        background-image: url("/images/cajamar.jpg");
+        /* Ruta de la imagen */
+        background-size: cover;
+        /* Ajustar la imagen al tamaño del div */
+        width: 100%;
+        /* Ancho del div */
+        height: 60px;
+        /* Altura del div */
+        /* Otros estilos para el div */
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    /* Estilo para el div con fondo de imagen */
+    .fondo-imagen_caixaPopular {
+        background-image: url("/images/caixaPopular.jpg");
+        /* Ruta de la imagen */
+        background-size: cover;
+        /* Ajustar la imagen al tamaño del div */
+        width: 100%;
+        /* Ancho del div */
+        height: 60px;
+        /* Altura del div */
+        /* Otros estilos para el div */
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    /* Estilo para el div con fondo de imagen */
+    .fondo-imagen_lacaixa {
+        background-image: url("/images/lacaixa.jpg");
+        /* Ruta de la imagen */
+        background-size: cover;
+        /* Ajustar la imagen al tamaño del div */
+        width: 100%;
+        /* Ancho del div */
+        height: 60px;
+        /* Altura del div */
+        /* Otros estilos para el div */
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+</style>
+
+<div class="container mt-1">
+
+    <div class="titulo_bills_list">
+
+        <div class="row">
+            <div class="col-4 pl-3">
+                <a href="javascript: history.go(-1)">&nbsp;&nbsp;&nbsp;
+                    <img class="ml-3 pt-4 " src="\images\arrow_white_izq.png" alt="...">
+                </a>
+            </div>
+            <div class="col-4"></div>
+            <div class="col-4"></div>
+        </div>
+
+        <div class="cssscan">
+            <p>
+                <h4 class="display-4 text-center text-white">Remesas</h4>
+            </p>
+            <p class="text-white texto_titulo text-white">
+                Generar ficheros con las facturas para el envio a bancos
+            </p>
+            </span>
+            </p>
+            </p>
+
+            <img src="\images\fichero_remesa.svg" alt="...">
+        </div>
+    </div>
+
+    <div class="cuerpo_remesas mt-2">
+
+        <form action="{{ routeTo('remesas' ) }}#sectionTable" method="GET">
+
+            <div class="row_id_billss p-2 pb-2 mb-2 ">
+
+                <div class="row mt-2 ">
+
+                    <div class="col-sm-4 ">
+
+                        <label class="" for="inputDescription">&nbsp;&nbsp;Filtrar
+                            por Metodo de Pago
+                        </label>
+
+                        <select id="customer-select" class="js-select2" name="pm" style="border:none !important;">
+                            <option value="">Seleccione un Metodo</option>
+                            {% for p in payment_method_all %}
+                            <option value="{{ p.name }}">
+                                {{ p.name }}</option>
+                            {% endfor %}
+                        </select>
+
+                    </div>
+
+                    <div class="col-sm-4 ">
+
+                        <label class="" for="inputDescription">Filtrar por dia
+                        </label>
+
+                        <input type="date" class="form-control text-left ml-2 " name="created_at"
+                            placeholder="Fecha de final">
+                        <p class="text-danger">{{ msg('errors.created_at') }}</p>
+
+                    </div>
+
+                    <div class="col-sm-4 col_button_filtrar ">
+
+                        <button type="submit" class="button_filtrar text-center" style="height:40px;">
+                            <img src="\images\icon_filter.png" alt="...">&nbsp;&nbsp;&nbsp;&nbsp;Filtrar</button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </form>
+
+        <form action="{{ routeTo('createRemesas') }}" id="myForm" method="post" onsubmit="return validarFormulario()">
+
+            <div class=" row pt-4 border_remesa_top">
+                <div class="col-sm-4 ">
+
+                    <label class="" for="inputDescription">Fecha Actual/Fecha Abono
+                    </label>
+
+                    <input type="date" class="form-control text-left ml-2 " name="current_date"
+                        placeholder="Fecha de Actual" required>
+
+                </div>
+                <div class="col-sm-4 "></div>
+                <div class="col-sm-4 "> </div>
+
+            </div>
+
+            <div class=" row pt-4  border_remesa">
+                <div class="col-sm-3 ">
+
+                    <label class="rad-label ">
+                        <input type="radio" class="rad-input" name="bank" value="1">
+                        <div class="rad-design"></div>
+                        <div class="rad-text">
+                        </div>
+                        <img src="\images\iconos\LOGO_ICONO_SANTANDER.png" width="35" height="35" alt=""> &nbsp;
+                        &nbsp;<span class"mt-2">Santander</span>
+                    </label>
+
+                </div>
+                <div class="col-sm-2 text-center ">
+
+                    <label class="rad-label ">
+                        <input type="radio" class="rad-input" name="bank" value="2">
+                        <div class="rad-design"></div>
+                        <div class="rad-text"></div>
+                        <img src="\images\iconos\logo_caixa.png" width="35" height="35" alt=""> &nbsp; &nbsp;<span
+                            class"mt-2">La Caixa </span>
+                    </label>
+
+                </div>
+
+                <div class="col-sm-2 text-center ">
+
+                    <label class="rad-label">
+
+                        <input type="radio" class="rad-input" name="bank" value="4">
+                        <div class="rad-design"></div>
+                        <div class="rad-text"></div> <img src="\images\iconos\logo_cajamar.jpg" width="35" height="35"
+                            alt=""> &nbsp; &nbsp;<span class"mt-2">Cajamar</span>
+                    </label>
+
+                </div>
+
+                <div class="col-sm-2 text-center ">
+
+                    <label class="rad-label ">
+                        <input type="radio" class="rad-input" name="bank" value="5">
+                        <div class="rad-design"></div>
+                        <div class="rad-text"></div> <img src="\images\iconos\icono_bbva.png" width="35" height="35"
+                            alt=""> &nbsp; &nbsp;<span class"mt-2">Bbva</span>
+                    </label>
+
+                </div>
+                <div class="col-sm-3 text-center ">
+
+                    <label class="rad-label ">
+                        <input type="radio" class="rad-input" name="bank" value="3">
+                        <div class="rad-design"></div>
+                        <div class="rad-text"></div> <img src="\images\iconos\caixa_popular.jpg" width="35" height="35"
+                            alt=""> &nbsp; &nbsp;<span class"mt-2">La Caixa Popular</span>
+                    </label>
+
+                </div>
+
+            </div>
+
+            <div class=" row pt-2 border_remesa_bottom pb-3">
+                <div class="col-sm-4 ">
+
+                </div>
+                <div class="col-sm-4  ">
+
+                    <button type="submit" class="button_filtrar text-center ">
+                        Generar Fichero
+                    </button>
+                </div>
+               <div class="col-sm-4">
+    <p class="button_filtrar text-center ml-auto" style="width: 250px;">
+        <a href="{{ routeTo('listRemesas') }}" class="text-white">Listado de remesas creadas
+       &nbsp; <img src="\images\iconos\flecha-correcta.png" alt="">
+        </a>
+    </p>
+</div>
+
+            </div>
+
+            <div class="text-center mt-3">
+
+                <a href="{{ routeTo('remesas') }}#table">
+                    <span style="height:40px;color:#07d907;">
+                        <img class="rounded mx-auto " width="25" height="25" src="\images\iconos\recargar.png"
+                            alt="...">
+                        Cargar nuevamente el listado de facturas sin filtros
+                    </span>
+                </a>
+            </div>
+
+            <table class="table table-striped  text-center mt-3" id="table">
+                <thead>
+                    <tr>
+                        <th class="pt-3 text-center align-middle th_header" scope="col">
+                            <span class="checkbox-wrapper-41 mt-3 ">
+                                <label>
+                                    <input type="checkbox" id="selectAllCheckbox" value="">
+                                    <span class="checkbox__icon"></span>
+                                    &nbsp;
+
+                                </label>
+                            </span>
+                        </th>
+                        <th class="pt-3 text-center align-middle th_header" scope="col">Numero de Factura</th>
+                        <th class="pt-3 text-center align-middle th_header" scope="col">Usuario</th>
+                        <th class="pt-3 text-center align-middle th_header" scope="col">Cliente</th>
+                        <th class="pt-3 text-center align-middle th_header" scope="col">Metodo Pago</th>
+                        <th class="pt-3 text-center align-middle th_header" scope="col">Fecha de Firma SEPA</th>
+                        <th class="pt-3 text-center align-middle th_header" scope="col">Fecha Alta</th>
+                        <th class="pt-3 text-center align-middle th_header" scope="col">Estado</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if bills|length == 0%}
+
+                    <tr>
+                        <td class="text-center align-middle text-left" colspan="8">
+
+                            <lord-icon src="https://cdn.lordicon.com/nocovwne.json" trigger="hover"
+                                colors="primary:#04BDFD,secondary:#04BDFD" style="width:50px;height:50px"></lord-icon>
+
+                            <br>
+                            No ahi resultados
+
+                        </td>
+                    </tr>
+
+                    {% else %}
+
+                    {% set miVariable = null %}
+
+                    {# <button type="submit">Generar archivo excel</button> #}
+
+                    {% for bill in bills %}
+                    {% if (bill.remesas != "SI" ) %}
+
+                    <tr>
+                        <th scope="row" class="text-center align-middle">
+
+                            {% if bill.words_num_bill != "R" %}
+                            {% if bill.date_signing_mandate != null and bill.date_signing_mandate != "0000-00-00" %}
+
+                            <span class="checkbox-wrapper-41 mt-3 ">
+                                <label>
+                                    <input type="checkbox" name="bills[]" class="mi-checkbox"
+                                        value="{{ bill.id_bills }}">
+                                    <span class="checkbox__icon"></span>
+
+                                    &nbsp;
+
+                                </label>
+                            </span>
+                            {% endif %}
+                            {% endif %}
+
+                        </th>
+
+                        <th scope="row" class="text-center align-middle">
+
+                            {% if (bill.words_num_bill != "R" ) %}
+
+                            <span>{{ bill.words_num_bill }}
+                                -
+                                {{ bill.num_bill }}
+                            </span>
+
+                            {% else %}
+
+                            <span style="color:red;">{{ bill.words_num_bill }}
+                                -
+                                {{ bill.num_bill }}
+                                (Abonada
+                                {{ bill.id_bill_original }}
+                                )</span>
+
+                            {% endif %}
+
+                        </th>
+
+                        <th scope="row" class="text-center align-middle">{{ bill.name_user }} </th>
+
+                        <th scope="row" class="text-center align-middle">{{ bill.customer_name }}</th>
+
+                        <th scope="row" class="text-center align-middle">{{ bill.payment_method }}</th>
+
+                        <th scope="row" class="text-center align-middle">
+
+                            {% if bill.date_signing_mandate != null and bill.date_signing_mandate != "0000-00-00" %}
+                            {{ bill.date_signing_mandate }}
+                            {% else %}
+                            <span style="color:red;font-size:0.7rem">Debe firma el mandado SEPA y asignale la fecha de
+                                firma </span><br>
+
+                            <a class="button-40 ml-2 mr-2 " data-toggle="modal"
+                                data-target="#exampleModal{{ bill.id_customer }}">
+                                asignar fecha al cliente
+
+                            </a>
+
+                            {% endif %}
+
+                        </th>
+
+                        <th scope="row" class="text-center align-middle">
+
+                            {% set currentDate = date()|date('Y-m-d') %}
+                            {# Obtiene la fecha actual en formato 'YYYY-MM-DD' #}
+
+                            {% set createdDate = bill.created_at|date('Y-m-d') %}
+                            {# Obtiene la fecha del resultado en formato 'YYYY-MM-DD' #}
+
+                            {% if createdDate == currentDate %}
+                            <span style="color: #07d907;">
+                                {{ bill.created_at|date('d/m/y') }}</span>
+                            {% else %}
+                            {{ bill.created_at | date('d/m/y') }}
+                            {% endif %}
+
+                            {# {{ bill.created_at | date('d/m/y') }} #}
+
+                        </th>
+
+                        <th scope="row" class="text-center align-middle">{{ bill.state }}</th>
+
+                    </tr>
+
+        </form>
+
+        <!-- Modal Borrar -->
+        <div class="modal fade" id="exampleModal{{bill.id_customer}}" tabindex="-1" role="dialog"
+            aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+            <form action="{{ routeTo('editDateMandateRemesa', bill.id_customer) }}#sectionTable" method="post">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+
+                        <div class="modal-header bg-dnager" stryle="border:5px solid white;">
+                            <h5 class="modal-title font-weight-light text-center text-white display-5"
+                                id="exampleModalLabel">AGREGAR FECHA DE FIRMA</h5>
+                            <button type="button" class="close button_close_modal" data-dismiss="modal"
+                                aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+
+                        <div class="modal-body">
+
+                            <label class="" for="inputDescription"><span style="font-size: 0.8rem;">
+                                    Fecha en la que<b> el deudor firmó el mandato SEPA (AT-25) </b></span>
+                            </label>
+
+                            <input type="date" class="form-control text-left ml-2 " name="date_signing_mandate"
+                                placeholder="Fecha de Recurrente" required>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="button-30 button_cerrar_modal"
+                                data-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="button-30 button_aceptar_modal">Guardar</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        {% endif %}
+        {% endfor %}
+
+        {% endif %}
+        </tbody>
+        </table>
+        <div>*La ubicacion donde se descargan los archivos de remesa es: 'C:\Users\Usuario\Downloads/' .</div>
+
+        {{ pager|raw }}
+
+        <div class="row pt-5">
+            <div class="col">
+                <p class=" text-center">
+                    <a href="{{ routeTo('home') }}">
+                        <img class="rounded mx-auto d-block " src="\images\regresar.png" alt="...">
+                    </a>
+                    <br>
+                    ir a Inicio
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+
+{% include 'Front/base/footer.html.twig' %}
+
+{% if msg('msg') %}
+<script>
+    $(document).ready(function() {
+        Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: 'Fichero creado con éxito!',
+            text: 'Para localizar el fichero, diríjase a la carpeta de descargas.',
+            showConfirmButton: false,
+            timer: 4500
+        });
+    });
+</script>
+{% endif %}
+
+{%  if msg('msg2') %}
+
+<script>
+    $(document).ready(function() {
+        var msg2 = {
+            {
+                msg('msg2') | json_encode | raw
+            }
+        };
+        Swal.fire({
+            title: msg2.title,
+            text: msg2.text,
+            icon: 'warning',
+            cancelButtonText: 'Cerrar'
+        })
+    });
+</script>
+
+{% endif %}
+
+{% endblock %}{% block script %}{{parent(script)}}
+
+<script>
+    // Función para seleccionar todos los checkboxes
+    function selectAllCheckboxes() {
+        var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+        checkboxes.forEach(function(checkbox) {
+            checkbox.checked = true;
+        });
+    }
+    // Función para deseleccionar todos los checkboxes
+    function deselectAllCheckboxes() {
+        var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+        checkboxes.forEach(function(checkbox) {
+            checkbox.checked = false;
+        });
+    }
+    // Función para verificar si todos los checkboxes están seleccionados
+    function areAllCheckboxesChecked() {
+        var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+        var allChecked = true;
+        checkboxes.forEach(function(checkbox) {
+            if (!checkbox.checked) {
+                allChecked = false;
+            }
+        });
+        return allChecked;
+    }
+    // Agrega el evento change al checkbox maestro
+    var selectAllCheckbox = document.getElementById('selectAllCheckbox');
+    selectAllCheckbox.addEventListener('change', function() {
+        var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+        if (this.checked) {
+            selectAllCheckboxes();
+        } else {
+            deselectAllCheckboxes();
+        }
+    });
+
+    function validarFormulario() { // Obtiene todas las casillas de verificación con el nombre "bills[]"
+        var checkboxes = document.querySelectorAll('input[name="bills[]"]');
+        var alMenosUnoMarcado = false;
+        // Verifica si al menos una casilla de verificación está marcada
+        for (var i = 0; i < checkboxes.length; i++) {
+            if (checkboxes[i].checked) {
+                alMenosUnoMarcado = true;
+                break;
+            }
+        }
+        // Si al menos una casilla está marcada, permite enviar el formulario
+        if (alMenosUnoMarcado) {
+            return true;
+        } else {
+            Swal.fire({
+                icon: 'info',
+                title: 'Atencion!',
+                text: 'Seleccione por favor una o varias FACTURAS.'
+            })
+            return false;
+        }
+    }
+    document.getElementById("myForm").addEventListener("submit", function(
+        event) { // Obtén todos los radiobuttons con name="bank"
+        var radios = document.querySelectorAll('input[type="radio"][name="bank"]');
+        var selected = false;
+        // Verifica si al menos uno está seleccionado
+        for (var i = 0; i < radios.length; i++) {
+            if (radios[i].checked) {
+                selected = true;
+                break; // Un radiobutton está seleccionado, no necesitas verificar más
+            }
+        }
+        // Si ninguno está seleccionado, muestra un mensaje y evita que se envíe el formulario
+        if (!selected) {
+            Swal.fire({
+                icon: 'info',
+                title: 'Atencion!',
+                text: 'Por favor, selecciona al menos un BANCO.'
+            })
+            event.preventDefault(); // Evita que se envíe el formulario
+        }
+    });
+    setTimeout(function() {
+        $("#alerta_msg_bills").fadeOut(2500);
+    }, 2200);
+    $('#select_method').select2({
+        placeholder: 'Seleccione un Metodo',
+        allowClear: false
+    });
+</script>
+<script src="/js/jsBootstrap.js"></script>
+<script src="https://cdn.lordicon.com/qjzruarw.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-rc.0/js/select2.min.js"></script>
+<script src="/js/sweetAlert.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+{% endblock %}

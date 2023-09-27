@@ -1,0 +1,323 @@
+{% extends 'Front/base/main.html.twig' %}
+
+{% block content %}
+{% include 'Front/base/header.html.twig' %}
+
+<link rel="stylesheet" href="/css/css_all/customers/list.css">
+<link rel="stylesheet" href="/css/css_all/customers.css">
+<link rel="stylesheet" href="/css/css_all/estilos.scss">
+<link rel="stylesheet" href="/css/css_all/index.css">
+
+
+
+<div class="container mt-1">
+
+    <div id="titulo_clientes">
+
+        <div class="row">
+            <div class="col-4 pl-3"><a href="javascript: history.go(-1)">&nbsp;&nbsp;&nbsp;
+                    <img class="ml-3 pt-4 " src="\images\arrow_white_izq.png" alt="...">
+                </a></div>
+            <div class="col-4"></div>
+            <div class="col-4"></div>
+        </div>
+
+        <div class="cssscan">
+            <p>
+                <h4 class="display-4 text-white text-center ">Listado de Clientes</h4>
+                <p class=" texto_titulo text-white"> Gestion de Clientes</span>
+                </p>
+            </p>
+
+            <img src="\images\clientesvg.svg" alt="...">
+        </div>
+    </div>
+    <div class="cuerpo_clientes mt-1">
+
+
+        <div class="row p-2 mb-1 justify-content-center justify-content-md-start">
+
+            <div class="col-4 "></div>
+
+            <div class="col-sm-4 pb-1">
+
+                <a class="text-center" href="{{ routeTo('showFormCustomers') }}">
+                    <span class=" mx-auto d-block text-center boton_add_customer">
+
+                        <img class=" pt-3" src="\images\add_1.png" alt="...">
+
+                    </span>
+                </a>
+
+            </div>
+
+            <div class="col-4 "></div>
+        </div>
+        <div class="row mb-2">
+            <div class="col-sm-6 ">
+
+                <div class="col-sm">
+
+                    <div class="row m-0 p-0 ">
+                        <div class="col-sm-10">
+
+                            <label class="" for="inputDescription">&nbsp;&nbsp;Filtrar
+                                por clientes
+                            </label>
+                            <select class="form-select " name="" id="id_customers_selection"
+                                aria-label="Default select example">
+                                <option selected>Seleccione un cliente
+                                </option>
+                                {% for c in customers_all %}
+                                {% if ( c.active  ==  1) %}
+
+                                <option value="{{ c.names }}" class="font-weight-bold "
+                                    data-url="{{routeTo('searchforNameCustomer', c.id_customer)}}#sectionTable">
+                                    {{ c.names }}
+                                </option>
+                                {% endif %}
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-2"></div>
+
+                </div>
+
+                <div class="col-sm p-2 "></div>
+
+            </div>
+            <div class="col-sm-6">
+
+                <div class="col-sm ">
+
+                    <div class="row m-0 p-0 ">
+                        {# <p id="list_pallet_buscar_texto text-center p-1">BUSCAR POR FECHAS CREACION</p>#}
+
+                        <a class="text-center" href="{{ routeTo('listCustomers') }}">
+                            <span class=" mx-auto d-block text-center volver_cargar_clientes">
+
+                                Volver a mostrar todos los clientes
+
+                            </span>
+                        </a>
+
+                    </div>
+                    {#row#}
+
+                </div>
+
+                <div class="col-sm "></div>
+            </div>
+
+        </div>
+
+        <table class="table table-striped  text-center" id="sectionTable">
+            <thead>
+                <tr>
+                    <th class="text-center align-middle th_header" scope="col">Nombre</th>
+                    <th class="pt-3 text-center align-middle th_header" scope="col">Telefono</th>
+                    <th class="pt-3 text-center align-middle th_header" scope="col">Email</th>
+                    <th class="text-center  align-middle th_header" scope="col">
+                        Poblacion</th>
+                    <th class="pt-3 text-center align-middle th_header" scope="col">Fecha Alta</th>
+                    <th class="pt-3 text-center align-middle th_header" scope="col">Acciones</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                {% for customer in customers %}
+
+
+                 {% set customerLinkedToOrder = customer.id_customer in orderCustomersIds %}
+                <tr>
+
+                    <th scope="row" class="text-center align-middle">{{ customer.names }}</th>
+                    <th scope="row" class="text-center align-middle">{{ customer.phone }}</th>
+                    <th scope="row" class="text-center align-middle">{{ customer.mail }}</th>
+                    <th scope="row" class="text-center align-middle">{{ customer.location }}</th>
+                    <th scope="row" class="text-center align-middle">{{ customer.created_at }}</th>
+
+                    <td class="   text-left align-middle">
+                        <div class="d-flex justify-content-center align-items-center boton_menu">
+                            <nav class="navbar navbar-expand-lg  navbar-light text-center nav_menu">
+
+                                <button class="navbar-toggler  text-center" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#navbarSupportedContentTabla"
+                                    aria-controls="navbarSupportedContentTabla" aria-expanded="false"
+                                    aria-label="Toggle navigation">
+                                    <span class="navbar-toggler-icon icono_menu_nav text-center"></span>
+                                </button>
+
+                                <div class="collapse navbar-collapse " id="navbarSupportedContentTabla">
+
+                                    <ul class="navbar-nav text-center nav justify-content-center ">
+
+                                        <li class="nav-item">
+                                            <a class="text-white "
+                                                href="{{ routeTo('seeDetailCustomers', customer.id_customer) }}">
+                                                <img src="\images\ver_albaran.png" alt="..."
+                                                    title="detalle del cliente">
+                                            </a>
+                                        </li>
+
+                                        <li class="nav-item ">
+                                            <a
+                                                href="{{ routeTo('updateCustomers', customer.id_customer) }}">
+                                                <img src="\images\edit.png" alt="..." title="editar cliente">
+                                            </a>
+
+                                        </li>
+
+         {% if not customerLinkedToOrder %}
+                                        <li class="nav-item ">
+                                            <a href="#" class="delete-customer-button" data-customer-id="{{ customer.id_customer }}">
+                                                <img src="\images\delete_white.png" alt="..."> &nbsp;&nbsp;&nbsp;
+                                            </a>
+
+                                        </li>
+          {% else %}
+                                              <li class="nav-item ">
+                                              &nbsp;&nbsp;&nbsp; Asignado a un Pedido
+
+
+                                            </li>
+ {% endif %}
+
+
+
+                                    </ul>
+                                </div>
+
+                            </nav>
+
+                        </div>
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+            {{ pager | raw }}
+
+   <div>*Los clientes que estan asignados en algun pedido no se podran eliminarlo. Si elimina el pedido se liberara y podra eliminarlo.</div>
+        <div class="row mt-5">
+
+            <p class=" text-center mt-5">
+                <a href="{{ routeTo('listCustomers') }}">
+                    <img class="rounded mx-auto d-block " src="\images\regresar.png" alt="...">
+                </a>
+                <br> Volver a la lista de Clientes
+            </p>
+
+        </div>
+
+    </div>
+</div>
+</div>
+
+
+<script>
+
+  $(document).ready(function() {
+
+    // Obtén el botón por su clase
+    $(".delete-customer-button").click(function() {
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: 'btn btn-success',
+                cancelButton: 'btn btn-danger'
+            },
+            buttonsStyling: false
+        });
+
+        // Obtén el ID del cliente desde el atributo data
+        var customerId = $(this).data('customer-id');
+        console.log("Customer ID:", customerId);
+
+        swalWithBootstrapButtons.fire({
+            title: '¿Estás seguro?',
+            text: "No podrás revertir esto.",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Sí, eliminarlo',
+            cancelButtonText: 'No, cancelar',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Enviar una solicitud AJAX para eliminar el cliente
+                $.ajax({
+                    url: 'https://contenedores.grupohnosfas.com/Clientes/eliminar/' + customerId,
+                    type: 'POST',
+                    success: function(response) {
+                        // Mostrar un mensaje de éxito o error según la respuesta
+                        if (response.success) {
+
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Eliminado',
+                                text: response.message
+                            }).then(() => {
+                                // Redirigir después de mostrar el mensaje de éxito
+                                window.location.href = 'https://contenedores.grupohnosfas.com/Clientes/listar/';
+                            });
+                        } else {
+
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error',
+                                text: response.message
+                            });
+                        }
+                    },
+                    error: function() {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: 'Se produjo un error en la solicitud.'
+                        });
+                    }
+                });
+            } else if (result.dismiss === Swal.DismissReason.cancel) {
+                swalWithBootstrapButtons.fire(
+                    'Cancelado',
+                    'Tu cliente está a salvo :)',
+                    'error'
+                );
+            }
+        });
+    });
+});
+
+
+
+</script>
+
+
+{% include 'Front/base/footer.html.twig' %}
+{% endblock %}
+
+{% block script %}
+{{parent(script)}}
+
+<script>
+    $(document).ready(function() {
+        $('#id_customers_selection').on("change", function(event) {
+            var opt = $(this).find("option:selected")
+            var url = opt.data("url")
+            window.location.href = url
+        });
+        var divToShow = document.getElementById("error");
+        divToShow.style.display = "none";
+    });
+</script>
+<script src="/js/jsBootstrap.js"></script>
+<script src="https://cdn.lordicon.com/qjzruarw.js"></script>
+
+{# <script src="/js/sweetAlert.js"></script> #}
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+{% endblock %}

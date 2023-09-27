@@ -1,0 +1,13 @@
+  <div class="row mt-1">
+        <div class="col-12">
+
+      {%  if msg('msg1') %}
+          <div class="alert" role="alert">
+
+            {{ session('msg1')|json_encode()}}
+          </div>
+
+      {% endif %}
+      <div></div>
+
+  </div>

@@ -1,0 +1,326 @@
+{% extends 'Front/base/main.html.twig' %}
+
+{% block titleHeader %}
+Listar Conductores
+{% endblock %}
+{% block content %}
+{% include 'Front/base/header.html.twig' %}
+<link rel="stylesheet" href="/css/css_all/Drivers/list.css">
+<link rel="stylesheet" href="/css/css_all/conductores.css">
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-rc.0/css/select2.min.css" rel="stylesheet"/>
+
+
+<body class="container_drivers">
+    <div class="container mt-1">
+
+        <div id="title_drivers">
+
+            <div class="row">
+                <div class="col-4 pl-3"><a href="javascript: history.go(-1)">&nbsp;&nbsp;&nbsp;
+                        <img class="ml-3 pt-4 " src="\images\arrow_white_izq.png" alt="...">
+                    </a></div>
+                <div class="col-4"></div>
+                <div class="col-4"></div>
+            </div>
+
+            <div class="cssscan">
+                <p>
+                    <h4 class="display-4 text-center text-white">Listado de Conductores</h4>
+                    <p class=" texto_titulo text-white"> Gestion de conductores, dar de alta, modificar y listar</span>
+                    </p>
+                </p>
+
+                <img src="\images\conductor_header.svg" alt="...">
+            </div>
+        </div>
+
+        <div class="cuerpo_contenedores mt-1">
+
+            <div class="row p-2 mb-3 justify-content-center justify-content-md-start">
+
+                <div class="col-4 "> </div>
+
+                <div class="col-sm-4 ">
+
+                    <a class="text-center" href="{{ routeTo('showFormDrivers') }}">
+                        <span class=" mx-auto d-block text-center boton_add_driver">
+
+                            <img class=" pt-3" src="\images\add_1.png" alt="...">
+
+                        </span>
+                    </a>
+                </div>
+
+                <div class="col-4 "> </div>
+            </div>
+            <div class="row   pt-2 mt-1 p-3">
+                {# row#}
+
+                <div class="row mb-3 ">
+
+                    <div class="col-sm-3 "></div>
+
+                    <div class="col-sm-6 ">
+
+                        <select class="form-select " name="" id="id_customers_selection"
+                            aria-label="Default select example">
+                            <option selected>Seleccione un conductor
+                            </option>
+                            {% for d in ddrivers_all %}
+                            {% if ( d.active  ==  1) %}
+
+                            <option value="{{ d.name }}" class="font-weight-bold "
+                                data-url="{{routeTo('searchforDriver', d.id_driver)}}">
+                                {{ d.name }}
+                            </option>
+                            {% endif %}
+                            {% endfor %}
+                        </select>
+
+                    </div>
+
+                    <div class="col-sm-3"> </div>
+
+                </div>
+
+            </div>
+
+
+
+
+
+            <table class="table table-striped  text-center">
+                <thead>
+
+                    <tr>
+                        <th class="text-center align-middle th_header" scope="col">Nombre</th>
+                        <th class="pt-3 text-center align-middle th_header" scope="col">Telefono</th>
+                        <th class="pt-3 text-center align-middle th_header" scope="col">Provincia</th>
+                        <th class="pt-3 text-center align-middle th_header" scope="col">Acciones</th>
+
+                    </tr>
+            	{% if ddrivers|length == 0%}
+
+					<tr>
+						<td class="text-center align-middle text-left" colspan="15">
+
+							<lord-icon src="https://cdn.lordicon.com/imamsnbq.json" trigger="hover" colors="primary:#121331,secondary:#4b7dcffa" style="width:50px;height:50px"></lord-icon>
+							<br>
+							No ahi conductores registrados
+						</td>
+					</tr>
+
+				{% else %}
+
+
+                </thead>
+                <tbody>
+
+
+
+                    {% for ddriver in ddrivers %}
+                       {% set driverLinkedToOrder = ddriver.id_driver in orderDriversIds %}
+
+                    <tr>
+
+                        <th scope="row" class="text-center align-middle">{{ ddriver.name }}</th>
+                        <th scope="row" class="text-center align-middle">{{ ddriver.phone }}</th>
+                        <th scope="row" class="text-center align-middle">{{ ddriver.province }}</th>
+
+                        <td class="   text-left align-middle">
+                            <div class=" boton_menu text-center">
+                                <nav class="navbar navbar-expand-lg  navbar-light text-center nav_menu">
+
+                                    <button class="navbar-toggler  text-center" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#navbarSupportedContentTabla"
+                                        aria-controls="navbarSupportedContentTabla" aria-expanded="false"
+                                        aria-label="Toggle navigation">
+                                        <span class="navbar-toggler-icon icono_menu_nav text-center"></span>
+                                    </button>
+
+                                    <div class="collapse navbar-collapse " id="navbarSupportedContentTabla">
+
+                                        <ul class="navbar-nav text-center nav justify-content-center ">
+
+
+ {% if not driverLinkedToOrder %}
+                                            <li class="nav-item ">
+                                                <a class="text-white "
+                                                    href="{{ routeTo('editDrivers', ddriver.id_driver) }}">
+                                                    <img src="\images\edit.png" alt="..." title="editar albaran">
+                                                </a>
+
+                                            </li>
+
+                                            <li class="nav-item ">
+                                                 <a href="#" class="delete-driver-button" data-driver-id="{{ ddriver.id_driver }}">
+                                                <img src="\images\delete_white.png" alt="..."> &nbsp;&nbsp;&nbsp;
+                                            </a>
+
+                                            </li>
+ {% else %}
+                                              <li class="nav-item ">
+                                               Asignado a un Pedido
+
+
+                                            </li>
+ {% endif %}
+
+
+                                        </ul>
+                                    </div>
+
+                                </nav>
+
+                            </div>
+                        </td>
+
+                    </tr>
+
+
+
+                    {% endfor %}
+
+                    {% endif %}
+                </tbody>
+            </table>
+
+            <div>*Los conductores que estan asignados en algun pedido no se podran editar ni eliminar. Si elimina el pedido se liberara y podra realizar los cambios o eliminarlo.</div>
+                {{ pager | raw }}
+
+
+            <div class="row pt-5">
+                <div class="col">
+                    <p class=" text-center">
+                        <a href="{{ routeTo('home') }}">
+                            <img class="rounded mx-auto d-block " src="\images\regresar.png" alt="...">
+                        </a>
+                        <br> ir a Inicio
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+     </div>
+
+    </div>
+
+
+
+<script>
+
+  $(document).ready(function() {
+
+    // Obtén el botón por su clase
+    $(".delete-driver-button").click(function() {
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: 'btn btn-success',
+                cancelButton: 'btn btn-danger'
+            },
+            buttonsStyling: false
+        });
+
+        // Obtén el ID del cliente desde el atributo data
+        var driverId = $(this).data('driver-id');
+
+
+        swalWithBootstrapButtons.fire({
+            title: '¿Estás seguro?',
+            text: "No podrás revertir esto.",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Sí, eliminarlo',
+            cancelButtonText: 'No, cancelar',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Enviar una solicitud AJAX para eliminar el cliente
+                $.ajax({
+                    url: 'https://contenedores.grupohnosfas.com/Conductores/eliminarConductor/' + driverId,
+                    type: 'POST',
+                    success: function(response) {
+                        // Mostrar un mensaje de éxito o error según la respuesta
+                        if (response.success) {
+
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Eliminado',
+                                text: response.message
+                            }).then(() => {
+                                // Redirigir después de mostrar el mensaje de éxito
+                                window.location.href = 'https://contenedores.grupohnosfas.com/Conductores/listar/';
+                            });
+                        } else {
+
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error',
+                                text: response.message
+                            });
+                        }
+                    },
+                    error: function() {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: 'Se produjo un error en la solicitud.'
+                        });
+                    }
+                });
+            } else if (result.dismiss === Swal.DismissReason.cancel) {
+                swalWithBootstrapButtons.fire(
+                    'Cancelado',
+                    'Tu cliente está a salvo :)',
+                    'error'
+                );
+            }
+        });
+    });
+});
+
+
+
+</script>
+
+
+{% include 'Front/base/footer.html.twig' %}
+</body>
+{% endblock %}
+
+{% block script %}
+
+{{parent(script)}}
+
+<script src="/js/jsBootstrap.js"></script>
+
+<script src="https://cdn.lordicon.com/qjzruarw.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+
+ {# Swal.fire({
+                    icon: 'error',
+                    title: 'No puede eliminar',
+                    text: '** El conductor existe registrado en algun pedido o albaran...Pero puede desactivarlo para que no se muestre en la lista...',
+                    }) #}
+
+setTimeout(function () {
+$(".alerta_drivers").fadeOut(2000);
+}, 10200);
+
+$(document).ready(function () {
+$('#id_customers_selection').on("change", function (event) {
+var opt = $(this).find("option:selected")
+var url = opt.data("url")
+window.location.href = url
+});
+var divToShow = document.getElementById("error");
+divToShow.style.display = "none";
+});
+</script>
+
+{% endblock %}

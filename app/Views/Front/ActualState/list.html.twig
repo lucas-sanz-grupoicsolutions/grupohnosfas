@@ -1,0 +1,213 @@
+{% extends 'Front/base/main.html.twig' %}
+
+{% block titleHeader %}
+Listar clientes
+{% endblock %}
+{% block content %}
+{% include 'Front/base/header.html.twig' %}
+
+<link rel="stylesheet" href="/css/css_all/state_actual/list.css">
+
+<body class="container_clientes">
+
+    <div class="container mt-1">
+
+        <div id="title_actual_state">
+
+            <div class="row">
+                <div class="col-4 pl-3">
+                    <a href="javascript: history.go(-1)">&nbsp;&nbsp;&nbsp;
+                        <img class="ml-3 pt-4 " src="\images\arrow_white_izq.png" alt="...">
+                    </a>
+                </div>
+                <div class="col-4"></div>
+                <div class="col-4"></div>
+            </div>
+
+            <div class="cssscan">
+
+                <h4 class="display-4 text-white text-center " style="color:#0fe48f !important;">Localizacion</h4>
+                <p class=" texto_titulo text-white">Localizacion de los contenedores en diferentes direcciones</p>
+                </span>
+                </p>
+                </p>
+
+                <img src="\images\actualizarr.svg" alt="...">
+</body>
+</div>
+</div>
+<div class="cuerpo_state_actual mt-2">
+
+    <div class="row   pt-2 mt-1 p-3">
+        {# row#}
+
+        <div class="row ">
+            <div class="col-sm-6 ">
+                <label class="" for="inputDescription">&nbsp;&nbsp;Filtrar por clientes
+                </label>
+                <select class="form-select " name="" id="id_customers_selection_state"
+                    aria-label="Default select example">
+                    <option selected>Seleccione un cliente
+                    </option>
+                    {% for c in customers_all %}
+                    {% if ( c.active  ==  1) %}
+
+                    <option value="{{ c.names }}" class="font-weight-bold "
+                        data-url="{{routeTo('searchforCustomerActualState', c.id_customer )}}">
+                        {{ c.names }}
+                    </option>
+                    {% endif %}
+                    {% endfor %}
+                </select>
+
+            </div>
+            <div class="col-sm-6">
+                <label class="" for="inputDescription">&nbsp;&nbsp;Filtrar por metros cubicos</label>
+                <select class="form-select" name="container_type" id="id_container_selection"
+                    aria-label="Default select example">
+                    <option selected>Seleccione tipo de residuo del contenedor</option>
+                    {% for cubicMetersType in uniqueCubicMeters %}
+                    <option value="{{ cubicMetersType }}" class="font-weight-bold"
+                        data-url="{{ routeTo('searchforContainerActualState', cubicMetersType) }}">
+                        {{ cubicMetersType }} m³
+                    </option>
+                    {% endfor %}
+                </select>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="row mt-2  mb-1 justify-content-center justify-content-md-start">
+
+        <div class="col-4 "></div>
+
+        <div class="col-sm-4 pb-3">
+
+            <a class="text-center" href="{{ routeTo('listAS') }}">
+                <span class=" mx-auto d-block text-center volver_cargar_pedidos ">
+
+                    Volver a mostrar todos los estados
+
+                </span>
+            </a>
+
+        </div>
+
+        <div class="col-4 "></div>
+    </div>
+
+
+    <div class="row row-list m-0 mt-3">
+
+        <table class="table table-striped  text-center">
+            <thead>
+                <tr>
+
+                    <th class="pt-3 text-center align-middle th_header" scope="col">Metros Cubicos</th>
+                    <th class="pt-3 text-center align-middle th_header" scope="col">Cliente</th>
+                    <th class="pt-3 text-center align-middle th_header" scope="col">Direccion de Obra</th>
+                    <th class="pt-3 text-center align-middle th_header" scope="col">Localidad</th>
+                    <th class="pt-3 text-center align-middle th_header" scope="col">Fecha alta</th>
+                    <th class="pt-3 text-center align-middle th_header" scope="col">Servicio</th>
+
+                </tr>
+
+                {% if actualStates|length == 0 %}
+
+                <tr>
+                    <td class="text-center align-middle text-left" colspan="15">
+
+                        <lord-icon src="https://cdn.lordicon.com/zzcjjxew.json" trigger="hover"
+                            colors="primary:#121331,secondary:#08a88a" style="width:50px;height:50px"></lord-icon>
+
+                        <br>
+                        No ahi registros
+
+                    </td>
+                </tr>
+
+                {% else %}
+
+            </thead>
+            <tbody>
+                {% for actualState in actualStates %}
+                <tr>
+
+                    <th scope="row" class="text-left align-middle">
+
+                        <div class="row ">
+                            <div class="col-sm-4 ">
+                                <img src="\images\contenedor_3d_byn.png" style="width:80px;height:50px;" alt="..."
+                                    title="">
+
+                            </div>
+                            <div class="col-sm-4 text-left">
+                            <div class="mt-3"> {{ actualState.cubic_meters }}</div>
+
+                            </div>
+                        </div>
+
+                    </th>
+                    <th scope="row" class="text-center align-middle">{{ actualState.customer_name }}</th>
+                    <th scope="row" class="text-center align-middle">{{ actualState.work_location_address }}</th>
+                    <th scope="row" class="text-center align-middle">{{ actualState.work_location_location }}</th>
+                    <th scope="row" class="text-center align-middle">{{ actualState.created_at | date('d/m/y')}}</th>
+                    <th scope="row" class="text-center align-middle">{{ actualState.name_service }}</th>
+
+                </tr>
+
+                {% endfor %}
+                {% endif %}
+            </tbody>
+        </table>
+
+    </div>
+    {{ pager | raw }}
+    <div class="row pt-5">
+        <div class="col">
+            <p class=" text-center">
+                <a href="{{ routeTo('home') }}">
+                    <img class="rounded mx-auto d-block " src="\images\regresar.png" alt="...">
+                </a>
+                <br>
+                ir a Inicio
+            </p>
+        </div>
+    </div>
+
+</div>
+</div>
+
+{% include 'Front/base/footer.html.twig' %}
+
+</body>
+{% endblock %}{% block script %}{{parent(script)}}
+
+<script src="https://cdn.lordicon.com/bhenfmcm.js"></script>
+
+<script src="/js/jsBootstrap.js"></script>
+<script>
+    setTimeout(function() {
+        $(".alerta_msg_orders").fadeOut(2000);
+    }, 2200);
+    $(document).ready(function() {
+        $('#id_customers_selection_state').on("change", function(event) {
+            var opt = $(this).find("option:selected")
+            var url = opt.data("url")
+            window.location.href = url
+        });
+        var divToShow = document.getElementById("error");
+        divToShow.style.display = "none";
+    });
+    $(document).ready(function() {
+        $('#id_container_selection').on("change", function(event) {
+            var opt = $(this).find("option:selected")
+            var url = opt.data("url")
+            window.location.href = url
+        });
+        var divToShow = document.getElementById("error");
+        divToShow.style.display = "none";
+    });
+</script>{% endblock %}

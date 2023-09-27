@@ -1,0 +1,1824 @@
+{% extends 'Front/base/main.html.twig' %}
+{% block titleHeader %}
+Ver cliente
+{% endblock %}
+{% block content %}
+{% include 'Front/base/header.html.twig' %}
+
+<link rel="stylesheet" href="/css/css_all/bills/edit.css">
+<style>
+  .p_dto{
+    margin-top: 40px;
+  }</style>
+
+<body class="container_clientes">
+
+    <div class="container mt-1">
+
+        <div class="titulo_bills_list">
+
+            <div class="row">
+                <div class="col-4 pl-3">
+                    <a href="javascript: history.go(-1)">&nbsp;&nbsp;&nbsp;
+                        <img class="ml-3 pt-4 " src="\images\arrow_white_izq.png" alt="...">
+                    </a>
+                </div>
+                <div class="col-4"></div>
+                <div class="col-4"></div>
+            </div>
+
+            <div class="cssscan">
+                <p>
+                    <h4 class="display-4 text-center text-white">Editar la Factura
+                        {{id_bills}}</h4>
+                </p>
+                <p class=" texto_titulo text-white">
+                    Factura generada
+                </p>
+                </span>
+                </p>
+                </p>
+
+                <img src="\images\icono_factura_svg.svg" alt="...">
+
+            </div>
+        </div>
+
+        <div class=" mt-2">
+
+            <form id="mi-formulario" action="{{ baseUrl('editSaveBills') }}" method="POST">
+
+                <div class="col-12  contenedor p-3 ">
+
+                    <div class="row mt-3">
+
+                        <div class="col-sm-4 pre_div_info">
+
+                            <span class="pre_text_customers mt-2">
+                                <b>
+                                    TOT PER CONSTRUIR 2012, S.L.</b>
+                            </span><br>
+
+                            <span class="pre_text_customers">
+                                C.I.F.: DB-98474497 NIMA:
+                            </span><br>
+
+                            <span class="pre_text_customers">Dirección: Calle Rio Guadalaviar, 6. Quart de Poblet
+                                (Valencia)</span><br>
+
+                            <span class="pre_text_customers">
+                                CP: 46930 – Teléfono: 961391755 – 656414748</span><br>
+
+                            <span class="pre_text_customers">Correo electrónico: gestion@tpc2012.es Página web:
+                                www.tpc2012.es
+                            </span>
+                            <br>
+
+                        </div>
+
+                        <div class="col-sm-4  text-center">
+
+                            <img src="\images\logo\logos_facturas_2.png" width="350" height="110" alt="logo"
+                                class="mt-2"><br>
+
+                        </div>
+
+                        <div class="col-sm-4 pre_div_info">
+
+                            . Recogida y transporte de residuos no peligrosos<br>
+                            · Recogida y destruccion de documentacion confidencial<br>
+                            · Alquiler de maquinaria de obra publica con conductor especializado<br>
+                            · Suministro y transporte de aridos en camion de gran tonelaje<br>
+
+                        </div>
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-sm-4 pre_div_info">
+
+                            <span class="text_adress">
+                                <em>
+                                    Direccion de Fiscal</em>
+                            </span>
+                            <br>
+
+                            <span class="pre_text_customers mt-2">
+                                <b>{{ customer_name|upper }}</b>
+                            </span><br>
+
+                            <span class="pre_text_customers">
+                                {{ customer_dni }}
+                            </span><br>
+
+                            <span class="pre_text_customers">Dirección:
+                                {{ customer_address }},
+                                {{ customer_location }},
+                                {{ customer_province }}.
+                            </span><br>
+
+                            <span class="pre_text_customers">
+                                CP:
+                                {{ customer_zip_code }}, Teléfono:
+                                {{ customer_phone }}</span><br>
+
+                        </div>
+
+                        <div class="col-sm-4  text-center"></div>
+
+                        <div class="col-sm-4 pre_div_info">
+
+                            <span class="text_adress">
+                                <em>
+                                    Direccion de Correspondencia</em>
+                            </span><br>
+
+                            <span class="pre_text_customers mt-2">
+                                <b>{{ customer_name|upper }}</b>
+                            </span><br>
+
+                            <span class="pre_text_customers">
+                                {{ customer_dni }}
+                            </span><br>
+
+                            <span class="pre_text_customers">Dirección:
+                                {{ customer_address }},
+                                {{ customer_location }},
+                                {{ customer_province }}.
+                            </span><br>
+
+                            <span class="pre_text_customers">
+                                CP:
+                                {{ customer_zip_code }}, Teléfono:
+                                {{ customer_phone }}</span><br>
+
+                        </div>
+                    </div>
+
+                    <div class="row p-0 justify-content-left">
+
+                        <div class="col-sm-4  p-0 col_text-title-factura">
+                            <span class="text-title-factura p-1">Factura&nbsp;</span>
+
+                        </div>
+                    </div>
+
+                    <div class="row justify-content-center">
+
+                        <table class="table table-striped table-borderless tabla" style="font-size:0.8rem !important;">
+
+                            <thead style="color:#4d8f24;">
+                                <tr style="color:#4d8f24;margin:none !important; padding:none !important;">
+                                    <th scope="col" class=""
+                                        style="margin:none !important; padding:none !important; font-size:0.8rem !important;background:none !important;">
+                                        &nbsp;&nbsp;Fecha
+                                    </th>
+                                    <th scope="col" class="text-black"
+                                        style="margin:none !important; padding:none !important;font-size:0.8rem !important;background:none !important;padding:none !important;">
+                                        &nbsp;&nbsp;{{ date_today }}</th>
+
+                                    <th scope="col" class=""
+                                        style="margin:none !important; padding:none !important;font-size:0.8rem !important;background:none !important;">
+                                        &nbsp;&nbsp;Cliente</th>
+                                    <th scope="col" class="text-black"
+                                        style="margin:none !important; padding:none !important;font-size:0.8rem !important;background:none !important;">
+                                        &nbsp;&nbsp;{{ customer_name }}</th>
+                                    <th scope="col" class=""
+                                        style="margin:none !important; padding:none !important;font-size:0.8rem !important;background:none !important;">
+                                        &nbsp;&nbsp; Teléfono/Fax</th>
+                                    <th scope="col" class="text-black"
+                                        style="margin:none !important; padding:none !important;font-size:0.8rem!important;background:none !important;">
+                                        &nbsp;&nbsp;{{ customer_phone }}</th>
+
+                                </tr>
+                            </thead>
+
+                            <thead style="color:#4d8f24;">
+                                <tr>
+                                    <th scope="col" class=""
+                                        style="font-size:0.8rem !important;background:none !important;">
+                                        &nbsp;&nbsp;Numero
+                                    </th>
+
+                                    <th scope="col" class=""
+                                        style="font-size:0.8rem !important;background:none !important;color:black;">
+                                        &nbsp;&nbsp;{{ id_bills }}
+                                    </th>
+
+                                    <th scope="col" class=""
+                                        style="font-size:0.8rem !important;background:none !important;">
+                                        &nbsp;&nbsp;CIF/NIF</th>
+                                    <th scope="col" class="text-black"
+                                        style="font-size:0.8rem!important;background:none !important;">
+                                        &nbsp;&nbsp;{{ customer_dni }}</th>
+
+                                </tr>
+                            </thead>
+
+                        </table>
+
+                    </div>
+
+                    <div class="row justify-content-center">
+
+                        <table class="table table-striped table-borderless tabla">
+
+                            <thead style="background-color:#4d8f24;" class="text-white ">
+                                <tr>
+                                    <th scope="col" class="text-center" style="font-size:0.8rem !important;">
+                                        &nbsp;&nbsp;&nbsp;&nbsp;Codigo
+                                    </th>
+                                    <th scope="col" class="text-center" style="font-size:0.8rem !important;">
+                                        Cantidad</th>
+
+                                    <th scope="col" class="text-center" style="font-size:0.8rem !important;">
+                                        Descripcion</th>
+                                    <th scope="col" class="text-center" style="font-size:0.8rem !important;">Precio
+                                    </th>
+                                    <th scope="col" class="text-center" style="font-size:0.8rem !important;width:65px;">
+                                        % Dto.</th>
+                                    <th scope="col" class="text-center" style="font-size:0.8rem !important;">
+                                        Imp.Dto.</th>
+                                    <th scope="col" class="text-center" style="font-size:0.8rem !important;">Importe
+                                    </th>
+
+                                </tr>
+                            </thead>
+
+                            <tbody>
+
+                                    {% for tableBillsAlbaranes in tableBillsAlbaranes %}
+                                    {% if ( tableBillsAlbaranes.active == 1 ) %}
+                                    <tr>
+
+                                    <td scope="col" class=" text-center text-black"
+                                        style="border-bottom:1px solid #dfdfdf87 !important;font-size:0.8rem !important;background:none !important;">
+
+                                   </td>
+
+                                    <td scope="col" class=" text-center text-black"
+                                        style="border-bottom:1px solid #dfdfdf87 !important;font-size:0.8rem !important;background:none !important;">
+
+                                    </td>
+
+                                    <input type="hidden" name="id_b_a[]" value="{{ tableBillsAlbaranes.id_b_a }}">
+                                    <input type="hidden" name="c_iva" value="{{tableBillsAlbaranes.customer_iva}}">
+                                    <input type="hidden" name="id_albaran[]"
+                                        value="{{ tableBillsAlbaranes.id_albaran }}">
+                                    <input type="hidden" name="id_bills" value="{{ tableBillsAlbaranes.id_bills }}">
+
+                                    <td scope="col" class=" text-center text-black"
+                                        style="border-bottom:1px solid #dfdfdf87 !important;font-size:0.8rem !important;background:none !important;">
+                                                    <b>Servicio Nº(Albaran)
+                                                        {{ tableBillsAlbaranes.id_albaran }}
+
+                                                        de Fecha:
+                                                        {{ date_today }}</b>
+                                                    <br>
+
+                                                    Obra:
+                                                    {{ tableBillsAlbaranes.work_location_address }}
+                                                    {{ tableBillsAlbaranes.work_location_location }}
+                                                    {{ tableBillsAlbaranes.work_location_province }}
+
+                                                    <br>
+                                                    {{ tableBillsAlbaranes.service_name }}
+
+                                                    Contenedor:
+                                                    {{ tableBillsAlbaranes.container_residue}}
+
+                                                    -
+                                                    {{ tableBillsAlbaranes.container_m3 }}
+
+                                                <br>
+
+                                                    {% if (tableBillsAlbaranes.supplements_exits == 1) %}
+
+                                                        {% for s in tableBillsAlbaranes.supplementsObject %}
+
+                                                    <u>  Suplemento  </u><br>
+                                                        {{ s.name}}
+
+                                                    {% endfor %}
+                                                    {% endif %}
+
+                                                    <br>
+
+                                                    <a class="accordion button-40 editar my-2" data-toggle="collapse"
+                                                        data-target="#collapse-{{ tableBillsAlbaranes.id_albaran }}">
+                                                        <img src="\images\edit_bills.png" alt="...">&nbsp;&nbsp;&nbsp;&nbsp;
+                                                        Editar
+                                                    </a>
+
+                                                    <div id="collapse-{{ tableBillsAlbaranes.id_albaran }}" class="collapse">
+
+                                                        <div class="accordion_desplegable">
+
+                                                            <div class="accordion-body ">
+
+                                                                <div class="accordion accordion-flush mb-2 "
+                                                                    id="accordionFlushExample">
+                                                                    <div class="accordion-item text-center m-2 ">
+                                                                        <h2 class="accordion-header " id="flush-headingOne ">
+                                                                            <button class="accordion-button collapsed" type="button"
+                                                                                data-bs-toggle="collapse"
+                                                                                data-bs-target="#flush-collapseOne"
+                                                                                aria-expanded="false"
+                                                                                aria-controls="flush-collapseOne">
+                                                                                VOLUMINOSO
+                                                                            </button>
+                                                                        </h2>
+                                                                        <div id="flush-collapseOne"
+                                                                            class="accordion-collapse collapse"
+                                                                            aria-labelledby="flush-headingOne"
+                                                                            data-bs-parent="#accordionFlushExample">
+                                                                            <div class="accordion-body">
+
+                                                                                <div class="tabla mb-0" style="overflow-x:auto;">
+
+                                                                                    <table
+                                                                                        class="table table-striped  text-center ">
+                                                                                        <thead>
+
+                                                                                            <tr>
+                                                                                                <th class=" pt-3  text-center align-middle th1 th1_selec"
+                                                                                                    scope="col">
+                                                                                                    Seleccionar Contenedor
+                                                                                                </th>
+
+                                                                                                <th class=" pt-3 text-center align-middle th1"
+                                                                                                    scope="col">
+                                                                                                    Residuo
+                                                                                                </th>
+
+                                                                                                <th class=" pt-3 text-center align-middle th1"
+                                                                                                    scope="col">
+                                                                                                    Precio
+
+                                                                                                </th>
+
+                                                                                                <th class=" pt-3 text-center align-middle th1"
+                                                                                                    scope="col">
+                                                                                                    M2
+                                                                                                </th>
+
+                                                                                            </tr>
+                                                                                        </thead>
+
+                                                                                        <tbody>
+
+                                                                                            {% for container in containers %}
+
+                                                                                            {% if ( container.residue == "VOLUMINOSO" ) %}
+
+                                                                                            <tr class="text-center align-middle ">
+
+                                                                                                <td
+                                                                                                    class="text-center align-middle ">
+
+                                                                                                    <input
+                                                                                                        class="form-check-input mt-3"
+                                                                                                        id="id_container_new"
+                                                                                                        style="text-align:center;"
+                                                                                                        type="radio"
+                                                                                                        name="id_container_new[{{ tableBillsAlbaranes.id_albaran }}]"
+                                                                                                        value="{{ container.id_container }}">&nbsp;
+
+                                                                                                    <img src="\images\contenedor_3d_byn.png"
+                                                                                                        style="width:80px;height:50px;"
+                                                                                                        alt="..." title="">
+
+                                                                                                </td>
+
+                                                                                                <td
+                                                                                                    class="text-center align-middle">
+                                                                                                    {{ container.residue }}
+                                                                                                </td>
+
+                                                                                                <td
+                                                                                                    class="text-center align-middle">
+
+                                                                                                    {{ container.price }}</b>
+
+                                                                                                </td>
+
+                                                                                                <td
+                                                                                                    class="text-center align-middle">
+                                                                                                    {{ container.cubic_meters }} m2
+                                                                                                </td>
+
+                                                                                            </tr>
+                                                                                            {% endif %}
+
+                                                                                            {% endfor %}
+
+                                                                                        </tbody>
+
+                                                                                    </table>
+
+                                                                                </div>{# scroll#}
+
+                                                                                <p class="bottom_table p-2 col-12"></p>
+
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="accordion-item m-2">
+                                                                        <h2 class="accordion-header" id="flush-headingTwo">
+                                                                            <button class="accordion-button collapsed" type="button"
+                                                                                data-bs-toggle="collapse"
+                                                                                data-bs-target="#flush-collapseTwo"
+                                                                                aria-expanded="false"
+                                                                                aria-controls="flush-collapseTwo">
+                                                                                LIMPIO
+                                                                            </button>
+                                                                        </h2>
+                                                                        <div id="flush-collapseTwo"
+                                                                            class="accordion-collapse collapse"
+                                                                            aria-labelledby="flush-headingTwo"
+                                                                            data-bs-parent="#accordionFlushExample">
+                                                                            <div class="accordion-body">
+
+                                                                                <div class="tabla mb-0" style="overflow-x:auto;">
+
+                                                                                    <table
+                                                                                        class="table table-striped  text-center ">
+                                                                                        <thead>
+
+                                                                                            <tr>
+                                                                                                <th class=" pt-3  text-center align-middle th1 th1_selec"
+                                                                                                    scope="col">
+                                                                                                    Seleccionar Contenedor
+                                                                                                </th>
+
+                                                                                                <th class=" pt-3 text-center align-middle th1"
+                                                                                                    scope="col">
+                                                                                                    Residuo
+                                                                                                </th>
+
+                                                                                                <th class=" pt-3 text-center align-middle th1"
+                                                                                                    scope="col">
+                                                                                                    Precio
+
+                                                                                                </th>
+
+                                                                                                <th class=" pt-3 text-center align-middle th1"
+                                                                                                    scope="col">
+                                                                                                    M2
+                                                                                                </th>
+
+                                                                                            </tr>
+                                                                                        </thead>
+
+                                                                                        <tbody>
+
+                                                                                            {% for container in containers %}
+
+                                                                                            {% if ( container.residue == "LIMPIO" ) %}
+
+                                                                                            <tr class="text-center align-middle ">
+
+                                                                                                <td
+                                                                                                    class="text-center align-middle ">
+
+                                                                                                    <input
+                                                                                                        class="form-check-input mt-3"
+                                                                                                        id="id_container_new"
+                                                                                                        style="text-align:center;"
+                                                                                                        type="radio"
+                                                                                                        name="id_container_new[{{ tableBillsAlbaranes.id_albaran }}]"
+                                                                                                        value="{{ container.id_container }}">&nbsp;
+
+                                                                                                    <img src="\images\contenedor_3d_byn.png"
+                                                                                                        style="width:80px;height:50px;"
+                                                                                                        alt="..." title="">
+
+                                                                                                </td>
+
+                                                                                                <td
+                                                                                                    class="text-center align-middle">
+                                                                                                    {{ container.residue }}
+                                                                                                </td>
+
+                                                                                                <td
+                                                                                                    class="text-center align-middle">
+
+                                                                                                    {{ container.price }}</b>
+
+                                                                                                </td>
+
+                                                                                                <td
+                                                                                                    class="text-center align-middle">
+                                                                                                    {{ container.cubic_meters }} m2
+                                                                                                </td>
+
+                                                                                            </tr>
+                                                                                            {% endif %}
+
+                                                                                            {% endfor %}
+
+                                                                                        </tbody>
+
+                                                                                    </table>
+
+                                                                                </div>{# scroll #}
+
+                                                                                <p class="bottom_table p-2 col-12"></p>
+
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="accordion-item m-2">
+                                                                        <h2 class="accordion-header" id="flush-headingThree">
+                                                                            <button class="accordion-button collapsed" type="button"
+                                                                                data-bs-toggle="collapse"
+                                                                                data-bs-target="#flush-collapseThree"
+                                                                                aria-expanded="false"
+                                                                                aria-controls="flush-collapseThree">
+                                                                                SUCIO
+                                                                            </button>
+                                                                        </h2>
+                                                                        <div id="flush-collapseThree"
+                                                                            class="accordion-collapse collapse"
+                                                                            aria-labelledby="flush-headingThree"
+                                                                            data-bs-parent="#accordionFlushExample">
+                                                                            <div class="accordion-body">
+                                                                                <div class="tabla mb-0" style="overflow-x:auto;">
+
+                                                                                    <table
+                                                                                        class="table table-striped  text-center ">
+                                                                                        <thead>
+
+                                                                                            <tr>
+                                                                                                <th class=" pt-3  text-center align-middle th1 th1_selec"
+                                                                                                    scope="col">
+                                                                                                    Seleccionar Contenedor
+                                                                                                </th>
+
+                                                                                                <th class=" pt-3 text-center align-middle th1"
+                                                                                                    scope="col">
+                                                                                                    Residuo
+                                                                                                </th>
+
+                                                                                                <th class=" pt-3 text-center align-middle th1"
+                                                                                                    scope="col">
+                                                                                                    Precio
+
+                                                                                                </th>
+
+                                                                                                <th class=" pt-3 text-center align-middle th1"
+                                                                                                    scope="col">
+                                                                                                    M2
+                                                                                                </th>
+
+                                                                                            </tr>
+                                                                                        </thead>
+
+                                                                                        <tbody>
+
+                                                                                            {% for container in containers %}
+
+                                                                                            {% if ( container.residue == "SUCIO" ) %}
+
+                                                                                            <tr class="text-center align-middle ">
+
+                                                                                                <td
+                                                                                                    class="text-center align-middle ">
+
+                                                                                                    <input
+                                                                                                        class="form-check-input mt-3"
+                                                                                                        id="id_container_new"
+                                                                                                        style="text-align:center;"
+                                                                                                        type="radio"
+                                                                                                        name="id_container_new[{{ tableBillsAlbaranes.id_albaran }}]"
+                                                                                                        value="{{ container.id_container }}">&nbsp;
+
+                                                                                                    <img src="\images\contenedor_3d_byn.png"
+                                                                                                        style="width:80px;height:50px;"
+                                                                                                        alt="..." title="">
+
+                                                                                                </td>
+
+                                                                                                <td
+                                                                                                    class="text-center align-middle">
+                                                                                                    {{ container.residue }}
+                                                                                                </td>
+
+                                                                                                <td
+                                                                                                    class="text-center align-middle">
+
+                                                                                                    {{ container.price }}</b>
+
+                                                                                                </td>
+
+                                                                                                <td
+                                                                                                    class="text-center align-middle">
+                                                                                                    {{ container.cubic_meters }} m2
+                                                                                                </td>
+
+                                                                                            </tr>
+                                                                                            {% endif %}
+
+                                                                                            {% endfor %}
+
+                                                                                        </tbody>
+
+                                                                                    </table>
+
+                                                                                </div>{# scroll#}
+
+                                                                                <p class="bottom_table p-2 col-12"></p>
+
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="accordion-item m-2">
+                                                                        <h2 class="accordion-header" id="flush-heading4">
+                                                                            <button class="accordion-button collapsed" type="button"
+                                                                                data-bs-toggle="collapse"
+                                                                                data-bs-target="#flush-collapse4"
+                                                                                aria-expanded="false"
+                                                                                aria-controls="flush-collapse4">
+                                                                                MADERA
+                                                                            </button>
+                                                                        </h2>
+                                                                        <div id="flush-collapse4"
+                                                                            class="accordion-collapse collapse"
+                                                                            aria-labelledby="flush-heading4"
+                                                                            data-bs-parent="#accordionFlushExample">
+                                                                            <div class="accordion-body">
+                                                                                <div class="tabla mb-0" style="overflow-x:auto;">
+
+                                                                                    <table
+                                                                                        class="table table-striped  text-center ">
+                                                                                        <thead>
+
+                                                                                            <tr>
+                                                                                                <th class=" pt-3  text-center align-middle th1 th1_selec"
+                                                                                                    scope="col">
+                                                                                                    Seleccionar Contenedor
+                                                                                                </th>
+
+                                                                                                <th class=" pt-3 text-center align-middle th1"
+                                                                                                    scope="col">
+                                                                                                    Residuo
+                                                                                                </th>
+
+                                                                                                <th class=" pt-3 text-center align-middle th1"
+                                                                                                    scope="col">
+                                                                                                    Precio
+
+                                                                                                </th>
+
+                                                                                                <th class=" pt-3 text-center align-middle th1"
+                                                                                                    scope="col">
+                                                                                                    M2
+                                                                                                </th>
+
+                                                                                            </tr>
+                                                                                        </thead>
+
+                                                                                        <tbody>
+
+                                                                                            {% for container in containers %}
+
+                                                                                            {% if ( container.residue == "MADERA" ) %}
+
+                                                                                            <tr class="text-center align-middle ">
+                                                                                                <td
+                                                                                                    class="text-center align-middle">
+
+                                                                                                    <input
+                                                                                                        class="form-check-input mt-3"
+                                                                                                        id="id_container_new"
+                                                                                                        style="text-align:center;"
+                                                                                                        type="radio"
+                                                                                                        name="id_container_new[{{ tableBillsAlbaranes.id_albaran }}]"
+                                                                                                        value="{{ container.id_container }}">&nbsp;
+
+                                                                                                    <img src="\images\contenedor_3d_byn.png"
+                                                                                                        style="width:80px;height:50px;"
+                                                                                                        alt="..." title="">
+
+                                                                                                </td>
+
+                                                                                                <td
+                                                                                                    class="text-center align-middle">
+                                                                                                    {{ container.residue }}
+                                                                                                </td>
+
+                                                                                                <td
+                                                                                                    class="text-center align-middle">
+
+                                                                                                    {{ container.price }}</b>
+
+                                                                                                </td>
+
+                                                                                                <td
+                                                                                                    class="text-center align-middle">
+                                                                                                    {{ container.cubic_meters }} m2
+                                                                                                </td>
+
+                                                                                            </tr>
+                                                                                            {% endif %}
+
+                                                                                            {% endfor %}
+
+                                                                                        </tbody>
+
+                                                                                    </table>
+
+                                                                                </div>{# scroll#}
+
+                                                                                <p class="bottom_table p-2 col-12"></p>
+
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="accordion-item m-2">
+                                                                        <h2 class="accordion-header" id="flush-heading5">
+                                                                            <button class="accordion-button collapsed" type="button"
+                                                                                data-bs-toggle="collapse"
+                                                                                data-bs-target="#flush-collapse5"
+                                                                                aria-expanded="false"
+                                                                                aria-controls="flush-collapse5">
+                                                                                PODA
+                                                                            </button>
+                                                                        </h2>
+                                                                        <div id="flush-collapse5"
+                                                                            class="accordion-collapse collapse"
+                                                                            aria-labelledby="flush-heading5"
+                                                                            data-bs-parent="#accordionFlushExample">
+                                                                            <div class="accordion-body">
+                                                                                <div class="tabla mb-0" style="overflow-x:auto;">
+
+                                                                                    <table
+                                                                                        class="table table-striped  text-center ">
+                                                                                        <thead>
+
+                                                                                            <tr>
+                                                                                                <th class=" pt-3  text-center align-middle th1 th1_selec"
+                                                                                                    scope="col">
+                                                                                                    Seleccionar Contenedor
+                                                                                                </th>
+
+                                                                                                <th class=" pt-3 text-center align-middle th1"
+                                                                                                    scope="col">
+                                                                                                    Residuo
+                                                                                                </th>
+
+                                                                                                <th class=" pt-3 text-center align-middle th1"
+                                                                                                    scope="col">
+                                                                                                    Precio
+
+                                                                                                </th>
+
+                                                                                                <th class=" pt-3 text-center align-middle th1"
+                                                                                                    scope="col">
+                                                                                                    M2
+                                                                                                </th>
+
+                                                                                            </tr>
+                                                                                        </thead>
+
+                                                                                        <tbody>
+
+                                                                                            {% for container in containers %}
+
+                                                                                            {% if ( container.residue == "PODA" ) %}
+
+                                                                                            <tr class="text-center align-middle ">
+
+                                                                                                <td
+                                                                                                    class="text-center align-middle ">
+
+                                                                                                    <input
+                                                                                                        class="form-check-input mt-3"
+                                                                                                        id="id_container_new"
+                                                                                                        style="text-align:center;"
+                                                                                                        type="radio"
+                                                                                                        name="id_container_new[{{ tableBillsAlbaranes.id_albaran }}]"
+                                                                                                        value="{{ container.id_container }}">&nbsp;
+
+                                                                                                    <img src="\images\contenedor_3d_byn.png"
+                                                                                                        style="width:80px;height:50px;"
+                                                                                                        alt="..." title="">
+
+                                                                                                </td>
+
+                                                                                                <td
+                                                                                                    class="text-center align-middle">
+                                                                                                    {{ container.residue }}
+                                                                                                </td>
+
+                                                                                                <td
+                                                                                                    class="text-center align-middle">
+
+                                                                                                    {{ container.price }}</b>
+
+                                                                                                </td>
+
+                                                                                                <td
+                                                                                                    class="text-center align-middle">
+                                                                                                    {{ container.cubic_meters }} m2
+                                                                                                </td>
+
+                                                                                            </tr>
+                                                                                            {% endif %}
+
+                                                                                            {% endfor %}
+
+                                                                                        </tbody>
+
+                                                                                    </table>
+
+                                                                                </div>{# scroll#}
+
+                                                                                <p class="bottom_table p-2 col-12"></p>
+
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="accordion-item m-2">
+                                                                        <h2 class="accordion-header" id="flush-heading6">
+                                                                            <button class="accordion-button collapsed" type="button"
+                                                                                data-bs-toggle="collapse"
+                                                                                data-bs-target="#flush-collapse6"
+                                                                                aria-expanded="false"
+                                                                                aria-controls="flush-collapse6">
+                                                                                CARTON
+                                                                            </button>
+                                                                        </h2>
+                                                                        <div id="flush-collapse6"
+                                                                            class="accordion-collapse collapse"
+                                                                            aria-labelledby="flush-heading6"
+                                                                            data-bs-parent="#accordionFlushExample">
+                                                                            <div class="accordion-body">
+                                                                                <div class="tabla mb-0" style="overflow-x:auto;">
+
+                                                                                    <table
+                                                                                        class="table table-striped  text-center ">
+                                                                                        <thead>
+
+                                                                                            <tr>
+                                                                                                <th class=" pt-3  text-center align-middle th1 th1_selec"
+                                                                                                    scope="col">
+                                                                                                    Seleccionar Contenedor
+                                                                                                </th>
+
+                                                                                                <th class=" pt-3 text-center align-middle th1"
+                                                                                                    scope="col">
+                                                                                                    Residuo
+                                                                                                </th>
+
+                                                                                                <th class=" pt-3 text-center align-middle th1"
+                                                                                                    scope="col">
+                                                                                                    Precio
+
+                                                                                                </th>
+
+                                                                                                <th class=" pt-3 text-center align-middle th1"
+                                                                                                    scope="col">
+                                                                                                    M2
+                                                                                                </th>
+
+                                                                                            </tr>
+                                                                                        </thead>
+
+                                                                                        <tbody>
+
+                                                                                            {% for container in containers %}
+
+                                                                                            {% if ( container.residue == "CARTON" ) %}
+
+                                                                                            <tr class="text-center align-middle ">
+
+                                                                                                <td
+                                                                                                    class="text-center align-middle ">
+
+                                                                                                    <input
+                                                                                                        class="form-check-input mt-3"
+                                                                                                        id="id_container_new"
+                                                                                                        style="text-align:center;"
+                                                                                                        type="radio"
+                                                                                                        name="id_container_new[{{ tableBillsAlbaranes.id_albaran }}]"
+                                                                                                        value="{{ container.id_container }}">&nbsp;
+
+                                                                                                    <img src="\images\contenedor_3d_byn.png"
+                                                                                                        style="width:80px;height:50px;"
+                                                                                                        alt="..." title="">
+
+                                                                                                </td>
+
+                                                                                                <td
+                                                                                                    class="text-center align-middle">
+                                                                                                    {{ container.residue }}
+                                                                                                </td>
+
+                                                                                                <td
+                                                                                                    class="text-center align-middle">
+
+                                                                                                    {{ container.price }}</b>
+
+                                                                                                </td>
+
+                                                                                                <td
+                                                                                                    class="text-center align-middle">
+                                                                                                    {{ container.cubic_meters }} m2
+                                                                                                </td>
+
+                                                                                            </tr>
+                                                                                            {% endif %}
+
+                                                                                            {% endfor %}
+
+                                                                                        </tbody>
+
+                                                                                    </table>
+
+                                                                                </div>{# scroll#}
+
+                                                                                <p class="bottom_table p-2 col-12"></p>
+
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="accordion-item m-2">
+                                                                        <h2 class="accordion-header" id="flush-heading7">
+                                                                            <button class="accordion-button collapsed" type="button"
+                                                                                data-bs-toggle="collapse"
+                                                                                data-bs-target="#flush-collapse7"
+                                                                                aria-expanded="false"
+                                                                                aria-controls="flush-collapse7">
+                                                                                CHATARRA
+                                                                            </button>
+                                                                        </h2>
+                                                                        <div id="flush-collapse7"
+                                                                            class="accordion-collapse collapse"
+                                                                            aria-labelledby="flush-heading7"
+                                                                            data-bs-parent="#accordionFlushExample">
+                                                                            <div class="accordion-body">
+                                                                                <div class="tabla mb-0" style="overflow-x:auto;">
+
+                                                                                    <table
+                                                                                        class="table table-striped  text-center ">
+                                                                                        <thead>
+
+                                                                                            <tr>
+                                                                                                <th class=" pt-3  text-center align-middle th1 th1_selec"
+                                                                                                    scope="col">
+                                                                                                    Seleccionar Contenedor
+                                                                                                </th>
+
+                                                                                                <th class=" pt-3 text-center align-middle th1"
+                                                                                                    scope="col">
+                                                                                                    Residuo
+                                                                                                </th>
+
+                                                                                                <th class=" pt-3 text-center align-middle th1"
+                                                                                                    scope="col">
+                                                                                                    Precio
+
+                                                                                                </th>
+
+                                                                                                <th class=" pt-3 text-center align-middle th1"
+                                                                                                    scope="col">
+                                                                                                    M2
+                                                                                                </th>
+
+                                                                                            </tr>
+                                                                                        </thead>
+
+                                                                                        <tbody>
+
+                                                                                            {% for container in containers %}
+
+                                                                                            {% if ( container.residue == "CHATARRA" ) %}
+
+                                                                                            <tr class="text-center align-middle ">
+
+                                                                                                <td
+                                                                                                    class="text-center align-middle ">
+
+                                                                                                    <input
+                                                                                                        class="form-check-input mt-3"
+                                                                                                        id="id_container_new"
+                                                                                                        style="text-align:center;"
+                                                                                                        type="radio"
+                                                                                                        name="id_container_new[{{ tableBillsAlbaranes.id_albaran }}]"
+                                                                                                        value="{{ container.id_container }}">&nbsp;
+
+                                                                                                    <img src="\images\contenedor_3d_byn.png"
+                                                                                                        style="width:80px;height:50px;"
+                                                                                                        alt="..." title="">
+
+                                                                                                </td>
+
+                                                                                                <td
+                                                                                                    class="text-center align-middle">
+                                                                                                    {{ container.residue }}
+                                                                                                </td>
+
+                                                                                                <td
+                                                                                                    class="text-center align-middle">
+
+                                                                                                    {{ container.price }}</b>
+
+                                                                                                </td>
+
+                                                                                                <td
+                                                                                                    class="text-center align-middle">
+                                                                                                    {{ container.cubic_meters }} m2
+                                                                                                </td>
+
+                                                                                            </tr>
+                                                                                            {% endif %}
+
+                                                                                            {% endfor %}
+
+                                                                                        </tbody>
+
+                                                                                    </table>
+
+                                                                                </div>{# scroll#}
+
+                                                                                <p class="bottom_table p-2 col-12"></p>
+
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="accordion-item m-2">
+                                                                        <h2 class="accordion-header" id="flush-heading8">
+                                                                            <button class="accordion-button collapsed" type="button"
+                                                                                data-bs-toggle="collapse"
+                                                                                data-bs-target="#flush-collapse8"
+                                                                                aria-expanded="false"
+                                                                                aria-controls="flush-collapse8">
+                                                                                ASFALTO
+                                                                            </button>
+                                                                        </h2>
+                                                                        <div id="flush-collapse8"
+                                                                            class="accordion-collapse collapse"
+                                                                            aria-labelledby="flush-heading8"
+                                                                            data-bs-parent="#accordionFlushExample">
+                                                                            <div class="accordion-body">
+                                                                                <div class="tabla mb-0" style="overflow-x:auto;">
+
+                                                                                    <table
+                                                                                        class="table table-striped  text-center ">
+                                                                                        <thead>
+
+                                                                                            <tr>
+                                                                                                <th class=" pt-3  text-center align-middle th1 th1_selec"
+                                                                                                    scope="col">
+                                                                                                    Seleccionar Contenedor
+                                                                                                </th>
+
+                                                                                                <th class=" pt-3 text-center align-middle th1"
+                                                                                                    scope="col">
+                                                                                                    Residuo
+                                                                                                </th>
+
+                                                                                                <th class=" pt-3 text-center align-middle th1"
+                                                                                                    scope="col">
+                                                                                                    Precio
+
+                                                                                                </th>
+
+                                                                                                <th class=" pt-3 text-center align-middle th1"
+                                                                                                    scope="col">
+                                                                                                    M2
+                                                                                                </th>
+
+                                                                                            </tr>
+                                                                                        </thead>
+
+                                                                                        <tbody>
+
+                                                                                            {% for container in containers %}
+
+                                                                                            {% if ( container.residue == "ASFALTO" ) %}
+
+                                                                                            <tr class="text-center align-middle ">
+
+                                                                                                <td
+                                                                                                    class="text-center align-middle ">
+
+                                                                                                    <input
+                                                                                                        class="form-check-input mt-3"
+                                                                                                        id="id_container_new"
+                                                                                                        style="text-align:center;"
+                                                                                                        type="radio"
+                                                                                                        name="id_container_new[{{ tableBillsAlbaranes.id_albaran }}]"
+                                                                                                        value="{{ container.id_container }}">&nbsp;
+
+                                                                                                    <img src="\images\contenedor_3d_byn.png"
+                                                                                                        style="width:80px;height:50px;"
+                                                                                                        alt="..." title="">
+
+                                                                                                </td>
+
+                                                                                                <td
+                                                                                                    class="text-center align-middle">
+                                                                                                    {{ container.residue }}
+                                                                                                </td>
+
+                                                                                                <td
+                                                                                                    class="text-center align-middle">
+
+                                                                                                    {{ container.price }}</b>
+
+                                                                                                </td>
+
+                                                                                                <td
+                                                                                                    class="text-center align-middle">
+                                                                                                    {{ container.cubic_meters }} m2
+                                                                                                </td>
+
+                                                                                            </tr>
+                                                                                            {% endif %}
+
+                                                                                            {% endfor %}
+
+                                                                                        </tbody>
+
+                                                                                    </table>
+
+                                                                                </div>{# scroll#}
+
+                                                                                <p class="bottom_table p-2 col-12"></p>
+
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="accordion-item m-2">
+                                                                        <h2 class="accordion-header" id="flush-heading9">
+                                                                            <button class="accordion-button collapsed" type="button"
+                                                                                data-bs-toggle="collapse"
+                                                                                data-bs-target="#flush-collapse9"
+                                                                                aria-expanded="false"
+                                                                                aria-controls="flush-collapse9">
+                                                                                OTROS
+                                                                            </button>
+                                                                        </h2>
+                                                                        <div id="flush-collapse9"
+                                                                            class="accordion-collapse collapse"
+                                                                            aria-labelledby="flush-heading9"
+                                                                            data-bs-parent="#accordionFlushExample">
+                                                                            <div class="accordion-body">
+                                                                                <div class="tabla mb-0" style="overflow-x:auto;">
+
+                                                                                    <table
+                                                                                        class="table table-striped  text-center ">
+                                                                                        <thead>
+
+                                                                                            <tr>
+                                                                                                <th class=" pt-3  text-center align-middle th1 th1_selec"
+                                                                                                    scope="col">
+                                                                                                    Seleccionar Contenedor
+                                                                                                </th>
+
+                                                                                                <th class=" pt-3 text-center align-middle th1"
+                                                                                                    scope="col">
+                                                                                                    Residuo
+                                                                                                </th>
+
+                                                                                                <th class=" pt-3 text-center align-middle th1"
+                                                                                                    scope="col">
+                                                                                                    Precio
+
+                                                                                                </th>
+
+                                                                                                <th class=" pt-3 text-center align-middle th1"
+                                                                                                    scope="col">
+                                                                                                    M2
+                                                                                                </th>
+
+                                                                                            </tr>
+                                                                                        </thead>
+
+                                                                                        <tbody>
+
+                                                                                            {% for container in containers %}
+
+                                                                                            {% if ( container.residue == "OTROS" ) %}
+
+                                                                                            <tr class="text-center align-middle ">
+
+                                                                                                <td
+                                                                                                    class="text-center align-middle ">
+
+                                                                                                    <input
+                                                                                                        class="form-check-input mt-3"
+                                                                                                        id="id_container_new"
+                                                                                                        style="text-align:center;"
+                                                                                                        type="radio"
+                                                                                                        name="id_container_new[{{ tableBillsAlbaranes.id_albaran }}]"
+                                                                                                        value="{{ container.id_container }}">&nbsp;
+
+                                                                                                    <img src="\images\contenedor_3d_byn.png"
+                                                                                                        style="width:80px;height:50px;"
+                                                                                                        alt="..." title="">
+
+                                                                                                </td>
+
+                                                                                                <td
+                                                                                                    class="text-center align-middle">
+                                                                                                    {{ container.residue }}
+                                                                                                </td>
+
+                                                                                                <td
+                                                                                                    class="text-center align-middle">
+
+                                                                                                    {{ container.price }}</b>
+
+                                                                                                </td>
+
+                                                                                                <td
+                                                                                                    class="text-center align-middle">
+                                                                                                    {{ container.cubic_meters }} m2
+                                                                                                </td>
+
+                                                                                            </tr>
+                                                                                            {% endif %}
+
+                                                                                            {% endfor %}
+
+                                                                                        </tbody>
+
+                                                                                    </table>
+
+                                                                                </div>{# scroll#}
+
+                                                                                <p class="bottom_table p-2 col-12"></p>
+
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                </div>
+                                                                <br>
+
+                                                                {# <div class="accordion accordion-flush mb-2 suplementos mt-3"
+                                                                    id="accordionFlushExample">
+                                                                    <div class="accordion-item text-center m-2 ">
+                                                                        <h2 class="accordion-header h2_sup" id="flush-headingOne ">
+                                                                            <button class="accordion-button collapsed "
+                                                                                type="button" data-bs-toggle="collapse"
+                                                                                data-bs-target="#flush-collapse11"
+                                                                                aria-expanded="false"
+                                                                                aria-controls="flush-collapseOne">
+                                                                                SUPLEMENTOS
+                                                                            </button>
+                                                                        </h2>
+
+                                                                        <div id="flush-collapse11"
+                                                                            class="accordion-collapse collapse"
+                                                                            aria-labelledby="flush-headingOne"
+                                                                            data-bs-parent="#accordionFlushExample">
+                                                                            <div class="accordion-body">
+
+                                                                                <div class="row top_table p-0 m-1">
+                                                                                   {% for supplement in supplements_all %}
+
+                                                                                    <div class="col-sm-6 div_suplements_checkbox ">
+
+                                                                                        <div class="checkbox-wrapper-40 mt-1">
+                                                                                            <label>
+                                                                                                <input type="checkbox"
+                                                                                                    name="supplements_id[{{tableBillsAlbaranes.id_b_a}}][]"
+                                                                                                    value="{{ supplement.id_supplements }}"
+                                                                                                    {% if supplement.active %}checked{% endif %}>
+                                                                                                {{ supplement.name }}
+
+
+                                                                                            </label>
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                    <div class="col-sm-3  div_suplements_pvp">
+
+                                                                                        <div class="field field_v2">
+                                                                                            <label for="reserved"
+                                                                                                class="ha-screen-reader"></label>
+                                                                                            <input id="reserved"
+                                                                                                class="field__input" type="number"
+                                                                                                placeholder="Pvp "
+                                                                                                name="pvp_edit[{{tableBillsAlbaranes.id_b_a}}][{{ supplement.id_supplements }}]"
+                                                                                                value="{{ supplement.pvp_edit }}">
+                                                                                            <span class="field__label-wrap"
+                                                                                                aria-hidden="true">
+                                                                                                <span class="field__label">Editar
+                                                                                                    Pvp</span>
+                                                                                            </span>
+                                                                                        </div>
+
+
+                                                                                    </div>
+                                                                                    <div class="col-sm-3 div_suplements_pvp">
+
+                                                                                        <div class="field field_v2">
+                                                                                            <label for="reserved"
+                                                                                                class="ha-screen-reader"></label>
+                                                                                            <input id="supplement_dto"
+                                                                                                class="field__input" type="number"
+                                                                                                placeholder=" "
+                                                                                                name="supplement_dto[{{tableBillsAlbaranes.id_b_a}}][{{ supplement.id_supplements }}]"
+                                                                                                value="{{ supplement.price_dto }}"  max="100">
+                                                                                            <span class="field__label-wrap"
+                                                                                                aria-hidden="true">
+                                                                                                <span class="field__label"><b>%
+                                                                                                        Dto.</b></span>
+                                                                                            </span>
+                                                                                        </div>
+
+
+
+                                                                                    </div>
+
+                                                                                    {% endfor %}
+
+
+
+                                                                                    <p class="mt-1"> *Los suplementos se pueden
+                                                                                        editar sus
+                                                                                        descripciones o su
+                                                                                        valores, o
+                                                                                        crear unos
+                                                                                        nuevos en el apartado de suplementos. </p>
+
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div> #}
+
+
+
+                                                                <div class="accordion accordion-flush mb-2 servicios mt-3"
+                                                                    id="accordionFlushExample">
+                                                                    <div class="accordion-item text-center m-2  ">
+                                                                        <h2 class="accordion-header " id="flush-headingOne ">
+                                                                            <button class="accordion-button collapsed "
+                                                                                type="button" data-bs-toggle="collapse"
+                                                                                data-bs-target="#flush-collapseTen"
+                                                                                aria-expanded="false"
+                                                                                aria-controls="flush-collapseOne">
+                                                                                SERVICIOS
+                                                                            </button>
+                                                                        </h2>
+
+                                                                        <div id="flush-collapseTen"
+                                                                            class="accordion-collapse collapse"
+                                                                            aria-labelledby="flush-headingOne"
+                                                                            data-bs-parent="#accordionFlushExample">
+                                                                            <div class="accordion-body">
+
+                                                                                <div class="row mb-3 mr-3 ">
+
+                                                                                    <div class="col-12 albaranes_titles_bottom">
+
+                                                                                        <div class="row mt-3 mb-4 p-1">
+
+                                                                                            <div class="col-sm-6">
+
+                                                                                                {% for service_s in services_ %}
+
+                                                                                                <div class="row m-1">
+                                                                                                    <div
+                                                                                                        class="col-6 div_services_checkbox ">
+                                                                                                        <div class=" mt-3">
+
+                                                                                                            <label>
+
+                                                                                                                <input
+                                                                                                                    class="form-check-input servicio"
+                                                                                                                    type="radio"
+                                                                                                                    aria-hidden="true"
+                                                                                                                    name="id_service[{{tableBillsAlbaranes.id_b_a}}]"
+                                                                                                                    id="idservicios"
+                                                                                                                    value="{{ service_s.id_service }}"
+                                                                                                                    {% if  service_s.id_service == tableBillsAlbaranes.id_service %}checked{% endif %}>
+
+                                                                                                                <label>{{ service_s.name }}</label>
+
+                                                                                                            </label>
+
+                                                                                                        </div>
+                                                                                                        <br>
+                                                                                                    </div>
+
+                                                                                                    <div
+                                                                                                        class="col-6  div_services_checkbox">
+
+                                                                                                        <div class=" mt-3">
+
+                                                                                                            Codigo &nbsp;&nbsp;<b
+                                                                                                                style="color:#2d6a72;">{{ service_s.code }}</b>
+
+                                                                                                        </div>
+                                                                                                        <p class="text-danger">
+                                                                                                            {{ msg('errors.reserved') }}
+                                                                                                        </p>
+
+                                                                                                    </div>
+
+                                                                                                </div>
+                                                                                                {% endfor %}
+
+                                                                                                <p class=""> *Los servicios se
+                                                                                                    pueden editar
+                                                                                                    sus
+                                                                                                    descripciones o su valores, o
+                                                                                                    crear unos nuevos en el apartado
+                                                                                                    de
+                                                                                                    suplementos. </p>
+                                                                                                <div class="col-sm"> </div>
+
+                                                                                            </div>
+
+                                                                                            <div class="col-6 ">
+
+                                                                                                <div class="col-12  mb-4">
+                                                                                                    <label for="retainer"
+                                                                                                        class="ha-screen-reader">Observaciones</label>
+                                                                                                    <textarea class="form-control"
+                                                                                                        style="height:200px;"
+                                                                                                        id="exampleFormControlTextarea1"
+                                                                                                        name="notas">{{ notas }}
+
+                                                                                                    </textarea>
+
+                                                                                                </div>
+
+                                                                                            </div>
+
+                                                                                        </div>
+
+                                                                                    </div>
+
+                                                                                </div>
+
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+
+                                    </td>
+
+                                    <td scope="col" class=" text-center text-black"
+                                        style="border-bottom:1px solid #dfdfdf87 !important;font-size:0.8rem !important;background:none !important;">
+
+                                            {% if ( tableBillsAlbaranes.tax_base != null ) %}
+                                          <p>  {{ tableBillsAlbaranes.tax_base }}</p>
+
+                                            {% endif %}
+                                           <br>
+
+
+
+                                            {% for supplements in tableBillsAlbaranes.supplementsObject %}
+                                           <p class="pt-1">
+                                                {{ supplements.pvp_edit }}
+                                            </p>
+                                            {% endfor %}
+
+                                    </td>
+
+
+                                    <td scope="col" class=" text-center text-black"
+                                        style="border-bottom:1px solid #dfdfdf87 !important;font-size:0.8rem !important;background:none !important;">
+
+                                        {% if ( tableBillsAlbaranes.discount != 0) %}
+                                                <p >  {{ tableBillsAlbaranes.discount }}</p>
+                                       {% endif %}
+
+
+
+
+
+
+                                        {% for supplements in tableBillsAlbaranes.supplementsObject %}
+
+                                            {% if ( supplements.dto != 0) %}
+                                             <p class="p_dto">   {{ supplements.dto }}</p>
+                                            {% endif %}
+
+                                         {% endfor %}
+
+                                    </td>
+
+
+
+
+                                    <td scope="col" class=" text-center text-black"
+                                                style="border-bottom:1px solid #dfdfdf87 !important;font-size:0.8rem !important;background:none !important;">
+
+                                                {% if ( tableBillsAlbaranes.price_discount != null ) %}
+                                        <p> {{ tableBillsAlbaranes.price_discount }}</p>
+                                            {% endif %}
+                                                 <br>
+
+
+
+                                                {% for supplements in tableBillsAlbaranes.supplementsObject %}
+                                                 {% if ( supplements.price_dto !=  0) %}
+                                                <p class="pt-1">   {{ supplements.price_dto }} </p>
+                                                {% endif %}
+
+                                            {% endfor %}
+
+                                    </td>
+
+                                    <td scope="col" class=" text-center text-black"
+                                        style="border-bottom:1px solid #dfdfdf87 !important;font-size:0.8rem !important;background:none !important;">
+
+
+                                                {% if ( tableBillsAlbaranes.amount_tax_base_discount != null ) %}
+                                        <p> {{ tableBillsAlbaranes.amount_tax_base_discount }}</p>
+                                            {% endif %}
+                                            <br>
+
+                                            <p class="mt-1">
+                                                {{ tableBillsAlbaranes.price_total_supp }}
+                                            </p>
+
+
+                                        </td>
+                                </tr>
+                                    {% endif %}
+                                    {% endfor %}
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                    <div class="row justify-content-center">
+
+                        <table class="table table-striped table-borderless tabla" style="padding:5px !important;">
+
+                            <thead style="background-color:#4d8f24;padding:5px !important;" class="text-white ">
+
+                                  <tr>
+                                    <th scope="col" class="text-center" style="font-size:0.8rem !important;">Total
+                                        Bruto
+                                    </th>
+                                    <th scope="col" class="text-center" style="font-size:0.8rem !important;">Suma
+                                        Dtos.</th>
+                                    <th scope="col" class="text-center" style="font-size:0.8rem !important;">
+                                        % Dto. Com.</th>
+                                    <th scope="col" class="text-center" style="font-size:0.8rem !important;">
+                                        % Dto. P.P</th>
+
+                                    <th scope="col" class="text-center" style="font-size:0.8rem !important;">BASE
+                                        IMPONIBLE</th>
+                                    <th scope="col" class="text-center" style="font-size:0.8rem !important;">%
+                                        I.R.P.F.</th>
+
+                                    <th scope="col" class="text-center" style="font-size:0.8rem !important;">%
+                                        I.V.A.</th>
+                                    <th scope="col" class="text-center" style="font-size:0.8rem !important;">Cuota
+                                    </th>
+                                    <th scope="col" class="text-center" style="font-size:0.8rem !important;">TOTAL
+                                    </th>
+
+                                </tr>
+
+                            </thead>
+
+                            <tbody>
+
+                                <tr>
+
+                             {% for bill in bills %}
+                                    {% if ( bill.active == 1 ) %}
+
+                                    <th scope="col" class="text-center"
+                                        style="font-size:0.8rem !important;background:none !important;">
+                                         {{ bill.gross_total }}
+                                    </th>
+
+                                    <th scope="col" class=" text-center"
+                                        style="font-size:0.8rem !important;background:none !important;">
+                                        {{bill.sum_dto}}</th>
+
+                                    <th scope="col" class=" text-center"
+                                        style="font-size:0.8rem !important;background:none !important;">
+                                        -</th>
+
+                                    <th scope="col" class=" text-center"
+                                        style="font-size:0.8rem !important;background:none !important;">
+                                        -
+                                    </th>
+
+                                    <th scope="col" class=" text-center"
+                                        style="font-size:0.8rem !important;background:none !important;">
+                                       {{ bill.taxable_base }}</th>
+
+                                    <th scope="col" class=" text-center"
+                                        style="font-size:0.8rem !important;background:none !important;">
+                                        -
+                                    </th>
+
+                                    <th scope="col" class=" text-center"
+                                        style="font-size:0.8rem !important;background:none !important;">
+                                        {{ bill.customer_iva }}</th>
+
+                                    <th scope="col" class=" text-center"
+                                        style="font-size:0.8rem !important;background:none !important;">
+                                        {{bill.fee}}
+                                    </th>
+                                    <th scope="col" class=" text-center"
+                                        style="font-size:0.8rem !important;background:none !important;">
+                                       {{bill.total_bills}}</th>
+
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+                        <hr>
+                    </div>
+
+                    <div class="row justify-content-center">
+
+                        <table class="table table-striped table-borderless tabla">
+
+                            <thead style="color:#4d8f24;">
+                                <tr>
+                                    <th scope="col" class=""
+                                        style="font-size:0.8rem !important;background:none !important;">
+                                        &nbsp;&nbsp;Anticipo:
+                                    </th>
+                                    <th scope="col" class="text-black"
+                                        style="font-size:0.8rem !important;background:none !important;">
+                                      &nbsp;&nbsp;{{bill.retainer_amount}}</th>
+
+                                    <th scope="col" class=""
+                                        style="font-size:0.8rem !important;background:none !important;">
+                                        &nbsp;&nbsp;Cargos:</th>
+                                    <th scope="col" class="text-black"
+                                        style="font-size:0.8rem !important;background:none !important;">
+                                        &nbsp;&nbsp;{{bill.charge}}</th>
+                                    <th scope="col" class=""
+                                        style="font-size:0.8rem !important;background:none !important;">
+                                        &nbsp;&nbsp; Saldo:</th>
+                                    <th scope="col" class="text-black"
+                                        style="font-size:0.8rem !important;background:none !important;">
+                                        &nbsp;&nbsp;{{bill.balance}}
+                                    </th>
+
+                                    <th scope="col" class="text-white"
+                                        style="font-size:0.8rem !important;color:#4d8f24;background-color:#4d8f24;">
+                                        &nbsp;&nbsp; TOTAL FACTURA</th>
+                                    <th scope="col" class="text-white"
+                                        style="font-size:0.8rem !important;color:#4d8f24;background-color:#4d8f24;">
+                                        &nbsp;&nbsp;{{bill.charge}}
+                                        EUROS</th>
+
+                                </tr>
+                            </thead>
+
+                        </table>
+
+                    </div>
+
+                </div>
+        </div>
+    </div>
+    <div class="col-sm-1 "></div>
+    </div>
+
+       {% endif %}
+                                {% endfor %}
+
+    <div class="row mt-3">
+        <div class="col-4 text-center"></div>
+        <div class="col-4"></div>
+        <div class="col-4"><a class="text-white ">
+                <button class=" button_bills_pdf " type="submit" style="color:#04BDFD !important;">
+                    <img src="\images\icon_guardar.png" alt="...">&nbsp;&nbsp;&nbsp;&nbsp;
+                    Guardar
+
+                </button></a></div>
+    </div>
+
+    </form>
+
+    <div class="row pt-5 text-rows-back">
+        <div class="col">
+            <p class=" text-center">
+                <a href="{{ routeTo('listBills') }}">
+                    <img class="rounded mx-auto d-block " src="\images\regresar.png" alt="...">
+                </a>
+                <br>
+                Volver al listado de Facturas
+            </p>
+        </div>
+    </div>
+    </div>
+    </div>
+    </div>
+
+
+ <div class="row " >
+        <div class="col-12">
+
+      {%  if msg('msg') %}
+
+            <script>
+                $(document).ready(function() {
+
+                 var msg = {{ msg('msg')|json_encode|raw }};
+
+                Swal.fire({
+                    title: msg.title,
+                    text: msg.text,
+                    icon: 'success',
+                    cancelButtonText: 'Cerrar'
+                    })
+                });
+
+
+            </script>
+
+      {% endif %}
+
+        {%  if msg('msg2') %}
+
+            <script>
+                $(document).ready(function() {
+
+                 var msg2 = {{ msg('msg2')|json_encode|raw }};
+
+                Swal.fire({
+                    title: msg2.title,
+                    text: msg2.text,
+                    icon: 'warning',
+                    cancelButtonText: 'Cerrar'
+                    })
+                });
+
+
+            </script>
+
+      {% endif %}
+
+     </div>
+ </div>
+
+
+    {% include 'Front/base/footer.html.twig' %}
+    {% endblock %}
+
+    {% block script %}
+    {{parent(script)}}
+    <script>
+        setTimeout(function() {
+            $(".alerta_msg_bills").fadeOut(2000);
+        }, 2200);
+    </script>
+
+    <script>
+        function mostrarOcultar() {
+            var contenido = document.getElementById("mostrar_contenido");
+            if (contenido.style.display === "none") {
+                contenido.style.display = "block";
+            } else {
+                contenido.style.display = "none";
+            }
+            var acc = document.getElementsByClassName("accordion_desplegable");
+            for (var i = 0; i < acc.length; i++) {
+                acc[i].addEventListener("click", function() {
+                    this.classList.toggle("active");
+                    var panel = this.nextElementSibling;
+                    if (panel.style.display === "block") {
+                        panel.style.display = "none";
+                    } else {
+                        panel.style.display = "block";
+                    }
+                });
+            }
+        }
+        var divToShow = document.getElementById("error");
+        divToShow.style.display = "none";
+        //Anticipo switch
+    </script>
+
+    <script src="https://cdn.lordicon.com/qjzruarw.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    {% endblock %}

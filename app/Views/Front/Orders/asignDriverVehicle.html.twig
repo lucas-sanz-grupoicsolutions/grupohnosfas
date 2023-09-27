@@ -1,0 +1,403 @@
+{% extends 'Front/base/main.html.twig' %}
+
+{# {% block titleHeader %}
+Crear un Cliente
+{% endblock %} #}
+{% block content %}
+{% include 'Front/base/header.html.twig' %}
+<link rel="stylesheet" href="/css/css_all/Orders/edit.css">
+<style>
+    #error {
+        background: #fdacac;
+        padding: 5px;
+        text-align: center;
+        font-size: 0.8rem;
+        color: #fff;
+        animation: error 2s ease-in-out infinite;
+
+    }
+
+
+    @keyframes error {
+        0% {
+            background-color: #fdacac;
+        }
+
+        50% {
+            background-color: #fd0404a6;
+        }
+
+        100% {
+            background-color: #fdacac;
+        }
+    }
+
+
+    #error_servicios {
+        background: #fdacac;
+        padding: 5px;
+        text-align: center;
+        font-size: 0.8rem;
+        color: #fff;
+        animation: error_servicios 2s ease-in-out infinite;
+
+    }
+
+
+    @keyframes error_servicios {
+        0% {
+            background-color: #fdacac;
+        }
+
+        50% {
+            background-color: #fd0404a6;
+        }
+
+        100% {
+            background-color: #fdacac;
+        }
+    }
+    .cuerpo_orders {
+    border: 2px solid #DA192D;
+    background: #d7eaf005;
+    padding: 20px;
+    border-bottom-left-radius: 30px 30px;
+    border-bottom-right-radius: 30px 30px;
+    border-top-left-radius: 30px 30px;
+    border-top-right-radius: 30px 30px;
+    /* background: rgb(251 251 251); */
+    box-shadow: rgba(0, 0, 0, 0.1) 0 1px 3px 0, rgba(0, 0, 0, 0.06) 0 1px 2px 0;
+}
+</style>
+
+<div class="container mt-1">
+
+    <div id="titulo_orders">
+
+        <div class="row">
+            <div class="col-4 pl-3"><a href="javascript: history.go(-1)">&nbsp;&nbsp;&nbsp;
+                    <img class="ml-3 pt-4 " src="\images\arrow_white_izq.png" alt="...">
+                </a></div>
+            <div class="col-4"></div>
+            <div class="col-4"></div>
+        </div>
+
+        <div class="cssscan">
+            <p>
+                <h4 class="display-4 text-white text-center ">Asignar al pedido {{ id_order }}</h4>
+                <p class=" texto_titulo text-white"> Conductor y Vehiculo</span>
+                </p>
+            </p>
+
+            <img src="\images\icono_albaran.svg" alt="...">
+        </div>
+    </div>
+
+
+
+    <form action="{{  routeTo('asignDriverVehicleSave' ) }}" method="POST" id="myForm">
+
+        <input type="hidden" name="id_order" value="{{ id_order }}">
+
+        <div class="cuerpo_orders mt-2">
+
+            <div class="row  pb-1 ">
+
+                {# No exiten direcciones de obras  #}
+
+                {% if ( wordklocation_customers == false ) %}
+
+                <div class="row mb-4 ">
+                    <div class="col-sm-2 "></div>
+
+                    <div class="col-sm-8 select_customer">
+
+                        <div class="row mb-3 mt-1 ">
+                            <div class="col-sm-12 text-center text-white ">
+
+                                <div class=" text-center  mb-4" id="sectionTable">
+
+                                    <p class=" text-center p-2 m-2 mb-2">&nbsp;&nbsp;
+                                        <lord-icon src="https://cdn.lordicon.com/zzcjjxew.json" trigger="hover"
+                                            colors="primary:#fff,secondary:#fff" style="width:90px;height:90px">
+                                        </lord-icon>
+
+                                        <br>
+                                        ..No existen Direcciones de Obras para este Cliente
+                                    </p>
+
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-sm-2 "></div>
+
+                </div>
+
+                {% endif %}
+
+            </div>
+
+            <div class="row mt-1 p-2 text-center mb-2" id="setionWorkLocations">
+
+                <div class="col"></div>
+                <div class="col mt-2">
+
+                    <div class="pt-3 pb-2 text-white"
+                        style="box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;background:#DA192D;border-top-left-radius: 30px 30px;border-top-right-radius: 30px 30px;">
+
+                        <span class="text-center mt-1 "> Cliente </span>
+
+                        {% for cc in customersId %}
+
+                        <h2 class="display-5  text-center mb-2">
+                            <input type="hidden" name="id_customer" value="{{ cc.id_customer }}">
+
+                            {{ cc.names }}
+                        </h2>
+                        {% endfor %}
+                    </div>
+
+                    <div class="mt-0 "
+                        style="color:DA192D;background:#fff;border-bottom-left-radius: 30px 30px;border-bottom-right-radius: 30px 30px;">
+
+                        <p class="text-center pt-2" style="position: relative;top:10px;"> Dirección </p>
+
+                        <h2 class="display-5 pb-2  text-center">
+
+                            {% for worklocations_id in worklocations_selected %}
+
+                            <input type="hidden" name="id_work_locations"
+                                value="{{ worklocations_id.id_work_locations }}">
+
+                                    {{ worklocation.name_customer }}
+
+                                    {{ worklocations_id.address }},
+                                    {{ worklocations_id.location }},
+                                    {{ worklocations_id.province }},
+                                    {{ worklocations_id.zip_code }}
+
+                            {% endfor %}
+
+                        </h2>
+                    </div>
+
+                </div>
+                <div class="col"></div>
+
+            </div>
+
+            <div class="row">
+
+                <div class="col-6  title_section ">
+                    <span class="text-center display-5 ">Transportes
+                    </span>
+                </div>
+            </div>
+            <div class="row mb-3 pb-1 ">
+
+                <div class="col-12 albaranes_titles_bottom">
+                    {% for o in orders %}
+                    <div class="row mt-5 mb-5">
+
+                        <div class="col-sm-4">
+                            <div class="col-sm">
+                                <label for="inputDescription" class="p-2">Conductor </label>
+                                <select data-size="5" class="selectpicker form-select" name="id_driver"
+                                    aria-label="Default select example">
+
+                                    {% for d in drivers %}
+                                    <option {{ (d.id_driver == o.id_driver) ? 'selected' : ''}}
+                                        value="{{ d.id_driver }}">
+                                        {{ d.name }}
+                                    </option>
+                                    {% endfor %}
+
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-4">
+                            <div class="col-sm">
+                                <label for="inputDescription" class="p-2">Vechiculo </label>
+                                <select data-size="5" class="selectpicker form-select" name="id_vehicle"
+                                    aria-label="Default select example">
+
+                                    {% for v in vehicles %}
+                                    <option {{ (v.id_vehicle == o.id_vehicle) ? 'selected' : ''}}
+                                        value="{{ v.id_vehicle }}">
+                                        id {{ v.id_vehicle }} - {{ v.name }} Matricula {{ v.car_registration }}
+                                        Marca {{ v.make  }} Modelo {{ v.model  }}
+                                    </option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+            {% endfor %}
+
+            <div class="row mt-5">
+
+                <div class="col-md">
+
+                    <div class="row">
+                        <div class="col">
+                        </div>
+                        <div class="col-md">
+                            <button class="button_order bg-danger text-white text-center" value="1" type="submit">
+                                Asignar
+
+                            </button>
+                        </div>
+                        <div class="col">
+                        </div>
+                    </div>
+
+                </div>
+
+                <p class=" text-center mt-5">
+                    <a href="{{ routeTo('listOrders') }}">
+                        <img class="rounded mx-auto d-block " src="\images\regresar.png" alt="...">
+                    </a>
+                    <br> Volver a la lista de Pedidos
+                </p>
+
+            </div>
+
+        </div>
+
+</div>
+</form>
+</div>
+
+</div>
+ <div class="row " >
+        <div class="col-12">
+
+      {%  if msg('msg') %}
+
+            <script>
+                $(document).ready(function() {
+
+                 var msg = {{ msg('msg')|json_encode|raw }};
+
+                Swal.fire({
+                    title: msg.title,
+                    text: msg.text,
+                    icon: 'success',
+                    cancelButtonText: 'Cerrar'
+                    })
+                });
+
+
+            </script>
+
+      {% endif %}
+
+        {%  if msg('msg2') %}
+
+            <script>
+                $(document).ready(function() {
+
+                 var msg2 = {{ msg('msg2')|json_encode|raw }};
+
+                Swal.fire({
+                    title: msg2.title,
+                    text: msg2.text,
+                    icon: 'warning',
+                    cancelButtonText: 'Cerrar'
+                    })
+                });
+
+
+            </script>
+
+      {% endif %}
+
+     </div>
+ </div>
+
+{% include 'Front/base/footer.html.twig' %}
+{% endblock %}
+
+{% block script %}
+{{parent(script)}}
+
+<script>
+    $(document).ready(function() {
+        $('#id_customers_selection').on("change", function(event) {
+            var opt = $(this).find("option:selected")
+            var url = opt.data("url")
+            window.location.href = url
+        });
+        var divToShow = document.getElementById("error");
+        divToShow.style.display = "none";
+    });
+    var divToShow = document.getElementById("error");
+    divToShow.style.display = "none";
+    var error_servicios = document.getElementById("error_servicios");
+    error_servicios.style.display = "none";
+    //Anticipo switch
+    retainer_amount.disabled = true;
+    var checkbox = document.getElementById('cbx-3');
+    checkbox.addEventListener("change", validaCheckbox, false);
+
+    function validaCheckbox() {
+        var checked = checkbox.checked;
+        if (checked) {
+            retainer_amount.disabled = false;
+        } else {
+            retainer_amount.disabled = true;
+            document.getElementById("retainer_amount").value = "";
+        }
+    }
+    const tabla_direcciones = document.getElementById("tabla_direcciones");
+    const cleandirty = document.getElementById("cleandirty");
+    const idservicios = document.getElementById("idservicios");
+    $('#enviar').on("click", function(event) {
+        //Controla que se elija un contenedor
+        //Conrtenedores
+        let seleccionado = false;
+        if (cleandirty.checked) {
+            seleccionado = true;
+        }
+        if (!seleccionado) {
+            event.preventDefault();
+            var divToShow = document.getElementById("error");
+            divToShow.style.display = "block";
+            setTimeout(function() {
+                $("#error").fadeOut(2500);
+            }, 2200);
+            tabla_direcciones.scrollIntoView();
+        }
+        if (seleccionado) {
+            if (document.querySelector('input[name="service_id"]:checked')) {} else {
+                event.preventDefault();
+                error_servicios.style.display = "block";
+                setTimeout(function() {
+                    $("#error").fadeOut(2500);
+                }, 2200);
+                section_servicios.scrollIntoView();
+            }
+        }
+    });
+    setTimeout(function() {
+        $(".alerta_msg_albaranes").fadeOut(2000);
+    }, 2200);
+</script>
+
+<script src="https://cdn.lordicon.com/qjzruarw.js"></script>
+
+<script src="https://cdn.lordicon.com/qjzruarw.js"></script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+{% endblock %}

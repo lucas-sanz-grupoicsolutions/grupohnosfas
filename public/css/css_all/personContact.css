@@ -1,0 +1,40 @@
+#titulo_descripcion {
+    border-top-left-radius: 30px 30px;
+    border-top-right-radius: 30px 30px;
+    background: #9d9c42;
+}
+
+
+.boton_add_description {
+    width: 4rem;
+    height: 4rem;
+    border-radius: 50% 50%;
+    box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
+    background: #9d9c42;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+th, p, option {
+    font-family: 'Nunito', sans-serif;
+}
+
+#th_description {
+    background: #9d9c42;
+}
+
+#titulo_PersonaContacto{
+    border-top-left-radius: 30px 30px;
+    border-top-right-radius: 30px 30px;
+    border-bottom-left-radius: 30px 30px;
+    border-bottom-right-radius: 30px 30px;
+    background: #0e223e;
+
+}
+

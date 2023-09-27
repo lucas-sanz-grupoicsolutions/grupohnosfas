@@ -1,0 +1,348 @@
+{% extends 'Front/base/main.html.twig' %}
+
+{% block titleHeader %}
+Listar containeres
+{% endblock %}
+
+
+
+
+{% block content %}
+  {% include 'Front/base/header.html.twig' %}
+
+<link rel="stylesheet" href="/css/css_all/containers/list.css">
+ <link rel="stylesheet" href="/css/css_all/contenedores.css">
+
+ <!-- Incluir los archivos CSS de Select2 -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-rc.0/css/select2.min.css" rel="stylesheet" />
+
+
+
+<style>
+
+  div:where(.swal2-container) button:where(.swal2-styled).swal2-confirm {
+        border: 0;
+        border-radius: 0.25em;
+        background: initial;
+        background-color: #50b760 !important;
+        color: #fff;
+        font-size: 1em;
+    }
+
+div:where(.swal2-icon).swal2-info {
+    border-color: #e06666 !important;
+    color: #e06666;
+}
+
+div:where(.swal2-icon).swal2-info {
+    border-color: #e06666 !important;
+    color: #e06666;
+}
+
+div:where(.swal2-icon).swal2-info {
+    border-color: #9de0f6;
+    color: #e06666;
+}
+</style>
+
+<body class="container_containeres">
+
+    <div class="container mt-1">
+
+        <div id="titulo_contenedores">
+
+            <div class="row">
+                <div class="col-4 pl-3"><a href="javascript: history.go(-1)">&nbsp;&nbsp;&nbsp;
+                        <img class="ml-3 pt-4 " src="\images\arrow_green_izq.png" alt="...">
+                    </a></div>
+                <div class="col-4"></div>
+                <div class="col-4"></div>
+            </div>
+
+            <div class="cssscan">
+                <p>
+                    <h4 class="display-4 text-center ">Listado de Contenedores</h4>
+                    <p class=" texto_titulo "> Gestion de contenedores, dar de alta, modificar y listar</span>
+                    </p>
+                </p>
+
+                <img src="\images\header_container_2.svg" alt="...">
+            </div>
+        </div>
+
+        <div class="cuerpo_contenedores mt-2">
+
+            <div class="row p-2 mb-3 justify-content-center justify-content-md-start">
+
+                <div class="col-4 "> </div>
+
+                <div class="col-sm-4 ">
+
+                    <a class="text-center" href="{{ routeTo('showFormContainers') }}">
+                        <span class=" mx-auto d-block text-center boton_add_cont">
+
+                            <img class=" pt-3" src="\images\add_1_green.png" alt="...">
+
+                        </span>
+                    </a>
+                </div>
+
+                <div class="col-4 "> </div>
+            </div>
+
+
+    <table class="table table-striped  text-center" id="sectionTable">
+        <thead>
+            <tr>
+                {#   <th class="text-center align-middle" scope="col">Id</th>#}
+                <th class="pt-3 text-center align-middle th_header" scope="col">Contenedor</th>
+                <th class="pt-3 text-center align-middle th_header" scope="col">Fecha Alta</th>
+                <th class="pt-3 text-center align-middle th_header" scope="col">Residuo</th>
+                <th class="pt-3 text-center align-middle th_header" scope="col">Precio</th>
+                <th class="pt-3 text-center align-middle th_header" scope="col">M3</th>
+
+                <th class="text-center  align-middle th_header" scope="col">
+                    Acciones</th>
+
+            </tr>
+        </thead>
+        <tbody>
+               {% for container in containers %}
+
+            <tr >
+                {#  <th scope="row" class="text-center align-middle">{{ customer.id_customers }}</th>#}
+                <th class=" text-center align-middle">
+
+                 <img src="\images\contenedor_3d_sin_fondo.png" style="width:80px;height:50px;"   alt="..." title="">
+
+
+               </th>
+                <th class=" text-center align-middle">{{ container.created_at | date('d/m/y') }}</th>
+
+                <th  class="text-center align-middle">
+
+                {{ container.residue }}
+
+                </th>
+                <th  class="text-center align-middle">{{ container.price }}</th>
+                 <th  class="text-center align-middle">{{ container.cubic_meters  }}</th>
+
+
+                <th class="text-center align-middle">
+                   <div class="d-flex justify-content-center align-items-center boton_menu">
+                        <nav class="navbar navbar-expand-lg  navbar-light text-center nav_menu">
+
+                            <button class="navbar-toggler  " type="button" data-bs-toggle="collapse"
+                                data-bs-target="#navbarSupportedContentTabla"
+                                aria-controls="navbarSupportedContentTabla" aria-expanded="false"
+                                aria-label="Toggle navigation">
+                                <span class="navbar-toggler-icon icono_menu_nav"></span>
+                            </button>
+
+                            <div class="collapse navbar-collapse " id="navbarSupportedContentTabla">
+
+                                <ul class="navbar-nav  nav justify-content-center ">
+
+                                    <li class="nav-item ">
+                                        <a class="text-white " href="{{ routeTo('updateContainers', container.id_container) }}">
+                                            <img src="\images\edit.png" alt="..." title="editar pedido">
+                                        </a>
+
+                                    </li>
+                          {% if container.created_at is not null and container.created_at|date("Y-m-d") >= "2023-09-18" %}
+
+
+                            <li class="nav-item">
+                                <a href="#" class="delete-container-button" data-container-id="{{ container.id_container }}">
+                                    <img src="\images\delete_white.png" alt="..."> &nbsp;&nbsp;&nbsp;
+                                </a>
+                            </li>
+                        {% endif %}
+
+
+                                </ul>
+                            </div>
+
+                        </nav>
+
+                    </div>
+                </th>
+
+            </tr>
+
+            {% endfor %}
+        </tbody>
+    </table>
+
+
+            <div class="row pt-5">
+                <div class="col">
+                    <p class=" text-center">
+                        <a href="{{ routeTo('home') }}">
+                            <img class="rounded mx-auto d-block " src="\images\regresar.png" alt="...">
+                        </a>
+                        <br> ir a Inicio
+                    </p>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+ <div class="row " >
+        <div class="col-12">
+
+      {%  if msg('msg') %}
+
+            <script>
+                $(document).ready(function() {
+
+                 var msg = {{ msg('msg')|json_encode|raw }};
+
+                Swal.fire({
+                    title: msg.title,
+                    text: msg.text,
+                    icon: 'success',
+                    cancelButtonText: 'Cerrar'
+                    })
+                });
+
+
+            </script>
+
+      {% endif %}
+
+        {%  if msg('msg2') %}
+
+            <script>
+                $(document).ready(function() {
+
+                 var msg2 = {{ msg('msg2')|json_encode|raw }};
+
+                Swal.fire({
+                    title: msg2.title,
+                    text: msg2.text,
+                    icon: 'warning',
+                    cancelButtonText: 'Cerrar'
+                    })
+                });
+
+
+            </script>
+
+      {% endif %}
+
+     </div>
+ </div>
+
+
+
+
+<script>
+
+  $(document).ready(function() {
+
+    // Obtén el botón por su clase
+    $(".delete-container-button").click(function() {
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: 'btn btn-success',
+                cancelButton: 'btn btn-danger'
+            },
+            buttonsStyling: false
+        });
+
+        // Obtén el ID del cliente desde el atributo data
+        var containerId = $(this).data('container-id');
+
+
+        swalWithBootstrapButtons.fire({
+            title: '¿Estás seguro?',
+            text: "No podrás revertir esto.",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Sí, eliminarlo',
+            cancelButtonText: 'No, cancelar',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+
+                // Enviar una solicitud AJAX para eliminar el cliente
+                $.ajax({
+                    url: 'https://contenedores.grupohnosfas.com/Contenedores/eliminar/' + containerId,
+
+                    type: 'POST',
+                    success: function(response) {
+                        // Mostrar un mensaje de éxito o error según la respuesta
+                        if (response.success) {
+
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Eliminado',
+                                text: response.message
+                            }).then(() => {
+                                // Redirigir después de mostrar el mensaje de éxito
+                                window.location.href = 'https://contenedores.grupohnosfas.com/Contenedores/listar/';
+                            });
+                        } else {
+
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error',
+                                text: response.message
+                            });
+                        }
+                    },
+                    error: function() {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: 'Se produjo un error en la solicitud.'
+                        });
+                    }
+                });
+            } else if (result.dismiss === Swal.DismissReason.cancel) {
+                swalWithBootstrapButtons.fire(
+                    'Cancelado',
+                    'Tu cliente está a salvo :)',
+                    'error'
+                );
+            }
+        });
+    });
+});
+
+
+
+</script>
+
+  {% include 'Front/base/footer.html.twig' %}
+</body>
+{% endblock %}
+
+{% block script %}
+
+{{parent(script)}}
+
+<script src="/js/jsBootstrap.js"></script>
+<script src="/js/sweetAlert.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+    setTimeout(function() {
+        $(".alerta_msg_container").fadeOut(2000);
+    }, 6200);
+
+
+
+</script>
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+{% endblock %}
+

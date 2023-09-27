@@ -1,0 +1,158 @@
+{% extends 'Front/base/main.html.twig' %}
+
+{# {% block titleHeader %}
+Crear un Cliente
+{% endblock %} #}
+
+{% block content %}
+  {% include 'Front/base/header.html.twig' %}
+
+<link rel="stylesheet" href="/css/css_all/supplements/create.css">
+
+<body class="container_clientes">
+    <div class="container mt-1">
+
+        <div id="title_suplements">
+
+            <div class="row">
+                <div class="col-4 pl-3"><a href="javascript: history.go(-1)">&nbsp;&nbsp;&nbsp;
+                        <img class="ml-3 pt-4 " src="\images\arrow_white_izq.png" alt="...">
+                    </a></div>
+                <div class="col-4"></div>
+                <div class="col-4"></div>
+            </div>
+
+            <div class="cssscan">
+                <p>
+                    <h4 class="display-4 text-white text-center ">Dar de alta un Suplemento</h4>
+                    <p class=" texto_titulo text-white"> Gestion de Suplementos</span>
+                    </p>
+                </p>
+
+                <img src="\images\header_supp.svg" alt="...">
+            </div>
+        </div>
+
+
+
+        <form action="{{ baseUrl('addSuplements') }}" method="POST">
+
+            <div class="cuerpo_supp mt-1">
+
+                <div class="row">
+                    <div class="col">
+                        <div class="col-sm">
+                            <div class="field field_v2">
+                                <label for="name" class="ha-screen-reader"></label>
+                                <input id="name" class="field__input" placeholder=" " name="name">
+                                <span class="field__label-wrap" aria-hidden="true">
+                                    <span class="field__label">Concepto </span>
+                                </span>
+                            </div>
+                            <p class="text-danger">{{ msg('errors.name') }}</p>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="col-sm">
+                            <div class="field field_v2">
+                                <label for="pvp" class="ha-screen-reader"></label>
+                                <input id="pvp" class="field__input" placeholder=" " name="pvp">
+                                <span class="field__label-wrap" aria-hidden="true">
+                                    <span class="field__label">Precio</span>
+                                </span>
+                            </div>
+                            <p class="text-danger">{{ msg('errors.pvp') }}</p>
+                        </div>
+                    </div>
+
+                </div>
+
+   <div class="row mt-5" style="height:150px;">
+                    <div class="col-md">
+
+                        <div class="row">
+                            <div class="col">
+                            </div>
+                            <div class="col-md">
+                                <button class="button_servicie mt-3 pt-3 pb-3 text-white"
+                                    type="submit">REGISTRAR</button>
+                            </div>
+                            <div class="col">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+        </form>
+        <p class=" text-center mt-5">
+            <a href="{{ routeTo('listSuplements') }}">
+                <img class="rounded mx-auto d-block " src="\images\regresar.png" alt="...">
+            </a>
+            <br> Volver a la lista de Suplementos
+        </p>
+
+    </div>
+</div>
+</div>
+
+
+   <div class="row " >
+        <div class="col-12">
+
+      {%  if msg('msg') %}
+
+            <script>
+                $(document).ready(function() {
+
+                 var msg = {{ msg('msg')|json_encode|raw }};
+
+                Swal.fire({
+                    title: msg.title,
+                    text: msg.text,
+                    icon: 'success',
+                    cancelButtonText: 'Cerrar'
+                    })
+                });
+
+
+            </script>
+
+      {% endif %}
+
+        {%  if msg('msg2') %}
+
+            <script>
+                $(document).ready(function() {
+
+                 var msg2 = {{ msg('msg2')|json_encode|raw }};
+
+                Swal.fire({
+                    title: msg2.title,
+                    text: msg2.text,
+                    icon: 'warning',
+                    cancelButtonText: 'Cerrar'
+                    })
+                });
+
+
+            </script>
+
+      {% endif %}
+
+     </div>
+ </div>
+
+{% include 'Front/base/footer.html.twig' %}
+</body>
+    {% endblock %}
+
+    {% block script %}
+    {{parent(script)}}
+
+    <script>
+        setTimeout(function() {
+            $(".alerta").fadeOut(2000);
+        }, 2200);
+    </script>
+    {% endblock %}

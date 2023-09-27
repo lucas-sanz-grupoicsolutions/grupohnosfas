@@ -1,0 +1,303 @@
+{% extends 'Front/base/main.html.twig' %}
+
+{# {% block titleHeader %}
+Crear un Cliente
+{% endblock %} #}
+
+{% block content %}
+  {% include 'Front/base/header.html.twig' %}
+
+<style>
+    .button_retainer {
+        border-top-left-radius: 40px 40px;
+        border-top-right-radius: 40px 40px;
+        border-bottom-right-radius: 40px 40px;
+        border-bottom-left-radius: 40px 40px;
+        width: 100%;
+        box-shadow: none;
+        font-size: 20px;
+        border: none;
+        background: #DA192D;
+    }
+
+    .form-control {
+        border: 2px solid #DA192D !important;
+        border-radius: 20px !important;
+
+    }
+
+    .form-select {
+        border: 2px solid #DA192D !important;
+        border-radius: 20px !important;
+
+    }
+
+    .cssscan:not(.img-as-jpg) img {
+        top: 14%;
+        right: -37%;
+        width: 95%;
+        height: 95%;
+    }
+
+    .cssscan img {
+        position: absolute;
+        transform: rotate(-7deg);
+        transition: all .3s;
+    }
+
+    .cssscan {
+        padding: 2rem;
+        background: #DA192D;
+        border-radius: 24px;
+        position: relative;
+        overflow: hidden;
+        box-shadow: rgb(0 0 0 / 10%) 0 1px 2px 0;
+        cursor: pointer;
+        /* margin-top: 3em;*/
+        font-size: 19px;
+        text-align: left;
+    }
+
+    .display-4 {
+        display: inline;
+
+        padding-left: 30px;
+    }
+
+    .titulo_clientes {
+
+        border: 1px solid red;
+    }
+
+    .texto_titulo {
+
+        padding-left: 30px;
+    }
+
+    .vehicle {
+        background: #ea1b5f0f;
+
+    }
+
+    .numero {
+        background: #fa807221;
+        padding: 10px;
+
+    }
+
+    .numero2 {
+        background: red;
+        padding: 10px;
+
+    }
+
+    .col_numero {
+
+        max-width: 50px;
+        margin-left: 20px;
+        padding-top: 10px;
+
+    }
+
+    .col_button {
+
+        max-width: 50px;
+        margin-left: 20px;
+        padding-top: 10px;
+
+    }
+
+    .span_numero {
+
+        border-top-left-radius: 10px 10px;
+        border-bottom-left-radius: 10px 10px;
+        margin-top: 30px;
+        text-align: center;
+        color: #c95548;
+        font-size: 1.5rem;
+        background-color: #fa807221;
+    }
+
+    .button_add {
+        /*  background-color:#fa807221;*/
+    }
+
+
+
+    .btn {
+
+        font-family: Roboto, sans-serif;
+        font-weight: 0;
+        font-size: 14px;
+        color: #fff;
+        margin-top: 10px;
+        background-color: #2F41B8;
+
+        border: 2px solid #2F41B8;
+        box-shadow: rgb(0, 0, 0) 0px 0px 0px 0px;
+        border-radius: 50px;
+        transition: 1000ms;
+        transform: translateY(0);
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        cursor: pointer;
+    }
+
+    .btn:hover {
+
+        transition: 1000ms;
+
+        transform: translateY(-0px);
+        background-color: #fff;
+        color: #FA8072;
+        border: solid 2px #2F41B8;
+    }
+
+    .alert-success {
+        border-bottom-left-radius: 20px 20px;
+        border-bottom-right-radius: 20px 20px;
+        border-top-left-radius: 20px 20px;
+        border-top-right-radius: 20px 20px;
+        text-align: center;
+        background-color: #0cff90;
+
+        width: 100%;
+        margin-top: 10px;
+
+        font-size: 1.2rem;
+    }
+
+    #title_vehicle {
+        border-top-left-radius: 30px 30px;
+        border-top-right-radius: 30px 30px;
+        border-bottom-left-radius: 30px 30px;
+        border-bottom-right-radius: 30px 30px;
+        background: #DA192D;
+        color: #ffffff;
+        box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+    }
+</style>
+
+<body class="container_clientes">
+    <div class="container mt-1">
+
+        <div id="title_vehicle">
+
+            <div class="row">
+                <div class="col-4 pl-3"><a href="javascript: history.go(-1)">&nbsp;&nbsp;&nbsp;
+                        <img class="ml-3 pt-4 " src="\images\arrow_white_izq.png" alt="...">
+                    </a></div>
+                <div class="col-4"></div>
+                <div class="col-4"></div>
+            </div>
+
+            <div class="cssscan">
+                <p>
+                    <h4 class="display-4 text-white text-center ">Dar de alta un Anticipo</h4>
+                    <p class=" texto_titulo text-white"> Gestion de Anticipo</span>
+                    </p>
+                </p>
+
+                <img src="\images\clientesvg.svg" alt="...">
+            </div>
+        </div>
+
+        {% include 'Front/base/Services_/errorServices.html.twig' %}
+
+        <form action="{{ baseUrl('addRetainer') }}" method="POST">
+
+            <div class="cuerpo_contenedores mt-1">
+
+                <div class="row">
+                    <div class="col-sm">
+                        <div class="col-sm">
+                            <div class="field field_v2">
+                                <label for="bill" class="ha-screen-reader"></label>
+                                <input id="bill" class="field__input" placeholder=" " name="bill">
+                                <span class="field__label-wrap" aria-hidden="true">
+                                    <span class="field__label">Factura</span>
+                                </span>
+                            </div>
+                            <p class="text-danger">{{ msg('errors.name') }}</p>
+                        </div>
+                    </div>
+                    <div class="col-sm">
+                        <div class="col-sm">
+                            <div class="field field_v2">
+                                <label for="amount" class="ha-screen-reader"></label>
+                                <input id="amount" class="field__input" placeholder=" " name="amount">
+                                <span class="field__label-wrap" aria-hidden="true">
+                                    <span class="field__label">Importe</span>
+                                </span>
+                            </div>
+                            <p class="text-danger">{{ msg('errors.amount') }}</p>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="col-sm">
+                            <span>Fecha </span>
+                            <div class="input-group  field field_v2">
+
+                                <input type="date" class="form-control text-left " name="date"
+                                    placeholder="Fecha ">
+                                <label class="ml-3 form-control-placeholder" id="start-p" for="start">
+                                </label>
+                                <span class="fa fa-calendar" id="fa-1"></span>
+                            </div>
+                            <p class="text-danger">{{ msg('errors.registration_date') }}</p>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row mt-4 mb-4">
+
+                    <div class="col-6">
+                        <label for="exampleFormControlTextarea1" class="p-2">Observaciones</label>
+                        <textarea class="form-control" id="exampleFormControlTextarea1" name="observations"> </textarea>
+                    </div>
+                    <div class="col-6"> </div>
+                </div>
+
+                <div class="row mt-5">
+
+                    <div class="col-md">
+
+                        <div class="row">
+                            <div class="col">
+                            </div>
+                            <div class="col-md">
+                                <button class="button_retainer mt-3 pt-3 pb-3  text-white" id="enviar"
+                                    type="submit">REGISTRAR</button>
+                            </div>
+                            <div class="col">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <p class=" text-center mt-5">
+                    <a href="{{ routeTo('listCustomers') }}">
+                        <img class="rounded mx-auto d-block " src="\images\regresar.png" alt="...">
+                    </a>
+                    <br> Volver a la lista de Anticipos
+                </p>
+            </div>
+
+        </form>
+
+    </div>
+
+    </div>
+
+    {% endblock %}
+
+    {% block script %}
+    {{parent(script)}}
+
+    <script>
+        setTimeout(function() {
+            $(".alerta").fadeOut(2000);
+        }, 2200);
+    </script>
+    {% endblock %}

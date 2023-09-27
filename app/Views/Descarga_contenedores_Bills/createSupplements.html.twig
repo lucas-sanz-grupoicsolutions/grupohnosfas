@@ -1,0 +1,612 @@
+{% extends 'Front/base/main.html.twig' %}
+
+{% block titleHeader %}
+Crear una Factura
+{% endblock %}
+{% block content %}
+{% include 'Front/base/header.html.twig' %}
+<style>
+    #error {
+        background: #fd04105e;
+        padding: 30px;
+        text-align: center;
+        font-size: 1.2rem;
+        color: white;
+    }
+</style>
+
+<link rel="stylesheet" href="/css/css_all/bills/create_supp.css">
+
+<div class="container mt-1">
+
+    <div class="titulo_bills_create_supp">
+
+        <div class="row">
+            <div class="col-4 pl-3"><a href="javascript: history.go(-1)">&nbsp;&nbsp;&nbsp;
+                    <img class="ml-3 pt-4 " src="\images\arrow_white_izq.png" alt="...">
+                </a></div>
+            <div class="col-4"></div>
+            <div class="col-4"></div>
+        </div>
+
+        <div class="cssscan">
+            <p>
+                <h4 class="display-4 text-center text-white">Generar una Factura</h4>
+                <p class=" texto_titulo text-white"> Solo <b> Suplementos</b></span>
+                </p>
+            </p>
+
+            <img src="\images\icono_factura_svg.svg" alt="...">
+        </div>
+    </div>
+   {% include 'Front/base/Bills/msgBills.html.twig' %}
+
+      {# {% include 'Front/base/Bills/msgBills1.html.twig' %} #}
+
+
+
+    <div class="cuerpo_bills mt-2">
+
+        <div class="row mt-3 mb-5">
+            <div class="col-sm-3"></div>
+            <div class="col-sm-6 ">
+                <div class="text-center  ">
+                    <a class="text-white " href="{{ routeTo('listBills') }}">
+                        <button class=" button_bills text-white">
+                            Regresar a elegir tipo de facturas
+
+                        </button>
+                    </a>
+
+                </div>{#row#}
+            </div>
+            <div class="col-sm-3"></div>
+        </div>
+
+
+
+        <div class="row mb-3 m-1 pt-2 pb-2 ">
+
+            <div class="col-sm-12 ">
+
+                <h3 class="fw-light  text-left  display-5">
+
+                    <img src="\images\icon_location_w.png" class="imagen_gps" alt="..." title="">&nbsp;
+                    Seleccione una Direccion de Obra
+
+                </h3>
+
+                <hr class="hr_direccionObra">
+
+                <div id="filtros" class="mb-2">
+
+
+                    <div class="row  p-0 m-0 row_bill_style pt-2 mt-3 ">
+
+                            <div class="col-sm-4"> </div>
+
+                            <div class="col-sm-6">
+
+                                <label class="text-white" for="inputDescription">&nbsp;&nbsp;Filtrar
+                                    por clientes
+                                </label>
+                                <select class="form-select mb-3" name="" id="id_customers_selection"
+                                    aria-label="Default select example">
+                                    <option selected>Seleccione un cliente
+                                    </option>
+                                    {% for c in customers_selected %}
+                                    {% if ( c.active  ==  1) %}
+
+                                    {{c.id_customer}}
+
+                                    <option value="{{ c.names }}" class="font-weight-bold "
+                                        data-url="{{routeTo('getIdWorkLocationCustomersBillsSuppl', c.id_customer)}}">
+                                        {{ c.names }}
+                                    </option>
+                                    {% endif %}
+                                    {% endfor %}
+                             </select>
+                        </div>
+
+                        <div class="col-sm-3"> </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <form action="{{ baseUrl('createSaveBillsSupplements') }}" id="mi-formulario" method="POST">
+
+                <div class="row mt-3 mb-0 ">
+                    <div class="tabla mb-0" style="overflow-x:auto;">
+
+                        <table class="table table-striped ">
+                            <thead>
+
+                                <tr>
+                                    <th class=" pt-3  align-middle th1 th1_selec" scope="col">
+                                        Id Direccion</th>
+
+                                    <th class=" pt-3 t align-middle th1" scope="col">Cliente
+
+                                    </th>
+                                    <th class=" pt-3   align-middle th1" scope="col">Direccion
+                                    </th>
+
+                                    <th class=" pt-3  align-middle th1" scope="col">
+                                    </th>
+
+                                </tr>
+                            </thead>
+
+                            <tbody>
+
+                                {% for worklocation in worklocations %}
+                                {% if ( worklocation.active  ==  1) %}
+
+                                <tr class=" selected_id_wl">
+
+                                    <td class=" ">
+
+                                        <img src="\images\icon_location_w.png" alt="..." title="">&nbsp;&nbsp;
+                                        {{ worklocation.id_work_locations}} &nbsp;
+
+                                    </td>
+
+                                    <td class=" ">{{ worklocation.name_customer }}
+
+                                    </td>
+
+                                    <td class=" "> {{ worklocation.address }},
+                                        {{ worklocation.location }},
+                                        {{ worklocation.province }},
+                                        {{ worklocation.zip_code }}
+
+                                    </td>
+
+                                    <td class="">
+                                        <input type="hidden" name="id_work_locations"
+                                            value="{{worklocation.id_work_locations}}">
+                                        <a href="{{ routeTo('getIdWorkLocationBillsSupp', worklocation.id_work_locations) }}#section_supplements "
+                                            class="button-30">Seleccionar
+                                        </a>
+                                    </td>
+
+                                </tr>
+
+                                {% endif %}
+                                {% endfor %}
+
+                                {% if ( worklocations_false == true ) %}
+
+                                <div class="row mb-4 ">
+                                    <div class="col-sm-2 "></div>
+
+                                    <div class="col-sm-8 select_customer">
+
+                                        <div class="row mb-2 mt-1 ">
+                                            <div class="col-sm-12 text-center text-white ">
+
+                                                <div class=" text-center  mb-3" id="sectionTable">
+
+                                                    <p class=" text-center p-2 m-2 ">&nbsp;&nbsp;
+                                                        <lord-icon src="https://cdn.lordicon.com/zzcjjxew.json"
+                                                            trigger="hover" colors="primary:#fff,secondary:#fff"
+                                                            style="width:90px;height:90px">
+                                                        </lord-icon>
+
+                                                        <br> ..No existen Direcciones de Obras para este Cliente
+                                                    </p>
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-sm-2 "></div>
+
+                                </div>
+
+                                {# fin  No exiten direcciones de obras  #}
+
+                                {% endif %}
+
+                            </tbody>
+
+                        </table>
+
+                    </div>{# scroll#}
+                </div>
+                <p class="bottom_table p-2 col-12"></p>
+        </div>
+
+    </div>
+
+</div>
+
+{# {% endif %}
+                    {% endif %} #}
+{% if ( worklocations_selection == true) %}
+
+<div class="" id="section_supplements">
+
+    <h3 class="fw-light  text-center display-5">
+
+        {% for worklocation in worklocations %}
+
+        <input type="hidden" name="id_work_locations" value="{{ worklocation.id_work_locations }}">
+
+        <b> {{ worklocation.address }},
+            {{ worklocation.location }},
+            {{ worklocation.province }},
+            {{ worklocation.zip_code }}</b>
+
+        {% endfor %}
+
+    </h3>
+
+</div>
+
+<hr>
+<div class="p-4">
+
+    <div class="row mr-4">
+
+        <h3 class="fw-light  text-left  display-5">
+
+            <img src="\images\icon_supplement.png" class="imagen_gps" alt="..." title="">&nbsp;
+            Suplementos
+
+        </h3>
+
+        <hr class="hr_direccionObra">
+        <div class="col-sm-12">
+            {#         Suplemenetos           #}
+
+            <div class="row pb-1 ">
+
+                <div class="col-12 albaranes_titles_bottom ">
+
+                    <div class="row  p-0 m-0">
+
+                        <span class="top_table p-2 col-12 mt-3"></span>
+
+
+	{% if supplements|length == 0%}
+
+					<tr>
+						<td class="text-center align-middle text-left" colspan="15">
+
+							<lord-icon src="https://cdn.lordicon.com/imamsnbq.json" trigger="hover" colors="primary:#121331,secondary:#4b7dcffa" style="width:50px;height:50px"></lord-icon>
+							<br>
+							No ahi Suplementos registrados
+						</td>
+					</tr>
+
+				{% else %}
+
+
+                        {% for supplement in supplements %}
+
+
+                        <div class="col-sm-6 div_suplements_checkbox ">
+
+                            <div class="checkbox-wrapper-40 mt-3">
+                                <label>
+                                    <input type="checkbox" name="supplements_id[]" class="mi-checkbox"
+                                        value="{{ supplement.id_supplements }}">
+                                    {{ supplement.name }}
+
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-sm-2  div_suplements_pvp">
+                            <span>Pvp </span><br>
+                            <b> {{ supplement.pvp }}</b> €
+                        </div>
+
+                        <div class="col-sm-2  div_suplements_pvp">
+
+                            <div class="field field_v2">
+                                <label for="pvp_edit" class="ha-screen-reader"></label>
+                                <input id="pvp_edit" class="field__input" type="number" placeholder="Pvp "
+                                    name="pvp_edit[]" value="{{ supplement.pvp }}">
+                                <span class="field__label-wrap" aria-hidden="true">
+                                    <span class="field__label">Editar Pvp</span>
+                                </span>
+                            </div>
+
+                            <p class="text-danger ">{{ msg('errors.pvp_edit') }}</p>
+
+                        </div>
+                        <div class="col-sm-2  div_suplements_pvp">
+
+                            <div class="field field_v2">
+                                <label for="reserved" class="ha-screen-reader"></label>
+                                <input id="supplement_dto" class="field__input" type="number" placeholder=" "
+                                    name="supplement_dto[]" value="0">
+                                <span class="field__label-wrap" aria-hidden="true">
+                                    <span class="field__label"><b>% Dto.</b></span>
+                                </span>
+                            </div>
+
+                            {# <p class="mt-3"> € {{ supplement.pvp }} </p> #}
+
+                        </div>
+
+                        {% endfor %}
+
+                        {% endif %}
+
+                        <p class="bottom_table p-2 col-12 mt-4"></p>
+                        <p class=""> *Los suplementos se pueden editar sus descripciones o su
+                            valores, o
+                            crear unos
+                            nuevos en el apartado de suplementos. </p>
+
+                    </div>
+
+                </div>
+            </div>
+            {#           fin de Suplemenetos           #}
+
+        </div>
+        <hr>
+        <div class="p-4">
+            <div class="row mt-2">
+
+                <h3 class="fw-light  text-left  display-5">
+
+                    <img src="\images\icon_euro_2.png" class="imagen_euro" alt="..." title="">&nbsp;
+                    Formas de pagos y Anticipos
+
+                </h3>
+
+                <hr class="hr_direccionObra">
+
+                <div class="col-12 anticipos pb-3">
+
+                    <div class="row mt-5 ">
+
+                        <div class="col">
+                            <div class="col-sm">
+                                <div class="field field_v2">
+                                    <label for="retainer_amount" class="ha-screen-reader"></label>
+                                    <input class="field__input" placeholder=" " id="retainer_amount"
+                                        name="retainer_amount" type="number">
+                                    <span class="field__label-wrap" aria-hidden="true">
+                                        <span class="field__label ">Importe de Anticipo €</span>
+                                    </span>
+                                </div>
+                                 <p class="text-danger ">{{ msg('errors.retainer_amount') }}</p>
+
+                            </div>
+                        </div>
+
+                        <div class="col-sm-4 ">
+                            <div class="col-sm">
+                                <label for="inputDescription" class="p-2">Formas de pago </label>
+
+                                <select data-size="5" class="selectpicker form-select" name="payment_method"
+                                    aria-label="Default select example">
+
+                                    {% for p in payment_method %}
+                                    <option value="{{ p.name  }}">
+                                        {{ p.name }}
+                                    </option>
+                                    {% endfor %}
+
+                                </select>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <h3 class="fw-light  text-left mt-3 display-5">
+
+        <img src="\images\icon_descr.png" class="imagen_euro" alt="..." title="">&nbsp;
+        Descripcion
+
+    </h3>
+
+    {# <hr class="hr_direccionObra"> #}
+
+    <div class="col-sm-6 ">
+        <div class="row">
+
+        </div>
+        <div class="row ">
+
+            <div class="col-12 albaranes_titles_bottom ">
+
+                <div class="row mb-2 p-1">
+
+                    <div class="col-sm">
+                        <textarea class="form-control notas" id="exampleFormControlTextarea1" name="notas">
+                                             </textarea>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    {#           fin de notas           #}
+
+</div>
+
+<div class="row" id="error" style="display:none;">
+    <div class="col-sm-12 text-center">
+        Debe <u><b>seleccionar al menos un Suplemento de la lista de Suplementos</b></u> para poder visualizar
+    </div>
+</div>
+
+
+
+<div class="row mt-3 mb-5">
+    <div class="col-sm-2"></div>
+
+    <div class="col-sm-4">
+        <div class="text-center  ">
+            <button id="preview_button" name="preview_button" class=" button_bills text-white" type="button" value="1">
+                <img src="\images\invoice_white.png" alt="...">&nbsp;&nbsp;&nbsp;&nbsp;Pre Visualizar
+                Factura
+            </button>
+        </div>
+    </div>
+    <div class="col-sm-4 ">
+        <div class="text-center  ">
+            <button class=" button_bills text-white" value="1" name="bills_button" id="buttom_bills" type="submit">
+                <img src="\images\invoice_white.png" alt="...">&nbsp;&nbsp;&nbsp;&nbsp;Generar Factura
+            </button>
+
+        </div>
+        {#row#}
+    </div>
+    <div class="col-sm-2"></div>
+
+</div>
+
+{% endif %}
+</form>
+<div class="row pt-5">
+    <div class="col">
+        <p class=" text-center">
+            <a href="{{ routeTo('listBills') }}">
+                <img class="rounded mx-auto d-block " src="\images\regresar.png" alt="...">
+            </a>
+            <br>
+            Volver al listado de Facturas
+        </p>
+    </div>
+</div>
+
+{{ pager | raw }}
+</div>
+</div>
+
+</div><!-- Botón que abre la pantalla modal --><button id="prev_factura" type="button" class="btn btn-primary d-none"
+    data-bs-toggle="modal" data-bs-target="#exampleModal">
+    Abrir pantalla modal</button><!-- Pantalla modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+    id="miVentanaModal">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg" id="miVentanaModal">
+        <div class="modal-content">
+            <div>
+
+                <div class="p-3">
+
+                    <a href="#" data-bs-dismiss="modal" aria-label="Cerrar" class="text-right">
+                        <img src="\images\iconos\cerrar.png" width="24" height="24" style="float: right;">
+                    </a>
+                </div>
+
+            </div>
+            <div class="modal-body" id="miVentanaModal"></div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+{% include 'Front/base/footer.html.twig' %}
+</body>
+{% endblock %}
+
+{% block script %}
+{{parent(script)}}
+
+<script>
+    setTimeout(function() {
+        $(".alerta_msg_bills").fadeOut(2000);
+    }, 2200);
+
+    $(document).ready(function() {
+        $('#id_customers_selection').on("change", function(event) {
+            var opt = $(this).find("option:selected")
+            var url = opt.data("url")
+            window.location.href = url
+        });
+        var error = document.getElementById("error_radiobutton");
+        error.style.display = "none";
+    });
+    setTimeout(function() {
+        $(".alerta_msg_albaranes").fadeOut(2000);
+    }, 2200);
+    const checkboxes = document.querySelectorAll('.mi-checkbox[type=checkbox]');
+    $('#preview_button').on("click", function(event) {
+        let seleccionado = false;
+        checkboxes.forEach(function(checkbox) {
+            if (checkbox.checked) {
+                seleccionado = true;
+            }
+        });
+        if (seleccionado) {
+            console.log("entr"); // Prevenir el comportamiento por defecto del formulario
+            event.preventDefault();
+            // Crear un objeto FormData con los datos del formulario
+            var formData = new FormData(document.getElementById('mi-formulario'));
+            console.log(formData.entries());
+            // Enviar la consulta AJAX utilizando fetch()
+            fetch("https://contenedores.grupohnosfas.com/Facturas/PreFacturaSuplementos", {
+                method: "POST",
+                body: formData
+            }).then(function(response) { // La consulta fue exitosa
+                console.log("Datos enviados correctamente");
+                response.text().then(text => {
+                    $('.modal-body').html(text);
+                    $('#prev_factura').click();
+                });
+            }).catch(function(error) { // La consulta falló
+                console.log("Error al enviar los datos");
+                console.log(error);
+            });
+        } else {
+            var divToShow = document.getElementById("error");
+            divToShow.style.display = "block";
+            setTimeout(function() {
+                $("#error").fadeOut(2000);
+            }, 2200);
+        }
+    });
+    //Boton facturar
+    $('#buttom_bills').on("click", function(event) {
+        let seleccionado = false;
+        var checkboxes = document.querySelectorAll('input[type=checkbox]:checked');
+        var count = checkboxes.length;
+        checkboxes.forEach(function(checkbox) {
+            if (checkbox.checked) {
+                seleccionado = true;
+                var count = checkboxes.length;
+            }
+        });
+        if (!seleccionado) {
+            event.preventDefault();
+            var divToShow = document.getElementById("error");
+            divToShow.style.display = "block";
+            setTimeout(function() {
+                $("#error").fadeOut(2000);
+            }, 2200);
+        }
+    });
+
+</script>
+
+<script src="https://cdn.lordicon.com/qjzruarw.js"></script>
+
+<script src="/js/jsBootstrap.js"></script>
+
+<script src="https://cdn.lordicon.com/qjzruarw.js"></script>
+
+{% endblock %}

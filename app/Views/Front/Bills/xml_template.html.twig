@@ -1,0 +1,23 @@
+
+{# <?xml version="1.0" encoding="UTF-8"?>
+<root>
+
+
+
+    {% for result in results %}
+        <item>
+
+            <field2>Num de Factura {{ result.num_bill }}</field2>
+            <field1>Nombre del cliente {{ result.customer_name }}</field1>
+            <field2>Subtotal de la factura {{ result.taxable_base }}</field2>
+            <field2>Iva de la factura {{ result.iva }}</field2>
+              <field2>Total de la factura {{ result.total }}</field2>
+
+        </item>
+    {% endfor %}
+</root> #}
+
+  <pre>{{ xmlContent }}</pre>
+
+
+

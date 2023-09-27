@@ -1,0 +1,256 @@
+{% extends 'Front/base/main.html.twig' %}
+
+{% block titleHeader %}
+Crear un Paquete
+{% endblock %}
+{% block content %}
+  {% include 'Front/base/header.html.twig' %}
+ <link rel="stylesheet" href="/css/css_all/contenedores.css">
+<style>
+    button {
+        border-top-left-radius: 40px 40px;
+        border-top-right-radius: 40px 40px;
+        border-bottom-right-radius: 40px 40px;
+        border-bottom-left-radius: 40px 40px;
+        width: 100%;
+        box-shadow: none;
+        font-size: 20px;
+        border: none;
+        background: #42b364;
+    }
+
+    .form-control {
+        border: 2px solid #42b364 !important;
+        border-radius: 30px !important;
+
+    }
+
+    .form-select {
+        border: 2px solid #ff63477a !important;
+        border-radius: 30px !important;
+
+
+    }
+
+    .tapa {
+
+        background: #c2fbd740;
+    }
+
+    .metros {
+        background: #c2fbd740;
+
+    }
+
+    .form-check-input:checked {
+        background-color: #42b364;
+        border-color: #42b364;
+    }
+
+    .cssscan:not(.img-as-jpg) img {
+        top: 14%;
+        right: -37%;
+        width: 95%;
+        height: 95%;
+    }
+
+    .cssscan img {
+        position: absolute;
+        transform: rotate(-7deg);
+        transition: all .3s;
+    }
+
+    .cssscan {
+        padding: 2rem;
+        background: #c2fbd7;
+        border-radius: 24px;
+        position: relative;
+        overflow: hidden;
+        box-shadow: rgb(0 0 0 / 10%) 0 1px 2px 0;
+        cursor: pointer;
+        /* margin-top: 3em;*/
+        font-size: 19px;
+        text-align: left;
+    }
+
+    .display-4 {
+        display: inline;
+
+        padding-left: 30px;
+    }
+
+    .titulo_contenedores {
+
+        border: 1px solid red;
+    }
+
+    .texto_titulo {
+
+        padding-left: 30px;
+    }
+</style>
+<div class="container">
+
+    <div id="titulo_contenedores">
+
+        <div class="row">
+            <div class="col-4 pl-3"><a href="javascript: history.go(-1)">&nbsp;&nbsp;&nbsp;
+                    <img class="ml-3 pt-4 " src="\images\arrow_green_izq.png" alt="...">
+                </a></div>
+            <div class="col-4"></div>
+            <div class="col-4"></div>
+        </div>
+
+        <div class="cssscan">
+            <p>
+                {% for container in containers %}
+                {# <img class="rounded mx-auto d-block m-3" src="\images\paquetes_white.png" alt="..."> #}
+                <h4 class="display-4 text-center ">Modificar el Contenedor {{ container.residue }}</h4>
+                <p class=" texto_titulo "> Gestion de contenedores</span>
+                </p>
+            </p>
+
+            <img src="\images\header_container_2.svg" alt="...">
+        </div>
+    </div>
+
+    <form action="{{  routeTo('updateContainersSave', container.id_container) }}" method="POST">
+        <div class="cuerpo_contenedores mt-2">
+
+            <div class="row m-4">
+
+                <div class="col">
+                    <div class="field field_v2">
+                        <label for="residue" class="ha-screen-reader"></label>
+                        <input id="residue" class="field__input" placeholder="{{ container.residue }}" name="residue"
+                            value="{{ container.residue }}">
+                        <span class="field__label-wrap" aria-hidden="true">
+                            <span class="field__label">Residuo </span>
+                        </span>
+                    </div>
+                    <p class="text-danger">{{ msg('errors.residue') }}</p>
+                </div>
+
+                <div class="col">
+                    <div class="field field_v2">
+                        <label for="price" class="ha-screen-reader"></label>
+                        <input id="price" class="field__input" placeholder="{{ container.price }}"
+                            name="price" value="{{  contenedor.price  }}">
+                        <span class="field__label-wrap" aria-hidden="true">
+                            <span class="field__label">Precio </span>
+                        </span>
+                    </div>
+                    <p class="text-danger">{{ msg('errors.price') }}</p>
+                </div>
+
+
+            </div>
+
+                   <div class="row m-4">
+
+                <p class="metros p-2 m-2">&nbsp;&nbsp;
+                    <img class="mr-2" src="\images\metre.png" alt="..."> &nbsp;&nbsp;Metros cubicos {{ container.cubic_meters }}</p>
+
+                <div class="col-sm-3 mt-2">
+
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="cubic_meters" id="4.50" value="4.50"
+                            checked>
+                        <label class="form-check-label" for="metros_cubicos">
+                            4.5 m3
+                        </label>
+                    </div>
+
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="cubic_meters" id="7.5" value="7.50">
+                        <label class="form-check-label" for="metros_cubicos">
+                            7.5 m3
+                        </label>
+                    </div>
+
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="cubic_meters" id="12" value="4.50">
+                        <label class="form-check-label" for="metros_cubicos">
+                            12 m3
+                        </label>
+                    </div>
+                </div>
+                <div class="col-sm-3 mt-2">
+
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="cubic_meters" id="16" value="16.00">
+                        <label class="form-check-label" for="flexRadioDefault1">
+                            16 m3
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="metros_cubicos" id="30" value="30.00">
+                        <label class="form-check-label" for="metros_cubicos">
+                            30 m3
+                        </label>
+                    </div>
+
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="cubic_meters" id="50" value="50.00">
+                        <label class="form-check-label" for="metros_cubicos">
+                            50 m3
+                        </label>
+                    </div>
+
+                </div>
+
+                <div class="col-sm-3 mt-2">
+
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="cubic_meters" id="2.3" value="2.50">
+                        <label class="form-check-label" for="metros_cubicos">
+                            2.5 m3
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="cubic_meters" id="4.5s" value="4.50">
+                        <label class="form-check-label" for="metros_cubicos">
+                            4.5 m3 suplementado
+                        </label>
+                    </div>
+
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="cubic_meters" id="4.5t" value="4.50">
+                        <label class="form-check-label" for="metros_cubicos">
+                            4.5 m3 tapado
+                        </label>
+                    </div>
+                </div>
+
+                <div class="col-3"> </div>
+
+            </div>
+
+
+            {% endfor %}
+            <div class="row">
+                <div class="col-md">
+
+                    <div class="row">
+                        <div class="col">
+                        </div>
+                        <div class="col-md">
+                            <button class=" mt-3 pt-3 pb-3 text-white" type="submit">REGISTRAR</button>
+                        </div>
+                        <div class="col">
+                        </div>
+                    </div>
+                </div>
+    </form>
+    <p class=" text-center mt-5">
+        <a href="{{ routeTo('listContainers') }}">
+            <img class="rounded mx-auto d-block " src="\images\regresar.png" alt="...">
+        </a>
+        <br> Volver a la lista de Contenedores
+    </p>
+
+</div>
+</div>
+</div>
+  {% include 'Front/base/footer.html.twig' %}
+{% endblock %}

@@ -1,0 +1,548 @@
+{% extends 'Front/base/main.html.twig' %}
+
+{% block titleHeader %}
+Ver cliente
+{% endblock %}
+{% block content %}
+{% include 'Front/base/header.html.twig' %}
+
+<link rel="stylesheet" href="/css/css_all/albaranes/seeDetailAlbaran.css">
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-rc.0/css/select2.min.css" rel="stylesheet" />
+<style>
+
+div:where(.swal2-container) button:where(.swal2-styled).swal2-confirm {
+    border: 0;
+
+    background: initial;
+    background-color: #42bd21 !important;
+    color: #fff !important;
+    font-size: 1em;
+      box-shadow: none !important;
+}
+
+
+div:where(.swal2-container) button:where(.swal2-styled).swal2-confirm {
+    border: 0;
+
+    background: initial;
+     background-color: #42bd21 !important;
+    color: #fff !important;
+    font-size: 1em;
+      box-shadow: none !important;
+}
+
+</style>
+
+
+{% for albaran in albaran %}
+<div class="container mt-1">
+
+    <div id="titulo_albaranes">
+
+        <div class="row">
+            <div class="col-4 pl-3">
+                <a href="javascript: history.go(-1)">&nbsp;&nbsp;&nbsp;
+                    <img class="ml-3 pt-4 " src="\images\arrow_white_izq.png" alt="...">
+                </a>
+            </div>
+            <div class="col-4"></div>
+            <div class="col-4"></div>
+        </div>
+
+        <div class="cssscan">
+            <p>
+                <h4 class="display-4 text-center text-white ">
+                    Albaran Nº
+                    {{ albaran.id_albaran}}</h4>
+            </p>
+            <p class=" texto_titulo text-white">Informacion detallada del Albaran
+            </p>
+            </span>
+            </p>
+            </p>
+
+           <img src="\images\icono_header_albaran.svg" alt="...">
+        </div>
+    </div>
+
+    {# {% include 'Front/base/Albaranes/msgAlbaranes.html.twig' %} #}
+
+    <div class=" ">
+
+        <div class="row m-0 ">
+
+            <div class="card-body card_albaran">
+              <p class=" text-center mt-5"><a href="{{ routeTo('listOrders') }}"><img
+                    class="rounded  " src="\images\regresar_albaranes.png" alt="...">&nbsp;&nbsp;&nbsp;
+                    <span style="color:#587ffc;">
+                    Generar nuevos Albaranes</span></a></p>
+
+
+                <div class="container mb-5 col-10 mt-3 contenedor pt-3 ">
+
+                    <div class="row ">
+
+                        <div class="col-sm-8 div_hermanos_fas">
+
+                            <p class=""></p>
+
+                            <div class="row p-0 m-0">
+
+                                <div class="col-sm-6 p-0 m-0">
+                                  <img src="\images\logo\logos_facturas_2_albaranes.png" width="350" height="110" alt="logo" class="mt-2"><br>
+
+                                </div>
+                                <div class="col-sm-6 p-0 m-0 text-center" style="font-size:0.8em;">
+                                    <span class="title_tot ">
+                                        <b>
+                                            TOT PER CONSTRUIR 2012, S.L.</b>
+                                    </span><br>
+                                    <span class="Title_cif text-center">
+                                        C.I.F.: DB-98474497 NIMA:
+                                    </span>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="col-sm-4 div_info">
+
+                            <div class="row p-0 ">
+
+                                <div class="col title_albaran mt-3">
+
+                                    <b>
+                                        ALBARAN:</b>
+                                        {{ albaran.id_albaran }}
+                                        <br>
+                                         <b>
+                                        PRE IMPRESO:</b>
+                                        {{ albaran.preprinted }}
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+
+                        <div class="col-sm-8 div_customers">
+
+                            <span class="text_customers">Dirección: Calle Rio Guadalaviar, 6. Quart de Poblet
+                                (Valencia)</span><br>
+
+                            <span class="text_customers">
+                                CP: 46930 – Teléfono: 961391755 – 656414748</span><br>
+
+                            <span class="text_customers">Correo electrónico: gestion@tpc2012.es Página web:
+                                www.tpc2012.es
+                            </span>
+
+
+                        </div>
+
+                        <div class="col-sm-4 div_total">
+
+                            <table class=" table table-striped table-borderless">
+
+                                <thead>
+                                    <tr>
+                                        <th scope="col">
+                                            Fecha Albaran:
+                                        </th>
+                                        <th scope="col">
+
+                                            {{ albaran.created_at | date('d/m/y') }}
+
+                                        </th>
+                                    </tr>
+                                </thead>
+
+                                <thead>
+                                    <tr>
+                                        <th scope="col">
+                                            Matricula:
+                                        </th>
+                                        <th scope="col">
+
+                                            {{ albaran.vehicle_car_registration}}
+
+                                        </th>
+                                    </tr>
+                                </thead>
+
+                                <thead>
+                                    <tr>
+                                        <th scope="col">
+                                            Codigo Cliente:
+                                        </th>
+                                        <th scope="col">
+
+
+                                            {{ albaran.id_customer}}
+
+
+                                        </th>
+                                    </tr>
+                                </thead>
+
+
+                                <thead>
+                                    <tr>
+                                        <th scope="col">
+                                            Forma de Pago:
+                                        </th>
+                                        <th scope="col">
+
+                                            {{ name_payment_method }}
+
+
+                                        </th>
+                                    </tr>
+                                </thead>
+
+                                <thead >
+                                    <tr>
+                                        <th scope="col"  style="font-size:1.2rem;">
+                                            <b>COBRO</b>
+                                        </th>
+                                        <th scope="col">€
+                                            {{albaran.total}}
+                                        </th>
+                                    </tr>
+                                </thead>
+
+                            </table>
+
+                        </div>
+
+
+                           <table class="table table-striped table-borderless">
+                            <thead style="background-color:#587ffc;" class="text-white">
+                                <tr>
+                                    <th scope="col-3" class="p-2">Transportista
+                                    </th>
+
+                                </tr>
+                            </thead>
+
+                            <tbody>
+
+                                <tr>
+
+                                    <td class="p-2">{{ albaran.driver_name|upper }} -
+                                        MARTICULA DEL VEHICULO:
+                                        {{ albaran.vehicle_car_registration }}</td>
+                                </tr>
+                                </b>
+                            </tbody>
+                            </td>
+
+                            </tr>
+
+                            </tbody>
+                        </table>
+
+
+                           <table class="table table-striped table-borderless">
+                            <thead style="background-color:#587ffc;" class="text-white">
+                                <tr>
+                                    <th scope="col-3" class="p-2">Cliente
+                                    </th>
+
+                                </tr>
+                            </thead>
+
+                            <tbody>
+
+                                <tr>
+
+                                    <td>
+
+                             {{  albaran.customer_name }}
+
+
+                                </tr>
+                                </b>
+                            </tbody>
+                            </td>
+
+                            </tr>
+
+                            </tbody>
+                        </table>
+
+
+                        <table class="table table-striped table-borderless">
+                            <thead style="background-color:#587ffc;" class="text-white">
+                                <tr>
+                                    <th scope="col-3" class="p-2">Dirección de Obra del cliente donde se facturará</th>
+
+                                </tr>
+                            </thead>
+
+                                   <br>
+
+                            <tbody>
+
+                                <tr>
+
+                                    <td class="p-2">Calle/Avda
+                                        {{ albaran.work_location_address|upper }}, &nbsp;
+                                        {{ albaran.work_location_location|upper }},&nbsp;
+                                        {{ albaran.work_location_province|upper }}&nbsp;,
+                                       CP:
+                                        {{ albaran.work_location_zip_code }}
+                                    </td>
+
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+
+                        <div class="col-sm-12 p-2"
+                            style="border-right:5px solid white !important;background-color:#587ffc;color:white !important;font-family: 'Nunito', sans-serif;">
+
+                            <b>
+                                Servicio</b>
+
+                        </div>
+
+                        <table class="table table-striped table-borderless">
+
+                            <tbody>
+
+                                <tr scope="col">
+
+                                    <td scope="col" class="p-2" style="border-right:5px solid white !important;">
+
+                                        <img src="\images\img_check_green.png" style="width:30px;heigth:30px;"
+                                            alt="...">
+
+                                        {{ service_name }}
+
+                                    </td>
+
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                        <table class="table table-striped table-borderless">
+
+                            <thead style="background-color:#587ffc;" class="text-white">
+                                <tr>
+                                    <th scope="col" class="p-2" style="border-right:5px solid white !important;">
+                                        Tipo de Residuo del contenedor
+                                    </th>
+
+                                    <th scope="col" class="p-2">Tamaño de contenedor</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                <tr>
+
+
+                                    <th class="p-2" style="border-right:5px solid white !important;">
+                                        {{ albaran.container_residue }}</th>
+
+                                    <th class="p-2" style="border-right:5px solid white !important;">
+                                        {{ albaran.container_m3}}
+                                    </th>
+
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                        <table class="table table-striped table-borderless">
+
+                            <thead style="background-color:#587ffc;" class="text-white">
+                                <tr>
+                                    <th scope="col" class="p-2" style="border-right:5px solid white !important;">
+                                        Suplemento</th>
+                                    <th scope="col" class="p-2" style="border-right:5px solid white !important;">Hora de
+                                        llegada
+                                    </th>
+                                    <th scope="col" class="p-2" style="border-right:5px solid white !important;">Hora de
+                                        Salida
+                                    </th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                <tr>
+
+                                    <th class="p-2" style="border-right:5px solid white !important;">
+
+
+                                 {% for supplements in supplements_array %}
+
+                                      {%  if (supplements_array|length > 1) %}
+
+                                             {{ supplements.name }} -
+                                       {% else %}
+                                                {{ supplements.name }}
+
+                                        {% endif %}
+
+                                    {% endfor %}
+
+                                    </th>
+                                    <th scope="col" class="p-2" style="border-right:5px solid white !important;">
+
+
+
+                                    {% if albaran.arrival_time_date|date('H:i:s') == '00:00:00' %}
+
+                                    {% else %}
+                                        {{ albaran.arrival_time_date | date('H:i:s') }}
+                                    {% endif %}
+
+
+                                    </th>
+                                    <th scope="col" class="p-2" style="border-right:5px solid white !important;">
+
+
+                                    {% if albaran.departure_time|date('H:i:s') == '00:00:00' %}
+
+                                    {% else %}
+                                        {{ albaran.departure_time | date('H:i:s') }}
+                                    {% endif %}
+
+
+
+
+
+                                    </th>
+
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                        <div class="col-sm-4">
+
+                            <div class="col rellenar p-2">
+                                <span class="">Observaciones:
+                                </span>
+
+                            </div>
+
+                        </div>
+                        <div class="col-sm-4">
+
+                            <div class="col rellenar  p-2">
+                                <span class="">Nombre y Firma del conductor:
+                                </span>
+
+                            </div>
+
+                        </div>
+                        <div class="col-sm-4">
+
+                            <div class="col rellenar  p-2">
+                                <span class="">Conforme, soy conocedor y acepto las condiciones generales del
+                                    presente, el cliente
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <p>
+                                    El cliente conoce su obligación de solicitud
+                                    de ocupación de vía publica siendo responsable
+                                    de los perjuicios que pudieran derivarse por la
+                                    no solicitud y/o concesión de la misma eximiendo
+                                    a Tot Per Construir 2012 S.L. de cualquier responsabilidad.
+                                    Los residuos depositados en el contenedor son inertes y no
+                                    peligrosos, según la legislación estatal y autonómica en vigor.
+                                    El usuario del contenedor, se compromete a realizar las operaciones
+                                    de vertido, en las condiciones exigidas por la Ordenanza Municipal
+                                    de Limpieza Urbana procediendo a la inmediata limpieza
+                                    de los restos caídos en la acera o en la calzada y sin
+                                    sobrecargar la capacidad nominal del contenedor.
+                                    Así como el tapado nocturno del contenedor para evitar
+                                    derrames. También será obligatoria la señalización del
+                                    contenedor por el usuario en los casos que pudiere representar
+                                    peligro para el tráfico rodado, no debiendo quitarse
+                                    dicha señalización hasta la retirada del contenedor.
+                                </p>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+
+
+        <p class=" text-center mt-5"><a href="{{ routeTo('listAlbaranes') }}"><img
+                    class="rounded mx-auto d-block " src="\images\regresar.png" alt="..."></a><br>Volver a la lista de
+            Albaranes</p>
+    </div>
+      </div>
+
+
+  <div class="row " >
+        <div class="col-12">
+
+      {%  if msg('msg') %}
+
+            <script>
+                $(document).ready(function() {
+
+                 var msg = {{ msg('msg')|json_encode|raw }};
+
+                Swal.fire({
+                    title: msg.title,
+                    text: msg.text,
+                    icon: 'success',
+                    cancelButtonText: 'Cerrar'
+                    })
+                });
+            </script>
+
+      {% endif %}
+
+     </div>
+ </div>
+
+
+
+
+       {% include 'Front/base/footer.html.twig' %}
+</body>
+
+
+    {% endblock %}{% block script %}{{parent(script)}}
+
+    <script src="/js/sweetAlert.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        {# setTimeout(function() {
+            $(".alerta_msg_albaranes").fadeOut(2000);
+        }, 2200); #}
+
+
+
+
+
+    </script>
+    <script src="https://cdn.lordicon.com/qjzruarw.js"></script>
+
+{% endblock %}

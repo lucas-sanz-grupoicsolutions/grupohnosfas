@@ -1,0 +1,52 @@
+/* Formulario registro  */
+
+.login {
+    min-height: 80vh;
+  }
+
+  .bg-image {
+    background-image: url('../../images/fondo_login.jpg');
+    background-size: cover;
+    background-position: center;
+  }
+  .bg-image2 {
+    background-image: url('../../images/fondo_login.jpg');
+    background-size: cover;
+    background-position: center;
+  }
+
+
+
+
+  .login-heading {
+    font-weight: 300;
+  }
+
+  .btn-login {
+    font-size: 0.9rem;
+    letter-spacing: 0.05rem;
+    padding: 0.75rem 1rem;
+  }
+
+.form_registro{
+    border-top-left-radius: 30px 30px;
+    border-top-right-radius: 30px 30px;
+    border-bottom-left-radius: 30px 30px;
+    border-bottom-right-radius: 30px 30px;
+    background-color: white;
+}
+.imagen_registro{
+    border-top-left-radius: 30px 30px;
+    border-bottom-left-radius: 30px 30px;
+
+}
+
+.imagen_registro_2{
+    border-top-left-radius: 30px 30px;
+    border-bottom-left-radius: 30px 30px;
+    background-color: #fff;
+
+}
+
+
+  /* ------------*/

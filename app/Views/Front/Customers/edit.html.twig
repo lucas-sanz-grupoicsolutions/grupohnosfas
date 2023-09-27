@@ -1,0 +1,1196 @@
+{% extends 'Front/base/main.html.twig' %}
+
+{# {% block titleHeader %}
+Crear un Cliente
+{% endblock %} #}
+
+{% block content %}
+
+{% include 'Front/base/header.html.twig' %}
+
+<link rel="stylesheet" href="/css/css_all/customers/edit.css">
+<link rel="stylesheet" href="/css/css_all/customers.css">
+<link rel="stylesheet" href="/css/css_all/contenedores.css">
+
+<div class="container mt-1">
+
+    <div id="titulo_clientes">
+
+        <div class="row">
+            <div class="col-4 pl-3"><a href="javascript: history.go(-1)">&nbsp;&nbsp;&nbsp;
+                    <img class="ml-3 pt-4 " src="\images\arrow_white_izq.png" alt="...">
+                </a></div>
+            <div class="col-4"></div>
+            <div class="col-4"></div>
+        </div>
+
+        <div class="cssscan">
+            <p>
+                {% for customer in customers %}
+                {# <img class="rounded mx-auto d-block m-3" src="\images\paquetes_white.png" alt="..."> #}
+
+                <h4 class="display-4 text-center ">{{ customer.names }} </h4>
+                <p class=" texto_titulo ">Modificar el Cliente </p>
+            </p>
+            </p>
+
+            <img src="\images\clientesvg.svg" alt="...">
+        </div>
+    </div>
+
+    <form action="{{  routeTo('updateCustomersSave', customer.id_customer) }}" method="POST">
+
+        <div class="cuerpo_clientes mt-2" id="sectionEdit">
+            {# {% include 'Front/base/customers/errorCustomers.html.twig' %} #}
+
+            <div class="row m-4">
+                <div class="col-sm">
+                    <div class="field field_v2">
+                        <label for="names" class="ha-screen-reader"></label>
+                        <input id="names" class="field__input" placeholder="{{ customer.names }}" name="names"
+                            value="{{ customer.names }}">
+                        <span class="field__label-wrap" aria-hidden="true">
+                            <span class="field__label">Nombre </span>
+                        </span>
+                    </div>
+                    <p class="text-danger">{{ msg('errors.names') }}</p>
+                </div>
+
+                <div class="col-sm">
+                    <div class="field field_v2">
+                        <label for="phone" class="ha-screen-reader"></label>
+                        <input id="phone" class="field__input" placeholder="{{ customer.phone }}" name="phone"
+                            value="{{ customer.phone }}">
+                        <span class="field__label-wrap" aria-hidden="true">
+                            <span class="field__label">Telefono </span>
+                        </span>
+                    </div>
+                    <p class="text-danger">{{ msg('errors.phone') }}</p>
+                </div>
+
+                <div class="col-sm">
+                    <div class="field field_v2">
+                        <label for="mail" class="ha-screen-reader"></label>
+                        <input id="mail" class="field__input" placeholder="{{ customer.mail }}" name="mail"
+                            value="{{ customer.mail }}">
+                        <span class="field__label-wrap" aria-hidden="true">
+                            <span class="field__label">Email </span>
+                        </span>
+                    </div>
+                    <p class="text-danger">{{ msg('errors.mail') }}</p>
+                </div>
+
+                <div class="col-sm">
+                    <div class="field field_v2">
+                        <label for="dni" class="ha-screen-reader"></label>
+                        <input id="dni" class="field__input" placeholder="{{ customer.dni }}" name="dni"
+                            value="{{ customer.dni }}">
+                        <span class="field__label-wrap" aria-hidden="true">
+                            <span class="field__label">Dni </span>
+                        </span>
+                    </div>
+                    <p class="text-danger">{{ msg('errors.dni') }}</p>
+                </div>
+
+            </div>
+
+            <div class="row m-4">
+
+                <div class="col-sm-3">
+                    <div class="field field_v2">
+                        <label for="address" class="ha-screen-reader"></label>
+                        <input id="address" class="field__input" placeholder="{{ customer.address }}" name="address"
+                            value="{{ customer.address }}">
+                        <span class="field__label-wrap" aria-hidden="true">
+                            <span class="field__label">Direccion </span>
+                        </span>
+                    </div>
+                    <p class="text-danger">{{ msg('errors.address') }}</p>
+                </div>
+
+                <div class="col-sm">
+                    <div class="field field_v2">
+                        <label for="location" class="ha-screen-reader"></label>
+                        <input id="location" class="field__input" placeholder="{{ customer.location }}" name="location"
+                            value="{{ customer.location }}">
+                        <span class="field__label-wrap" aria-hidden="true">
+                            <span class="field__label">Poblacion </span>
+                        </span>
+                    </div>
+                    <p class="text-danger">{{ msg('errors.location') }}</p>
+                </div>
+
+                <div class="col-sm">
+                    <div class="field field_v2">
+                        <label for="province" class="ha-screen-reader"></label>
+                        <input id="province" class="field__input" placeholder="{{ customer.province }}" name="province"
+                            value="{{ customer.province }}">
+                        <span class="field__label-wrap" aria-hidden="true">
+                            <span class="field__label">Provincia </span>
+                        </span>
+                    </div>
+                    <p class="text-danger">{{ msg('errors.province') }}</p>
+                </div>
+                <div class="col-sm-3">
+                    <div class="field field_v2">
+                        <label for="zip_code" class="ha-screen-reader"></label>
+                        <input id="zip_code" class="field__input" placeholder="{{ customer.zip_code }}" name="zip_code"
+                            value="{{ customer.zip_code }}">
+                        <span class="field__label-wrap" aria-hidden="true">
+                            <span class="field__label">Codigo Postal </span>
+                        </span>
+                    </div>
+                    <p class="text-danger">{{ msg('errors.zip_code') }}</p>
+                </div>
+            </div>
+
+            <div class="row m-4">
+
+                <div class="col-sm">
+                    <div class="field field_v2">
+                        <label for="iban" class="ha-screen-reader"></label>
+                        <input id="iban" class="field__input" placeholder="{{ customer.iban }}" name="iban"
+                            value="{{ customer.iban }}">
+                        <span class="field__label-wrap" aria-hidden="true">
+                            <span class="field__label">Iban </span>
+                        </span>
+                    </div>
+                    <p class="text-danger">{{ msg('errors.iban') }}</p>
+                </div>
+
+                <div class="col-sm">
+                    <div class="field field_v2">
+                        <label for="bank" class="ha-screen-reader"></label>
+                        <input id="bank" class="field__input" placeholder="{{ customer.bank }}" name="bank"
+                            value="{{ customer.bank }}">
+                        <span class="field__label-wrap" aria-hidden="true">
+                            <span class="field__label">Banco </span>
+                        </span>
+                    </div>
+                    <p class="text-danger">{{ msg('errors.bank') }}</p>
+                </div>
+
+                <div class="col-sm">
+                    <div class="field field_v2">
+                        <label for="office_bank" class="ha-screen-reader"></label>
+                        <input id="office_bank" class="field__input" placeholder="{{ customer.office_bank }}"
+                            name="office_bank" value="{{ customer.office_bank }}">
+                        <span class="field__label-wrap" aria-hidden="true">
+                            <span class="field__label">Oficina </span>
+                        </span>
+                    </div>
+                    <p class="text-danger">{{ msg('errors.office_bank') }}</p>
+                </div>
+
+                <div class="col-sm">
+                    <div class="field field_v2">
+                        <label for="digital_control" class="ha-screen-reader"></label>
+                        <input id="digital_control" class="field__input" placeholder="{{ customer.digital_control }}"
+                            name="digital_control" value="{{ customer.digital_control }}">
+                        <span class="field__label-wrap" aria-hidden="true">
+                            <span class="field__label">Digito Control </span>
+                        </span>
+                    </div>
+                    <p class="text-danger">{{ msg('errors.digital_control') }}</p>
+
+                </div>
+            </div>
+            <div class="row m-4">
+
+                <div class="col-sm">
+                    <div class="field field_v2">
+                        <label for="bank_count" class="ha-screen-reader"></label>
+                        <input id="bank_count" class="field__input" placeholder="{{ customer.bank_count }}"
+                            name="bank_count" value="{{ customer.bank_count }}">
+                        <span class="field__label-wrap" aria-hidden="true">
+                            <span class="field__label">Cuenta bancaria</span>
+                        </span>
+                    </div>
+                    <p class="text-danger">{{ msg('errors.bank_count') }}</p>
+                </div>
+
+            </div>
+
+            <div class="row m-4">
+
+                <div class="col-sm-3">
+
+                    <label for="inputDescription" class="p-2">Forma de Pago </label>
+                    <select data-size="5" class="selectpicker form-select" name="payment_method"
+                        aria-label="Default select example">
+
+                        {% for p in payment_method %}
+
+                        <option {% if p.id_payment_method == customer.payment_method %} selected {% endif %}
+                            value="{{p.id_payment_method  }}">
+                            {{ p.name }}
+                        </option>
+                        {% endfor %}
+
+                    </select>
+
+                </div>
+
+                <div class="col-sm-3">
+
+                    <label for="inputDescription" class="p-2">Iva </label>
+
+                    <select data-size="5" class="selectpicker form-select" name="iva"
+                        aria-label="Default select example">
+
+                        <option value="21">21 %</option>
+                        <option value="10">10 %</option>
+                        <option value="4">4 %</option>
+                    </select>
+
+                </div>
+
+                <div class="col-sm-3">
+                    <label for="inputDescription" class="p-2">BIC (Requerido/Remesas) </label>
+
+                    <select data-size="5" class="selectpicker form-select" name="bic" value="{{ old('bic') }}"
+                        aria-label="Default select example" required>
+
+                        <option value="PRDVESM1XXX">AG BANCA PRIVADA S.A.</option>
+                        <option value="BACAESMMXXX">ANDBANK ESPAÑA S. A.</option>
+                        <option value="AREBESMMXXX">ARESBANK</option>
+                        <option value="BCMAESMMXXX">ATTIJARIWAFA BANK EUROPE SUCURSAL E</option>
+                        <option value="BMARES2MXXX">BANCA MARCH</option>
+                        <option value="ETICES21XXX">BANCA POPOLARE ETICA</option>
+                        <option value="BAPUES22XXX">BANCA PUEYO</option>
+                        <option value="ALCLESMMXXX">BANCO ALCALA</option>
+                        <option value="NORTESMMXXX">BANCO BANIF, S.A.</option>
+                        <option value="BBPIESMMXXX">BANCO BPI, S.A., S.E.</option>
+                        <option value="CGDIESMMXXX">BANCO CAIXA GERAL</option>
+                        <option value="CCOCESMMXXX">BANCO CAMINOS, S.A.</option>
+                        <option value="CECAESMM105">BANCO CASTILLA LA MANCHA</option>
+                        <option value="CSPAES2LXXX">BANCO CEISS - ESPANA</option>
+                        <option value="CSSOES2SXXX">BANCO CEISS SALAMANCA Y SORIA</option>
+                        <option value="BCOEESMMXXX">BANCO COOPERATIVO</option>
+                        <option value="BDEPESM1XXX">BANCO DE DEPOSITOS, S.A.</option>
+                        <option value="NACNESMMXXX">BANCO DE LA NACION ARGENTINA</option>
+                        <option value="MADRESMMXXX">BANCO DE MADRID,S.A.</option>
+                        <option value="BRASESMMXXX">BANCO DO BRASIL AG - ESPANA</option>
+                        <option value="BESMESMMXXX">BANCO ESPIRITO SANTO S A SUCUR</option>
+                        <option value="BEDFESM1XXX">BANCO EUROPEO DE FINANZAS</option>
+                        <option value="FIOFESM1XXX">BANCO FINANTIA SOFINLOC S.A.</option>
+                        <option value="INVLESMMXXX">BANCO INVERSIS NET S.A.</option>
+                        <option value="GBMNESMMXXX">BANCO MARE NOSTRUM</option>
+                        <option value="CECAESMM031">BANCO MARE NOSTRUM - GRANADA</option>
+                        <option value="BFIVESBBXXX">BANCO MEDIOLANUM, S.A.</option>
+                        <option value="PSTRESMMXXX">BANCO PASTOR</option>
+                        <option value="PICHESMMXXX">BANCO PICHINCHA ESPANA</option>
+                        <option value="POPUESMMXXX">BANCO POPULAR</option>
+                        <option value="BSABESBBXXX">BANCO SABADELL</option>
+                        <option value="BSCHESMMXXX">BANCO SANTANDER</option>
+                        <option value="BAOFESM1XXX">BANCOFAR S A</option>
+                        <option value="POPLESMMXXX">BANCOPOPULAR-E</option>
+                        <option value="ESPCESMMXXX">BANESTO</option>
+                        <option value="BOFAES2XXXX">BANK OF AMERICA MADRID LJUBLJA</option>
+                        <option value="CAHMESMMXXX">BANKIA</option>
+                        <option value="BKBKESMMXXX">BANKINTER</option>
+                        <option value="BKOAES22XXX">BANKOA</option>
+                        <option value="BCDMESMMXXX">BANQUE CHAABI DU MAROC</option>
+                        <option value="BMCEESMMXXX">BANQUE MAROCAINE DU COMM. EXTE.</option>
+                        <option value="BARCESMMXXX">BARCLAYS BANK</option>
+                        <option value="BARCESMMXXX">BARCLAYS BANK</option>
+                        <option value="CSURES2CXXX">BBK BANK CAJASUR SAU</option>
+                        <option value="BBVAESMMXXX">BBVA</option>
+                        <option value="BNPAESMMXXX">BNP PARIBAS ESPAÑA, SA</option>
+                        <option value="GEBAESMMXXX">BNP PARIBAS FORTIS</option>
+                        <option value="PARBESMXXXX">BNP PARIBAS SECURITIES MADRIDB</option>
+                        <option value="BNPAESMSXXX">BNP PARIBAS, S.E.</option>
+                        <option value="BCOEESMM060">C R. BURGOS FUENT. SEG. Y CASTEL</option>
+                        <option value="CCRIES2A121">C.R. DE CHESTE SCC</option>
+                        <option value="CCRIES2A157">C.R. LA JUNQUERA DE CHILCHES SCCV</option>
+                        <option value="CCRIES2A095">C.R. SAN ROQUE DE ALMENARA SCCV</option>
+                        <option value="CCRIES2A179">C.R.DE ALGINET SCCV</option>
+                        <option value="BCOEESMM081">C.R.DE CASTILLA-LA MANCHA</option>
+                        <option value="CCRIES2A152">C.R.DE VILLAR CCV</option>
+                        <option value="BCOEESMM018">C.R.R.S.AGUSTIN FUENTE ALA</option>
+                        <option value="CCRIES2A165">C.R.S. ISIDRO DE VILAFAMES SCCV</option>
+                        <option value="CCRIES2A119">C.R.S. JAIME ALQUERIAS NINO PERDIDO</option>
+                        <option value="CCRIES2A112">C.R.S. JOSE DE BURRIANA SCCV</option>
+                        <option value="CCRIES2A135">C.R.S. JOSE DE NULES</option>
+                        <option value="CECAESMM056">CAIXA D ESTALVIS DE POLLENSA</option>
+                        <option value="CDENESBBXXX">CAIXA DE C. DELS ENGYNYER</option>
+                        <option value="BCOEESMM159">CAIXA POPULAR-CAIXA RURAL</option>
+                        <option value="BCOEESMM162">CAIXA R. BENICARL</option>
+                        <option value="BCOEESMM096">CAIXA R. D ALCUDIA</option>
+                        <option value="BCOEESMM174">CAIXA R. DE CALLOSA EN SARRIA CCV</option>
+                        <option value="BCOEESMM166">CAIXA R. LES COVES VINROMA</option>
+                        <option value="BCOEESMM134">CAIXA R.NTA. SRA. ESPERANZA ONDA</option>
+                        <option value="BCOEESMM113">CAJA R. SAN JOSE DE ALCORA</option>
+                        <option value="BCOEESMM130">CAJA R.SAN JOSE DE ALMASSORA</option>
+                        <option value="BCOEESMM127">CAJA RURAL ALTEA CCV</option>
+                        <option value="CCRIES2A045">CAJA RURAL DE TORRENT CCV</option>
+                        <option value="CCRIES2A118">CAJA RURAL GALEGA, SCCLG</option>
+                        <option value="BCOEESMM111">CAJA RURAL LA VALL "SAN ISIDRO"</option>
+                        <option value="CAIXESBBXXX">CAIXABANK</option>
+                        <option value="CECAESMM045">CAJA AH. Y MP. DE ONTINYENT</option>
+                        <option value="CASDESBBXXX">CAJA DE ARQUITECTOS, S.C.C</option>
+                        <option value="CCCVESM1XXX">CAJA DE CDTO COOPERATIVO</option>
+                        <option value="CCRIES2A029">CAJA DE CREDITO DE PETREL</option>
+                        <option value="CLPEES2MXXX">CAJA LABORAL</option>
+                        <option value="BCOEESMM098">CAJA NTA.SRA.DEL ROSARIO</option>
+                        <option value="BCOEESMM089">CAJA R.BAENA GUADAL.</option>
+                        <option value="BCOEESMM104">CAJA R.CA#ETE DE LAS TORRE</option>
+                        <option value="BCOEESMM134">CAJA R.NTRA. SRA ESPERANZA ONDA</option>
+                        <option value="BCOEESMM113">CAJA R.SAN JOSE DE ALCORA</option>
+                        <option value="BCOEESMM130">CAJA R.SAN JOSE DE ALMASSORA</option>
+                        <option value="BCOEESMM127">CAJA RURAL ALTEA CCV</option>
+                        <option value="BCOEESMM116">CAJA RURAL CASAS IBAÑEZ</option>
+                        <option value="BCOEESMM110">CAJA RURAL CATOLICO AGRARIA</option>
+                        <option value="BCOEESMM005">CAJA RURAL CENTRAL</option>
+                        <option value="BCOEESMM118">CAJA RURAL COMARCAL MOTA CUERVO</option>
+                        <option value="BCOEESMM117">CAJA RURAL DE ALBAL</option>
+                        <option value="BCOEESMM191">CAJA RURAL DE ARAGON, S.C.C.</option>
+                        <option value="BCOEESMM059">CAJA RURAL DE ASTURIAS</option>
+                        <option value="BCOEESMM138">CAJA RURAL DE BETXI</option>
+                        <option value="BCOEESMM063">CAJA RURAL DE CORDOBA</option>
+                        <option value="BCOEESMM009">CAJA RURAL DE EXTREMADURA</option>
+                        <option value="BCOEESMM007">CAJA RURAL DE GIJON</option>
+                        <option value="BCOEESMM023">CAJA RURAL DE GRANADA</option>
+                        <option value="BCOEESMM140">CAJA RURAL DE GUISSONA, S.C.C.</option>
+                        <option value="BCOEESMM067">CAJA RURAL DE JAEN</option>
+                        <option value="BCOEESMM008">CAJA RURAL DE NAVARRA</option>
+                        <option value="BCOEESMM016">CAJA RURAL DE SALAMANCA</option>
+                        <option value="BCOEESMM017">CAJA RURAL DE SORIA</option>
+                        <option value="BCOEESMM080">CAJA RURAL DE TEERUEL</option>
+                        <option value="CCRIES2A123">CAJA RURAL DE TURIS</option>
+                        <option value="BCOEESMM144">CAJA RURAL DE UTRERA,S.C.A</option>
+                        <option value="BCOEESMM085">CAJA RURAL DE VILLAMALEA</option>
+                        <option value="BCOEESMM085">CAJA RURAL DE ZAMORA</option>
+                        <option value="BCOEESMM187">CAJA RURAL DEL SUR, S.C.C.</option>
+                        <option value="CCRIES2AXXX">CAJAS RURALES UNIDAS</option>
+                        <option value="BCOEESMM076">CAJASIETE, CAJA RURAL</option>
+                        <option value="CESCESBBXXX">CATALUNYA BANC</option>
+                        <option value="CECAESMMXXX">CECABANK</option>
+                        <option value="CITIES2XXXX">CITIBANK ESPAÑA</option>
+                        <option value="CITIESMXXXX">CITIBANK INTL PLC SPAIN BRANCH</option>
+                        <option value="COBAESMXXXX">COMMERZBANK AGTERNATIONAL S AN</option>
+                        <option value="PRABESMMXXX">COOP.CENTR-RAIFFEISEN-BOER</option>
+                        <option value="CCSEESM1XXX">CORTAL CONSORS, S.E.</option>
+                        <option value="CRESESMMXXX">CR DIT SUISSE AG, S.E.</option>
+                        <option value="BSUIESMMXXX">CRCAM SUD MEDITERRANEE SE</option>
+                        <option value="AGRIESB1XXX">CREDIT AGRICOLE CIB MADRID</option>
+                        <option value="AGRIESMMXXX">CREDIT AGRICOLE LUXEMBOURG S.E.</option>
+                        <option value="DEUTESBBXXX">DEUTSCHE BANK SOCIEDAD ANONIMA</option>
+                        <option value="DSBLESMMXXX">DEXIA SABADELL</option>
+                        <option value="PROAESMMXXX">EBN BANCO DENEGOCIOS, S.A.</option>
+                        <option value="ARABESMMXXX">EUROPE ARAB BANK, PLC - SUCURSAL EN</option>
+                        <option value="EVOBESMMXXX">EVO BANCO S.A.</option>
+                        <option value="BCOEESMM190">GLOBALCAJA</option>
+                        <option value="CAZRES2ZXXX">IBERCAJA BANCO</option>
+                        <option value="ICBKESMMXXX">IND. AND COMM. BANK OF CHINA MADRID</option>
+                        <option value="INGDESMMXXX">ING BANK, N.V. S.E.</option>
+                        <option value="BBRUESMXXXX">ING BELGIUM MADRID BRANCH</option>
+                        <option value="BCITESMMXXX">INTESA SANPAOLO SPA MADRIDNEBA</option>
+                        <option value="CHASESM3XXX">JP MORGAN CHASE BANK MADRIDKAR</option>
+                        <option value="KBLXESMMXXX">KUTXABANK</option>
+                        <option value="CECAESMM048">LIBERBANK</option>
+                        <option value="CAGLESMMXXX">NCG BANCO</option>
+                        <option value="MIKBESB1XXX">NUEVO MICRO BANK</option>
+                        <option value="OPENESMMXXX">OPEN BANK SANTANDER CONSUMER S.A</option>
+                        <option value="PICTESMMXXX">PICTET AND CIE EUROPE SA</option>
+                        <option value="POPIESMMXXX">POPULAR BANCA PRIVADA S.A.</option>
+                        <option value="WELAESMMXXX">PORTIGON AG, S.E.</option>
+                        <option value="PRVBESB1XXX">PRIVAT BANK DEGROOF SAU</option>
+                        <option value="BVALESMMXXX">RBC INVESTOR SERV. ESPAÑA</option>
+                        <option value="RENBESMMXXX">RENTA 4 BANCO, S.A.</option>
+                        <option value="ABNAESMMXXX">ROYAL BANK OF SCOTLAND PLC SPAIN</option>
+                        <option value="BSSSESM2XXX">SANTANDER BANCO DE EMISIONES S.A.</option>
+                        <option value="SCFBESMMXXX">SANTANDER CONSUMER FINANCE,S.A.</option>
+                        <option value="SABNESMMXXX">SANTANDER INVESTMENT, S.A.</option>
+                        <option value="SELFESMMXXX">SELF TRADE BANK</option>
+                        <option value="SOGEESMMXXX">SOCIETE GENERALE MADRIDDZIAL W</option>
+                        <option value="POHIESMMXXX">TARGOBANK, S.A.</option>
+                        <option value="BOTKESMXXXX">THE BANK OF TOKYO MITS. UFJ, MADRID</option>
+                        <option value="TRIOESMMXXX">TRIODOS BANK, N.V. S.E.</option>
+                        <option value="UBIBESMMXXX">UBI BANCA INTERNATIONAL S.A. S.E</option>
+                        <option value="UBSWESMMXXX">UBS SPAINROMA SPASPAI FOSSANOR</option>
+                        <option value="UCJAES2MXXX">UNICAJA BANCO</option>
+                        <option value="VOWAES21XXX">VOLKSWAGEN BANK GMBH, S.E.</option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+            <div class="row m-4">
+
+                <div class="col-sm-3">
+
+                    <label class="" for="inputDescription">Fecha de cargo <b> RECURRENTE</b>,
+                    </label>
+
+                    <input type="date" class="form-control text-left ml-2 " name="recurrent_date"
+                        placeholder="Fecha de Recurrente">
+
+                </div>
+
+                <div class="col-sm-4">
+
+                    <label class="" for="inputDescription"><span style="font-size: 0.8rem;"> Fecha en la que<b> el
+                                deudor firmó el mandato (AT-25)</b></span>
+                    </label>
+
+                    <input type="date" class="form-control text-left ml-2 " name="date_signing_mandate"
+                        placeholder="Fecha de Recurrente">
+
+                </div>
+
+                <div class="col-sm-3">
+
+                </div>
+
+            </div>
+
+            <div class="row mt-4 m-4">
+                <div class="col">
+
+                    <label for="exampleFormControlTextarea1" class="p-2">Observaciones</label>
+                    <textarea class="form-control" id="exampleFormControlTextarea1" name="observations"
+                        rows="5">{{ old('observations') }}
+                    </textarea>
+
+                </div>
+            </div>
+
+            {# PERSONA DE CONTACTO  EXISTENTE #}
+
+            <div class="row mt-4">
+                <p class="contactos p-2 m-2 mb-2">&nbsp;&nbsp;
+                    <img class="mr-2" src="\images\contact.png" alt="..."> &nbsp;&nbsp;Contactos actuales</p>
+
+            </div>{# row #}
+
+            {% if ( contador  ==  0 ) %}
+            <div class="row mt-">
+                <p class="noahicontactos text-center p-2 m-2 ">&nbsp;&nbsp;
+                    <lord-icon src="https://cdn.lordicon.com/tdrtiskw.json" trigger="hover"
+                        colors="primary:#121331,secondary:#06e729" style="width:90px;height:90px">
+                    </lord-icon>
+
+                    <br> ..No existen contactos actualmente</p>
+
+            </div>{# row #}
+
+            {% endif %}
+
+            <section id="listado">
+
+                <div class="row  p-2">
+
+                    <table class="table table-striped  text-center text-black">
+
+                        <thead>
+                            <tr class="tr_">
+                                <th class="text-center align-middle" scope="col">Nombre</th>
+                                <th class="text-center  align-middle" scope="col">Cargo</th>
+                                <th class="text-center  align-middle" scope="col">Telefono</th>
+                                <th class="text-center  align-middle" scope="col"> Email</th>
+                                <th class="text-center  align-middle" scope="col"> </th>
+
+                            </tr>
+                        </thead>
+
+                        <tbody>
+
+                            {% for persona_contacto in personas_contactos %}
+
+                            <tr>
+                                <th scope="col" class="text-center align-middle ">
+
+                                    <p> {{ persona_contacto.name }} </p>
+
+                                </th>
+
+                                <th scope="col" class="text-center align-middle">
+
+                                    <p> {{ persona_contacto.position }} </p>
+
+                                </th>
+
+                                <th scope="col" class="text-center align-middle">
+
+                                    <p> {{ persona_contacto.phone }} </p>
+
+                                </th>
+
+                                <th scope="col" class="text-center align-middle">
+
+                                    <p> {{ persona_contacto.mail }} </p>
+
+                                </th>
+
+                                <td class="text-center align-middle p-0">
+                                    <div class="text-center p-0">
+                                        <nav class="navbar navbar-expand-lg p-0 navbar-light text-center">
+
+                                            <button class="navbar-toggler text-center  p-0" type="button"
+                                                data-bs-toggle="collapse" data-bs-target="#navbarSupportedContentTabla"
+                                                aria-controls="navbarSupportedContentTabla" aria-expanded="false"
+                                                aria-label="Toggle navigation">
+                                                <span class="navbar-toggler-icon icono_menu_nav  p-0">
+                                                </span>
+                                            </button>
+
+                                            <div class="collapse navbar-collapse text-center p-0"
+                                                id="navbarSupportedContentTabla">
+
+                                                <ul class="navbar-nav   icon_tale_menu">
+                                                    <li class="nav-item m-1  ">
+                                                        <span class="text-center boton_eliminar mt-2"
+                                                            data-toggle="modal" data-target="#exampleModal">
+                                                            <img src="\images\icono_eliminar_pc.png" alt="..."
+                                                                class="text-center" title="Eliminar">
+                                                        </span>
+
+                                                        <div class="modal fade " id="exampleModal" tabindex="-1"
+                                                            role="dialog" aria-labelledby="exampleModalLabel"
+                                                            aria-hidden="true">
+                                                            <div class="modal-dialog abs-center" role="document">
+                                                                <div class="modal-content" style="border-radius: 30px;">
+                                                                    <div class="modal-header">
+                                                                        <h5 class="modal-title" id="exampleModalLabel">
+                                                                            Esta seguro que desea
+                                                                            eliminarlo?
+                                                                        </h5>
+
+                                                                        <button type="button" class="close"
+                                                                            data-dismiss="modal" aria-label="Close">
+                                                                            <span aria-hidden="true"> <img
+                                                                                    src="\images\boton_cancel.png"
+                                                                                    alt="..." class="text-center"
+                                                                                    title="Eliminar"></span>
+                                                                        </button>
+
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        <p>Esta accion elimina permanentemente este
+                                                                            contacto</p>
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        {#<button type="button" class="btn btn-secondary boton_cerrar" data-dismiss="modal">Close</button> #}
+                                                                        <a class=" boton_cerrar"
+                                                                            href="{{ routeTo('borrarPersonaContactoEditarCliente', persona_contacto.id_personC) }}">Borrar
+
+                                                                        </a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <form>
+                                                    </li>
+
+                                                    <a class="text-white"
+                                                        href="{{ routeTo('editPersonContact', persona_contacto.id_personC) }}">
+
+                                                        <span class="mt-3 text-center">
+                                                            <img src="\images\edit_contacto.png" alt="..." class="mt-1"
+                                                                title="Editar">
+                                                        </span>
+                                                    </a>
+
+                                                </ul>
+
+                                            </div>
+
+                                        </nav>
+                                    </div>
+                                </td>
+
+                            </tr>
+                            {% endfor %}
+
+                        </tbody>
+
+                    </table>
+
+            </section>
+
+            {# Si ahi 0 o menos de 3 personas de contactos mostrar esta seccion de alta  #}
+            {% if ( contador  ==  0 or contador < 3) %}
+            <section>
+
+                <div class="row mt-4 mb-4 p-2 ">
+
+                    {# Agregar PERSONA DE CONTACTO
+                    <div class="row mt-4">
+                        <p class="contactos p-2 m-2 mb-2">&nbsp;&nbsp;
+                            <img class="mr-2" src="\images\contact.png" alt="..."> &nbsp;&nbsp;Agregar nuevos
+                            contactos</p>
+                    </div>{# row #}
+
+                    {# Si ahi 0 o menos de 3 personas de contactos mostrar esta seccion de alta  #}
+                    {% if ( contador  >=  0) %}
+                    <div class="row mb-2 mt-3">
+                        <div class="col-sm-12 text-center ">
+
+                            <span class="botones p-3">
+                                <a onclick="mostrar()" title="">
+                                    <img src="\images\agregar_pc.png" alt="..." title="Agregar">
+                                </a>
+
+                                &nbsp;&nbsp; Agregar contacto &nbsp;&nbsp;
+
+                                <a onclick="ocultar()" title="">
+                                    <span class="mt-3 text-center">
+                                        <img src="\images\icono_eliminar_pc.png" alt="..." class="imagen_icono_eliminar"
+                                            title="Eliminar">
+                                    </span>
+                                </a>
+                            </span>
+
+                        </div>
+                    </div>
+
+                    <table class="table table-striped  text-center">
+
+                        <tbody>
+                            <tr>
+                                <th scope="col" class="text-center align-middle">
+                                </th>
+
+                                <th scope="col" class="text-center align-middle">
+
+                                    <div class="field field_v2" id="contenido01">
+                                        <label for="name_pc_01" class="ha-screen-reader"></label>
+                                        <input id="name_pc_01" class="field__input" placeholder=" " name="name_pc_01">
+                                        <span class="field__label-wrap" aria-hidden="true">
+                                            <span class="field__label"> Nombre </span>
+                                        </span>
+                                    </div>
+
+                                </th>
+                                <th scope="col" class="text-center align-middle">
+
+                                    <div class="field field_v2" id="contenido02">
+                                        <label for="position_01" class="ha-screen-reader"></label>
+                                        <input id="position_01" class="field__input" placeholder=" " name="position_01">
+                                        <span class="field__label-wrap" aria-hidden="true">
+                                            <span class="field__label">Cargo</span>
+                                        </span>
+                                    </div>
+
+                                </th>
+
+                                <th scope="col" class="text-center align-middle">
+
+                                    <div class="field field_v2" id="contenido03">
+                                        <label for="phone_pc_01" class="ha-screen-reader"></label>
+                                        <input id="phone_pc_01" class="field__input" placeholder=" " name="phone_pc_01">
+                                        <span class="field__label-wrap" aria-hidden="true">
+                                            <span class="field__label">Telefono </span>
+                                        </span>
+                                    </div>
+
+                                </th>
+
+                                <th scope="col" class="text-center align-middle">
+                                    <div class="field field_v2" id="contenido04">
+                                        <label for="email_01" class="ha-screen-reader"></label>
+                                        <input id="email_01" class="field__input" placeholder=" " name="email_01">
+                                        <span class="field__label-wrap" aria-hidden="true">
+                                            <span class="field__label">Email </span>
+                                        </span>
+                                    </div>
+
+                                </th>
+
+                            </tr>
+
+                        </tbody>
+                    </table>
+                    {% endif %}
+                    {# segundo #}
+                    {% if ( contador  <=  1) %}
+                    <div class="row mb-2 mt-3">
+                        <div class="col-sm-12 text-center">
+                            <span class="botones p-3">
+                                <a onclick="mostrar02()" title="">
+                                    <img src="\images\agregar_pc.png" alt="..." title="Agregar">
+                                </a>
+
+                                &nbsp;&nbsp; Agregar contacto &nbsp;&nbsp;
+
+                                <a onclick="ocultar02()" title="">
+                                    <span class="mt-3 text-center">
+                                        <img src="\images\icono_eliminar_pc.png" alt="..." class="imagen_icono_eliminar"
+                                            title="Eliminar">
+                                    </span>
+                                </a>
+                            </span>
+                        </div>
+                    </div>
+
+                    <table class="table table-striped  text-center">
+
+                        <tbody>
+
+                            <tr>
+                                <th scope="col" class="text-center align-middle">
+                                </th>
+
+                                <th scope="col" class="text-center align-middle">
+
+                                    <div class="field field_v2" id="contenido001">
+                                        <label for="name_pc_02" class="ha-screen-reader"></label>
+                                        <input id="name_pc_02" class="field__input" placeholder=" " name="name_pc_02">
+                                        <span class="field__label-wrap" aria-hidden="true">
+                                            <span class="field__label"> Nombre </span>
+                                        </span>
+                                    </div>
+
+                                </th>
+                                <th scope="col" class="text-center align-middle">
+
+                                    <div class="field field_v2" id="contenido002">
+                                        <label for="position_02" class="ha-screen-reader"></label>
+                                        <input id="position_02" class="field__input" placeholder=" " name="position_02">
+                                        <span class="field__label-wrap" aria-hidden="true">
+                                            <span class="field__label">Cargo</span>
+                                        </span>
+                                    </div>
+
+                                </th>
+
+                                <th scope="col" class="text-center align-middle">
+
+                                    <div class="field field_v2" id="contenido003">
+                                        <label for="phone_pc_02" class="ha-screen-reader"></label>
+                                        <input id="phone_pc_02" class="field__input" placeholder=" " name="phone_pc_02">
+                                        <span class="field__label-wrap" aria-hidden="true">
+                                            <span class="field__label">Telefono </span>
+                                        </span>
+                                    </div>
+
+                                </th>
+
+                                <th scope="col" class="text-center align-middle">
+                                    <div class="field field_v2" id="contenido004">
+                                        <label for="email_02" class="ha-screen-reader"></label>
+                                        <input id="email_02" class="field__input" placeholder=" " name="email_02">
+                                        <span class="field__label-wrap" aria-hidden="true">
+                                            <span class="field__label">Email </span>
+                                        </span>
+                                    </div>
+
+                                </th>
+
+                            </tr>
+
+                        </tbody>
+                    </table>
+                    {% endif %}
+
+                    {% if ( contador == 0 ) %}
+                    {# tercero #}
+                    <div class="row mb-2 mt-3">
+                        <div class="col-sm-12 text-center">
+                            <span class="botones p-3">
+                                <a onclick="mostrar03()" title="">
+                                    <img src="\images\agregar_pc.png" alt="..." title="Agregar">
+                                </a>
+                                &nbsp;&nbsp; Agregar contacto &nbsp;&nbsp;
+                                <a onclick="ocultar03()" title="">
+                                    <span class="mt-3 text-center">
+                                        <img src="\images\icono_eliminar_pc.png" alt="..." class="imagen_icono_eliminar"
+                                            title="Eliminar">
+                                    </span>
+                                </a>
+                            </span>
+                        </div>
+                    </div>
+
+                    <table class="table table-striped  text-center">
+
+                        <tbody>
+
+                            <tr>
+                                <th scope="col" class="text-center align-middle">
+                                </th>
+
+                                <th scope="col" class="text-center align-middle">
+
+                                    <div class="field field_v2" id="contenido0001">
+                                        <label for="name_pc_03" class="ha-screen-reader"></label>
+                                        <input id="name_pc_03" class="field__input" placeholder=" " name="name_pc_03">
+                                        <span class="field__label-wrap" aria-hidden="true">
+                                            <span class="field__label"> Nombre </span>
+                                        </span>
+                                    </div>
+                                    <p class="text-danger">{{ msg('errors.name_pc_03') }}</p>
+
+                                </th>
+                                <th scope="col" class="text-center align-middle">
+
+                                    <div class="field field_v2" id="contenido0002">
+                                        <label for="position_03" class="ha-screen-reader"></label>
+                                        <input id="position_03" class="field__input" placeholder=" " name="position_03">
+                                        <span class="field__label-wrap" aria-hidden="true">
+                                            <span class="field__label">Cargo</span>
+                                        </span>
+                                    </div>
+
+                                </th>
+
+                                <th scope="col" class="text-center align-middle">
+
+                                    <div class="field field_v2" id="contenido0003">
+                                        <label for="phone_pc_03" class="ha-screen-reader"></label>
+                                        <input id="phone_pc_03" class="field__input" placeholder=" " name="phone_pc_03">
+                                        <span class="field__label-wrap" aria-hidden="true">
+                                            <span class="field__label">Telefono </span>
+                                        </span>
+                                    </div>
+
+                                </th>
+
+                                <th scope="col" class="text-center align-middle">
+                                    <div class="field field_v2" id="contenido0004">
+                                        <label for="email_03" class="ha-screen-reader"></label>
+                                        <input id="email_03" class="field__input" placeholder=" " name="email_03">
+                                        <span class="field__label-wrap" aria-hidden="true">
+                                            <span class="field__label">Email </span>
+                                        </span>
+                                    </div>
+
+                                </th>
+
+                            </tr>
+
+                        </tbody>
+                    </table>
+                    {% endif %}
+                    <p class="contactos p-2 mb-2"> </p>
+            </section>
+            {% endif %}
+
+            <div class="row mt-4">
+                <div class="col-md">
+
+                    <div class="row">
+                        <div class="col">
+                        </div>
+                        <div class="col-md">
+                            <button data-customer-id="{{ customer.id_customer }}"
+                                class=" mt-3 pt-3 pb-3 registrar text-white" type="submit">REGISTRAR</button>
+                        </div>
+                        <div class="col">
+                        </div>
+                    </div>
+                </div>
+    </form>
+
+    {% endfor %}
+    <p class=" text-center mt-5">
+        <a href="{{ routeTo('listCustomers') }}">
+            <img class="rounded mx-auto d-block " src="\images\regresar.png" alt="...">
+        </a>
+        <br> Volver a la lista de Clientes
+    </p>
+
+</div>
+</div>
+</div>
+</div>
+
+
+  <div class="row " >
+        <div class="col-12">
+
+      {%  if msg('msg') %}
+
+            <script>
+                $(document).ready(function() {
+
+                 var msg = {{ msg('msg')|json_encode|raw }};
+
+                Swal.fire({
+                    title: msg.title,
+                    text: msg.text,
+                    icon: 'success',
+                    cancelButtonText: 'Cerrar'
+                    })
+                });
+            </script>
+
+      {% endif %}
+        {%  if msg('msg2') %}
+
+            <script>
+                $(document).ready(function() {
+
+                 var msg2 = {{ msg('msg2')|json_encode|raw }};
+
+                Swal.fire({
+                    title: msg2.title,
+                    text: msg2.text,
+                    icon: 'warning',
+                    cancelButtonText: 'Cerrar'
+                    })
+                });
+
+
+            </script>
+
+      {% endif %}
+
+     </div>
+ </div>
+
+{% include 'Front/base/footer.html.twig' %}
+
+{% endblock %}
+
+{% block script %}
+
+{{parent(script)}}
+
+<script src="https://cdn.lordicon.com/qjzruarw.js"></script>
+
+<script>
+    setTimeout(function() {
+        $(".alerta").fadeOut(2000);
+    }, 2200);
+    window.addEventListener("load", oculto);
+    window.addEventListener("load", oculto2);
+    window.addEventListener("load", oculto3);
+    window.addEventListener("load", oculto4);
+
+    function oculto() {
+        var contenido01 = document.getElementById('contenido01');
+        var contenido02 = document.getElementById('contenido02');
+        var contenido03 = document.getElementById('contenido03');
+        var contenido04 = document.getElementById('contenido04');
+        var contenido05 = document.getElementById('contenido05');
+        var contenido06 = document.getElementById('contenido06');
+        var contenido07 = document.getElementById('contenido07');
+        var contenido08 = document.getElementById('contenido08');
+        var contenido09 = document.getElementById('contenido09');
+        var contenido10 = document.getElementById('contenido10');
+        var nuevoContactoDiv = document.getElementById('nuevoContactoDiv');
+        contenido01.style.display = 'none';
+        contenido02.style.display = 'none';
+        contenido03.style.display = 'none';
+        contenido04.style.display = 'none';
+        contenido05.style.display = 'none';
+        contenido06.style.display = 'none';
+        contenido07.style.display = 'none';
+        contenido08.style.display = 'none';
+        contenido09.style.display = 'none';
+        contenido10.style.display = 'none';
+    }
+
+    function oculto2() {
+        var contenido001 = document.getElementById('contenido001');
+        var contenido002 = document.getElementById('contenido002');
+        var contenido003 = document.getElementById('contenido003');
+        var contenido004 = document.getElementById('contenido004');
+        var contenido005 = document.getElementById('contenido005');
+        //var nuevoContactoDiv = document.getElementById('nuevoContactoDiv');
+        contenido001.style.display = 'none';
+        contenido002.style.display = 'none';
+        contenido003.style.display = 'none';
+        contenido004.style.display = 'none';
+        contenido005.style.display = 'none';
+    }
+
+    function oculto3() {
+        var contenido0001 = document.getElementById('contenido0001');
+        var contenido0002 = document.getElementById('contenido0002');
+        var contenido0003 = document.getElementById('contenido0003');
+        var contenido0004 = document.getElementById('contenido0004');
+        var contenido0005 = document.getElementById('contenido0005');
+        //  var nuevoContactoDiv = document.getElementById('nuevoContactoDiv');
+        contenido0001.style.display = 'none';
+        contenido0002.style.display = 'none';
+        contenido0003.style.display = 'none';
+        contenido0004.style.display = 'none';
+        contenido0005.style.display = 'none';
+    }
+
+    function mostrar() {
+        var contenido01 = document.getElementById('contenido01');
+        var contenido02 = document.getElementById('contenido02');
+        var contenido03 = document.getElementById('contenido03');
+        var contenido04 = document.getElementById('contenido04');
+        var contenido05 = document.getElementById('contenido05');
+        var contenido06 = document.getElementById('contenido06');
+        var contenido07 = document.getElementById('contenido07');
+        var contenido08 = document.getElementById('contenido08');
+        var contenido09 = document.getElementById('contenido09');
+        var contenido10 = document.getElementById('contenido10');
+        var nuevoContactoDiv = document.getElementById('nuevoContactoDiv');
+        if (contenido01.style.display === 'none') {
+            contenido01.style.display = 'block';
+        }
+        if (contenido02.style.display === 'none') {
+            contenido02.style.display = 'block';
+        }
+        if (contenido03.style.display === 'none') {
+            contenido03.style.display = 'block';
+        }
+        if (contenido04.style.display === 'none') {
+            contenido04.style.display = 'block';
+        }
+        if (contenido05.style.display === 'none') {
+            contenido05.style.display = 'block';
+        }
+        if (nuevoContactoDiv.style.display === 'none') {
+            nuevoContactoDiv.style.display = 'block';
+        }
+    }
+
+    function ocultar() {
+        var contenido01 = document.getElementById('contenido01');
+        var contenido02 = document.getElementById('contenido02');
+        var contenido03 = document.getElementById('contenido03');
+        var contenido04 = document.getElementById('contenido04');
+        var contenido05 = document.getElementById('contenido05');
+        //     var nuevoContactoDiv2 = document.getElementById('nuevoContactoDiv2');
+        if (contenido01.style.display === 'block') {
+            contenido01.style.display = 'none';
+        }
+        if (contenido02.style.display === 'block') {
+            contenido02.style.display = 'none';
+        }
+        if (contenido03.style.display === 'block') {
+            contenido03.style.display = 'none';
+        }
+        if (contenido04.style.display === 'block') {
+            contenido04.style.display = 'none';
+        }
+        if (contenido05.style.display === 'block') {
+            contenido05.style.display = 'none';
+        }
+    }
+
+    function mostrar02() {
+        var contenido001 = document.getElementById('contenido001');
+        var contenido002 = document.getElementById('contenido002');
+        var contenido003 = document.getElementById('contenido003');
+        var contenido004 = document.getElementById('contenido004');
+        var contenido005 = document.getElementById('contenido005');
+        var nuevoContactoDiv02 = document.getElementById('nuevoContactoDiv02');
+        if (contenido001.style.display === 'none') {
+            contenido001.style.display = 'block';
+        }
+        if (contenido002.style.display === 'none') {
+            contenido002.style.display = 'block';
+        }
+        if (contenido003.style.display === 'none') {
+            contenido003.style.display = 'block';
+        }
+        if (contenido004.style.display === 'none') {
+            contenido004.style.display = 'block';
+        }
+        if (contenido005.style.display === 'none') {
+            contenido005.style.display = 'block';
+        }
+        if (nuevoContactoDiv02.style.display === 'none') {
+            nuevoContactoDiv02.style.display = 'block';
+        }
+        /*
+         if (x.style.display === 'none') {
+            x.style.display = 'block';
+        } else {
+            x.style.display = 'none';
+        }
+        */
+    }
+
+    function ocultar02() {
+        var contenido001 = document.getElementById('contenido001');
+        var contenido002 = document.getElementById('contenido002');
+        var contenido003 = document.getElementById('contenido003');
+        var contenido004 = document.getElementById('contenido004');
+        var contenido005 = document.getElementById('contenido005');
+        //     var nuevoContactoDiv2 = document.getElementById('nuevoContactoDiv2');
+        if (contenido001.style.display === 'block') {
+            contenido001.style.display = 'none';
+        }
+        if (contenido002.style.display === 'block') {
+            contenido002.style.display = 'none';
+        }
+        if (contenido003.style.display === 'block') {
+            contenido003.style.display = 'none';
+        }
+        if (contenido004.style.display === 'block') {
+            contenido004.style.display = 'none';
+        }
+        if (contenido005.style.display === 'block') {
+            contenido005.style.display = 'none';
+        }
+    }
+
+    function mostrar03() {
+        var contenido0001 = document.getElementById('contenido0001');
+        var contenido0002 = document.getElementById('contenido0002');
+        var contenido0003 = document.getElementById('contenido0003');
+        var contenido0004 = document.getElementById('contenido0004');
+        var contenido0005 = document.getElementById('contenido0005');
+        var nuevoContactoDiv02 = document.getElementById('nuevoContactoDiv02');
+        if (contenido0001.style.display === 'none') {
+            contenido0001.style.display = 'block';
+        }
+        if (contenido0002.style.display === 'none') {
+            contenido0002.style.display = 'block';
+        }
+        if (contenido0003.style.display === 'none') {
+            contenido0003.style.display = 'block';
+        }
+        if (contenido0004.style.display === 'none') {
+            contenido0004.style.display = 'block';
+        }
+        if (contenido0005.style.display === 'none') {
+            contenido0005.style.display = 'block';
+        }
+        if (nuevoContactoDiv02.style.display === 'none') {
+            nuevoContactoDiv02.style.display = 'block';
+        }
+        /*
+         if (x.style.display === 'none') {
+            x.style.display = 'block';
+        } else {
+            x.style.display = 'none';
+        }
+        */
+    }
+
+    function ocultar03() {
+        var contenido0001 = document.getElementById('contenido0001');
+        var contenido0002 = document.getElementById('contenido0002');
+        var contenido0003 = document.getElementById('contenido0003');
+        var contenido0004 = document.getElementById('contenido0004');
+        var contenido0005 = document.getElementById('contenido0005');
+        //     var nuevoContactoDiv2 = document.getElementById('nuevoContactoDiv2');
+        if (contenido0001.style.display === 'block') {
+            contenido0001.style.display = 'none';
+        }
+        if (contenido0002.style.display === 'block') {
+            contenido0002.style.display = 'none';
+        }
+        if (contenido0003.style.display === 'block') {
+            contenido0003.style.display = 'none';
+        }
+        if (contenido0004.style.display === 'block') {
+            contenido0004.style.display = 'none';
+        }
+        if (contenido0005.style.display === 'block') {
+            contenido0005.style.display = 'none';
+        }
+    }
+</script>
+
+<script src="https://cdn.lordicon.com/qjzruarw.js"></script>
+<script src="/js/jsBootstrap.js"></script>
+<script src="https://cdn.lordicon.com/qjzruarw.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+{% endblock %}

@@ -1,0 +1,319 @@
+{% extends 'Front/base/main.html.twig' %}
+
+{% block titleHeader %}
+	Listar vehiculos
+{% endblock %}
+{% block content %}
+	{% include 'Front/base/header.html.twig' %}
+	<link rel="stylesheet" href="/css/css_all/vehicles/list.css">
+
+	<body class="container_clientes">
+
+		<div class="container mt-1">
+
+			<div id="title_vehicles">
+
+				<div class="row">
+					<div class="col-4 pl-3">
+						<a href="javascript: history.go(-1)">&nbsp;&nbsp;&nbsp;
+							<img class="ml-3 pt-4 " src="\images\arrow_white_izq.png" alt="...">
+						</a>
+					</div>
+					<div class="col-4"></div>
+					<div class="col-4"></div>
+				</div>
+
+				<div class="cssscan">
+					<p>
+						<h4 class="display-4 text-white text-center ">Listado de Vehiculos</h4>
+					</p>
+					<p class=" texto_titulo text-white">Gestion de Vehiculos dar de alta, modificar y listar
+					</p>
+				</span>
+			</p>
+		</p>
+
+		<img src="\images\conductor_header_.svg" alt="...">
+	</body>
+</div></div>
+<div class="cuerpo_vehicle mt-2">
+
+<div class="row p-2 mb-3 justify-content-center justify-content-md-start">
+
+
+
+	<div class="col-4 "></div>
+
+	<div class="col-sm-4 pb-3">
+
+		<a class="text-center" href="{{ routeTo('showFormVehicle') }}">
+			<span class=" mx-auto d-block text-center button_vehicle_add">
+
+				<img class=" pt-3" src="\images\add_1.png" alt="...">
+
+			</span>
+		</a>
+
+	</div>
+
+	<div class="col-4 "></div>
+</div>
+<div class="row mb-4 ">
+
+	<div class="col-sm-3 "></div>
+
+	<div class="col-sm-6 ">
+
+		<select class="form-select " name="" id="id_customers_selection" aria-label="Default select example">
+			<option selected>Seleccione un vehiculo
+			</option>
+			{% for v in vehicles_all %}
+				{% if ( v.active  ==  1) %}
+
+					<option value="{{ v.name }}" class="font-weight-bold " data-url="{{routeTo('searchforVehicle', v.id_vehicle)}}">
+						{{ v.name }}
+					</option>
+				{% endif %}
+			{% endfor %}
+		</select>
+
+	</div>
+
+	<div class="col-sm-3"></div>
+
+</div>
+
+
+<table class="table table-striped  text-center">
+	<thead>
+		<tr>
+          <th class="text-center align-middle th_header" scope="col">Nombre</th>
+			<th class="text-center align-middle th_header" scope="col">Marca</th>
+			<th class="text-center align-middle th_header" scope="col">Matricula</th>
+			<th class="text-center align-middle th_header" scope="col">Modelo</th>
+			<th class="pt-3 text-center align-middle th_header" scope="col">Fecha Registro</th>
+			<th class="pt-3 text-center align-middle th_header" scope="col">Fecha ITV</th>
+			<th class="pt-3 text-center align-middle th_header" scope="col">Acciones</th>
+
+		</tr>
+
+        	{% if vehicles|length == 0 %}
+
+					    <tr>
+						<td class="text-center align-middle text-left" colspan="15">
+
+							<lord-icon src="https://cdn.lordicon.com/uetqnvvg.json" trigger="hover" colors="primary:#121331,secondary:#a253ef" style="width:50px;height:50px"></lord-icon>
+
+							<br>
+							No ahi vehiculos registrados
+
+						</td>
+					</tr>
+
+				{% else %}
+
+	</thead>
+	<tbody>
+		  {% for vehicle in vehicles %}
+            {% set vehiclesLinkedToOrder = vehicle.id_vehicle in VehiclesIds %}
+			<tr class="text-center">
+
+                <th scope="row" class="text-center align-middle">{{ vehicle.name }}</th>
+				<th scope="row" class="text-center align-middle">{{ vehicle.make }}</th>
+				<th scope="row" class="text-center align-middle">{{ vehicle.car_registration }}</th>
+				<th scope="row" class="text-center align-middle">{{ vehicle.model }}</th>
+
+				<th scope="row" class="text-center align-middle">
+
+                {% if vehicle.registration_date is not null and vehicle.registration_date != '0000-00-00' %}
+                           {{ vehicle.registration_date | date('d/m/y') }}
+                {% endif %}
+
+
+                </th>
+
+				<th scope="row" class="text-center align-middle">
+
+
+
+                {% if vehicle.date_itv is not null and vehicle.date_itv != '0000-00-00' %}
+                           {{ vehicle.date_itv | date('d/m/y') }}
+                {% endif %}
+
+
+                </th>
+
+
+				<td class="   text-center align-middle ">
+
+				 <div class="d-flex justify-content-center align-items-center boton_menu">
+						<nav class="navbar navbar-expand-lg  navbar-light text-center nav_menu">
+
+							<button class="navbar-toggler  text-center" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContentTabla" aria-controls="navbarSupportedContentTabla" aria-expanded="false" aria-label="Toggle navigation">
+								<span class="navbar-toggler-icon icono_menu_nav text-center"></span>
+							</button>
+
+							<div class="collapse navbar-collapse " id="navbarSupportedContentTabla">
+
+								<ul class="navbar-nav text-center nav justify-content-center ">
+
+									<li class="nav-item">
+										<a class="text-white " href="{{ routeTo('seeDetailVehicle', vehicle.id_vehicle) }}">
+											<img src="\images\ver_albaran.png" alt="..." title="detalle del vehiculo">
+										</a>
+									</li>
+ {% if not vehiclesLinkedToOrder %}
+
+									<li class="nav-item ">
+										<a class="text-white " href="{{ routeTo('editVehicle', vehicle.id_vehicle) }}">
+											<img src="\images\edit.png" alt="..." title="editar vehiculo">
+										</a>
+
+									</li>
+									<li class="nav-item ">
+										     <a href="#" class="delete-vehicle-button" data-vehicle-id="{{ vehicle.id_vehicle }}">
+                                                <img src="\images\delete_white.png" alt="..."> &nbsp;&nbsp;&nbsp;
+                                            </a>
+
+									</li>
+{% else %}
+                                              <li class="nav-item ">
+                                             &nbsp;&nbsp;&nbsp;  Asignado a un Pedido
+
+
+                                            </li>
+ {% endif %}
+
+
+								</ul>
+							</div>
+
+						</nav>
+
+					</div>
+				</td>
+
+			</tr>
+
+		{% endfor %}
+         {% endif %}
+	</tbody>
+</table>
+<div>*Los vehiculos que estan asignados en algun pedido no se podran editar ni eliminar. Si elimina el pedido se liberara y podra realizar los cambios o eliminarlo.</div>
+  {{ pager | raw }}
+
+<div class="row pt-5">
+	<div class="col">
+		<p class=" text-center">
+			<a href="{{ routeTo('home') }}">
+				<img class="rounded mx-auto d-block " src="\images\regresar.png" alt="...">
+			</a>
+			<br>
+			ir a Inicio
+		</p>
+	</div>
+</div>
+
+</div></div>
+
+</div>
+</div>
+
+
+<script>
+
+  $(document).ready(function() {
+
+    // Obtén el botón por su clase
+    $(".delete-vehicle-button").click(function() {
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: 'btn btn-success',
+                cancelButton: 'btn btn-danger'
+            },
+            buttonsStyling: false
+        });
+
+        // Obtén el ID del cliente desde el atributo data
+        var vehicleId = $(this).data('vehicle-id');
+
+
+        swalWithBootstrapButtons.fire({
+            title: '¿Estás seguro?',
+            text: "No podrás revertir esto.",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Sí, eliminarlo',
+            cancelButtonText: 'No, cancelar',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Enviar una solicitud AJAX para eliminar el cliente
+                $.ajax({
+                    url: 'https://contenedores.grupohnosfas.com/Vehiculos/eliminar/' + vehicleId,
+                    type: 'POST',
+                    success: function(response) {
+                        // Mostrar un mensaje de éxito o error según la respuesta
+                        if (response.success) {
+
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Eliminado',
+                                text: response.message
+                            }).then(() => {
+                                // Redirigir después de mostrar el mensaje de éxito
+                                window.location.href = 'https://contenedores.grupohnosfas.com/Vehiculos/listar/';
+                            });
+                        } else {
+
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error',
+                                text: response.message
+                            });
+                        }
+                    },
+                    error: function() {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: 'Se produjo un error en la solicitud.'
+                        });
+                    }
+                });
+            } else if (result.dismiss === Swal.DismissReason.cancel) {
+                swalWithBootstrapButtons.fire(
+                    'Cancelado',
+                    'Tu cliente está a salvo :)',
+                    'error'
+                );
+            }
+        });
+    });
+});
+
+
+
+</script>
+
+
+{% include 'Front/base/footer.html.twig' %}
+
+</body>{% endblock %}{% block script %}{{parent(script)}}<script src="/js/jsBootstrap.js"></script><script src="https://cdn.lordicon.com/qjzruarw.js"></script><script>
+
+setTimeout(function () {
+$(".alerta_msg_vehicle").fadeOut(2000);
+}, 10200);
+
+$(document).ready(function () {
+$('#id_customers_selection').on("change", function (event) {
+var opt = $(this).find("option:selected")
+var url = opt.data("url")
+window.location.href = url
+});
+var divToShow = document.getElementById("error");
+divToShow.style.display = "none";
+});</script>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+{% endblock %}

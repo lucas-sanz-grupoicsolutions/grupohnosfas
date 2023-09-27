@@ -1,0 +1,719 @@
+{% extends 'Front/base/main.html.twig' %}
+
+{% block titleHeader %}
+Listar facturas
+{% endblock %}
+{% block content %}
+{% include 'Front/base/header.html.twig' %}
+
+<link rel="stylesheet" href="/css/css_all/bills/list.css">
+
+
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-rc.0/css/select2.min.css" rel="stylesheet" />
+
+<style>
+    div:where(.swal2-icon).swal2-warning {
+        border-color: #ffffff !important;
+        color: #ffffff !important;
+    }
+
+    div:where(.swal2-container) div:where(.swal2-popup) {
+        display: none;
+        position: relative;
+        box-sizing: border-box;
+        grid-template-columns: minmax(0, 100%);
+        width: 32em;
+        max-width: 100%;
+        padding: 0 0 1.25em;
+        border: none;
+        border-radius: 5px;
+        background: #4d4d4d;
+        color: #fdfdfd;
+        font-family: inherit;
+        font-size: 1rem;
+    }
+
+    div:where(.swal2-container) button:where(.swal2-styled).swal2-cancel {
+
+        border-top-left-radius: 40px 40px !important;
+        border-top-right-radius: 40px 40px !important;
+        border-bottom-right-radius: 40px 40px !important;
+        border-bottom-left-radius: 40px 40px !important;
+
+        background: initial;
+        background-color: #6e6781 !important;
+        color: #fff;
+        font-size: 1em;
+        border: 2px solid white;
+        box-shadow: none !important;
+
+    }
+
+    div:where(.swal2-container) button:where(.swal2-styled).swal2-confirm {
+        border-top-left-radius: 40px 40px !important;
+        border-top-right-radius: 40px 40px !important;
+        border-bottom-right-radius: 40px 40px !important;
+        border-bottom-left-radius: 40px 40px !important;
+        background: initial;
+        background-color: #b5afaf59 !important;
+        color: #fff;
+        font-size: 1em;
+        border: 2px solid white;
+        box-shadow: none !important;
+    }
+
+
+.navbar {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+     padding-top: none !important;
+    padding-bottom:  none !important;
+}
+
+</style>
+
+<div class="container mt-1">
+
+    <div class="titulo_bills_list">
+
+        <div class="row">
+            <div class="col-4 pl-3">
+                <a href="javascript: history.go(-1)">&nbsp;&nbsp;&nbsp;
+                    <img class="ml-3 pt-4 " src="\images\arrow_white_izq.png" alt="...">
+                </a>
+            </div>
+            <div class="col-4"></div>
+            <div class="col-4"></div>
+        </div>
+
+        <div class="cssscan">
+            <p>
+                <h4 class="display-4 text-center text-white">Listado de Facturas</h4>
+            </p>
+            <p class=" texto_titulo text-white">
+                Generar facturas
+            </p>
+            </span>
+            </p>
+            </p>
+
+            <img src="\images\icono_factura_svg.svg" alt="...">
+        </div>
+    </div>
+
+
+
+    <div class="cuerpo_bills mt-2">
+
+        <form action="{{  routeTo('listBills' ) }}#sectionTable" method="GET">
+
+            <div class="row_id_billss p-2 pb-2 mb-2">
+
+                <div class="row mt-2 ">
+
+                    <div class="col-sm-4 ">
+
+                        <label class="" for="inputDescription">&nbsp;&nbsp;Filtrar
+                            por clientes
+                        </label>
+
+                        <select id="customer-select" class="js-select2" name="customer_id"
+                            style="border:none !important;">
+                            <option value="">Seleccione un cliente</option>
+                            {% for customer in customers_all %}
+                            <option value="{{ customer.id_customer }}">
+                                {{ customer.names }}</option>
+                            {% endfor %}
+                        </select>
+
+                    </div>
+
+                    <div class="col-sm-4">
+
+                        <label class="" for="direccion_obra">&nbsp;&nbsp;Filtrar
+                            por direccion
+                        </label>
+
+                        <select id="work-location-select">
+                            <option value="">Seleccione una dirección de obra</option>
+                        </select>
+
+                    </div>
+
+                    <div class="col-sm-4">
+
+                        {# <p id="list_pallet_buscar_texto text-center p-1">BUSCAR POR FECHAS CREACION</p>#}
+
+                        <label class="" for="inputDescription">Filtrar por dia
+                        </label>
+
+                        <input type="date" class="form-control text-left ml-2 " name="created_at"
+                            placeholder="Fecha de final">
+                        <p class="text-danger">{{ msg('errors.created_at') }}</p>
+
+                    </div>
+
+                </div>
+
+                <div class="row mb-2 ">
+
+                    <div class="col-sm-4"></div>
+
+                    <div class="col-sm-4 col_button_filtrar">
+
+                        <input type="text" class="form-control text-left ml-2 " name="id_bills" id="id_bills"
+                            placeholder="Filtrar por Numero de Factura">
+
+                    </div>
+
+                    <div class="col-sm-4 mt-3">
+                    </div>
+                </div>
+
+                <div class="row mb-2 mt-2">
+
+                    <div class="col-sm-4"></div>
+
+                    <div class="col-sm-4 col_button_filtrar">
+                        <br>
+
+                        <button type="submit" class="button_filtrar text-center"> <img src="\images\icon_filter.png"
+                                alt="...">&nbsp;&nbsp;&nbsp;&nbsp;Filtrar</button>
+
+                    </div>
+
+                    <div class="col-sm-4"></div>
+                </div>
+
+            </div>
+
+        </form>
+
+        <div class="row mt-3 mb-5">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-4 ">
+                <div class="text-center  ">
+                    <a class="text-white " href="{{ routeTo('showFormBills') }}">
+                        <button class=" button_bills text-white">
+                            <img src="\images\invoice_white.png" alt="...">&nbsp;&nbsp;&nbsp;&nbsp;Facturar Manualmente
+                        </button>
+                    </a>
+
+                </div>{#row#}
+            </div>
+            <div class="col-sm-4 ">
+                <div class="text-center  ">
+                    <a class="text-white " href="{{ routeTo('createSupplements') }}">
+                        <button class=" button_bills text-white">
+                            <img src="\images\invoice_white.png" alt="...">&nbsp;&nbsp;&nbsp;&nbsp;Facturar solo
+                            Suplementos
+
+                        </button>
+                    </a>
+
+                </div>{#row#}
+            </div>
+            <div class="col-sm-2"></div>
+        </div>
+
+
+
+        <table class="table table-striped  text-center">
+            <thead>
+                <tr>
+                    {# <th class="pt-3 text-center align-middle th_header" scope="col"> <span
+                            class="checkbox-wrapper-41 mt-3 ">
+                            <label>
+                                <input type="checkbox" id="selectAllCheckbox" value="">
+                                <span class="checkbox__icon"></span>
+                                &nbsp;
+
+                            </label>
+                        </span>
+                    </th> #}
+                    <th class="pt-3 text-center align-middle th_header" scope="col">Numero de Factura</th>
+                    <th class="pt-3 text-center align-middle th_header" scope="col">Usuario</th>
+                    <th class="pt-3 text-center align-middle th_header" scope="col">Cliente</th>
+                      <th class="pt-3 text-center align-middle th_header" scope="col">Metodo Pago</th>
+                    <th class="pt-3 text-center align-middle th_header" scope="col">Fecha Alta</th>
+                    <th class="pt-3 text-center align-middle th_header" scope="col">Estado</th>
+                    <th class="text-center  align-middle th_header" scope="col"> Acciones</th>
+
+                </tr>
+            </thead>
+            <tbody> {% if bills|length == 0%}
+
+                <tr>
+                    <td class="text-center align-middle text-left" colspan="7">
+
+                        <lord-icon src="https://cdn.lordicon.com/nocovwne.json" trigger="hover"
+                            colors="primary:#04BDFD,secondary:#04BDFD" style="width:50px;height:50px">
+                        </lord-icon>
+
+                        <br>
+                        No ahi resultados
+
+                    </td>
+                </tr>
+
+                {% else %}
+
+                {% set miVariable = null %}
+
+
+
+                    {# <button type="submit">Generar archivo excel</button> #}
+
+                    {% for bill in bills %}
+
+                    <tr>
+
+                        {# <th scope="row" class="text-center align-middle">
+
+
+                            {% if (bill.words_num_bill != "R" ) %}
+                              {% if (bill.state != "Finalizada" ) %}
+                            <span class="checkbox-wrapper-41 mt-3 ">
+                                <label>
+                                    <input type="checkbox" name="facturas[]" class="mi-checkbox"
+                                        value="{{ bill.id_bills }}">
+                                    <span class="checkbox__icon"></span>
+
+                                    &nbsp;
+
+                                </label>
+                            </span>
+                                {% endif %}
+                            {% endif %}
+
+                        </th> #}
+
+                        <th scope="row" class="text-center align-middle">
+
+                            {% if (bill.words_num_bill != "R" ) %}
+
+                            <span>{{ bill.words_num_bill }} - {{ bill.num_bill }} </span>
+
+                            {% else %}
+
+                            <span style="color:red;">{{ bill.words_num_bill }} - {{ bill.num_bill }} (Abonada
+                                {{ bill.id_bill_original }} )</span>
+
+                            {% endif %}
+
+                        </th>
+
+                        <th scope="row" class="text-center align-middle">{{ bill.name_user }}</th>
+
+
+                        <th scope="row" class="text-center align-middle">{{ bill.customer_name }}</th>
+
+                         <th scope="row" class="text-center align-middle">{{ bill.payment_method }}</th>
+
+
+
+                        <th scope="row" class="text-center align-middle">
+
+                            {% set currentDate = date()|date('Y-m-d') %}
+                            {# Obtiene la fecha actual en formato 'YYYY-MM-DD' #}
+
+                            {% set createdDate = bill.created_at|date('Y-m-d') %}
+                            {# Obtiene la fecha del resultado en formato 'YYYY-MM-DD' #}
+
+                            {% if createdDate == currentDate %}
+                            <span style="color: #07d907;"> {{ bill.created_at|date('d/m/y') }}</span>
+                            {% else %}
+                            {{ bill.created_at | date('d/m/y') }}
+                            {% endif %}
+
+                            {# {{ bill.created_at | date('d/m/y') }} #}
+
+                        </th>
+
+                        <th scope="row" class="text-center align-middle">{{ bill.state }}</th>
+
+                        <td scope="row" class="text-left align-middle">
+                            <div class="d-flex justify-content-center align-items-center boton_menu">
+                                <nav class="navbar navbar-expand-lg  navbar-light text-center nav_menu">
+
+                                    <button class="navbar-toggler  text-center" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#navbarSupportedContentTabla"
+                                        aria-controls="navbarSupportedContentTabla" aria-expanded="false"
+                                        aria-label="Toggle navigation">
+                                        <span class="navbar-toggler-icon icono_menu_nav text-center"></span>
+                                    </button>
+
+                                    <div class="collapse navbar-collapse " id="navbarSupportedContentTabla">
+
+                                        {% if (bill.words_num_bill != "R" ) %}
+
+                                        <ul class="navbar-nav text-center nav justify-content-center ">
+
+                                            <li class="nav-item">
+
+                                                {% if (bill.bills_supplements == 0 ) %}
+
+                                                <a class="text-white "
+                                                    href="{{ routeTo('printPdfBills', bill.id_bills) }}">
+                                                    <img src="\images\iconos\pdf.png" alt="..."
+                                                        title="pdf de la Factura">
+                                                </a>
+
+                                                {% endif %}
+
+                                                {% if (bill.bills_supplements == 1 ) %}
+
+                                                <a class="text-white "
+                                                    href="{{ routeTo('printPdfBillsSupplements', bill.id_bills) }}">
+                                                    <img src="\images\iconos\pdf.png" alt="..."
+                                                        title="pdf de la Factura">
+                                                </a>
+
+                                                {% endif %}
+
+                                                {% if (bill.bills_supplements == 0 ) %}
+                                                <a class="text-white"
+                                                    href="{{ routeTo('seeDetailBillsSave', bill.id_bills) }}">
+                                                    <img src="\images\ver_albaran.png" alt="..."
+                                                        title="Detalle de la Factura">
+                                                </a>
+                                                {% endif %}
+
+                                                {% if (bill.bills_supplements == 1 ) %}
+                                                <a class="text-white"
+                                                    href="{{ routeTo('seeDetailBillsSaveSupplements', bill.id_bills) }}">
+                                                    <img src="\images\ver_albaran.png" alt="..."
+                                                        title="Detalle de la Factura">
+                                                </a>
+                                                {% endif %}
+
+                                            </li>
+
+                                            {% if (bill.rectifyBills != "R" ) %}
+
+                                            {% if (bill.bills_supplements == 0 ) %}
+                                            <li class="nav-item ">
+                                                <a class="text-white " href="{{ routeTo('editBills', bill.id_bills) }}">
+                                                    <img src="\images\edit.png" alt="..." title="editar factura">
+                                                </a>
+
+                                            </li>
+                                            {% endif %}
+
+                                            {% if (bill.bills_supplements == 1 ) %}
+                                            <li class="nav-item ">
+                                                <a class="text-white "
+                                                    href="{{ routeTo('editBillsSupplements', bill.id_bills) }}">
+                                                    <img src="\images\edit.png" alt="..." title="editar factura">
+                                                </a>
+
+                                            </li>
+                                            {% endif %}
+
+                                            {% endif %}
+                                            {# <li class="nav-item ">
+                                            <a class="text-white "
+                                                href="{{ routeTo('PredeleteCustomers', bill.id_bills) }}">
+                                                <img src="\images\delete_white.png" alt="...">
+                                            </a>
+
+                                        </li> #}
+
+                                        </ul>
+                                        {% endif %}
+
+                                        {% if (bill.words_num_bill == "R" ) %}
+
+                                        {% if (bill.id_bill_original != null ) %}
+
+                                        <ul class="navbar-nav text-center nav justify-content-center ">
+
+                                            <li class="nav-item">
+
+                                                <a class="text-white"
+                                                    href="{{ routeTo('seeDetailBillsSave', bill.id_bill_original) }}">
+                                                    <img src="\images\ver_albaran.png" alt="..."
+                                                        title="Detalle de la Factura">
+                                                </a>
+
+                                            </li>
+
+                                        </ul>
+
+                                        {% endif %}
+
+                                        {% endif %}
+
+                                    </div>
+
+                                </nav>
+
+                            </div>
+                        </td>
+
+                    </tr>
+
+                {% endfor %}
+                {% endif %}
+            </tbody>
+        </table>
+
+ {{ pager|raw }}
+
+
+<div class="row pt-5">
+            <div class="col-sm-4">
+
+            </div>
+            <div class="col-sm-4">
+                <a href="{{ routeTo('remesas') }}">
+                        <button class="button_xml" type="submit">ir a Remesas</button>
+                </a>
+             </div>
+
+              <div class="col-sm-4"></div>
+       </div>
+
+        <div class="row pt-5">
+            <div class="col">
+                <p class=" text-center">
+                    <a href="{{ routeTo('home') }}">
+                        <img class="rounded mx-auto d-block " src="\images\regresar.png" alt="...">
+                    </a>
+                    <br> ir a Inicio
+                </p>
+            </div>
+        </div>
+
+    </div>
+</div>
+</div>
+</div>
+ <div class="row " >
+        <div class="col-12">
+
+      {%  if msg('msg') %}
+
+            <script>
+                $(document).ready(function() {
+
+                 var msg = {{ msg('msg')|json_encode|raw }};
+
+                Swal.fire({
+                    title: msg.title,
+                    text: msg.text,
+                    icon: 'success',
+                    cancelButtonText: 'Cerrar'
+                    })
+                });
+            </script>
+
+      {% endif %}
+        {%  if msg('msg2') %}
+
+            <script>
+                $(document).ready(function() {
+
+                 var msg2 = {{ msg('msg2')|json_encode|raw }};
+
+                Swal.fire({
+                    title: msg2.title,
+                    text: msg2.text,
+                    icon: 'warning',
+                    cancelButtonText: 'Cerrar'
+                    })
+                });
+
+
+            </script>
+
+      {% endif %}
+
+     </div>
+ </div>
+
+{% include 'Front/base/footer.html.twig' %}
+
+<script>
+    // Función para mostrar SweetAlert2 con el mensaje de confirmación
+    function showConfirmationAlert(url, elementId) {
+        Swal.fire({
+            title: '¿Estás seguro?',
+            text: 'Esta acción eliminará este paquete ',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Eliminar',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Aquí puedes redirigir a la URL para eliminar el paquete o hacer una petición AJAX
+                window.location.href = url;
+            }
+        });
+    }
+    // Obtén todos los elementos con la clase "result-button"
+    const buttons = document.querySelectorAll('.result-button');
+    // Agregar evento click a cada botón
+    buttons.forEach((button) => {
+        const url = button.getAttribute('data-url');
+        const elementId = button.getAttribute('data-element-id');
+        button.addEventListener('click', function() {
+            // Obtener la URL y el ID del elemento del botón y mostrar SweetAlert2
+            showConfirmationAlert(url, elementId);
+        });
+    });
+</script>
+
+
+  <div class="row " >
+        <div class="col-12">
+
+      {%  if msg('msg') %}
+
+            <script>
+                $(document).ready(function() {
+
+                 var msg = {{ msg('msg')|json_encode|raw }};
+
+                Swal.fire({
+                    title: msg.title,
+                    text: msg.text,
+                    icon: 'success',
+                    cancelButtonText: 'Cerrar'
+                    })
+                });
+            </script>
+
+      {% endif %}
+        {%  if msg('msg2') %}
+
+            <script>
+                $(document).ready(function() {
+
+                 var msg2 = {{ msg('msg2')|json_encode|raw }};
+
+                Swal.fire({
+                    title: msg2.title,
+                    text: msg2.text,
+                    icon: 'warning',
+                    cancelButtonText: 'Cerrar'
+                    })
+                });
+
+
+            </script>
+
+      {% endif %}
+
+     </div>
+ </div>
+{% endblock %}
+{% block script %}
+{{parent(script)}}
+
+<script>
+    setTimeout(function() {
+        $("#alerta_msg_bills").fadeOut(2500);
+    }, 2200);
+</script>
+
+<script>
+    $(document).ready(function() {
+        // Configurar Select2 para el select de clientes
+        $('#customer-select').select2({
+            placeholder: 'Seleccione un cliente',
+            allowClear: false
+        });
+        // Configurar llamada AJAX para obtener las direcciones de obra de un cliente seleccionado
+        $('#customer-select').on('change', function() {
+            var customerId = $(this).val();
+            $('#work-location-select').prop('disabled', false);
+            $('#work-location-select').html("");
+            if (customerId != '') {
+                $.ajax({
+                    url: 'https://contenedores.grupohnosfas.com/Albaranes/FiltrarClientesAlbaranes/' +
+                        customerId,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function(data) {
+                        if (data.length > 0) {
+                            $('#work-location-select').append(
+                                '<option value="">Seleccione una dirección de obra</option>'
+                            );
+                            $.each(data, function(index, element) {
+                                $('#work-location-select').append(
+                                    '<option value="' + element
+                                    .id_work_locations + '">' + element
+                                    .address + '</option>');
+                            });
+                            $('#work-location-select').prop('disabled', false);
+                        }
+                    }
+                });
+            }
+        });
+        $('#work-location-select').select2({
+            allowClear: false
+        });
+        $('#id_drivers_selection').select2({
+            allowClear: false
+        });
+    });
+</script>
+
+<script>
+    // Función para seleccionar todos los checkboxes
+    function selectAllCheckboxes() {
+        var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+        checkboxes.forEach(function(checkbox) {
+            checkbox.checked = true;
+        });
+    }
+    // Función para deseleccionar todos los checkboxes
+    function deselectAllCheckboxes() {
+        var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+        checkboxes.forEach(function(checkbox) {
+            checkbox.checked = false;
+        });
+    }
+    // Función para verificar si todos los checkboxes están seleccionados
+    function areAllCheckboxesChecked() {
+        var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+        var allChecked = true;
+        checkboxes.forEach(function(checkbox) {
+            if (!checkbox.checked) {
+                allChecked = false;
+            }
+        });
+        return allChecked;
+    }
+    // Agrega el evento change al checkbox maestro
+    var selectAllCheckbox = document.getElementById('selectAllCheckbox');
+    selectAllCheckbox.addEventListener('change', function() {
+        var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+        if (this.checked) {
+            selectAllCheckboxes();
+        } else {
+            deselectAllCheckboxes();
+        }
+    });
+</script>
+
+<script src="/js/jsBootstrap.js"></script>
+
+<script src="https://cdn.lordicon.com/qjzruarw.js"></script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-rc.0/js/select2.min.js"></script>
+
+<script src="/js/sweetAlert.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+{% endblock %}

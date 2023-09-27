@@ -1,0 +1,117 @@
+CRITICAL - 2023-05-26 08:16:15 --> foreach() argument must be of type array|object, null given
+#0 /var/www/vhosts/grupohnosfas.com/contenedores.grupohnosfas.com/app/Controllers/Front/BillsController.php(1018): CodeIgniter\Debug\Exceptions->errorHandler()
+#1 /var/www/vhosts/grupohnosfas.com/contenedores.grupohnosfas.com/vendor/codeigniter4/framework/system/CodeIgniter.php(832): App\Controllers\Front\BillsController->pre_view_bills_albaran()
+#2 /var/www/vhosts/grupohnosfas.com/contenedores.grupohnosfas.com/vendor/codeigniter4/framework/system/CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController()
+#3 /var/www/vhosts/grupohnosfas.com/contenedores.grupohnosfas.com/vendor/codeigniter4/framework/system/CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest()
+#4 /var/www/vhosts/grupohnosfas.com/contenedores.grupohnosfas.com/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#5 {main}
+CRITICAL - 2023-05-26 08:16:16 --> foreach() argument must be of type array|object, null given
+#0 /var/www/vhosts/grupohnosfas.com/contenedores.grupohnosfas.com/app/Controllers/Front/BillsController.php(1018): CodeIgniter\Debug\Exceptions->errorHandler()
+#1 /var/www/vhosts/grupohnosfas.com/contenedores.grupohnosfas.com/vendor/codeigniter4/framework/system/CodeIgniter.php(832): App\Controllers\Front\BillsController->pre_view_bills_albaran()
+#2 /var/www/vhosts/grupohnosfas.com/contenedores.grupohnosfas.com/vendor/codeigniter4/framework/system/CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController()
+#3 /var/www/vhosts/grupohnosfas.com/contenedores.grupohnosfas.com/vendor/codeigniter4/framework/system/CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest()
+#4 /var/www/vhosts/grupohnosfas.com/contenedores.grupohnosfas.com/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#5 {main}
+CRITICAL - 2023-05-26 08:16:17 --> foreach() argument must be of type array|object, null given
+#0 /var/www/vhosts/grupohnosfas.com/contenedores.grupohnosfas.com/app/Controllers/Front/BillsController.php(1018): CodeIgniter\Debug\Exceptions->errorHandler()
+#1 /var/www/vhosts/grupohnosfas.com/contenedores.grupohnosfas.com/vendor/codeigniter4/framework/system/CodeIgniter.php(832): App\Controllers\Front\BillsController->pre_view_bills_albaran()
+#2 /var/www/vhosts/grupohnosfas.com/contenedores.grupohnosfas.com/vendor/codeigniter4/framework/system/CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController()
+#3 /var/www/vhosts/grupohnosfas.com/contenedores.grupohnosfas.com/vendor/codeigniter4/framework/system/CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest()
+#4 /var/www/vhosts/grupohnosfas.com/contenedores.grupohnosfas.com/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#5 {main}
+CRITICAL - 2023-05-26 08:17:18 --> foreach() argument must be of type array|object, null given
+#0 /var/www/vhosts/grupohnosfas.com/contenedores.grupohnosfas.com/app/Controllers/Front/BillsController.php(1018): CodeIgniter\Debug\Exceptions->errorHandler()
+#1 /var/www/vhosts/grupohnosfas.com/contenedores.grupohnosfas.com/vendor/codeigniter4/framework/system/CodeIgniter.php(832): App\Controllers\Front\BillsController->pre_view_bills_albaran()
+#2 /var/www/vhosts/grupohnosfas.com/contenedores.grupohnosfas.com/vendor/codeigniter4/framework/system/CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController()
+#3 /var/www/vhosts/grupohnosfas.com/contenedores.grupohnosfas.com/vendor/codeigniter4/framework/system/CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest()
+#4 /var/www/vhosts/grupohnosfas.com/contenedores.grupohnosfas.com/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#5 {main}
+CRITICAL - 2023-05-26 08:17:19 --> foreach() argument must be of type array|object, null given
+#0 /var/www/vhosts/grupohnosfas.com/contenedores.grupohnosfas.com/app/Controllers/Front/BillsController.php(1018): CodeIgniter\Debug\Exceptions->errorHandler()
+#1 /var/www/vhosts/grupohnosfas.com/contenedores.grupohnosfas.com/vendor/codeigniter4/framework/system/CodeIgniter.php(832): App\Controllers\Front\BillsController->pre_view_bills_albaran()
+#2 /var/www/vhosts/grupohnosfas.com/contenedores.grupohnosfas.com/vendor/codeigniter4/framework/system/CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController()
+#3 /var/www/vhosts/grupohnosfas.com/contenedores.grupohnosfas.com/vendor/codeigniter4/framework/system/CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest()
+#4 /var/www/vhosts/grupohnosfas.com/contenedores.grupohnosfas.com/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#5 {main}
+CRITICAL - 2023-05-26 08:21:38 --> foreach() argument must be of type array|object, null given
+#0 /var/www/vhosts/grupohnosfas.com/contenedores.grupohnosfas.com/app/Controllers/Front/BillsController.php(1018): CodeIgniter\Debug\Exceptions->errorHandler()
+#1 /var/www/vhosts/grupohnosfas.com/contenedores.grupohnosfas.com/vendor/codeigniter4/framework/system/CodeIgniter.php(832): App\Controllers\Front\BillsController->pre_view_bills_albaran()
+#2 /var/www/vhosts/grupohnosfas.com/contenedores.grupohnosfas.com/vendor/codeigniter4/framework/system/CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController()
+#3 /var/www/vhosts/grupohnosfas.com/contenedores.grupohnosfas.com/vendor/codeigniter4/framework/system/CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest()
+#4 /var/www/vhosts/grupohnosfas.com/contenedores.grupohnosfas.com/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#5 {main}
+CRITICAL - 2023-05-26 08:25:34 --> Undefined variable $id_work_locations
+#0 /var/www/vhosts/grupohnosfas.com/contenedores.grupohnosfas.com/app/Controllers/Front/BillsController.php(226): CodeIgniter\Debug\Exceptions->errorHandler()
+#1 /var/www/vhosts/grupohnosfas.com/contenedores.grupohnosfas.com/vendor/codeigniter4/framework/system/CodeIgniter.php(832): App\Controllers\Front\BillsController->getIdWorkLocationBills()
+#2 /var/www/vhosts/grupohnosfas.com/contenedores.grupohnosfas.com/vendor/codeigniter4/framework/system/CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController()
+#3 /var/www/vhosts/grupohnosfas.com/contenedores.grupohnosfas.com/vendor/codeigniter4/framework/system/CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest()
+#4 /var/www/vhosts/grupohnosfas.com/contenedores.grupohnosfas.com/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#5 {main}
+ERROR - 2023-05-26 13:52:56 --> Table 'grupohnosfas.tableBillsAlbaranes' doesn't exist
+CRITICAL - 2023-05-26 13:52:56 --> Call to a member function getResult() on bool
+#0 /var/www/vhosts/grupohnosfas.com/contenedores.grupohnosfas.com/vendor/codeigniter4/framework/system/BaseModel.php(584): CodeIgniter\Model->doFindAll()
+#1 /var/www/vhosts/grupohnosfas.com/contenedores.grupohnosfas.com/app/Controllers/Front/BillsController.php(4233): CodeIgniter\BaseModel->findAll()
+#2 /var/www/vhosts/grupohnosfas.com/contenedores.grupohnosfas.com/vendor/codeigniter4/framework/system/CodeIgniter.php(832): App\Controllers\Front\BillsController->seeDetailBillsS()
+#3 /var/www/vhosts/grupohnosfas.com/contenedores.grupohnosfas.com/vendor/codeigniter4/framework/system/CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController()
+#4 /var/www/vhosts/grupohnosfas.com/contenedores.grupohnosfas.com/vendor/codeigniter4/framework/system/CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest()
+#5 /var/www/vhosts/grupohnosfas.com/contenedores.grupohnosfas.com/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#6 {main}
+ERROR - 2023-05-26 13:53:16 --> Table 'grupohnosfas.tableBillsAlbaranes' doesn't exist
+CRITICAL - 2023-05-26 13:53:16 --> Call to a member function getResult() on bool
+#0 /var/www/vhosts/grupohnosfas.com/contenedores.grupohnosfas.com/vendor/codeigniter4/framework/system/BaseModel.php(584): CodeIgniter\Model->doFindAll()
+#1 /var/www/vhosts/grupohnosfas.com/contenedores.grupohnosfas.com/app/Controllers/Front/BillsController.php(4233): CodeIgniter\BaseModel->findAll()
+#2 /var/www/vhosts/grupohnosfas.com/contenedores.grupohnosfas.com/vendor/codeigniter4/framework/system/CodeIgniter.php(832): App\Controllers\Front\BillsController->seeDetailBillsS()
+#3 /var/www/vhosts/grupohnosfas.com/contenedores.grupohnosfas.com/vendor/codeigniter4/framework/system/CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController()
+#4 /var/www/vhosts/grupohnosfas.com/contenedores.grupohnosfas.com/vendor/codeigniter4/framework/system/CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest()
+#5 /var/www/vhosts/grupohnosfas.com/contenedores.grupohnosfas.com/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#6 {main}
+ERROR - 2023-05-26 13:56:39 --> Table 'grupohnosfas.tableBillsAlbaranes' doesn't exist
+ERROR - 2023-05-26 13:56:40 --> Table 'grupohnosfas.tableBillsAlbaranes' doesn't exist
+CRITICAL - 2023-05-26 13:56:40 --> Call to a member function getResult() on bool
+#0 /var/www/vhosts/grupohnosfas.com/contenedores.grupohnosfas.com/vendor/codeigniter4/framework/system/BaseModel.php(584): CodeIgniter\Model->doFindAll()
+#1 /var/www/vhosts/grupohnosfas.com/contenedores.grupohnosfas.com/app/Controllers/Front/BillsController.php(4233): CodeIgniter\BaseModel->findAll()
+#2 /var/www/vhosts/grupohnosfas.com/contenedores.grupohnosfas.com/vendor/codeigniter4/framework/system/CodeIgniter.php(832): App\Controllers\Front\BillsController->seeDetailBillsS()
+#3 /var/www/vhosts/grupohnosfas.com/contenedores.grupohnosfas.com/vendor/codeigniter4/framework/system/CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController()
+#4 /var/www/vhosts/grupohnosfas.com/contenedores.grupohnosfas.com/vendor/codeigniter4/framework/system/CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest()
+#5 /var/www/vhosts/grupohnosfas.com/contenedores.grupohnosfas.com/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#6 {main}
+ERROR - 2023-05-26 13:57:46 --> Table 'grupohnosfas.tableBillsAlbaranes' doesn't exist
+ERROR - 2023-05-26 13:57:47 --> Table 'grupohnosfas.tableBillsAlbaranes' doesn't exist
+CRITICAL - 2023-05-26 13:57:47 --> Call to a member function getResult() on bool
+#0 /var/www/vhosts/grupohnosfas.com/contenedores.grupohnosfas.com/vendor/codeigniter4/framework/system/BaseModel.php(584): CodeIgniter\Model->doFindAll()
+#1 /var/www/vhosts/grupohnosfas.com/contenedores.grupohnosfas.com/app/Controllers/Front/BillsController.php(4233): CodeIgniter\BaseModel->findAll()
+#2 /var/www/vhosts/grupohnosfas.com/contenedores.grupohnosfas.com/vendor/codeigniter4/framework/system/CodeIgniter.php(832): App\Controllers\Front\BillsController->seeDetailBillsS()
+#3 /var/www/vhosts/grupohnosfas.com/contenedores.grupohnosfas.com/vendor/codeigniter4/framework/system/CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController()
+#4 /var/www/vhosts/grupohnosfas.com/contenedores.grupohnosfas.com/vendor/codeigniter4/framework/system/CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest()
+#5 /var/www/vhosts/grupohnosfas.com/contenedores.grupohnosfas.com/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#6 {main}
+ERROR - 2023-05-26 13:58:21 --> Table 'grupohnosfas.tableBillsAlbaranes' doesn't exist
+CRITICAL - 2023-05-26 13:58:21 --> Call to a member function getResult() on bool
+#0 /var/www/vhosts/grupohnosfas.com/contenedores.grupohnosfas.com/vendor/codeigniter4/framework/system/BaseModel.php(584): CodeIgniter\Model->doFindAll()
+#1 /var/www/vhosts/grupohnosfas.com/contenedores.grupohnosfas.com/app/Controllers/Front/BillsController.php(4233): CodeIgniter\BaseModel->findAll()
+#2 /var/www/vhosts/grupohnosfas.com/contenedores.grupohnosfas.com/vendor/codeigniter4/framework/system/CodeIgniter.php(832): App\Controllers\Front\BillsController->seeDetailBillsS()
+#3 /var/www/vhosts/grupohnosfas.com/contenedores.grupohnosfas.com/vendor/codeigniter4/framework/system/CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController()
+#4 /var/www/vhosts/grupohnosfas.com/contenedores.grupohnosfas.com/vendor/codeigniter4/framework/system/CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest()
+#5 /var/www/vhosts/grupohnosfas.com/contenedores.grupohnosfas.com/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#6 {main}
+ERROR - 2023-05-26 14:06:43 --> You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ')' at line 3
+CRITICAL - 2023-05-26 14:06:43 --> Call to a member function getResult() on bool
+#0 /var/www/vhosts/grupohnosfas.com/contenedores.grupohnosfas.com/vendor/codeigniter4/framework/system/BaseModel.php(584): CodeIgniter\Model->doFindAll()
+#1 /var/www/vhosts/grupohnosfas.com/contenedores.grupohnosfas.com/app/Controllers/Front/BillsController.php(4240): CodeIgniter\BaseModel->findAll()
+#2 /var/www/vhosts/grupohnosfas.com/contenedores.grupohnosfas.com/vendor/codeigniter4/framework/system/CodeIgniter.php(832): App\Controllers\Front\BillsController->seeDetailBillsS()
+#3 /var/www/vhosts/grupohnosfas.com/contenedores.grupohnosfas.com/vendor/codeigniter4/framework/system/CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController()
+#4 /var/www/vhosts/grupohnosfas.com/contenedores.grupohnosfas.com/vendor/codeigniter4/framework/system/CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest()
+#5 /var/www/vhosts/grupohnosfas.com/contenedores.grupohnosfas.com/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#6 {main}
+CRITICAL - 2023-05-26 14:07:18 --> fopen(C:\Apache24\htdocs\grupohnosfas\public\logos_facturas_2.png): Failed to open stream: No such file or directory
+#0 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler()
+#1 /var/www/vhosts/grupohnosfas.com/contenedores.grupohnosfas.com/app/Libraries/Fpdf/FPDF.php(1331): fopen()
+#2 /var/www/vhosts/grupohnosfas.com/contenedores.grupohnosfas.com/app/Libraries/Fpdf/FPDF.php(957): App\Libraries\Fpdf\FPDF->_parsepng()
+#3 /var/www/vhosts/grupohnosfas.com/contenedores.grupohnosfas.com/app/Controllers/Front/PDF_Bills.php(281): App\Libraries\Fpdf\FPDF->Image()
+#4 /var/www/vhosts/grupohnosfas.com/contenedores.grupohnosfas.com/app/Libraries/Fpdf/FPDF.php(342): App\Controllers\Front\PDF_Bills->Header()
+#5 /var/www/vhosts/grupohnosfas.com/contenedores.grupohnosfas.com/app/Controllers/Front/FpdfController.php(755): App\Libraries\Fpdf\FPDF->AddPage()
+#6 /var/www/vhosts/grupohnosfas.com/contenedores.grupohnosfas.com/vendor/codeigniter4/framework/system/CodeIgniter.php(832): App\Controllers\Front\FpdfController->PdfBills()
+#7 /var/www/vhosts/grupohnosfas.com/contenedores.grupohnosfas.com/vendor/codeigniter4/framework/system/CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController()
+#8 /var/www/vhosts/grupohnosfas.com/contenedores.grupohnosfas.com/vendor/codeigniter4/framework/system/CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest()
+#9 /var/www/vhosts/grupohnosfas.com/contenedores.grupohnosfas.com/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#10 {main}

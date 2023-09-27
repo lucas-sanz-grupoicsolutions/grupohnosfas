@@ -1,0 +1,246 @@
+{% extends 'Front/base/main.html.twig' %}
+
+{% block titleHeader %}
+Ver Direccion de Obra
+{% endblock %}
+{% block content %}
+  {% include 'Front/base/header.html.twig' %}
+
+ <link rel="stylesheet" href="/css/css_all/vehicles/seeDetail.css">
+
+
+<body class="container_contenedores">
+
+    <div class="container mt-1 ">
+
+        <div id="title_vehicles">
+
+            <div class="row">
+                <div class="col-4 pl-3"><a href="javascript: history.go(-1)">&nbsp;&nbsp;&nbsp;
+                        <img class="ml-3 pt-4 " src="\images\arrow_white_izq.png" alt="...">
+                    </a></div>
+                <div class="col-4"></div>
+                <div class="col-4"></div>
+            </div>
+
+            <div class="cssscan ">
+                <p>
+                    <h4 class="display-4 text-center text-white "> Vehiculo </h4>
+                     <p class=" texto_titulo text-white"> Gestion de vehiculos</span>
+                    </p>
+
+                </p>
+
+                <img src="\images\conductor_header_.svg" alt="...">
+            </div>
+        </div>
+
+           {% for vehicle in vehicles %}
+
+        <div class="cuerpo_vehicle mt-2">
+
+            <div class="detalle_cliente mt-2 ">
+                <div class=" text-center titulo_detalle_cliente mb-3">
+                    <p class=" texto_titulo "> Vehiculo </span> </p>
+                    <h4 class="display-4 text-center h4_title "> {{ vehicle.car_registration }}</h4>
+                </div>
+
+                <div class="row row-list">
+
+                    <div class="col-sm-6 ">
+                        <table class="table table-striped ">
+
+                            <body>
+
+                                <tr class="">
+                                    <th class="pt-1 pb-1">
+                                        <div class="row ">
+                                            <div class="col fuente-texto mt-1">
+
+                                                <img src="\images\radio.png" style="width:24px;height:24px;" class=" mr-5" alt="...">
+                                                Matricula
+                                            </div>
+                                        </div>
+                                    </th>
+
+                                    <td class=" fuente-texto  "> {{ vehicle.car_registration }}</td>
+                                </tr>
+                                <tr class="">
+                                    <th class="pt-1 pb-1">
+                                        <div class="row ">
+
+                                            <div class="col fuente-texto mt-1">
+                                                <img src="\images\radio.png" style="width:24px;height:24px;" class=" mr-5" alt="...">
+                                                Itv
+                                            </div>
+
+                                        </div>
+                                    </th>
+
+                                    <td class=" fuente-texto">
+
+
+                                    {% if vehicles.date_itv is null %}
+                                        Fecha de ITV no está disponible.<br>
+                                    {% elseif vehicles.date_itv|date('Y-m-d') == '0000-00-00' %}
+                                        Fecha de ITV es inválida.<br>
+                                    {% else %}
+                                            Fecha de ITV del vehiculo: {{ vehicles.date_itv|date('d-m-Y') }} <br>
+                                    {% endif %}
+
+
+
+                                    </td>
+                                </tr>
+
+                                <tr class="">
+                                    <th class="pt-1 pb-1">
+                                        <div class="row ">
+
+                                            <div class="col fuente-texto mt-1">
+                                                <img src="\images\radio.png" style="width:24px;height:24px;" class=" mr-5" alt="...">
+                                                Marca</div>
+
+                                        </div>
+                                    </th>
+                                    <td class=" fuente-texto"> {{ vehicle.make }}</td>
+                                </tr>
+
+                            </body>
+                        </table>
+
+                    </div>
+
+                    <div class="col-md-6">
+                        <table class="table table-striped ">
+
+                            <body>
+
+                               <tr class="">
+                                    <th class="pt-1 pb-1">
+                                        <div class="row ">
+                                            <div class="col fuente-texto mt-1">
+                                                <img src="\images\radio.png" style="width:24px;height:24px;" class=" mr-5" alt="...">
+                                                Modelo</div>
+
+                                        </div>
+                                    </th>
+                                    <td class=" fuente-texto td_height"> {{ vehicle.model }}</td>
+                                </tr>
+
+                               <tr class="">
+                                    <th class="pt-1 pb-1">
+                                        <div class="row ">
+                                            <div class="col fuente-texto mt-1">
+                                                <img src="\images\radio.png"style="width:24px;height:24px;" class=" mr-5" alt="...">
+                                                Fecha de Registro</div>
+
+                                        </div>
+                                    </th>
+                                    <td class=" fuente-texto td_height">
+
+
+                                                {% if vehicles.registration_date is null %}
+                                                    Fecha del registro no está disponible.<br>
+                                                {% elseif vehicles.registration_date|date('Y-m-d') == '0000-00-00' %}
+                                                    Fecha del registro es inválida.<br>
+                                                {% else %}
+                                                      Fecha del registro del vehiculo: {{ vehicles.registration_date|date('d-m-Y') }} <br>
+                                                {% endif %}
+
+
+
+                                    </td>
+                                </tr>
+
+                              <tr class="">
+                                    <th class="pt-1 pb-1">
+                                        <div class="row ">
+                                            <div class="col fuente-texto mt-1">
+                                                <img src="\images\radio.png"style="width:24px;height:24px;" class="mr-5" alt="...">
+                                                Observaciones</div>
+
+                                        </div>
+                                    </th>
+                                    <td class=" fuente-texto td_height"> {{ vehicle.observations }}</td>
+                                </tr>
+
+                            </body>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+            {% endfor %}
+                <div class="row pt-5">
+                    <div class="col">
+                        <p class=" text-center">
+                          <a href="{{ routeTo('listVehicle') }}">
+					<img class="rounded mx-auto d-block " src="\images\regresar.png" alt="...">
+				</a>
+				<br>
+				Volver a la lista de Vehiculos
+                            <br>
+                        </p>
+                    </div>
+                </div>
+
+        </div>
+    </div>
+
+     <div class="row " >
+        <div class="col-12">
+
+      {%  if msg('msg') %}
+
+            <script>
+                $(document).ready(function() {
+
+                 var msg = {{ msg('msg')|json_encode|raw }};
+
+                Swal.fire({
+                    title: msg.title,
+                    text: msg.text,
+                    icon: 'success',
+                    cancelButtonText: 'Cerrar'
+                    })
+                });
+
+
+            </script>
+
+      {% endif %}
+
+        {%  if msg('msg2') %}
+
+            <script>
+                $(document).ready(function() {
+
+                 var msg2 = {{ msg('msg2')|json_encode|raw }};
+
+                Swal.fire({
+                    title: msg2.title,
+                    text: msg2.text,
+                    icon: 'warning',
+                    cancelButtonText: 'Cerrar'
+                    })
+                });
+
+
+            </script>
+
+      {% endif %}
+
+     </div>
+ </div>
+{% include 'Front/base/footer.html.twig' %}
+
+</body>
+{% endblock %}
+
+{% block script %}
+{{parent(script)}}
+
+
+   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+{% endblock %}

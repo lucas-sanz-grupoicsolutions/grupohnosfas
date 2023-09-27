@@ -1,0 +1,744 @@
+{% extends 'Front/base/main.html.twig' %}
+
+{# {% block titleHeader %}
+Crear un Cliente
+{% endblock %} #}
+{% block content %}
+  {% include 'Front/base/header.html.twig' %}
+
+<style>
+    button {
+        border-top-left-radius: 40px 40px;
+        border-top-right-radius: 40px 40px;
+        border-bottom-right-radius: 40px 40px;
+        border-bottom-left-radius: 40px 40px;
+        width: 100%;
+        box-shadow: none;
+        font-size: 20px;
+        border: none;
+        background: #FA8072;
+    }
+
+    button .agregar {
+        border-top-left-radius: 40px 40px;
+        border-top-right-radius: 40px 40px;
+        border-bottom-right-radius: 40px 40px;
+        border-bottom-left-radius: 40px 40px;
+        width: 100%;
+        box-shadow: none;
+        font-size: 20px;
+        border: none;
+        background: #FA8072;
+    }
+
+    .form-control {
+        border: 2px solid #FA8072 !important;
+        border-radius: 30px !important;
+
+    }
+
+    .form-select {
+        border: 2px solid #FA8072 !important;
+        border-radius: 30px !important;
+
+    }
+
+    .cssscan:not(.img-as-jpg) img {
+        top: 14%;
+        right: -37%;
+        width: 95%;
+        height: 95%;
+    }
+
+    .cssscan img {
+        position: absolute;
+        transform: rotate(-7deg);
+        transition: all .3s;
+    }
+
+    .cssscan {
+        padding: 2rem;
+        background: #FA8072;
+        border-radius: 24px;
+        position: relative;
+        overflow: hidden;
+        box-shadow: rgb(0 0 0 / 10%) 0 1px 2px 0;
+        cursor: pointer;
+        /* margin-top: 3em;*/
+        font-size: 19px;
+        text-align: left;
+    }
+
+    .display-4 {
+        display: inline;
+
+        padding-left: 30px;
+    }
+
+    .titulo_clientes {
+
+        border: 1px solid red;
+    }
+
+    .texto_titulo {
+
+        padding-left: 30px;
+    }
+
+    .contact {
+        background: #fa807221;
+
+    }
+
+    .numero {
+        background: #fa807221;
+        padding: 10px;
+
+    }
+
+    .numero2 {
+        background: red;
+        padding: 10px;
+
+    }
+
+    .col_numero {
+
+        max-width: 50px;
+        margin-left: 20px;
+        padding-top: 10px;
+
+    }
+
+    .col_button {
+
+        max-width: 50px;
+        margin-left: 20px;
+        padding-top: 10px;
+
+    }
+
+    .span_numero {
+
+        border-top-left-radius: 10px 10px;
+        border-bottom-left-radius: 10px 10px;
+        margin-top: 30px;
+        text-align: center;
+        color: #c95548;
+        font-size: 1.5rem;
+        background-color: #fa807221;
+    }
+
+    .button_add {
+        /*  background-color:#fa807221;*/
+    }
+
+
+
+.btn{
+
+font-family: Roboto, sans-serif;
+font-weight: 0;
+font-size: 14px;
+color: #fff;
+margin-top:10px;
+background-color: #FA8072;
+
+border: 2px solid #FA8072;
+box-shadow: rgb(0, 0, 0) 0px 0px 0px 0px;
+border-radius: 50px;
+transition : 1000ms;
+transform: translateY(0);
+display: flex;
+flex-direction: row;
+align-items: center;
+cursor: pointer;
+}
+
+.btn:hover{
+
+transition : 1000ms;
+
+transform : translateY(-0px);
+background-color: #fff;
+color: #FA8072;
+border: solid 2px #FA8072;
+}
+
+</style>
+
+
+
+
+<div class="container">
+
+    <div id="titulo_clientes">
+
+        <div class="row">
+            <div class="col-4 pl-3"><a href="javascript: history.go(-1)">&nbsp;&nbsp;&nbsp;
+                    <img class="ml-3 pt-4 " src="\images\arrow_white_izq.png" alt="...">
+                </a></div>
+            <div class="col-4"></div>
+            <div class="col-4"></div>
+        </div>
+
+        <div class="cssscan">
+            <p>
+                <h4 class="display-4 text-white text-center ">Dar de alta un Cliente</h4>
+                <p class=" texto_titulo text-white"> Gestion de Clientes</span>
+                </p>
+            </p>
+
+            <img src="\images\clientesvg.svg" alt="...">
+        </div>
+    </div>
+
+    <form action="{{ baseUrl('addCustomers') }}" method="POST">
+
+    <div class="cuerpo_clientes mt-2">
+
+        <div class="row">
+            <div class="col">
+                <div class="col-sm">
+                    <div class="field field_v2">
+                        <label for="name" class="ha-screen-reader"></label>
+                        <input id="name" class="field__input" placeholder=" " name="nombre">
+                        <span class="field__label-wrap" aria-hidden="true">
+                            <span class="field__label">Nombre </span>
+                        </span>
+                    </div>
+                    <p class="text-danger">{{ msg('errors.name') }}</p>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="col-sm">
+                    <div class="field field_v2">
+                        <label for="telefono" class="ha-screen-reader"></label>
+                        <input id="telefono" class="field__input" placeholder=" " name="telefono">
+                        <span class="field__label-wrap" aria-hidden="true">
+                            <span class="field__label">Telefono</span>
+                        </span>
+                    </div>
+                    <p class="text-danger">{{ msg('errors.telefono') }}</p>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="col-sm">
+                    <div class="field field_v2">
+                        <label for="mail" class="ha-screen-reader"></label>
+                        <input id="mail" class="field__input" placeholder=" " name="mail">
+                        <span class="field__label-wrap" aria-hidden="true">
+                            <span class="field__label">Email </span>
+                        </span>
+                    </div>
+                    <p class="text-danger">{{ msg('errors.mail') }}</p>
+
+                </div>
+
+            </div>
+
+            <div class="col-sm">
+
+                <div class="field field_v2">
+                    <label for="dni" class="ha-screen-reader"></label>
+                    <input id="dni" class="field__input" placeholder=" " name="dni">
+                    <span class="field__label-wrap" aria-hidden="true">
+                        <span class="field__label">Nº Fiscal </span>
+                    </span>
+                </div>
+                <p class="text-danger">{{ msg('errors.dni') }}</p>
+            </div>
+
+            <div class="col-sm">
+                <div class="field field_v2">
+                    <label for="direccion" class="ha-screen-reader"></label>
+                    <input id="direccion" class="field__input" placeholder=" " name="direccion">
+                    <span class="field__label-wrap" aria-hidden="true">
+                        <span class="field__label">Direccion</span>
+                    </span>
+                </div>
+                <p class="text-danger">{{ msg('errors.direccion') }}</p>
+
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <div class="col-sm">
+
+                    <div class="field field_v2">
+                        <label for="localidad" class="ha-screen-reader"></label>
+                        <input id="localidad" class="field__input" placeholder=" " name="localidad">
+                        <span class="field__label-wrap" aria-hidden="true">
+                            <span class="field__label">Localidad </span>
+                        </span>
+                    </div>
+                    <p class="text-danger">{{ msg('errors.localidad') }}</p>
+
+                </div>
+
+            </div>
+
+            <div class="col">
+
+                <div class="col-sm">
+
+                    <div class="field field_v2">
+                        <label for="provincia" class="ha-screen-reader"></label>
+                        <input id="provincia" class="field__input" placeholder=" " name="provincia">
+                        <span class="field__label-wrap" aria-hidden="true">
+                            <span class="field__label">Provincia</span>
+                        </span>
+                    </div>
+                    <p class="text-danger">{{ msg('errors.provincia') }}</p>
+
+                </div>
+
+            </div>
+
+            <div class="col">
+
+                <div class="col-sm">
+
+                    <div class="field field_v2">
+                        <label for="codigo_postal" class="ha-screen-reader"></label>
+                        <input id="codigo_postal" class="field__input" placeholder=" " name="codigo_postal">
+                        <span class="field__label-wrap" aria-hidden="true">
+                            <span class="field__label">Codigo Postal </span>
+                        </span>
+                    </div>
+                    <p class="text-danger">{{ msg('errors.codigo_postal') }}</p>
+
+                </div>
+
+            </div>
+
+            <div class="col-sm">
+            </div>
+
+            <div class="col-sm">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <div class="col-sm">
+
+                    <div class="field field_v2">
+                        <label for="iva" class="ha-screen-reader"></label>
+                        <input id="iva" class="field__input" placeholder=" " name="iva">
+                        <span class="field__label-wrap" aria-hidden="true">
+                            <span class="field__label">IVA </span>
+                        </span>
+                    </div>
+                    <p class="text-danger">{{ msg('errors.iva') }}</p>
+
+                </div>
+
+            </div>
+
+            <div class="col">
+
+                <div class="col-sm">
+
+                    <div class="field field_v2">
+                        <label for="bic" class="ha-screen-reader"></label>
+                        <input id="bic" class="field__input" placeholder=" " name="bic">
+                        <span class="field__label-wrap" aria-hidden="true">
+                            <span class="field__label">BIC</span>
+                        </span>
+                    </div>
+                    <p class="text-danger">{{ msg('errors.bic') }}</p>
+
+                </div>
+
+            </div>
+
+            <div class="col">
+
+                <div class="col-sm">
+
+                    <div class="field field_v2">
+                        <label for="iban" class="ha-screen-reader"></label>
+                        <input id="iban" class="field__input" placeholder=" " name="iban">
+                        <span class="field__label-wrap" aria-hidden="true">
+                            <span class="field__label">IBAN </span>
+                        </span>
+                    </div>
+                    <p class="text-danger">{{ msg('errors.iban') }}</p>
+
+                </div>
+
+            </div>
+
+            <div class="col-sm">
+
+                <div class="field field_v2">
+                    <label for="banco" class="ha-screen-reader"></label>
+                    <input id="banco" class="field__input" placeholder=" " name="banco">
+                    <span class="field__label-wrap" aria-hidden="true">
+                        <span class="field__label">Banco </span>
+                    </span>
+                </div>
+                <p class="text-danger">{{ msg('errors.banco') }}</p>
+            </div>
+            <div class="col-sm">
+
+                <div class="field field_v2">
+                    <label for="forma_pago_defecto" class="ha-screen-reader"></label>
+                    <input id="forma_pago_defecto" class="field__input" placeholder=" " name="forma_pago_defecto">
+                    <span class="field__label-wrap" aria-hidden="true">
+                        <span class="field__label">Forma de pago por defecto</span>
+                    </span>
+                </div>
+                <p class="text-danger">{{ msg('errors.forma_pago_defecto') }}</p>
+
+            </div>
+
+        </div>
+
+        <div class="row mt-4 mb-4">
+            <div class="col">
+                <label for="exampleFormControlTextarea1" class="p-2">Observaciones</label>
+                <textarea class="form-control" id="exampleFormControlTextarea1" name="observaciones"> </textarea>
+            </div>
+        </div>
+
+        {# PERSONA DE CONTACTO #}
+        <div class="row mt-4 mb-4">
+
+            <p class="contact p-2 m-2 mb-2">&nbsp;&nbsp;
+                <img class="mr-2" src="\images\contact.png" alt="..."> &nbsp;&nbsp;Persona de contacto </p>
+
+        </div>
+        <section>
+            <div class="row mt-4 mb-4">
+
+                <div class="col col_numero text-center align-items-center">
+                    <span class="span_numero text-center align-items-center p-2">1</span>
+                </div>
+
+                <div class="col-sm">
+
+                    <div class="col-sm">
+
+                        <div class="field field_v2">
+
+                            <label for="name_pc_01" class="ha-screen-reader"></label>
+                            <input id="name_pc_01" class="field__input" placeholder=" " name="name_pc_01">
+                            <span class="field__label-wrap" aria-hidden="true">
+                                <span class="field__label"> Nombre </span>
+                            </span>
+                        </div>
+                        <p class="text-danger">{{ msg('errors.name_pc_01') }}</p>
+
+                    </div>
+                </div>
+
+                <div class="col-sm">
+                    <div class="col-sm">
+
+                        <div class="field field_v2">
+                            <label for="position_01" class="ha-screen-reader"></label>
+                            <input id="position_01" class="field__input" placeholder=" " name="position_01">
+                            <span class="field__label-wrap" aria-hidden="true">
+                                <span class="field__label">Cargo</span>
+                            </span>
+                        </div>
+                        <p class="text-danger">{{ msg('errors.position_01') }}</p>
+
+                    </div>
+
+                </div>
+
+                <div class="col">
+
+                    <div class="col-sm">
+
+                        <div class="field field_v2">
+                            <label for="phone_pc" class="ha-screen-reader"></label>
+                            <input id="phone_pc" class="field__input" placeholder=" " name="phone_pc_01">
+                            <span class="field__label-wrap" aria-hidden="true">
+                                <span class="field__label">Telefono </span>
+                            </span>
+                        </div>
+                        <p class="text-danger">{{ msg('errors.phone_pc') }}</p>
+
+                    </div>
+
+                </div>
+
+                <div class="col-sm">
+
+                    <div class="field field_v2">
+                        <label for="email_01" class="ha-screen-reader"></label>
+                        <input id="email_01" class="field__input" placeholder=" " name="email_01">
+                        <span class="field__label-wrap" aria-hidden="true">
+                            <span class="field__label">Email </span>
+                        </span>
+                    </div>
+                    <p class="text-danger">{{ msg('errors.email_01') }}</p>
+
+                </div>
+
+                <div class="col-sm">
+
+                    <a onClick="muestra_oculta('contenido')" title="" class="btn boton_mostrar">&nbsp;&nbsp;Agregar / Quitar Contacto 2</a>
+
+                </div>
+
+            </div>
+        </section>
+
+        {# 2  add_pc #}
+        <section id="contenido">
+
+            <div class="row mt-4 mb-4">
+
+                <div class="col col_numero text-center align-items-center">
+                    <span class="span_numero text-center align-items-center p-2">2</span>
+                </div>
+
+                <div class="col-sm">
+
+                    <div class="col-sm">
+
+                        <div class="field field_v2">
+
+                            <label for="name_pc_02" class="ha-screen-reader"></label>
+                            <input id="name_pc_02" class="field__input" placeholder=" " name="name_pc_02">
+                            <span class="field__label-wrap" aria-hidden="true">
+                                <span class="field__label"> Nombre </span>
+                            </span>
+                        </div>
+                        <p class="text-danger">{{ msg('errors.name_pc_02') }}</p>
+
+                    </div>
+                </div>
+
+                <div class="col-sm">
+                    <div class="col-sm">
+
+                        <div class="field field_v2">
+                            <label for="position_02" class="ha-screen-reader"></label>
+                            <input id="position_02" class="field__input" placeholder=" " name="position_02">
+                            <span class="field__label-wrap" aria-hidden="true">
+                                <span class="field__label">Cargo</span>
+                            </span>
+                        </div>
+                        <p class="text-danger">{{ msg('errors.position_02') }}</p>
+
+                    </div>
+
+                </div>
+
+                <div class="col-sm">
+
+                    <div class="col-sm">
+
+                        <div class="field field_v2">
+                            <label for="phone_pc_02" class="ha-screen-reader"></label>
+                            <input id="phone_pc_02" class="field__input" placeholder=" " name="phone_pc_02">
+                            <span class="field__label-wrap" aria-hidden="true">
+                                <span class="field__label">Telefono </span>
+                            </span>
+                        </div>
+                        <p class="text-danger">{{ msg('errors.phone_pc_02') }}</p>
+
+                    </div>
+
+                </div>
+
+                <div class="col-sm">
+
+                    <div class="field field_v2">
+                        <label for="email_02" class="ha-screen-reader"></label>
+                        <input id="email_02" class="field__input" placeholder=" " name="email_02">
+                        <span class="field__label-wrap" aria-hidden="true">
+                            <span class="field__label">Email </span>
+                        </span>
+                    </div>
+                    <p class="text-danger">{{ msg('errors.email_02') }}</p>
+
+                </div>
+
+                <div class="col-sm">
+                          <a onClick="muestra_oculta2('contenido2')" title="" class="btn boton_mostrar">&nbsp;&nbsp;Agregar / Quitar Contacto 3</a>
+                </div>
+
+            </div>
+
+            {# #}
+        </section>
+
+        {# 3 #}
+        <section id="contenido2">
+            <div class="row mt-4 mb-4 ">
+
+                <div class="col col_numero text-center align-items-center">
+                    <span class="span_numero text-center align-items-center p-2">3</span>
+                </div>
+
+                <div class="col-sm">
+                    <div class="col-sm">
+
+                        <div class="field field_v2">
+
+                            <label for="name_pc_03" class="ha-screen-reader"></label>
+                            <input id="name_pc_03" class="field__input" placeholder=" " name="name_pc_03">
+                            <span class="field__label-wrap" aria-hidden="true">
+                                <span class="field__label"> Nombre </span>
+                            </span>
+                        </div>
+                        <p class="text-danger">{{ msg('errors.name_pc_03') }}</p>
+
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="col-sm">
+
+                        <div class="field field_v2">
+                            <label for="position_03" class="ha-screen-reader"></label>
+                            <input id="position_03" class="field__input" placeholder=" " name="position_03">
+                            <span class="field__label-wrap" aria-hidden="true">
+                                <span class="field__label">Cargo</span>
+                            </span>
+                        </div>
+                        <p class="text-danger">{{ msg('errors.position_03') }}</p>
+
+                    </div>
+
+                </div>
+
+                <div class="col-sm">
+
+                    <div class="col-sm">
+
+                        <div class="field field_v2">
+                            <label for="phone_pc_03" class="ha-screen-reader"></label>
+                            <input id="phone_pc_03" class="field__input" placeholder=" " name="phone_pc_03">
+                            <span class="field__label-wrap" aria-hidden="true">
+                                <span class="field__label">Telefono </span>
+                            </span>
+                        </div>
+                        <p class="text-danger">{{ msg('errors.phone_pc_03') }}</p>
+
+                    </div>
+
+                </div>
+
+                <div class="col-sm">
+
+                    <div class="field field_v2">
+                        <label for="email_03" class="ha-screen-reader"></label>
+                        <input id="email_03" class="field__input" placeholder=" " name="email_03">
+                        <span class="field__label-wrap" aria-hidden="true">
+                            <span class="field__label">Email </span>
+                        </span>
+                    </div>
+                    <p class="text-danger">{{ msg('errors.email_03') }}</p>
+
+                </div>
+
+                <div class="col-sm">
+
+                </div>
+
+            </div>
+</form>
+            {# #}
+  </section>
+            <div class="row mt-5">
+
+                <div class="col-md">
+
+                    <div class="row">
+                        <div class="col">
+                        </div>
+                        <div class="col-md">
+                            <button class=" mt-3 pt-3 pb-3  text-white" id="enviar" type="submit">REGISTRAR</button>
+                        </div>
+                        <div class="col">
+                        </div>
+                    </div>
+                </div>
+
+                <p class=" text-center mt-5">
+                    <a href="{{ routeTo('listCustomers') }}">
+                        <img class="rounded mx-auto d-block " src="\images\regresar.png" alt="...">
+                    </a>
+                    <br> Volver a la lista de Clientes
+                </p>
+
+            </div>
+
+    </div>
+
+    {% endblock %}
+
+    {% block script %}
+
+    <script>
+
+
+        function muestra_oculta(id) {
+            if (document.getElementById) { //se obtiene el id
+                var el = document.getElementById(id); //se define la variable "el" igual a nuestro div
+
+                 var ele = document.getElementById('contenido2'); //se define la variable "el" igual a nuestro div
+
+                  el.style.display = (el.style.display == 'none') ? 'block' : 'none'; //damos un atributo display:none que oculta el div
+
+                    if(el.style.display == 'none'){
+                            document.getElementById("name_pc_02").value = "";
+                            document.getElementById("position_02").value = "";
+                            document.getElementById("phone_pc_02").value = "";
+                            document.getElementById("email_02").value = "";
+
+                            document.getElementById("name_pc_03").value = "";
+                            document.getElementById("position_03").value = "";
+                            document.getElementById("phone_pc_03").value = "";
+                            document.getElementById("email_03").value = "";
+
+                    }
+            }
+        }
+        window.onload = function() {
+            /*hace que se cargue la función lo que predetermina que div estará oculto hasta llamar a la función nuevamente*/
+            muestra_oculta('contenido'); /* "contenido_a_mostrar" es el nombre que le dimos al DIV */
+             muestra_oculta('contenido2'); /* "contenido_a_mostrar" es el nombre que le dimos al DIV */
+
+
+        }
+
+
+        /* section 3*/
+        function muestra_oculta2(id) {
+            if (document.getElementById) { //se obtiene el id
+                var el = document.getElementById(id); //se define la variable "el" igual a nuestro div
+                el.style.display = (el.style.display == 'none') ? 'block' : 'none'; //damos un atributo display:none que oculta el div
+
+                if(el.style.display == 'none'){
+                        document.getElementById("name_pc_03").value = "";
+                        document.getElementById("position_03").value = "";
+                         document.getElementById("phone_pc_03").value = "";
+                        document.getElementById("email_03").value = "";
+
+                    }
+
+            }
+        }
+        window.onload = function() {
+            /*hace que se cargue la función lo que predetermina que div estará oculto hasta llamar a la función nuevamente*/
+            muestra_oculta('contenido'); /* "contenido_a_mostrar" es el nombre que le dimos al DIV */
+              muestra_oculta('contenido2'); /* "contenido_a_mostrar" es el nombre que le dimos al DIV */
+        }
+
+
+
+    </script>
+
+    {% endblock %}

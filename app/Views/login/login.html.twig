@@ -1,0 +1,154 @@
+{% extends 'Front/base/main.html.twig' %}
+
+{% block titleHeader %}
+Iniciar sesión
+{% endblock %}
+
+{% block content %}
+{% include 'Front/base/header.html.twig' %}
+
+<style>
+
+
+  .section_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Ajusta la altura según tus necesidades */
+  }
+
+  .centered-div {
+
+width: 70%;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    /* Estilos adicionales para el div centrado */
+  }
+
+</style>
+
+<body style="background-image: url('/images/fondos_index/fondo1.jpg'); background-repeat: no-repeat;
+    background-position: center;background-size: cover;
+  ">
+
+    <section class="section_container">
+
+        <div class="centered-div">
+            <div class="row d-flex justify-content-center align-items-center ">
+                <div class="col-xl-12">
+                    <div class="card rounded-3 text-black">
+                        <div class="row g-0">
+                            <div class="col-lg-6 gradient-custom-1">
+                                <div class="card-body p-md-5 mx-md-4">
+
+                                    <div class="text-center">
+
+                                      <h4 class="mb-4 display-6 text-white">
+                                       ACCEDER</h4>
+
+                                    </div>
+
+                                    <form action="{{ baseUrl('signin') }}" method="POST">
+
+                                        <p>Porfavor ingrese su mail y contraseña para loguearse</p>
+
+                                        <div class="field field_v2">
+                                            <label for="names" class="ha-screen-reader"></label>
+                                            <input type="email" id="names" class="field__input" placeholder=" "
+                                                name="mail">
+                                            <span class="field__label-wrap" aria-hidden="true">
+                                                <span class="field__label">Mail </span>
+                                            </span>
+                                        </div>
+
+                                        <p class="text-danger"><span class="bg-warning">{{ msg('errors.mail') }}</span>
+                                        </p>
+
+                                        <div class="field field_v2">
+                                            <label for="names" class="ha-screen-reader"></label>
+                                            <input type="password" id="names" class="field__input" placeholder=" "
+                                                name="password">
+                                            <span class="field__label-wrap" aria-hidden="true">
+                                                <span class="field__label">Password </span>
+                                            </span>
+                                        </div>
+
+                                        <p class="text-danger"><span
+                                                class="bg-warning">{{ msg('errors.password') }}</span></p>
+
+                                        <div class="text-center pt-1 mb-5 pb-1">
+                                            <button class="button_login mb-3 text-white" type="submit">Entrar
+                                            </button>
+
+                                        </div>
+
+                                        <div class=" align-items-center justify-content-center ">
+                                            <p>Si no se ha registrado aun puede hacerlo a continuacion.</p>
+
+                                        </div>
+                                    </form>
+
+                                    <div class=" align-items-center justify-content-center">
+                                        <a class="nav-link   {{ ("/"~ getPath() == routeTo('register')) ? 'active' : '' }}"
+                                            aria-current="page" href="{{ routeTo('register') }}">
+                                            <button type="button" class="button_login text-white">Nuevo usuario</button>
+                                        </a>
+                                    </div>
+                                    {% include 'Front/base/login/msgLogin.html.twig' %}
+
+                                </div>
+                            </div>
+                            <div class="col-lg-6 d-flex align-items-center gradient-custom-2 columna-izq">
+                                <div class="text-white text-center">
+
+                                <img src="\images\logo\logos4.png" width="80%" height="80%" alt="logo">
+
+                                    <h4 class="mb-4 display-6 text-center" style="font-size:2rem !important;">
+                                        GESTION DE CONTENEDORES</h4>
+                                    <p class="small mb-0 text-center">Aqui podra registrar, editar o eliminar contendores,
+                                        servicios, suplementos,
+                                        conductores, vehiculos facturas y albaranes.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</body>
+
+{% endblock %}
+{% block script %}
+{{parent(script)}}
+
+<script>
+    setTimeout(function() {
+        $(".alerta_msg_login").fadeOut(2000);
+    }, 2200);
+</script>
+
+<script src="/js/jsBootstrap.js"></script>
+
+<script src="https://cdn.lordicon.com/qjzruarw.js"></script>
+
+<script src="/public/js/index/bootstrap.min.js"></script>
+<script src="/public/js/index/popper.min.js"></script>
+<script src="/public/js/index/bootstrap.min.js"></script>
+<script src="/public/js/index/main.js"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<!-- jQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<!-- switch -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+{% endblock %}

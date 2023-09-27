@@ -1,0 +1,356 @@
+
+<link rel="stylesheet" href="/css/css_all/header.css">
+<style>.navbar {
+    /* position: relative; */
+    display: flex;
+     flex-wrap: none !important;
+    justify-content: space-between;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+}
+
+.navbar {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 0.2rem;
+    padding-bottom: 0.2rem;
+}
+</style>
+
+<nav class="navbar navbar-expand-lg" style="background:#5c674b; height:60px;">
+    <div class="container-fluid">
+        <img src="\images\logo\logos_barra_top2.png" alt="..."> &nbsp;&nbsp;&nbsp;
+
+        <div class="navbar-collapse justify-content-end" id="navbarSupportedContent">
+            <ul class="navbar-nav col-md-10 mb-lg-0">
+
+             {% if session('isLogged') %}
+                            <li class="nav-item">
+                                <span class="nav-link text-white">Bienvenido
+                                    {{ session('name') }}
+                                </span>
+                            </li>
+                        </ul>
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li class="nav-item mt-2">
+                                <a class='text-white ' href='{{ routeTo('logout') }}'>Salir
+                                </a>
+                            </li>
+                            {% endif %}
+
+
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        {# <a class="navbar-brand" href="#"><img src="/images/Logo2.png" alt="home" /></a>#}
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav col-md-10 mb-2 mb-lg-0">
+
+                <li class="nav-item">
+                    <a  class="nav-link {{ ( getPath() == routeTo('home')) ? 'active' : '' }}" aria-current="page"
+                        href="{{ routeTo('home') }}">Inicio</a>
+                </li>
+                {% if session('isLogged') %}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        Contenedores
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown" >
+
+                        <li>
+                            <a class="dropdown-item" href="{{ routeTo('showFormContainers') }} ">
+
+                                Dar de alta</a>
+                        </li>
+
+                        <li>
+                            <a class="dropdown-item" href="{{ routeTo('listContainers') }}">
+
+                                Listado</a>
+                        </li>
+
+                    </ul>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        Clientes
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+
+                        <li>
+                            <a class="dropdown-item" href="{{ routeTo('showFormCustomers') }} ">
+
+                                Dar de alta</a>
+                        </li>
+
+                        <li>
+                            <a class="dropdown-item" href="{{ routeTo('listCustomers') }}">
+
+                                Listado</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        Pedidos
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+
+                        <li>
+                            <a class="dropdown-item" href="{{ routeTo('showFormOrders') }} ">
+
+                                Dar de alta</a>
+                        </li>
+
+                        <li>
+                            <a class="dropdown-item" href="{{ routeTo('listOrders') }}">
+
+                                Listado</a>
+                        </li>
+
+                    </ul>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        Albaranes
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+
+                        <li>
+                            <a class="dropdown-item" href="{{ routeTo('listAlbaranes') }}">
+
+                                Listado</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        Facturas
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+
+
+                        <li>
+                                  <a class="dropdown-item" href="{{ routeTo('remesas') }}">
+
+                                Crear Remesas</a>
+                        </li>
+
+                        <li>
+
+                           <a class="dropdown-item" href="{{ routeTo('listBills') }}">
+
+                                Listado</a>
+
+                        </li>
+
+                    </ul>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        Direccion de Obras
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+
+                        <li>
+                            <a class="dropdown-item" href="{{ routeTo('showFormWorkLocations') }} ">
+
+                                Dar de alta</a>
+                        </li>
+
+                        <li>
+                            <a class="dropdown-item" href="{{ routeTo('listWorkLocations') }}">
+
+                                Listado</a>
+                        </li>
+
+                    </ul>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        Conductores
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+
+                        <li>
+                            <a class="dropdown-item" href="{{ routeTo('showFormDrivers') }} ">
+
+                                Dar de alta</a>
+                        </li>
+
+                        <li>
+                            <a class="dropdown-item" href="{{ routeTo('listDrivers') }}">
+
+                                Listado</a>
+                        </li>
+
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        Vehiculos
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+
+                        <li>
+                            <a class="dropdown-item" href="{{ routeTo('showFormVehicle') }} ">
+
+                                Dar de alta</a>
+                        </li>
+
+                        <li>
+                            <a class="dropdown-item" href="{{ routeTo('listVehicle') }}">
+
+                                Listado</a>
+                        </li>
+
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        Servicios
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+
+                        <li>
+                            <a class="dropdown-item" href="{{ routeTo('showFormService') }} ">
+
+                                Dar de alta</a>
+                        </li>
+
+                        <li>
+                            <a class="dropdown-item" href="{{ routeTo('listService') }}">
+
+                                Listado</a>
+                        </li>
+
+                    </ul>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        Suplementos
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+
+                        <li>
+                            <a class="dropdown-item" href="{{ routeTo('showFormSuplements') }} ">
+
+                                Dar de alta</a>
+                        </li>
+
+                        <li>
+                            <a class="dropdown-item" href="{{ routeTo('listSuplements') }}">
+
+                                Lista de Suplementos
+                            </a>
+                        </li>
+
+                    </ul>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        Estados Actuales
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+
+                        <li>
+                            <a class="dropdown-item" href="{{ routeTo('listAS') }}">
+
+                                Ver Estados
+                            </a>
+                        </li>
+
+                    </ul>
+                </li>
+
+            </ul>
+            <li class="nav-item dropdown text-white">
+
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        <img class=" " src="\images\iconos\login.png" title="Perfil" width="50" height="50">
+
+
+                    </a>
+
+
+                    <ul class="dropdown-menu menu_perfil" aria-labelledby="navbarDropdown">
+                    {% endif %}
+
+
+  {% if session('isLogged') %}
+                        {#    {% if checkPerms(['title_partidas']) == '1'  %}#}
+                        <li class="nav-item mt-2 mb-2" >
+                            <a class="text-black  {{ (" /"~ getPath() == routeTo('register')) ? 'active' : '' }}"
+                                aria-current="page" href="{{ routeTo('register') }}">Registar ususario</a>
+                        </li>
+                        {#    {% endif %}#}
+
+                        {#       {% if checkPerms(['title_partidas']) == '1' or checkPerms(['title_partidas']) == '2'  %} #}
+                        <li class="nav-item text-black">
+                            <a class='text-black' href="{{ routeTo('PasswordReset') }}">
+                                Cambiar contraseña
+                            </a>
+                        </li>
+                        {#    {% endif %} #}
+
+                        {% endif %}
+                        <ul class="dropdown-menu menu_perfil" aria-labelledby="navbarDropdown">
+
+                            {% if session('isLogged') %}
+                            {# <li class="nav-item">
+                                <span class="nav-link text-white">Bienvenido
+                                    {{ session('name') }}
+                                </span>
+                            </li> #}
+                        </ul>
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            {# <li class="nav-item mt-2">
+                                <a class='text-white ' href='{{ routeTo('logout') }}'>Salir
+                                </a>
+                            </li> #}
+                            {% else %}
+
+                            <li class="nav-item ">
+                                <a class="nav-link {{ (" /"~getPath() == routeTo('login')) ? 'active' : '' }}"
+                                    href="{{ routeTo('login') }}">Entrar</a>
+                            </li>
+                            {% endif %}
+                        </ul>
+                    </ul>
+
+
+            </li>
+
+        </div>
+    </div>
+</nav>

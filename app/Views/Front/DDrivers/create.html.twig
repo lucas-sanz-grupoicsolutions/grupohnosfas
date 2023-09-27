@@ -1,0 +1,177 @@
+{% extends 'Front/base/main.html.twig' %}
+
+{% block content %}
+  {% include 'Front/base/header.html.twig' %}
+
+<link rel="stylesheet" href="/css/css_all/Drivers/create.css">
+<link rel="stylesheet" href="/css/css_all/conductores.css">
+
+<body class="container_drivers">
+    <div class="container mt-1">
+
+        <div id="title_drivers">
+
+            <div class="row">
+                <div class="col-4 pl-3"><a href="javascript: history.go(-1)">&nbsp;&nbsp;&nbsp;
+                        <img class="ml-3 pt-4 " src="\images\arrow_white_izq.png" alt="...">
+                    </a></div>
+                <div class="col-4"></div>
+                <div class="col-4"></div>
+            </div>
+
+            <div class="cssscan">
+                <p>
+                    <h4 class="display-4 text-white text-center ">Dar de alta un Conductor</h4>
+                    <p class=" texto_titulo text-white"> Gestion de Conductores</span>
+                    </p>
+                </p>
+
+                <img src="\images\conductor_header.svg" alt="...">
+            </div>
+        </div>
+
+
+        <form action="{{ baseUrl('addDrivers') }}" method="POST">
+
+            <div class="cuerpo_contenedores mt-1">
+
+                <div class="row">
+                    <div class="col">
+                        <div class="col-sm">
+                            <div class="field field_v2">
+                                <label for="name" class="ha-screen-reader"></label>
+                                <input id="name" value="{{ old('name') }}"  class="field__input" placeholder=" " name="name">
+                                <span class="field__label-wrap" aria-hidden="true">
+                                    <span class="field__label">Nombre del Conductor </span>
+                                </span>
+                            </div>
+                            <p class="text-danger">{{ msg('errors.name') }}</p>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="col-sm">
+                            <div class="field field_v2">
+                                <label for="province" class="ha-screen-reader"></label>
+                                <input id="province" value="{{ old('province') }}" class="field__input" placeholder=" " name="province">
+                                <span class="field__label-wrap" aria-hidden="true">
+                                    <span class="field__label">Provincia </span>
+                                </span>
+                            </div>
+                            <p class="text-danger">{{ msg('errors.province') }}</p>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="col-sm">
+                            <div class="field field_v2">
+                                <label for="phone" class="ha-screen-reader"></label>
+                                <input value="{{ old('phone') }}" id="phone" class="field__input" placeholder=" " name="phone" zip_code>
+                                <span class="field__label-wrap" aria-hidden="true">
+                                    <span class="field__label">Telefono</span>
+                                </span>
+                            </div>
+                            <p class="text-danger">{{ msg('errors.phone') }}</p>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row mt-4 mb-4">
+
+                    <div class="col-6">
+                        <label for="exampleFormControlTextarea1" class="p-2">Observaciones</label>
+                        <textarea class="form-control" id="exampleFormControlTextarea1" name="observations"> </textarea>
+                         <p class="text-danger">{{ msg('errors.observations') }}</p>
+                    </div>
+                    <div class="col-6"> </div>
+                </div>
+
+                <div class="row mt-5">
+
+                    <div class="col-md">
+
+                        <div class="row">
+                            <div class="col">
+                            </div>
+                            <div class="col-md">
+                                <button class="button_servicie mt-3 pt-3 pb-3  text-white" id="enviar"
+                                    type="submit">REGISTRAR</button>
+                            </div>
+                            <div class="col">
+                            </div>
+                        </div>
+                    </div>
+        </form>
+
+        <p class=" text-center mt-5">
+            <a href="{{ routeTo('listDrivers') }}">
+                <img class="rounded mx-auto d-block " src="\images\regresar.png" alt="...">
+            </a>
+            <br> Volver a la lista de Conductores
+        </p>
+
+    </div>
+
+    </div>
+
+     </div>
+
+    </div>
+
+    <div class="row " >
+        <div class="col-12">
+
+      {%  if msg('msg') %}
+
+            <script>
+                $(document).ready(function() {
+
+                 var msg = {{ msg('msg')|json_encode|raw }};
+
+                Swal.fire({
+                    title: msg.title,
+                    text: msg.text,
+                    icon: 'success',
+                    cancelButtonText: 'Cerrar'
+                    })
+                });
+            </script>
+
+      {% endif %}
+
+
+          {%  if msg('msg2') %}
+
+            <script>
+                $(document).ready(function() {
+
+                 var msg = {{ msg('msg2')|json_encode|raw }};
+
+                Swal.fire({
+                    title: msg.title,
+                    text: msg.text,
+                    icon: 'error',
+                    cancelButtonText: 'Cerrar'
+                    })
+                });
+            </script>
+
+      {% endif %}
+
+     </div>
+ </div>
+
+
+{% include 'Front/base/footer.html.twig' %}
+    {% endblock %}
+
+    {% block script %}
+    {{parent(script)}}
+
+    <script>
+        setTimeout(function() {
+            $(".alerta").fadeOut(2000);
+        }, 2200);
+
+    </script>
+
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    {% endblock %}

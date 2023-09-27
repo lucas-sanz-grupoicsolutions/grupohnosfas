@@ -1,0 +1,336 @@
+.registrar {
+    border-top-left-radius: 40px 40px;
+    border-top-right-radius: 40px 40px;
+    border-bottom-right-radius: 40px 40px;
+    border-bottom-left-radius: 40px 40px;
+    width: 100%;
+    box-shadow: none;
+    font-size: 20px;
+    border: none;
+    background: #a253ef;
+}
+
+button .agregar {
+    border-top-left-radius: 40px 40px;
+    border-top-right-radius: 40px 40px;
+    border-bottom-right-radius: 40px 40px;
+    border-bottom-left-radius: 40px 40px;
+    width: 100%;
+    box-shadow: none;
+    font-size: 20px;
+    border: none;
+    background: #FA8072;
+}
+
+.form-control {
+    border: 2px solid #a253ef !important;
+    border-radius: 20px !important;
+
+}
+
+.form-select {
+    border: 2px solid #a253ef !important;
+    border-radius: 20px !important;
+
+}
+
+.cssscan:not(.img-as-jpg) img {
+    top: 14%;
+    right: -37%;
+    width: 95%;
+    height: 95%;
+}
+
+.cssscan img {
+    position: absolute;
+    transform: rotate(-7deg);
+    transition: all .3s;
+}
+
+.cssscan {
+    padding: 2rem;
+    background: #a253ef;
+    border-radius: 24px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: rgb(0 0 0 / 10%) 0 1px 2px 0;
+    cursor: pointer;
+    /* margin-top: 3em;*/
+    font-size: 19px;
+    text-align: left;
+}
+
+
+.display-4 {
+    display: inline;
+    padding-left: 30px;
+    color: white !important;
+}
+
+
+.texto_titulo {
+    padding-left: 30px;
+    color: white !important;
+}
+
+.contactos {
+    background: #2f4052;
+    font-size: 1.5rem;
+    color: white;
+
+}
+
+.noahicontactos {
+    font-size: 1.5rem;
+}
+
+.numero {
+    background: #fa807221;
+    padding: 10px;
+
+}
+
+.numero2 {
+    background: red;
+    padding: 10px;
+
+}
+
+.boton_eliminar {
+
+    border-top-left-radius: 20px 200px;
+    border-top-right-radius: 20px 20px;
+    border-bottom-right-radius: 40px 40px;
+    border-bottom-left-radius: 40px 40px;
+    width: 100%;
+    box-shadow: none;
+    font-size: 20px;
+    border: none;
+
+    /* padding-top:18px;*/
+
+    text-align: center;
+
+}
+
+
+
+.col_button {
+
+    max-width: 50px;
+    margin-left: 20px;
+    padding-top: 10px;
+}
+
+.span_numero {
+    border-top-left-radius: 10px 10px;
+    border-bottom-left-radius: 10px 10px;
+    margin-top: 30px;
+    text-align: center;
+    color: #c95548;
+    font-size: 1.5rem;
+    background-color: #fa807221;
+}
+
+.button_add {
+    /*  background-color:#fa807221;*/
+}
+
+
+.btn {
+
+    font-family: Roboto, sans-serif;
+    font-weight: 0;
+    font-size: 14px;
+    color: #fff;
+    margin-top: 10px;
+    background-color: #FA8072;
+
+    border: 2px solid #FA8072;
+    box-shadow: rgb(0, 0, 0) 0px 0px 0px 0px;
+    border-radius: 80px;
+    transition: 1000ms;
+    transform: translateY(0);
+
+    flex-direction: row;
+    align-items: center;
+    cursor: pointer;
+}
+
+.btn:hover {
+
+    transition: 1000ms;
+
+    transform: translateY(-0px);
+    background-color: #fa807230;
+    color: #FA8072;
+    border: solid 2px #FA8072;
+}
+
+#hide-me {
+    width: 100px;
+    height: 100px;
+    background: #bf7130;
+    display: block;
+    padding: 10px;
+    margin: 0 15px 0 0;
+    font-size: 14px;
+    font-weight: bold;
+    float: left;
+    text-align: center;
+    background: rgba(0, 0, 0, .15);
+}
+
+.close {
+    background: transparent !important;
+    width: 30px;
+    border-radius: 50% 50%;
+}
+
+.boton_cerrar {
+    max-width: 110px;
+    min-width: 110px;
+    background-color: #ff7b6c !important;
+    padding: 10px;
+
+    border-top-left-radius: 30px 30px;
+    border-top-right-radius: 30px 30px;
+    border-bottom-right-radius: 30px 30px;
+    border-bottom-left-radius: 30px 30px;
+
+    font-size: 15px !important;
+    color: white !important;
+
+    text-align: center;
+}
+
+.boton_modal {
+
+    margin-top: 5px;
+    max-width: 150px;
+    min-width: 100px;
+
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+
+    border-top-left-radius: 20px 20px;
+    border-top-right-radius: 20px 20px;
+    border-bottom-right-radius: 20px 20px;
+    border-bottom-left-radius: 20px 20px;
+
+    font-size: 15px !important;
+    color: white !important;
+
+
+}
+
+.modal-header {
+
+    border-top-left-radius: 20px 20px !important;
+    border-top-right-radius: 20px 20px !important;
+    background-color: #ff7b6c !important;
+    color: #fff !important;
+}
+
+.modal-footer {
+
+    border-top: none !important;
+
+}
+
+.abs-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+#alerta {
+    margin-top: 1 0px;
+    display: none;
+}
+
+.nuevo_contactos {}
+
+th {
+    background-color: #2125290d !important;
+    box-shadow: none;
+    border: none;
+
+
+}
+
+td {
+    background-color: #2125290d !important;
+    box-shadow: none;
+    border: none;
+
+}
+
+.table>:not(caption)>*>* {
+    padding: 0.5rem 0.5rem;
+    background-color: var(--bs-table-bg);
+
+    box-shadow: none;
+    border: none;
+
+}
+
+
+.botones {
+    border-top-left-radius: 20px 20px;
+    border-top-right-radius: 20px 20px;
+    background-color: #2125290d !important;
+
+
+}
+
+.alert-success {
+    text-align: center;
+    background-color: #dbf1d838;
+    border-left: 7px solid #3dbf2ae8;
+    width: 100%;
+    margin-top: 10px;
+    color: #000000;
+    font-size: 1.2rem;
+}
+
+.tr_ {
+    border: 1px solid white;
+}
+
+
+
+
+#title_drivers {
+    border-top-left-radius: 30px 30px;
+    border-top-right-radius: 30px 30px;
+    border-bottom-left-radius: 30px 30px;
+    border-bottom-right-radius: 30px 30px;
+    background: #a253ef;
+
+}
+.boton_add_vehicle {
+    /* width: 4rem; */
+    height: 4rem;
+    border-top-left-radius: 40px 40px;
+    border-top-right-radius: 40px 40px;
+    border-bottom-right-radius: 40px 40px;
+    border-bottom-left-radius: 40px 40px;
+    box-shadow: rgb(17 17 26 / 10%) 0px 1px 0px;
+    background: #a253ef;
+}
+
+.cuerpo_vehicle {
+    border: 2px solid #a253ef;
+    background: #d7eaf005;
+    padding: 20px;
+    border-bottom-left-radius: 30px 30px;
+    border-bottom-right-radius: 30px 30px;
+    border-top-left-radius: 30px 30px;
+    border-top-right-radius: 30px 30px;
+    /* background: rgb(251 251 251); */
+    box-shadow: rgba(0, 0, 0, 0.1) 0 1px 3px 0, rgba(0, 0, 0, 0.06) 0 1px 2px 0;
+}

@@ -1,0 +1,134 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:pain.008.001.02">
+
+    <CstmrDrctDbtInitn>
+
+        <GrpHdr>
+            <MsgId>REF. ÚNICA IDENTIFICATIVA DEL FICHERO ASIGNADA POR EL CLIENTE (1.1)</MsgId>
+            <CreDtTm>FECHA Y HORA CREACIÓN FICHERO AAAA-MM-DDTHH:MM:SS (1.2)</CreDtTm>
+            <NbOfTxs>NÚMERO TOTAL DE ADEUDOS DEL FICHERO (1.6) SUMATORIO &lt;DrctDbtTxInf&gt;</NbOfTxs>
+            <CtrlSum>IMPORTE TOTAL DEL FICHERO FORMATO 99.99 (1.7) SUMATORIO &lt;InstdAmt&gt;</CtrlSum>
+
+            <InitgPty>
+                <Nm>NOMBRE DEL PRESENTADOR TIR (1.8)</Nm>
+                <Id>
+                    <OrgId>
+                        <Othr>
+                            <Id>IDENTIFICADOR DEL PRESENTADOR (NIF-SUF) FORMATO ESDDSSSNNNNNNNNN</Id>
+                        </Othr>
+                    </OrgId>
+                </Id>
+            </InitgPty>
+        </GrpHdr>
+
+
+        <PmtInf>
+
+            <PmtInfId>REF. IDENTIFICATIVA DEL BLOQUE DE DATOS DE CADA REMESA (2.1) ÚNICA E IRREPETIBLE EN CADA FICHERO
+                XML</PmtInfId>
+            <PmtMtd>METODO DE PAGO –
+                 “DD” (2.2)</PmtMtd>
+            <NbOfTxs>NUMERO TOTAL DE ADEUDOS DE UN MISMO BLOQUE DE DATOS / REMESA (2.4) SUMATORIO &lt;DrctDbtTxInf&gt;
+            </NbOfTxs>
+
+            <CtrlSum>IMPORTE TOTAL DE UN MISMO BLOQUE DE DATOS (2.5) SUMATORIO &lt;InstdAmt&gt;</CtrlSum>
+
+            <PmtTpInf>
+                <SvcLvl>
+                    <Cd>CODIGO IDENTIFICATIVO SEPA (AT-20) – SIEMPRE “SEPA” (2.8)</Cd>
+                </SvcLvl>
+                <LclInstrm>
+                    <Cd>TIPO DE ESQUEMA SEPA (AT-20) “CORE” ó “B2B” (2.9)</Cd>
+                </LclInstrm>
+                <SeqTp>TIPO DE ADEUDO (AT-21) “RCUR” “FRST” “FNAL” “OOFF” (2.14)</SeqTp>
+                <CtgyPurp>
+                    <Cd>CATEGORIA DEL PROPOSITO (AT-59) SEGÚN TABLA – DATO OPCIONAL (2.15)</Cd>
+                </CtgyPurp>
+            </PmtTpInf>
+
+            <ReqdColltnDt>FECHA DE COBRO / VENCIMIENTO (AT-11) AAAA-MM-DD (2.18)</ReqdColltnDt>
+
+            <Cdtr>
+                <Nm>NOMBRE DEL ACREEDOR – ORDENANTE TIR (AT-03) (2.19)</Nm>
+                <PstlAdr>
+                    <Ctry>PAIS DEL ACREEDOR – SEGÚN ISO 3166 OBLIGATORIO SI LA DIRECCIÓN &lt;AdrLine&gt; ESTA INFORMADA
+                    </Ctry>
+                    <AdrLine>DIRECCIÓN DEL ACREEDOR (AT-05) PRIMERA OCURRENCIA – DATO OPCIONAL</AdrLine>
+                    <AdrLine>DIRECCIÓN DEL ACREEDOR (AT-05) SEGUNDA OCURRENCIA – DATO OPCIONAL</AdrLine>
+                </PstlAdr>
+            </Cdtr>
+            <CdtrAcct>
+                <Id>
+                    <IBAN>IBAN DEL ACREEDOR</IBAN>
+                </Id>
+            </CdtrAcct>
+
+            <CdtrAgt>
+                <FinInstnId>
+                    <BIC>BIC DE LA ENTIDAD DEL ACREEDOR – SIEMPRE CAIXESBBXXX (2.21)</BIC>
+                </FinInstnId>
+            </CdtrAgt>
+
+            <ChrgBr>CLAUSULA DE GASTOS – SIEMPRE “SLEV” (2.24)</ChrgBr>
+
+            <CdtrSchmeId>
+                <Id>
+                    <PrvtId>
+                        <Othr>
+                            <Id>IDENTIFICADOR DEL ACREEDOR (AT-02) (NIF-SUF) FORMATO ESDDSSSNNNNNNNNN (2.27)</Id>
+                            <SchmeNm>
+                                <Prtry>CODIGO IDENTIFICATIVO – SIEMPRE “SEPA”</Prtry>
+                            </SchmeNm>
+                        </Othr>
+                    </PrvtId>
+                </Id>
+            </CdtrSchmeId>
+
+
+            <DrctDbtTxInf>
+                <PmtId>
+                    <EndToEndId>REF. ÚNICA ASIGNADA POR EL CLIENTE A CADA ADEUDO (AT-10) (2.31)</EndToEndId>
+                </PmtId>
+
+                <InstdAmt Ccy="EUR">IMPORTE DEL ADEUDO (AT-06) FORMATO 99.99 (2.44)</InstdAmt>
+
+                <DrctDbtTx>
+                    <MndtRltdInf>
+                        <MndtId>REFERENCIA ÚNICA DEL MANDATO U ORDEN DE DOMICILIACIÓN (AT-01) (2.48)</MndtId>
+                        <DtOfSgntr>FECHA DE FIRMA DEL MANDATO (AT-25) AAAA-MM-DD (2.49)</DtOfSgntr>
+                    </MndtRltdInf>
+                </DrctDbtTx>
+
+                <DbtrAgt>
+                    <FinInstnId>
+                        <BIC>BIC DE LA ENTIDAD DEL DEUDOR (AT-13) (2.70)</BIC>
+                    </FinInstnId>
+                </DbtrAgt>
+
+                <Dbtr>
+                    <Nm>NOMBRE DEL DEUDOR (2.72)</Nm>
+                    <PstlAdr>
+                        <Ctry>PAIS DEL DEUDOR (AT-09)– SEGÚN ISO 3166 OBLIGATORIO SI LA DIRECCIÓN &lt;AdrLine&gt; ESTA  INFORMADA</Ctry>
+                        <AdrLine>DIRECCIÓN DEL DEUDOR (AT-09) PRIMERA OCURRENCIA – DATO OPCIONAL</AdrLine>
+                        <AdrLine>DIRECCIÓN DEL DEUDOR (AT-09) PRIMERA OCURRENCIA – DATO OPCIONAL</AdrLine>
+                    </PstlAdr>
+                </Dbtr>
+
+                <DbtrAcct>
+                    <Id>
+                        <IBAN>IBAN DEL DEUDOR</IBAN>
+                    </Id>
+                </DbtrAcct>
+
+                <Purp>
+                    <Cd>PROPOSITO DEL ADEUDO (AT-58) SEGÚN TABLA – DATO OPCIONAL (2.76)</Cd>
+                </Purp>
+
+                <RmtInf>
+                    <Ustrd>CONCEPTO DEL ADEUDO (AT-22) DATO OPCIONAL (2.88)</Ustrd>
+                </RmtInf>
+
+            </DrctDbtTxInf>
+        </PmtInf>
+    </CstmrDrctDbtInitn>
+</Document>

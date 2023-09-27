@@ -1,0 +1,514 @@
+{% extends 'Front/base/main.html.twig' %}
+
+{% block titleHeader %}
+Listar vehiculos
+{% endblock %}
+{% block content %}
+  {% include 'Front/base/header.html.twig' %}
+
+<style>
+    .button_retiner {
+        border-top-left-radius: 40px 40px;
+        border-top-right-radius: 40px 40px;
+        border-bottom-right-radius: 40px 40px;
+        border-bottom-left-radius: 40px 40px;
+        width: 100%;
+        box-shadow: none;
+        font-size: 20px;
+        border: none;
+        background: #DA192D;
+    }
+
+        .boton_add_retainer {
+        /*   width: 4rem;*/
+        height: 4rem;
+        border-top-left-radius: 40px 40px;
+        border-top-right-radius: 40px 40px;
+        border-bottom-right-radius: 40px 40px;
+        border-bottom-left-radius: 40px 40px;
+        box-shadow: rgba(17, 17, 26, 0.1) 0px 1px 0px;
+        background: #DA192D;
+        box-shadow: rgba(0, 0, 0, 0.18) 0px 2px 4px;
+    }
+
+    a:hover {
+        text-decoration: none;
+    }
+
+    a {
+        text-decoration: none !important;
+
+    }
+
+    .texto_negrita {
+        font-weight: 900;
+    }
+
+
+    .listar_todos {
+        text-decoration: none;
+
+    }
+
+    .listar_todos a {
+        text-decoration: none !important;
+
+    }
+
+    .pagination {
+        list-style: none;
+        text-align: center;
+    }
+
+    button {
+        background: none;
+        width: 100% !important;
+
+    }
+
+    .pagination li {
+        list-style: none;
+        text-align: center;
+        padding: 10px;
+        /* border: 1px solid gray; */
+        color: gray;
+        margin-left: 2px;
+        background: #a2a2a212;
+        border-radius: 10px;
+
+    }
+
+
+    .buttonSearch {
+        background: none;
+        max-width: 40px;
+
+    }
+
+    .navbar {
+        /* position: relative; */
+        display: flex;
+        flex-wrap: wrap;
+
+        justify-content: space-between;
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
+    }
+
+    .listar {
+        height: 55px !important;
+        border-top-left-radius: 40px 40px;
+        border-top-right-radius: 40px 40px;
+        border-bottom-right-radius: 40px 40px;
+        border-bottom-left-radius: 40px 40px;
+        box-shadow: rgba(17, 17, 26, 0.1) 0px 1px 0px;
+        background: #DA192D;
+        color: white !important;
+
+    }
+
+
+    .display-4 {
+        display: inline;
+
+        padding-left: 30px;
+    }
+
+    .titulo_contenedores {
+
+        border: 1px solid red;
+    }
+
+    .texto_titulo {
+
+        padding-left: 30px;
+    }
+
+    .cssscan:not(.img-as-jpg) img {
+        top: 14%;
+        right: -37%;
+        width: 95%;
+        height: 95%;
+    }
+
+    .cssscan img {
+        position: absolute;
+        transform: rotate(-7deg);
+        transition: all .3s;
+    }
+
+    .cssscan {
+        padding: 2rem;
+        background: #DA192D;
+        border-radius: 24px;
+        position: relative;
+        overflow: hidden;
+        box-shadow: rgb(0 0 0 / 10%) 0 1px 2px 0;
+        cursor: pointer;
+        /* margin-top: 3em;*/
+        font-size: 19px;
+        text-align: left;
+    }
+
+    .regresar {
+
+        background-color: none !important;
+    }
+
+      .table {
+        --bs-table-bg: transparent;
+        --bs-table-accent-bg: #da192d14;
+
+    }
+
+    .table-striped>tbody>tr:nth-of-type(odd)>* {
+        --bs-table-accent-bg: rgb(255 255 255 / 5%);
+        color: var(--bs-table-striped-color);
+        border: none;
+    }
+
+    tbody,
+    td,
+    tfoot,
+    th,
+    thead,
+    tr {
+        border-color: inherit;
+        border-style: none;
+        border-width: 0;
+    }
+
+
+    .card_cliente {
+        max-width: 300px;
+        min-width: 250px;
+        border-top-left-radius: 20px 20px;
+        border-top-right-radius: 20px 20px;
+        border-bottom-right-radius: 20px 20px !important;
+        border-bottom-left-radius: 20px 20px !important;
+
+        box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+        /*    border: 2px solid #c2fbd7 !important;*/
+    }
+
+    .card_cliente_footer {
+        border-top-left-radius: 20px 20px;
+        border-top-right-radius: 20px 20px;
+        border-bottom-right-radius: 20px 20px !important;
+        border-bottom-left-radius: 20px 20px !important;
+
+        /*    border: 2px solid #c2fbd7 !important;*/
+        background-color: #f9f9f9;
+        box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    }
+
+
+    .span_num {
+        padding-top: 10px;
+        padding-bottom: 10px;
+        font-size: 1.3rem;
+        color: #66C2CF;
+        font-weight: bold;
+        font-family: 'Black Han Sans', sans-serif !important;
+        font-family: 'Nunito', sans-serif !important;
+        text-align: center;
+
+    }
+
+    .row-list {
+        text-align: center;
+    }
+
+    .texto_card {
+        text-align: left;
+    }
+
+
+
+    .display-4 {
+        display: inline;
+
+        padding-left: 30px;
+    }
+
+    .titulo_clientes {
+
+        border: 1px solid red;
+    }
+
+    .texto_titulo {
+
+        padding-left: 30px;
+    }
+
+    .contact {
+        background: #fa807221;
+
+    }
+
+    .icon-bg {
+
+        border-top-left-radius: 20px 20px;
+        border-top-right-radius: 20px 20px;
+        /*   background:#F08080;*/
+
+    }
+
+    .container_clientes {
+        background: #fbfafa;
+    }
+
+    .imagen {
+        border-top-left-radius: 20px 20px;
+        border-top-right-radius: 20px 20px;
+    }
+
+
+    .col_icon_search {
+        border-top: 2px solid #DA192D !important;
+        border-bottom: 2px solid #DA192D !important;
+        border-right: 2px solid #DA192D !important;
+
+        border-top-right-radius: 30px 30px;
+        border-bottom-right-radius: 30px 30px;
+
+        height: 55px !important;
+        background-color: #DA192D;
+        width: 70px;
+
+    }
+
+    .form-control {
+        border-top: 2px solid #DA192D !important;
+        border-bottom: 2px solid #DA192D !important;
+        border-right: none !important;
+
+        border-left: 2px solid #DA192D !important;
+        border-top-left-radius: 30px 30px;
+        border-bottom-left-radius: 30px 30px;
+        height: 3rem;
+        margin: 0;
+        height: 55px !important;
+        position: relative;
+        left: 13px;
+
+    }
+    #title_retainer {
+    border-top-left-radius: 30px 30px;
+    border-top-right-radius: 30px 30px;
+    border-bottom-left-radius: 30px 30px;
+    border-bottom-right-radius: 30px 30px;
+    background: #DA192D;
+
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+}
+</style>
+
+<body class="container_clientes">
+
+    <div class="container mt-1">
+
+        <div id="title_retainer">
+
+            <div class="row">
+                <div class="col-4 pl-3"><a href="javascript: history.go(-1)">&nbsp;&nbsp;&nbsp;
+                        <img class="ml-3 pt-4 " src="\images\arrow_white_izq.png" alt="...">
+                    </a></div>
+                <div class="col-4"></div>
+                <div class="col-4"></div>
+            </div>
+
+            <div class="cssscan">
+                <p>
+                    <h4 class="display-4 text-white text-center ">Listado de Anticipos</h4>
+                    <p class=" texto_titulo text-white"> Gestion de Anticipos dar de alta, modificar y listar</span>
+                    </p>
+                </p>
+
+                <img src="\images\clientesvg.svg" alt="...">
+            </div>
+        </div>
+
+        <div class="cuerpo_contenedores mt-2">
+
+            <div class="row p-2 mb-3 justify-content-center justify-content-md-start">
+
+                <div class="col-4 "> </div>
+
+                <div class="col-sm-4 pb-3">
+
+                    <a class="text-center" href="{{ routeTo('showFormRetainer') }}">
+                        <span class=" mx-auto d-block text-center boton_add_retainer">
+
+                            <img class=" pt-3" src="\images\add_1.png" alt="...">
+
+                        </span>
+                    </a>
+
+                </div>
+
+                <div class="col-4 "> </div>
+            </div>
+
+            <div class="row mt-3">
+
+                <div class="col-sm-4">
+                    <form action="{{ baseUrl('searchforIdPaq') }}" method="POST">
+                        <div class="row ">
+                            <div class="col-8">
+                                <i class="fa fa-user icon"></i>
+                                <input type="text" class="form-control text-left mr-2 " name="id_package_code"
+                                    placeholder="Buscar un cliente ">
+                                <p class="pl-2 text-danger text-center">{{ msg('errors.id_package_code') }}</p>
+
+                            </div>
+                            <div class="col-4 col_icon_search">
+                                <button class="pt-2 buttonSearch" type="submit"> <img class="img-fluid"
+                                        src="\images\lupa.png" alt="...">
+                                </button>
+                            </div>
+
+                        </div>{#row#}
+
+                    </form>
+                </div>
+
+                <div class="col-sm-4 ">
+                    <form action="{{ baseUrl('searchPackageforDateC') }}#sectionTable" method="POST">
+                        <div class="row ">
+                            {# <p id="list_pallet_buscar_texto text-center p-1">BUSCAR POR FECHAS CREACION</p>#}
+
+                            <div class="col-8 msj">
+                                <input type="date" class="form-control text-left ml-2 " name="fechaIni"
+                                    placeholder="Fecha de final">
+                                <label class="ml-3 form-control-placeholder" id="end-p" for="end"></label>
+                                <span class="pl-2 text-danger text-center">{{ msg('errors.fechaIni') }}</span>
+                            </div>
+                            <div class="col-4 col_icon_search">
+                                <button class="pt-2 buttonSearch" type="submit"> <img class="img-fluid"
+                                        src="\images\lupa.png" alt="...">
+                                </button>
+                            </div>
+
+                        </div>{#row#}
+                    </form>
+                </div>
+
+                <div class="col-sm-4 ">
+
+                    <div class="text-center listar ">
+
+                        <a class=" text-center " href="{{ routeTo('listPackages') }}#sectionTable">
+                            <p class="pt-3 font-weight-bold">
+                                <span class="font-weight-bold text-white listar_todos">Listar todos los
+                                    Anticipos</span>
+                            </p>
+
+                        </a>
+
+                    </div>{#row#}
+
+                </div>
+
+            </div>{# row#}
+
+             <table class="table table-striped  text-center">
+                <thead>
+                    <tr>
+                        <th class="text-center align-middle" scope="col">Descuento</th>
+                        <th class="pt-3 text-center align-middle" scope="col">Factura</th>
+                        <th class="pt-3 text-center align-middle" scope="col">Acciones</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                      {% for retainer in retainers %}
+                    <tr>
+
+                        <th scope="row" class="text-center align-middle">{{ retainer.amount }}</th>
+                         <th scope="row" class="text-center align-middle">{{ retainer.bill }}</th>
+
+
+
+                        <td class="   text-left align-middle">
+                            <div class=" boton_menu text-center">
+                                <nav class="navbar navbar-expand-lg  navbar-light text-center nav_menu">
+
+                                    <button class="navbar-toggler  text-center" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#navbarSupportedContentTabla"
+                                        aria-controls="navbarSupportedContentTabla" aria-expanded="false"
+                                        aria-label="Toggle navigation">
+                                        <span class="navbar-toggler-icon icono_menu_nav text-center"></span>
+                                    </button>
+
+                                    <div class="collapse navbar-collapse " id="navbarSupportedContentTabla">
+
+                                        <ul class="navbar-nav text-center nav justify-content-center ">
+
+                                            <li class="nav-item">
+                                                <a class="text-white "
+                                                    href="{{ routeTo('seeDetailAlbaran', retainer.id_retainer) }}">
+                                                    <img src="\images\ver_albaran.png" alt="..."
+                                                        title="detalle del albaran">
+                                                </a>
+                                            </li>
+
+                                            <li class="nav-item ">
+                                                <a class="text-white "
+                                                    href="{{ routeTo('updateCustomers', retainer.id_retainer) }}">
+                                                    <img src="\images\edit.png" alt="..." title="editar albaran">
+                                                </a>
+
+                                            </li>
+                                            {% if checkPerms(['create_partida']) ==  '1' %}
+                                            <li class="nav-item ">
+                                                <a class="text-white "
+                                                    href="{{ routeTo('PredeleteCustomers', retainer.id_retainer) }}">
+                                                    <img src="\images\delete_white.png" alt="...">
+                                                </a>
+
+                                            </li>
+                                            {% endif %}
+                                        </ul>
+                                    </div>
+
+                                </nav>
+
+                            </div>
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+                </tbody>
+            </table>
+
+
+
+
+            <div class="row pt-5">
+                <div class="col">
+                    <p class=" text-center">
+                        <a href="{{ routeTo('home') }}">
+                            <img class="rounded mx-auto d-block " src="\images\regresar.png" alt="...">
+                        </a>
+                        <br> ir a Inicio
+                    </p>
+                </div>
+            </div>
+
+            {{ pager | raw }}
+        </div>
+    </div>
+
+</body>
+{% endblock %}
+
+{% block script %}
+{{parent(script)}}
+
+<script src="/js/jsBootstrap.js"></script>
+
+<script src="https://cdn.lordicon.com/qjzruarw.js"></script>
+
+{% endblock %}
