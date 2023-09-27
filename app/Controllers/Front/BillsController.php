@@ -6173,6 +6173,7 @@ class BillsController extends BaseController
         $bank = $this->request->getPost('bank');
 
 
+        //Descomentar
 
       //  $db->transBegin();
 
