@@ -126,3 +126,19 @@ nb-configuration.xml
 /phpunit*.xml
 /.phpunit.*.cache
 
+# Ignorar carpeta de backups
+BD_PRODUCCION_COPIA_14_06_2024/
+
+# Ignorar imágenes y archivos puntuales
+CONTENDEDORE OBRA HITORICO.png
+public/images/icono_escritorio.png
+public/images/icono_escritorio.psd
+
+# Ignorar scripts que no van a producción
+app/Controllers/ImporterCsv.php
+app/Controllers/Test.php
+app/Importer/
+writable/csv/
+grupohnosfas.sql
+
+
